@@ -31,7 +31,7 @@ const HomeData = [
     Title: `Welcome to Bonga Gebre Tsadiq`,
     subtitle: "  Shawo Memorial Hospital",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at scelerisque eros, id bibendum dui. Vestibulum aliquet cursus massa, interdum porttitor erat sagittis nec. Pellentesque porta est nulla, eget luctus mi porttitor sit amet. In et nunc quis lorem varius vestibulum a non sapien. Vivamus nec volutpat.",
+      "Gebre Tsadik Shawo General Hospital is one of General Hospitals in South West Ethiopia regional state. It’s located in the south western part of Ethiopia, particularly in Bonga, which is the capital city of South West Ethiopia regional state. Currently, the general hospital is serving more than 2 million peoples from the region and the neighboring zones, including Sheka, Dawuro, Konta, Bench-Sheko, Westomo and some parts of Jimma zones.",
     button: "Learn More",
   },
   {
@@ -40,7 +40,7 @@ const HomeData = [
     Title: `Welcome to Bonga Gebre Tsadiq`,
     subtitle: "  Shawo Memorial Hospital",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at scelerisque eros, id bibendum dui. Vestibulum aliquet cursus massa, interdum porttitor erat sagittis nec. Pellentesque porta est nulla, eget luctus mi porttitor sit amet. In et nunc quis lorem varius vestibulum a non sapien. Vivamus nec volutpat.",
+      "Gebre Tsadik Shawo General Hospital is one of General Hospitals in South West Ethiopia regional state. It’s located in the south western part of Ethiopia, particularly in Bonga, which is the capital city of South West Ethiopia regional state. Currently, the general hospital is serving more than 2 million peoples from the region and the neighboring zones, including Sheka, Dawuro, Konta, Bench-Sheko, Westomo and some parts of Jimma zones. ",
     button: "Learn More",
   },
   {
@@ -49,7 +49,7 @@ const HomeData = [
     Title: `Welcome to Bonga Gebre Tsadiq`,
     subtitle: "  Shawo Memorial Hospital",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at scelerisque eros, id bibendum dui. Vestibulum aliquet cursus massa, interdum porttitor erat sagittis nec. Pellentesque porta est nulla, eget luctus mi porttitor sit amet. In et nunc quis lorem varius vestibulum a non sapien. Vivamus nec volutpat.",
+      "Gebre Tsadik Shawo General Hospital is one of General Hospitals in South West Ethiopia regional state. It’s located in the south western part of Ethiopia, particularly in Bonga, which is the capital city of South West Ethiopia regional state. Currently, the general hospital is serving more than 2 million peoples from the region and the neighboring zones, including Sheka, Dawuro, Konta, Bench-Sheko, Westomo and some parts of Jimma zones. ",
     button: "Learn More",
   },
 ];
