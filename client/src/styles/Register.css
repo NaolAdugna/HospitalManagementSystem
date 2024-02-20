@@ -26,7 +26,7 @@ root {
 .loginContainer {
   gap: 8px;
   width: 20%;
-  height: 68vh;
+  height: 78vh;
   margin: auto;
   display: flex;
   border-width: 4px;
@@ -141,6 +141,10 @@ root {
   z-index: 1001;
 }
 
+.registerProfileFile {
+  display: none;
+}
+
 /* Media Query starts */
 
 @media (max-width: 320px) {
@@ -149,14 +153,14 @@ root {
   }
   .loginContainer {
     width: 90%;
-    height: 81vh;
+    height: 91vh;
   }
   .loginTitle {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 80%;
-    margin-bottom: 16px;
+    margin-bottom: 0px;
   }
 
   .loginTitle h2 {
@@ -164,17 +168,17 @@ root {
     line-height: 32px;
   }
   .loginName {
-    gap: 12px;
+    gap: 11px;
   }
   .loginPassword {
     margin-bottom: 7px;
   }
-  .loginForgotPassword {
+  /* .loginForgotPassword {
     margin-bottom: 6px;
   }
   .forgotPassword {
     padding-right: 0px;
-  }
+  } */
 
   .loginPageButton {
     font-size: 14px;
@@ -195,7 +199,7 @@ root {
   }
   .loginContainer {
     width: 90%;
-    height: 66vh;
+    height: 76vh;
   }
   .loginTitle {
     display: flex;
@@ -235,7 +239,7 @@ root {
   }
   .loginContainer {
     width: 45%;
-    height: 57vh;
+    height: 77vh;
   }
   .loginTitle {
     display: flex;
