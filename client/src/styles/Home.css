@@ -77,7 +77,6 @@ body {
 }
 .homeContent button:hover {
   background-color: var(--mainColor);
-  border: none;
   filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.4));
   color: var(--navBarBg);
   cursor: pointer;
@@ -136,7 +135,6 @@ body {
 }
 .aboutTextContainer a:hover {
   color: var(--navBarBg);
-  border: none;
   cursor: pointer;
   filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.4));
   background-color: var(--mainColor);
