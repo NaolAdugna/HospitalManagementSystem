@@ -14,6 +14,7 @@ import OurServices from "./componets/OurService";
 import PageNotFound from "./componets/PageNotFound";
 
 import { AuthorizeUser } from "./middleware/auth";
+import Doctor from "./componets/dashboards/doctor/Doctor";
 
 // root routers
 const router = createBrowserRouter([
@@ -39,11 +40,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/password-recovery",
-    element: (
-      <AuthorizeUser>
-        <Recovery />
-      </AuthorizeUser>
-    ),
+    element: <Recovery />,
   },
   {
     path: "/password-reset",
@@ -66,6 +63,10 @@ const router = createBrowserRouter([
         <Profile />{" "}
       </AuthorizeUser>
     ),
+  },
+  {
+    path: "/doctor",
+    element: <Doctor></Doctor>,
   },
   {
     path: "*",

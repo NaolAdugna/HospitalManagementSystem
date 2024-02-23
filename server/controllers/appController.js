@@ -3,17 +3,24 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import otpGenerator from "otp-generator";
 import ENV from "../../config.js";
+import axios from "axios";
 
 // middleware to verify user
 export async function verifyUser(req, res, next) {
   try {
+    // const { username } = req.body;
     const { username } = req.method == "GET" ? req.query : req.body;
+
+    if (!username) {
+      return res.status(400).send({ error: "username is required" });
+    }
 
     // check the user existance
     let exist = await UserModel.findOne({ username });
     if (!exist) return res.status(404).send({ error: "Can't find User!" });
     next();
   } catch (error) {
+    console.error("error occurred in verify user middleware", error);
     return res.status(404).send({ error: "Authentication Error" });
   }
 }
@@ -199,5 +206,19 @@ export async function resetPassword(req, res) {
   } catch (error) {
     console.error("Error occurred:", error);
     return res.status(401).send({ error: "Unauthorized" });
+  }
+}
+
+export async function verifyRecaptcha(req, res) {
+  try {
+    const { captchaValue } = req.body;
+
+    const [data] = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=6Lc7vnEpAAAAAMTZG8RdEv78XquSIMvEa3EABIle&response=${captchaValue}`
+    );
+    res.send(data);
+  } catch (error) {
+    console.error("error occured here in verify recaptcha controller", error);
+    return res.status(404).send({ error: "Can not verify " });
   }
 }

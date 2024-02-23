@@ -61,10 +61,14 @@ export async function registerUser(credentials) {
 export async function verifyPassword({ username, password }) {
   try {
     if (username) {
+      console.log("it got username");
       const { data } = await axios.post("/api/login", { username, password });
+      console.log(data.token);
       return Promise.resolve({ data });
     }
   } catch (error) {
+    console.log(error + "error occuredd here");
+    console.error("error occured in verify password with ", error);
     return Promise.reject({ error: "Password doesn't Match...!" });
   }
 }
@@ -131,6 +135,7 @@ export async function resetPassword({ username, password }) {
     });
     return Promise.resolve({ data, status });
   } catch (error) {
+    console.error("error occured here in resetpassword checker", error);
     return Promise.reject({ error });
   }
 }

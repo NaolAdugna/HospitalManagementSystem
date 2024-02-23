@@ -21,14 +21,21 @@ export async function recoveryValidate(values) {
   return errors;
 }
 export async function resetPasswordValidate(values) {
+  // Initialize errors object with an empty object
   const errors = resetVerify({}, values);
 
-  if (values.password !== values.newPassword) {
+  // Call resetVerify function and assign the returned errors to the errors object
+  // const resetVerifyErrors = resetVerify({}, values);
+  // Object.assign(errors, resetVerifyErrors);
+
+  // Check if password and newPassword match
+  if (values.password !== values.confirmPassword) {
     errors.exist = toast.error("password do not match...");
   }
 
   return errors;
 }
+
 export async function registerdValidate(values) {
   const errors = usernameVerify({}, values);
 
@@ -58,8 +65,6 @@ function usernameVerify(error = {}, values) {
     error.password = toast.error("Password required...");
   } else if (values.password.includes(" ")) {
     error.password = toast.error("Wrong Password...");
-  } else if (values.password.length < 4) {
-    error.password = toast.error("Password must be more than 4 character");
   }
 
   return error;
@@ -74,12 +79,18 @@ function recoveryVerify(error = {}, values) {
     error.password = toast.error("Invalid OTP code");
   }
 }
-function resetVerify(error = {}, values) {
+function resetVerify(errors = {}, values) {
   if (!values.password) {
-    error.password = toast.error("password required...");
+    errors.password = "password required...";
   } else if (values.password.includes(" ")) {
-    error.password = toast.error("Invalid password");
+    errors.password = "Invalid password";
+  } else if (values.confirmPassword.includes(" ")) {
+    errors.password = "Invalid password";
+  } else if (values.confirmPassword.includes(" ")) {
+    errors.password = "Invalid password";
   }
+
+  return errors;
 }
 
 export function convertToBase64(file) {

@@ -19,11 +19,15 @@ export default function Recovery() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    generateOTP(username).then((OTP) => {
-      console.log(OTP);
-      if (OTP) return toast.success("OTP has been send to your email!");
-      return toast.error("Problem while generating OTP!");
-    });
+    generateOTP(username)
+      .then((OTP) => {
+        console.log(OTP);
+        if (OTP) return toast.success("OTP has been send to your email!");
+        return toast.error("Problem while generating OTP!");
+      })
+      .catch((error) => {
+        console.error("error generating otp: ", error);
+      });
   }, [username]);
 
   async function onSubmit(e) {
@@ -49,9 +53,9 @@ export default function Recovery() {
       error: <b>Could not Send it!</b>,
     });
 
-    sentPromise.then((OTP) => {
-      console.log(OTP);
-    });
+    // sentPromise.then((OTP) => {
+    //   console.log(OTP);
+    // });
   }
 
   return (
@@ -130,5 +134,3 @@ export default function Recovery() {
     </div>
   );
 }
-
-/* <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>; */

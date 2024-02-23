@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap");
+:root {
+  --mainColor: #14ac5f;
+  --navBarBg: #fff;
+  --dashboardBg: #202020;
+}
+
+* {
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.sideBarContainer {
+  width: 320px;
+  height: 100vh;
+  background-color: var(--dashboardBg);
+}
+.sideBarHeader {
+  display: flex;
+  align-items: center;
+  color: var(--navBarBg);
+}
+
+.sideBarProfilePicture {
+  width: 145px;
+}

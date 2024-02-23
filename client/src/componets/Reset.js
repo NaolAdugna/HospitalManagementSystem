@@ -10,7 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 
 import { resetPasswordValidate } from "../functions/validate";
-import Fetch from "../hooks/fetch";
+import useFetch from "../hooks/fetch";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuthStore } from "../store/store";
 import { resetPassword } from "../functions/checker";
@@ -22,9 +22,19 @@ export default function Reset() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
 
+  const togglePasswordVisisbility = () => {
+    setIsOpen(!isOpen);
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+  const toggleNewPasswordVisisbility = () => {
+    setIsNewOpen(!isNewOpen);
+    setIsNewPasswordVisible(!isNewPasswordVisible);
+  };
+
   const { username } = useAuthStore((state) => state.auth);
+
   const [{ isLoading, apiData, status, serverError }] =
-    Fetch("createResetSession");
+    useFetch("createResetSession");
 
   const formik = useFormik({
     initialValues: {
@@ -35,6 +45,8 @@ export default function Reset() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
+      // console.log(values);
+      console.log(values.password, values.confirmPassword);
       let resetPromise = resetPassword({
         username,
         password: values.password,
@@ -56,15 +68,6 @@ export default function Reset() {
     return <h1 className="text-xl text-red-500">{serverError.message}</h1>;
   if (status && status !== 201)
     return <Navigate to={"/contact"} replace={true}></Navigate>;
-
-  const togglePasswordVisisbility = () => {
-    setIsOpen(!isOpen);
-    setIsPasswordVisible(!isPasswordVisible);
-  };
-  const toggleNewPasswordVisisbility = () => {
-    setIsNewOpen(!isNewOpen);
-    setIsNewPasswordVisible(!isNewPasswordVisible);
-  };
 
   return (
     <div className="bodyContainer">
@@ -96,10 +99,10 @@ export default function Reset() {
             <FontAwesomeIcon icon={faLock} className="loginNameIcon" />
             <div className="passwordContainer">
               <TextField
-                name="password"
+                name="newPassword"
                 label="Enter new password"
                 variant="standard"
-                id="standard-password-basic"
+                id="standard-password-basic idOfNewPass"
                 autoComplete="current-password"
                 type={isOpen ? "text" : "password"}
                 className="loginInputs"
@@ -124,10 +127,10 @@ export default function Reset() {
             <FontAwesomeIcon icon={faLock} className="loginNameIcon" />
             <div className="passwordContainer">
               <TextField
-                name="password"
+                name="confirmPassword"
                 label="Repeat new password"
                 variant="standard"
-                id="standard-password-basic"
+                id="standard-password-basic idOfOldPass"
                 autoComplete="current-password"
                 type={isNewOpen ? "text" : "password"}
                 className="loginInputs"
@@ -165,5 +168,3 @@ export default function Reset() {
     </div>
   );
 }
-
-/* <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>; */

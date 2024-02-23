@@ -28,4 +28,5 @@ router
   .route("/resetPassword")
   .put(controller.verifyUser, controller.resetPassword); // use to reset password
 
+router.route("/verifyrecaptcha").post(controller.verifyRecaptcha);
 export default router;

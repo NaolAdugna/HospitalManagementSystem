@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "../styles/Login.css";
-
+import axios from "axios";
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,17 +19,19 @@ import { useFormik } from "formik";
 import { usernameValidate } from "../functions/validate";
 
 import { useAuthStore } from "../store/store";
-// import useFetch from "../hooks/fetch";
+import useFetch from "../hooks/fetch";
 import { verifyPassword } from "../functions/checker";
 
 export default function Login() {
+  // const recaptcha = useRef(null);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState("");
 
   const setUsername = useAuthStore((state) => state.setUsername);
-  // const { username } = useAuthStore((state) => state.auth);
-  // const [{ isLoading, apiData, serverError }] = useFetch(`user/${username}`);
+  const { username } = useAuthStore((state) => state.auth);
+  const [{ isLoading, apiData, serverError }] = useFetch(`user/${username}`);
 
   const togglePasswordVisisbility = () => {
     setIsOpen(!isOpen);
@@ -45,28 +47,53 @@ export default function Login() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
+      if (!recaptchaToken) {
+        toast.error("Please verify that you are not robot");
+        return;
+      }
+
       setUsername(values.username);
-      const username = setUsername(values.username);
-      const password = setUsername(values.password);
+      const username = values.username;
+      const password = values.password;
 
-      let loginPromise = verifyPassword({
-        username: username,
-        password: password,
-      });
-      toast.promise(loginPromise, {
-        loading: "Checking...",
-        success: <b>Login Successfully...!</b>,
-        error: <b>Password Not Match!</b>,
-      });
+      try {
+        const response = await axios.post("/api/verify-recaptcha", {
+          recaptchaToken,
+        });
+        const { success } = response.data;
+        if (success) {
+          let loginPromise = verifyPassword({
+            username: username,
+            password: password,
+          });
+          toast.promise(loginPromise, {
+            loading: "Checking...",
+            success: <b>Login Successfully...!</b>,
+            error: <b>Password Not Match!</b>,
+          });
 
-      loginPromise.then((res) => {
-        console.log(res);
-        // let { token } = res.data;
-        // localStorage.setItem("token", token);
-        navigate("/password-recovery");
-      });
+          loginPromise
+            .then((res) => {
+              // console.log(res.data);
+              let { token } = res.data;
+              localStorage.setItem("token", token);
+              navigate("/password-recovery");
+            })
+            .catch((error) => {
+              console.error("error during login: ", error);
+            });
+        } else {
+        }
+      } catch (error) {
+        console.error("error verifying recaptcha", error);
+        // toast.error("Internal Server Error");
+      }
     },
   });
+
+  const handleRecaptchaChange = (value) => {
+    setRecaptchaToken(value);
+  };
 
   // if (isLoading) return <h1 className="text-2xl font-bold">isLoading</h1>;
   // if (serverError)
@@ -144,6 +171,7 @@ export default function Login() {
               badge="bottomright"
               className="recaptchaContent"
               sitekey="6Lc7vnEpAAAAAMTZG8RdEv78XquSIMvEa3EABIle"
+              onChange={handleRecaptchaChange}
             />
           </div>
         </form>
