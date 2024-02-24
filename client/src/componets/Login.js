@@ -47,47 +47,66 @@ export default function Login() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      if (!recaptchaToken) {
-        toast.error("Please verify that you are not robot");
-        return;
-      }
+      // if (!recaptchaToken) {
+      //   toast.error("Please verify that you are not robot");
+      //   return;
+      // }
 
       setUsername(values.username);
       const username = values.username;
       const password = values.password;
+      let loginPromise = verifyPassword({
+        username: username,
+        password: password,
+      });
+      toast.promise(loginPromise, {
+        loading: "Checking...",
+        success: <b>Login Successfully...!</b>,
+        error: <b>Password Not Match!</b>,
+      });
 
-      try {
-        const response = await axios.post("/api/verify-recaptcha", {
-          recaptchaToken,
+      loginPromise
+        .then((res) => {
+          // console.log(res.data);
+          let { token } = res.data;
+          localStorage.setItem("token", token);
+          navigate("/password-recovery");
+        })
+        .catch((error) => {
+          console.error("error during login: ", error);
         });
-        const { success } = response.data;
-        if (success) {
-          let loginPromise = verifyPassword({
-            username: username,
-            password: password,
-          });
-          toast.promise(loginPromise, {
-            loading: "Checking...",
-            success: <b>Login Successfully...!</b>,
-            error: <b>Password Not Match!</b>,
-          });
+      // try {
+      //   const response = await axios.post("/api/verify-recaptcha", {
+      //     recaptchaToken,
+      //   });
+      //   const { success } = response.data;
+      //   if (success) {
+      //     let loginPromise = verifyPassword({
+      //       username: username,
+      //       password: password,
+      //     });
+      //     toast.promise(loginPromise, {
+      //       loading: "Checking...",
+      //       success: <b>Login Successfully...!</b>,
+      //       error: <b>Password Not Match!</b>,
+      //     });
 
-          loginPromise
-            .then((res) => {
-              // console.log(res.data);
-              let { token } = res.data;
-              localStorage.setItem("token", token);
-              navigate("/password-recovery");
-            })
-            .catch((error) => {
-              console.error("error during login: ", error);
-            });
-        } else {
-        }
-      } catch (error) {
-        console.error("error verifying recaptcha", error);
-        // toast.error("Internal Server Error");
-      }
+      //     loginPromise
+      //       .then((res) => {
+      //         // console.log(res.data);
+      //         let { token } = res.data;
+      //         localStorage.setItem("token", token);
+      //         navigate("/password-recovery");
+      //       })
+      //       .catch((error) => {
+      //         console.error("error during login: ", error);
+      //       });
+      //   } else {
+      //   }
+      // } catch (error) {
+      //   console.error("error verifying recaptcha", error);
+      //   // toast.error("Internal Server Error");
+      // }
     },
   });
 
