@@ -24,15 +24,14 @@ let MailGenerator = new Mailgen({
 });
 
 export const registerMail = async (req, res) => {
-  const { username, userEmail, text, subject } = req.body;
+  const { firstname, userEmail, text, subject } = req.body;
 
   // body of the email
   var email = {
     body: {
-      name: username,
+      name: firstname,
       intro:
-        text ||
-        "Welcome to Daily Tuition! We're very excited to have you on board.",
+        "Welcome to Gebre Tsadik Shawo General Hospital We're very excited to have you on board.",
       outro:
         "Need help, or have questions? Just reply to this email, we'd love to help.",
     },

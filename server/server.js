@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 
-import connect from "../server/database/connection.js";
+import mysqlPool from "../server/database/connection.js";
 import router from "./router/router.js";
 import axios from "axios";
 
@@ -50,16 +50,13 @@ app.post("/api/verify-recaptcha", async (req, res) => {
   }
 });
 
-connect()
-  .then(() => {
-    try {
-      app.listen(port, () => {
-        console.log(`server connected to http://localhost:${port}`);
-      });
-    } catch (error) {
-      console.log("cannot connect to the server");
-    }
-  })
-  .catch((error) => {
-    console.log("invalid database");
-  });
+mysqlPool.query("SELECT 1").then(() => {
+  console.log("Database Connection succeeded");
+  try {
+    app.listen(port, () => {
+      console.log(`server connected to http://localhost:${port}`);
+    });
+  } catch (err) {
+    console.log("Database connection failed. \n" + err);
+  }
+});

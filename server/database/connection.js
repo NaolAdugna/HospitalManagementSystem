@@ -1,17 +1,11 @@
-import mongoose from "mongoose";
-import { MongoMemoryServer } from "mongodb-memory-server";
 import ENV from "../../config.js";
+import mysql from "mysql2/promise";
 
-async function connect() {
-  const mongod = await MongoMemoryServer.create();
-  const getUri = mongod.getUri();
+const mysqlPool = mysql.createPool({
+  host: ENV.DB_HOST,
+  user: ENV.DB_USER,
+  database: ENV.DB_NAME,
+  password: ENV.DB_PASSWORD,
+});
 
-  mongoose.set("strictQuery", true);
-  const db = await mongoose.connect(getUri);
-  // const db = await mongoose.connect(ENV.ATLAS_URI);
-
-  console.log("Database connected");
-  return db;
-}
-
-export default connect;
+export default mysqlPool;

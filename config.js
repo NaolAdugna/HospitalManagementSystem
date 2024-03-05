@@ -6,5 +6,9 @@ const config = {
   PASSWORD: "cyzc ffeu lvem ghyq",
   ATLAS_URI:
     "mongodb+srv://admin:admin123@cluster0.abzk9i6.mongodb.net/?retryWrites=true&w=majority",
+  DB_HOST: "localhost",
+  DB_USER: "root",
+  DB_NAME: "hospitalmanagementsystem",
+  DB_PASSWORD: "naoladugna@MYSQL@123",
 };
 export default config;

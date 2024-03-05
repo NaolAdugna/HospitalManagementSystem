@@ -1,16 +1,33 @@
 import React from "react";
-import Sidebar, { SidebarItem } from "./rootLayouts/Sidebar";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGreaterThan,
-  faLessThan,
-  faEllipsisVertical,
-} from "@fortawesome/free-solid-svg-icons";
+import Overview from "./rootLayouts/Overview";
 export default function Doctor() {
   return (
     <div>
-      <Sidebar />
+      <Overview />
     </div>
   );
 }
+// import React from "react";
+// import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+// import Overview from "./rootLayouts/Overview";
+// import Report from "./rootLayouts/Report";
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/doctor/overview",
+//     element: <Overview></Overview>,
+//   },
+//   {
+//     path: "/doctor/report",
+//     element: <Report></Report>,
+//   },
+// ]);
+
+// export default function Doctor() {
+//   return (
+//     <div>
+//       <RouterProvider router={router}></RouterProvider>
+//     </div>
+//   );
+// }
