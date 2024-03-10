@@ -11,12 +11,16 @@ import otpGenerator from "otp-generator";
 import ENV from "../../config.js";
 import axios from "axios";
 import mysqlPool from "../database/connection.js";
+// import { request } from "express";
+
+// const [firstname] = request.body;
 
 // middleware to verify user
 export async function verifyUser(req, res, next) {
   try {
     // const { username } = req.body;
-    const { firstname } = req.method == "GET" ? req.query : req.body;
+    // const { firstname } = req.method == "GET" ? req.query : req.body;
+    const { firstname, middlename, lastname } = req.body;
 
     if (!firstname) {
       return res.status(400).send({ error: "FirstName is required" });
@@ -103,7 +107,7 @@ export async function register(req, res) {
 // Post http://localhost:8080/api/login
 
 export async function login(req, res) {
-  const { firstname, password } = req.body;
+  const { firstname, password, middlename, lastname } = req.body;
 
   try {
     findUserName(firstname, middlename, lastname)

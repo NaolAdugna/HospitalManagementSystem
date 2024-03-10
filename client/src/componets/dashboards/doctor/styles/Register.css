@@ -1,0 +1,577 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap");
+:root {
+  --mainColor: #14ac5f;
+  --navBarBg: #fff;
+  --dashboardBg: #2f4050;
+}
+
+* {
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.reportContainer {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 0 1fr;
+  grid-template-areas:
+    "side main"
+    "side main";
+}
+
+.side {
+  background-color: var(--dashboardBg);
+  grid-area: side;
+  width: 0;
+  overflow-x: hidden;
+}
+
+.side.show {
+  width: 100%;
+  transition: width 0.5s ease;
+}
+
+.main {
+  background-color: rgb(195, 196, 202, 0.5);
+  grid-area: main;
+  padding: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "c1 c1"
+    "c2 c2";
+  gap: 15px;
+}
+
+.card {
+  background-color: #f6f7f9;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
+}
+.card.card:nth-child(1) {
+  grid-area: c1;
+}
+.card:nth-child(2) {
+  grid-area: c2;
+}
+
+.sideBarContent {
+  display: flex;
+  flex-direction: column;
+}
+.profileContainer {
+  display: flex;
+  color: white;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  text-align: center;
+  padding: 1.5rem 3.9rem 0.25rem 3.9rem;
+}
+.sideBarFooterContainer {
+  display: flex;
+  justify-content: space-evenly;
+  overflow: hidden;
+  transition: all 1s;
+}
+.profileImage {
+  height: 2.5rem;
+  border-radius: 0.375rem;
+}
+.sidebarList {
+  height: auto;
+  height: 100%;
+  margin-top: 61px;
+}
+.sidebarList .sidebarLink {
+  width: 100%;
+  height: 43px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.sidebarLink:hover {
+  cursor: pointer;
+  background-color: #293846;
+}
+.sidebarList #active {
+  background-color: #293846;
+}
+
+.sidebarLink #icon {
+  flex: 30%;
+  display: grid;
+  place-items: center;
+}
+.sidebarLink #title {
+  flex: 70%;
+}
+.navBarContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 23px;
+}
+.navBarHamburger {
+  font-size: 32px;
+  transition: all 0.3s;
+}
+.navBarHamburger:hover {
+  cursor: pointer;
+}
+.navBarLogoutContainer {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+.navBarLogoutContainer h4 {
+  margin-right: 1rem;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.navBarLogoutContainer button {
+  font-size: 14px;
+  background-color: transparent;
+  padding: 8px 18px;
+  border: 0.5px solid var(--mainColor);
+}
+.navBarLogoutContainer button:hover {
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* main start here */
+.mainContainer {
+  background-image: url("../../../../assets/images/lgbg1-removebg.png");
+}
+
+.bodyContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.loginContainer {
+  gap: 8px;
+  width: 25%;
+  /* height: 78vh; */
+  margin: auto;
+  display: flex;
+  border-width: 4px;
+  padding: 10px 7px;
+  align-items: center;
+  border-radius: 16px;
+  flex-direction: column;
+  /* background: rgba(255, 255, 255, 0.89); */
+  border-color: rgba(219, 219, 219, 0.123);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(71, 71, 71, 0.043);
+}
+.loginTitle {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+  margin-bottom: 22px;
+}
+.formContainer {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.loginTitle h2 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 41px;
+  display: flex;
+}
+.loginName {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 12px;
+}
+.loginNameIcon {
+  font-size: 19px;
+  padding-top: 14px;
+  color: var(--mainColor);
+}
+.loginPassword {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+}
+.passwordContainer {
+  position: relative;
+  width: 100%;
+}
+.loginInputs {
+  width: 100%;
+}
+
+.showPassword {
+  top: 59%;
+  right: 10px;
+  color: #555;
+  cursor: pointer;
+  position: absolute;
+  transition: color 0.3s;
+  transform: translateY(-50%);
+}
+.showPassword:hover {
+  color: #333;
+}
+.loginForgotPassword {
+  margin-bottom: 11px;
+  display: flex;
+  justify-content: flex-end;
+}
+.forgotPassword {
+  color: #000;
+  width: fit-content;
+}
+
+.loginPageButton {
+  font-weight: 600;
+  font-size: 18px;
+  padding: 8px 23px;
+  width: 100%;
+  border-radius: 10px;
+  color: var(--mainColor);
+  border: 2px solid var(--mainColor);
+  background-color: transparent;
+}
+.loginPageButton:hover {
+  background-color: var(--mainColor);
+  color: white;
+  cursor: pointer;
+  transform: scale(1.03);
+  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.4));
+}
+.loginCopyRightContainer {
+  width: 100%;
+  height: 19vh;
+  display: flex;
+  align-items: flex-end;
+  /* background-color: orange; */
+}
+.loginCopyRightContainer p {
+  text-align: center;
+}
+
+.recaptchaContainer {
+  transform: scale(0.98);
+  transform-origin: 0 0;
+}
+.grecaptcha-badge {
+  z-index: 1001;
+}
+
+.registerProfileFile {
+  display: none;
+}
+/* .formContainer {
+  display: none;
+} */
+
+/* main end here */
+
+/* media query start */
+
+@media (max-width: 320px) {
+  .reportContainer {
+    /* background-color: orange; */
+    grid-template-columns: 0 100%;
+    height: 100%;
+    width: 100%;
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 100%;
+    padding: 10px;
+    grid-template-areas: initial;
+    /* width: 100%; */
+  }
+
+  .card {
+    grid-area: initial !important;
+    width: 100%;
+  }
+  .card:nth-child(1) {
+    width: 80%;
+  }
+  .navBarContainer {
+    width: 100%;
+    padding-left: 8px;
+  }
+  .navBarLogoutContainer {
+    width: 80%;
+  }
+  .navBarLogoutContainer h4 {
+    font-size: 11px;
+    margin-right: 10px;
+  }
+  .navBarLogoutContainer button {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+  .sideBarContainer {
+    width: 100%;
+  }
+
+  /* main start here */
+  .mainContainer {
+    width: 80%;
+    height: 80%;
+  }
+  .formContainer {
+    display: block;
+  }
+  .bodyContainer {
+    height: 70%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .loginContainer {
+    width: 100%;
+    height: 90%;
+  }
+  .loginTitle {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 70%;
+    margin-bottom: 0px;
+  }
+
+  .loginTitle h2 {
+    font-size: 22px;
+    line-height: 32px;
+  }
+  .loginName {
+    gap: 11px;
+  }
+  .loginPassword {
+    margin-bottom: 7px;
+  }
+
+  .loginPageButton {
+    font-size: 15px;
+  }
+  .loginCopyRightContainer {
+    height: 8vh;
+  }
+  .loginCopyRightContainer p {
+    font-size: 13px;
+  }
+
+  .recaptchaContainer {
+    transform: scale(0.68);
+    transform-origin: 0 0;
+  }
+  /* main end here */
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  .sideBarContainer {
+    width: 100%;
+  }
+  .reportContainer {
+    grid-template-columns: 0 100%;
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 100%;
+    padding: 10px;
+    grid-template-areas: initial;
+  }
+
+  .card {
+    grid-area: initial !important;
+  }
+  .navBarContainer {
+    padding-left: 12px;
+    width: 100%;
+  }
+  .navBarLogoutContainer {
+    width: 70%;
+  }
+  .navBarLogoutContainer h4 {
+    font-size: 12px;
+    margin-right: 10px;
+  }
+  .navBarLogoutContainer button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  .sideBarContainer {
+    width: 100%;
+  }
+
+  /* main start here */
+  .mainContainer {
+    width: 100%;
+    height: 100%;
+  }
+  .formContainer {
+    display: block;
+  }
+  .bodyContainer {
+    height: 70%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .loginContainer {
+    width: 100%;
+    height: 90%;
+  }
+
+  .loginTitle {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    margin-bottom: 16px;
+  }
+
+  .loginTitle h2 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  .loginName {
+    gap: 12px;
+  }
+  .forgotPassword {
+    padding-right: 0px;
+  }
+
+  .loginPageButton {
+    font-size: 17px;
+  }
+  .loginCopyRightContainer p {
+    font-size: 15px;
+  }
+  .loginCopyRightContainer {
+    height: 11vh;
+  }
+  .recaptchaContainer {
+    transform: scale(0.84);
+    transform-origin: 0 0;
+  }
+  /* main end here */
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .reportContainer {
+    grid-template-columns: 100% 0;
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 100%;
+    padding: 10px;
+    grid-template-areas: initial;
+  }
+
+  .card {
+    grid-area: initial !important;
+    height: 100%;
+  }
+  .navBarContainer {
+    padding-left: 29px;
+    width: 100%;
+  }
+  .navBarLogoutContainer {
+    width: 50%;
+  }
+  .navBarLogoutContainer h4 {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  .navBarLogoutContainer button {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+  .sideBarContainer {
+    width: 100%;
+  }
+  /* main start here */
+  .mainContainer {
+    width: 100%;
+    height: 80%;
+  }
+  .formContainer {
+    display: block;
+  }
+  .bodyContainer {
+    height: 90%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .loginContainer {
+    width: 100%;
+    height: 80%;
+  }
+  .loginContainer {
+    width: 45%;
+    height: 77vh;
+  }
+  .loginTitle {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    margin-bottom: 16px;
+  }
+
+  .loginTitle h2 {
+    font-size: 34px;
+    line-height: 44px;
+  }
+  .loginName {
+    gap: 12px;
+  }
+  .forgotPassword {
+    padding-right: 0px;
+    font-size: 18px;
+  }
+  .loginInputs {
+    font-size: 33px;
+    width: 80%;
+  }
+
+  .loginPageButton {
+    font-size: 21px;
+  }
+  .loginCopyRightContainer p {
+    font-size: 19px;
+  }
+  .loginCopyRightContainer {
+    height: 11vh;
+  }
+  .recaptchaContainer {
+    transform: scale(0.84);
+    transform-origin: 0 0;
+  }
+  /* main end here */
+}
+
+/* media query ends  */

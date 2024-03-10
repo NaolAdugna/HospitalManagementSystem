@@ -1,16 +1,42 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React, { useState, useEffect } from "react";
 import "./index.css";
 import App from "./App";
-import { ErrorBoundary } from "react-error-boundary";
-import ErrorFallback from "./ErrorFallback";
+import FadeLoader from "react-spinners/FadeLoader";
+import { createRoot } from "react-dom/client";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+function RootComponent() {
+  const [loading, setLoading] = useState(false);
+  const color = "#14ac5f";
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
 
-root.render(
-  <>
-    <ErrorBoundary fallback={ErrorFallback}>
-      <App />
-    </ErrorBoundary>
-  </>
-);
+  return (
+    <div>
+      {loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <FadeLoader
+            color={color}
+            loading={loading}
+            height={15}
+            width={5}
+            radius={2}
+          />
+        </div>
+      ) : (
+        <App />
+      )}
+    </div>
+  );
+}
+createRoot(document.getElementById("root")).render(<RootComponent />);

@@ -76,12 +76,6 @@ export const getAllPatient = async () => {
   }
 };
 
-// export const findUserName = async (firstname, middlename, lastname) => {
-//   let sql = `SELECT * FROM patient WHERE firstname = ${firstname} AND middlename = ${middlename} AND lastname = ${lastname};`;
-//   const [patient] = mysqlPool.execute(sql);
-
-//   return patient;
-// };
 export const findUserName = async (firstname, middlename, lastname) => {
   try {
     const sql =

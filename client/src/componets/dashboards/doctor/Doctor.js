@@ -1,33 +1,10 @@
 import React from "react";
+import Report from "./rootLayouts/Report";
 import Overview from "./rootLayouts/Overview";
+import Register from "./rootLayouts/Register";
+import { Route, Routes } from "react-router-dom";
+import PageNotFound from "../../../componets/PageNotFound";
+
 export default function Doctor() {
-  return (
-    <div>
-      <Overview />
-    </div>
-  );
+  return <Register />;
 }
-// import React from "react";
-// import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-// import Overview from "./rootLayouts/Overview";
-// import Report from "./rootLayouts/Report";
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/doctor/overview",
-//     element: <Overview></Overview>,
-//   },
-//   {
-//     path: "/doctor/report",
-//     element: <Report></Report>,
-//   },
-// ]);
-
-// export default function Doctor() {
-//   return (
-//     <div>
-//       <RouterProvider router={router}></RouterProvider>
-//     </div>
-//   );
-// }

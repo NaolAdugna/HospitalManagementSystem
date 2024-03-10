@@ -15,6 +15,7 @@ app.disable("x-powered-by");
 const port = 8080;
 
 app.get("/", (req, res) => {
+  req.setTimeout(200000);
   res.status(201).json("home get request");
 });
 
