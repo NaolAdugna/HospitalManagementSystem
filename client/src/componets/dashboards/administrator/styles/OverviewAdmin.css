@@ -1,0 +1,283 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap");
+:root {
+  --mainColor: #14ac5f;
+  --navBarBg: #fff;
+  --dashboardBg: #2f4050;
+}
+
+* {
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.reportContainer {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 0 1fr;
+  grid-template-areas:
+    "side main"
+    "side main";
+}
+
+.side {
+  background-color: var(--dashboardBg);
+  grid-area: side;
+  width: 300px;
+  display: block;
+}
+
+.main {
+  background-color: rgb(195, 196, 202, 0.5);
+  grid-area: main;
+  padding: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "c1 c1"
+    "c2 c2";
+  gap: 15px;
+}
+
+.card {
+  background-color: #f6f7f9;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
+}
+.card.card:nth-child(1) {
+  grid-area: c1;
+}
+.card:nth-child(2) {
+  grid-area: c2;
+}
+/* .sideBarContainer {
+  width: 100%;
+} */
+.sideBarIdentityContainer {
+  display: flex;
+  flex-direction: column;
+  /* color: white; */
+}
+.sideBarProfile {
+  display: flex;
+  color: white;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  text-align: center;
+  padding: 1.5rem 3.9rem 0.25rem 3.9rem;
+}
+.sideBarContainerFooter {
+  display: flex;
+  justify-content: space-evenly;
+  overflow: hidden;
+  transition: all 1s;
+}
+.profileImage {
+  height: 2.5rem;
+  border-radius: 0.375rem;
+}
+
+.sideBarUnorderList {
+  height: 100%;
+  margin-top: 61px;
+}
+.sideBarUnorderList .sideBarLinks {
+  width: 100%;
+  height: 43px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  gap: 14px;
+}
+.sideBarLinks:hover {
+  cursor: pointer;
+  background-color: #293846;
+}
+
+.navBarHamburger {
+  font-size: 32px;
+  transition: all 0.3s;
+}
+.navBarHamburger:hover {
+  cursor: pointer;
+}
+.navBarLogoutContainer {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+.navBarLogoutContainer h4 {
+  margin-right: 1rem;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.navBarLogoutContainer button {
+  font-size: 14px;
+  background-color: transparent;
+  padding: 8px 18px;
+  border: 0.5px solid var(--mainColor);
+}
+.navBarLogoutContainer button:hover {
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* main start here */
+.mainContainer {
+  background: none;
+  background-color: white;
+}
+
+/* main end here */
+
+/* media query start */
+
+@media (max-width: 320px) {
+  .reportContainer {
+    /* background-color: orange; */
+    grid-template-columns: 0 100%;
+    height: 100%;
+    width: 100%;
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 100%;
+    padding: 10px;
+    grid-template-areas: initial;
+    /* width: 100%; */
+  }
+
+  .card {
+    grid-area: initial !important;
+    width: 100%;
+  }
+  .card:nth-child(1) {
+    width: 80%;
+  }
+  .navBarContainer {
+    width: 100%;
+    padding-left: 8px;
+  }
+  .navBarLogoutContainer {
+    width: 80%;
+  }
+  .navBarLogoutContainer h4 {
+    font-size: 11px;
+    margin-right: 10px;
+  }
+  .navBarLogoutContainer button {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+  .sideBarContainer {
+    width: 100%;
+  }
+
+  /* main start here */
+  .mainContainer {
+    width: 80%;
+    height: 80%;
+  }
+
+  /* main end here */
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  .sideBarContainer {
+    width: 100%;
+  }
+  .reportContainer {
+    grid-template-columns: 0 100%;
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 100%;
+    padding: 10px;
+    grid-template-areas: initial;
+  }
+
+  .card {
+    grid-area: initial !important;
+  }
+  .navBarContainer {
+    padding-left: 12px;
+    width: 100%;
+  }
+  .navBarLogoutContainer {
+    width: 70%;
+  }
+  .navBarLogoutContainer h4 {
+    font-size: 12px;
+    margin-right: 10px;
+  }
+  .navBarLogoutContainer button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  .sideBarContainer {
+    width: 100%;
+  }
+
+  /* main start here */
+  .mainContainer {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* main end here */
+}
+@media (min-width: 641px) and (max-width: 1024px) {
+  .reportContainer {
+    grid-template-columns: 100% 0;
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 100%;
+    padding: 10px;
+    grid-template-areas: initial;
+  }
+
+  .card {
+    grid-area: initial !important;
+    height: 100%;
+  }
+  .navBarContainer {
+    padding-left: 29px;
+    width: 100%;
+  }
+  .navBarLogoutContainer {
+    width: 50%;
+  }
+  .navBarLogoutContainer h4 {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  .navBarLogoutContainer button {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+  .sideBarContainer {
+    width: 100%;
+  }
+  /* main start here */
+  .mainContainer {
+    width: 100%;
+    height: 80%;
+  }
+
+  /* main end here */
+}
+
+/* media query ends  */

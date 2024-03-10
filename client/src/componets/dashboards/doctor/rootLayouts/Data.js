@@ -10,25 +10,19 @@ export const SideBarData = [
   {
     title: "Dashboard",
     icon: faHouse,
-    link: "/doctor",
+    link: "/admin",
   },
 
   {
     title: "Report",
     icon: faRepublican,
-    link: "/doctor",
-  },
-
-  {
-    title: "Analytics",
-    icon: faEnvelope,
-    link: "/",
+    link: "/admin/report",
   },
 
   {
     title: "Overview",
     icon: faChartSimple,
-    link: "/",
+    link: "/admin/overview",
   },
 ];
 
