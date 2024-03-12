@@ -3,6 +3,7 @@ const router = Router();
 
 /** import all controllers */
 import * as controller from "../controllers/appController.js";
+import * as adminController from "../controllers/adminController.js";
 import { registerMail } from "../controllers/mail.js";
 import Auth, { localVariables } from "../middleware/auth.js";
 
@@ -29,4 +30,8 @@ router
   .put(controller.verifyUser, controller.resetPassword); // use to reset password
 
 router.route("/verifyrecaptcha").post(controller.verifyRecaptcha);
+
+// Register User with Role by Admin
+router.route("/create-users").post(adminController.register);
+
 export default router;
