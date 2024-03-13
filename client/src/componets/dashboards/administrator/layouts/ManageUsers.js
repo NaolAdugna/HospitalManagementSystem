@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/OverviewAdmin.css";
+import "../styles/ManageUsers.css";
 // import SideBarData from "./Data";
 
 // Fontawesome family
@@ -31,9 +31,7 @@ import {
   faRepublican,
 } from "@fortawesome/free-solid-svg-icons";
 
-import TableUser from "./TableUser";
-import Calendar from "react-calendar";
-export default function OverviewAdmin() {
+export default function ManageUsers() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300); // Initial width
 
@@ -190,19 +188,9 @@ export default function OverviewAdmin() {
             </div>
           </div>
         </div>
-        <div className="card"> </div>
-        <div className="card"> </div>
-        <div className="card">
-          <div className="calendarContainar">
-            <Calendar className="calendar" />
-          </div>
+        <div className="card mainContainer">
+          <div>ManageUsers</div>
         </div>
-        <div className="card tableContainer ">
-          <div className="tableUser">
-            <TableUser />
-          </div>
-        </div>
-        <div className="card"> </div>
       </main>
     </div>
   );

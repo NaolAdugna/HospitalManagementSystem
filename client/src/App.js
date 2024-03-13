@@ -26,7 +26,7 @@ import Doctor from "./componets/dashboards/doctor/Doctor";
 import RegisterUser from "./componets/dashboards/administrator/layouts/RegisterUsers";
 import OverviewAdmin from "./componets/dashboards/administrator/layouts/OverviewAdmin";
 import Report from "./componets/dashboards/doctor/rootLayouts/Report";
-import Register1 from "./componets/dashboards/doctor/rootLayouts/Register";
+import Register1 from "./componets/dashboards/doctor/rootLayouts/Report";
 
 // root routers
 const router = createBrowserRouter([

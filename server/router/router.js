@@ -34,4 +34,12 @@ router.route("/verifyrecaptcha").post(controller.verifyRecaptcha);
 // Register User with Role by Admin
 router.route("/create-users").post(adminController.register);
 
+// Login User Staff
+router
+  .route("/login-user-staff")
+  .post(adminController.UserExistance, adminController.loginUser);
+router
+  .route("/update-user-staff")
+  .put(Auth, adminController.updateUserStaffProfile);
+
 export default router;

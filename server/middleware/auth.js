@@ -4,17 +4,24 @@ import ENV from "../../config.js";
 /** auth middleware */
 export default async function Auth(req, res, next) {
   try {
-    // access authorize header to validate request
+    // Check if the 'Authorization' header is provided
+    if (!req.headers.authorization) {
+      throw new Error("Authorization header is missing");
+    }
+
+    // Split the header to extract the token
     const token = req.headers.authorization.split(" ")[1];
 
-    // retrive the user details fo the logged in user
+    // Retrieve the user details of the logged-in user
     const decodedToken = await jwt.verify(token, ENV.JWT_SECRET);
+    console.log("Decoded Token:", decodedToken);
 
     req.user = decodedToken;
 
     next();
   } catch (error) {
-    res.status(401).json({ error: "Authentication Failed! HERE" });
+    console.error("Error in authentication:", error);
+    res.status(401).json({ error: error.message }); // Return the error message from the caught error
   }
 }
 
