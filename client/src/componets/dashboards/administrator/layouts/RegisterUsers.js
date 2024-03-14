@@ -176,7 +176,7 @@ export default function RegisterUsers() {
       </div>
 
       <main
-        className="main"
+        className="mainRegisterContainer"
         style={{
           gridColumn: showSidebar ? "1 / 4" : "1 / 3",
           marginLeft: sidebarWidth,
@@ -197,10 +197,10 @@ export default function RegisterUsers() {
             </div>
           </div>
         </div>
-        <div className="card mainContainer">
+        <div className="card mainCardContainer">
+          <Toaster position="top-center" reverseOrder={false}></Toaster>
           <div>
             <div className="bodyContainer">
-              <Toaster position="top-center" reverseOrder={false}></Toaster>
               <div className="loginContainer">
                 <div className="loginTitle">
                   <h2>REGISTER </h2>{" "}
