@@ -42,4 +42,10 @@ router
   .route("/update-user-staff")
   .put(Auth, adminController.updateUserStaffProfile);
 
+// RETURNING USER FILE
+router.route("/username").get(adminController.ReturnUserName);
+// RETURNING USER INFORMATION
+router.route("/users").get(adminController.ReturnUser);
+router.route("/users/:id").delete(adminController.DeleteUser);
+router.route("/update-user/:id").put(adminController.UpdateUser);
 export default router;

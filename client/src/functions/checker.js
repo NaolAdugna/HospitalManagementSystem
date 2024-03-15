@@ -1,5 +1,6 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { useParams } from "react-router-dom";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
@@ -38,7 +39,7 @@ export async function registerUser(credentials) {
     const {
       data: { msg },
       status,
-    } = await axios.post("/api/register", credentials);
+    } = await axios.post("/api/create-users", credentials);
 
     let { username, email } = credentials;
 
@@ -53,7 +54,37 @@ export async function registerUser(credentials) {
 
     return Promise.resolve(msg);
   } catch (error) {
-    return Promise.reject({ error: "its says no to register" });
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      return Promise.reject(error.response.data.error);
+    } else if (error.request) {
+      // The request was made but no response was received
+      return Promise.reject("No response received from server");
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      return Promise.reject("Error while sending request");
+    }
+  }
+}
+export async function updateUserChecker(id, credentials) {
+  try {
+    const {
+      data: { msg },
+      status,
+    } = await axios.put(`/api/update-user/${id}`, credentials);
+
+    let { username, email } = credentials;
+
+    return Promise.resolve(msg);
+  } catch (error) {
+    if (error.response) {
+      return Promise.reject(error.response.data.error);
+    } else if (error.request) {
+      return Promise.reject("No response received from server");
+    } else {
+      return Promise.reject("Error while sending request");
+    }
   }
 }
 

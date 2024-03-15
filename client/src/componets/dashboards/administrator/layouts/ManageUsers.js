@@ -1,36 +1,27 @@
 import React, { useState, useEffect } from "react";
 import "../styles/ManageUsers.css";
-// import SideBarData from "./Data";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLock,
-  faUser,
-  faEyeSlash,
-  faEye,
-  faBars,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faBars } from "@fortawesome/free-solid-svg-icons";
 import { TextField } from "@mui/material";
-import ReCAPTCHA from "react-google-recaptcha";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useFormik } from "formik";
 
 import { registerdValidate } from "../../../../functions/validate";
-import { convertToBase64 } from "../../../../functions/validate";
 
-import Avatar from "../../../../assets/images/profile.webp";
 import { registerUser } from "../../../../functions/checker";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   faEnvelope,
   faChartSimple,
-  faHouse,
   faRepublican,
+  faMagnifyingGlass,
+  faAdd,
 } from "@fortawesome/free-solid-svg-icons";
 
+import TableUser from "./TableUser";
 export default function ManageUsers() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300); // Initial width
@@ -50,31 +41,6 @@ export default function ManageUsers() {
       },
     },
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 320) {
-        setShowSidebar(false);
-        setSidebarWidth(0);
-      } else if (window.innerWidth <= 640) {
-        setShowSidebar(true);
-        setSidebarWidth(300);
-      } else if (window.innerWidth <= 1024) {
-        setShowSidebar(true);
-        setSidebarWidth(300);
-      } else {
-        setShowSidebar(true);
-        setSidebarWidth(300);
-      }
-    };
-
-    // Call handleResize initially and add event listener
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    // Remove event listener on component unmount
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const navigate = useNavigate();
   const [file, setFile] = useState();
@@ -104,16 +70,6 @@ export default function ManageUsers() {
       });
     },
   });
-
-  const onUpload = async (e) => {
-    const base64 = await convertToBase64(e.target.files[0]);
-    setFile(base64);
-  };
-
-  const togglePasswordVisisbility = () => {
-    setIsOpen(!isOpen);
-    setIsPasswordVisible(!isPasswordVisible);
-  };
 
   return (
     <div className="reportContainer">
@@ -147,13 +103,23 @@ export default function ManageUsers() {
                     </div>
                     <div>Dashboard</div>
                   </li>
-                  <li className="sideBarLinks">
+                  <li
+                    className="sideBarLinks"
+                    onClick={() => {
+                      window.location.pathname = "/admin-manage-users";
+                    }}
+                  >
                     <div id="icons">
                       <FontAwesomeIcon icon={faChartSimple} />
                     </div>
-                    <div>Report</div>
+                    <div>Manage Users</div>
                   </li>
-                  <li className="sideBarLinks">
+                  <li
+                    className="sideBarLinks"
+                    onClick={() => {
+                      window.location.pathname = "/admin-overview";
+                    }}
+                  >
                     <div id="icons">
                       <FontAwesomeIcon icon={faRepublican} />
                     </div>
@@ -189,7 +155,38 @@ export default function ManageUsers() {
           </div>
         </div>
         <div className="card mainContainer">
-          <div>ManageUsers</div>
+          <div className="SearchandAddContainer">
+            <div className="searchContentContainer">
+              {/* <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="searchIconManageUser"
+              />
+              <TextField
+                name="username"
+                label="Search Here"
+                variant="standard"
+                id="standard-basic idOfName"
+                placeholder="Search Here"
+                className="searchInputManageUser"
+                {...formik.getFieldProps("username")}
+              /> */}
+            </div>
+            <div className="addUserContainer">
+              <button
+                onClick={() => {
+                  window.location.pathname = "/admin";
+                }}
+              >
+                Add User{" "}
+                <span>
+                  <FontAwesomeIcon icon={faAdd} />
+                </span>{" "}
+              </button>
+            </div>
+          </div>
+          <div className="tableContainer">
+            <TableUser />
+          </div>
         </div>
       </main>
     </div>

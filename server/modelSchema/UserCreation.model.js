@@ -31,22 +31,26 @@ export const findEmail = async (email) => {
   }
 };
 
-export const saveUser = async (image, username, password, role, email) => {
-  let sql = `INSERT INTO users(
-        image,
+export const saveUser = async (username, password, role, email) => {
+  try {
+    let sql = `INSERT INTO users(
         username,
         password,
         role,
-        email
+        email,
+        dateofregistration
     ) VALUES (
-      '${image}',
       '${username}',
       '${password}',
       '${role}',
-      '${email}'
+      '${email}',
+      CURRENT_TIMESTAMP
       )`;
-  let [registration] = await mysqlPool.execute(sql);
-  return registration;
+    let [registration] = await mysqlPool.execute(sql);
+    return registration;
+  } catch (error) {
+    console.error("Error occurred while registering: ", error);
+  }
 };
 
 export const updateUserStaffRecord = async (
@@ -74,4 +78,63 @@ export const updateUserStaffRecord = async (
   // Execute the SQL query with the constructed SQL and values
   const [user] = await mysqlPool.execute(sql, values);
   return user;
+};
+
+export const GetUserName = async (userId) => {
+  try {
+    const sql = "SELECT username FROM users WHERE id = ?";
+    const [results] = await mysqlPool.execute(sql, [userId]);
+    if (results.length === 0) {
+      console.log("User not found");
+    } else {
+      const username = results[0].username;
+      return username;
+    }
+  } catch (error) {
+    console.error("Error in findUser:", error);
+    throw error;
+  }
+};
+
+export const GetUsers = async () => {
+  try {
+    const sql =
+      "SELECT id, username, email, role, dateofregistration FROM users";
+    const [results] = await mysqlPool.execute(sql);
+    return results;
+  } catch (error) {
+    console.error("Error in findUser:", error);
+    throw error;
+  }
+};
+export const DeleteUsers = async (id) => {
+  try {
+    if (id === undefined) {
+      throw new Error("User ID is undefined");
+    }
+
+    const sql = "DELETE FROM users WHERE id = ?";
+    const [results] = await mysqlPool.execute(sql, [id]);
+    return results;
+  } catch (error) {
+    console.error("Error in DeleteUsers:", error);
+    throw error;
+  }
+};
+export const UpdateUserStaff = async (id, username, password, role, email) => {
+  try {
+    const sql =
+      "UPDATE users SET username = ?, password = ?, role = ?, email = ? WHERE id = ?";
+    const [updated] = await mysqlPool.execute(sql, [
+      username,
+      password,
+      role,
+      email,
+      id,
+    ]);
+    return updated;
+  } catch (error) {
+    console.error("Error occurred while updating: ", error);
+    throw error;
+  }
 };

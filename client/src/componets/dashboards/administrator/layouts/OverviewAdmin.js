@@ -31,7 +31,6 @@ import {
   faRepublican,
 } from "@fortawesome/free-solid-svg-icons";
 
-import TableUser from "./TableUser";
 import Calendar from "react-calendar";
 export default function OverviewAdmin() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -149,11 +148,16 @@ export default function OverviewAdmin() {
                     </div>
                     <div>Dashboard</div>
                   </li>
-                  <li className="sideBarLinks">
+                  <li
+                    className="sideBarLinks"
+                    onClick={() => {
+                      window.location.pathname = "/admin-manage-users";
+                    }}
+                  >
                     <div id="icons">
                       <FontAwesomeIcon icon={faChartSimple} />
                     </div>
-                    <div>Report</div>
+                    <div>Manage Users</div>
                   </li>
                   <li className="sideBarLinks">
                     <div id="icons">
@@ -169,7 +173,7 @@ export default function OverviewAdmin() {
       </div>
 
       <main
-        className="main"
+        className="mainOverViewContainer"
         style={{
           gridColumn: showSidebar ? "1 / 4" : "1 / 3",
           marginLeft: sidebarWidth,
@@ -197,11 +201,7 @@ export default function OverviewAdmin() {
             <Calendar className="calendar" />
           </div>
         </div>
-        <div className="card tableContainer ">
-          <div className="tableUser">
-            <TableUser />
-          </div>
-        </div>
+        <div className="card "></div>
         <div className="card"> </div>
       </main>
     </div>

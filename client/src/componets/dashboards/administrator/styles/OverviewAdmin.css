@@ -30,7 +30,7 @@
   display: block;
 }
 
-.main {
+.mainOverViewContainer {
   background-color: rgb(195, 196, 202, 0.5);
   grid-area: main;
   margin-left: 0;
@@ -153,9 +153,6 @@
   background-color: white;
 }
 
-.tableContainer {
-  padding: 25px;
-}
 .calendarContainar {
   width: 100%;
   display: flex;

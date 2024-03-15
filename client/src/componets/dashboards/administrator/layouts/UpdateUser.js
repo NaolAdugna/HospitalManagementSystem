@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/RegisterUser.css";
+import "../styles/UpdateUser.css";
 // import SideBarData from "./Data";
 
 // Fontawesome family
@@ -16,10 +16,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 
-import { registerdValidate } from "../../../../functions/validate";
-
-import { registerUser } from "../../../../functions/checker";
-import { useNavigate } from "react-router-dom";
+import { updateUserChecker } from "../../../../functions/checker";
+import { useParams, useNavigate } from "react-router-dom";
 
 import {
   faEnvelope,
@@ -28,12 +26,13 @@ import {
   faUserShield,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function RegisterUsers() {
+export default function UpdateUser() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300); // Initial width
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const { id } = useParams();
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
@@ -58,15 +57,15 @@ export default function RegisterUsers() {
       role: "",
       email: "",
     },
-    validate: registerdValidate,
+    // validate: registerdValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      let registerPromise = registerUser(values);
+      let registerPromise = updateUserChecker(id, values);
       toast.promise(registerPromise, {
-        loading: "creating...",
-        success: "register successfully...",
-        error: "could not register",
+        loading: "Updating...",
+        success: "Updated successfully...",
+        error: "could not Update",
       });
 
       registerPromise.then(function () {
@@ -146,7 +145,7 @@ export default function RegisterUsers() {
       </div>
 
       <main
-        className="mainRegisterContainer"
+        className="mainUpdateContainer"
         style={{
           gridColumn: showSidebar ? "1 / 4" : "1 / 3",
           marginLeft: sidebarWidth,
@@ -173,7 +172,7 @@ export default function RegisterUsers() {
             <div className="bodyContainer">
               <div className="loginContainer">
                 <div className="loginTitle">
-                  <h2>REGISTER </h2>{" "}
+                  <h2>UPDATE </h2>{" "}
                   <h2>
                     {" "}
                     <br />{" "}
@@ -266,7 +265,7 @@ export default function RegisterUsers() {
 
                   <div className="loginButtonContainer">
                     <button className="loginPageButton" type="submit">
-                      Register
+                      Update
                     </button>
                   </div>
                   <div className="recaptchaContainer">

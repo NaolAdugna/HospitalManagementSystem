@@ -31,7 +31,7 @@
   display: block;
 }
 
-.mainRegisterContainer {
+.mainUpdateContainer {
   background-color: rgb(195, 196, 202, 0.5);
   grid-area: main;
   padding: 25px;

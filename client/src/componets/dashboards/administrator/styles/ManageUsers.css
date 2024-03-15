@@ -136,6 +136,46 @@
   background: none;
   background-color: white;
 }
+.SearchandAddContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.searchContentContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 13px;
+  padding: 25px;
+}
+.searchIconManageUser {
+  font-size: 22px;
+  padding-top: 14px;
+  color: var(--mainColor);
+}
+.addUserContainer {
+  padding: 24px;
+}
+.addUserContainer button {
+  padding: 8px 20px;
+  border: none;
+  background-color: var(--mainColor);
+  color: var(--navBarBg);
+  font-size: 16px;
+}
+.addUserContainer button:hover {
+  cursor: pointer;
+  scale: 1.02;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+}
+.tableContainer {
+  padding: 25px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
 
 /* main end here */
 

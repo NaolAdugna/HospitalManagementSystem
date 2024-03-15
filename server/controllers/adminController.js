@@ -10,11 +10,15 @@ import {
   findUser,
   saveUser,
   updateUserStaffRecord,
+  GetUserName,
+  GetUsers,
+  DeleteUsers,
+  UpdateUserStaff,
 } from "../modelSchema/UserCreation.model.js";
 
 export async function register(req, res) {
   try {
-    const { image, username, password, role, email } = req.body;
+    const { username, password, role, email } = req.body;
 
     const existingUsername = await findUser(username);
 
@@ -29,13 +33,7 @@ export async function register(req, res) {
 
     if (password) {
       const hashedPassword = await bcrypt.hash(password, 10);
-      const response = await saveUser(
-        image,
-        username,
-        hashedPassword,
-        role,
-        email
-      );
+      const response = await saveUser(username, hashedPassword, role, email);
       return res.status(201).send({ msg: "User registration successful" });
     } else {
       return res.status(400).send({ error: "Password is required" });
@@ -139,5 +137,59 @@ export async function updateUserStaffProfile(req, res) {
     return res
       .status(500)
       .send({ error: "An error occurred while updating the user." });
+  }
+}
+
+export async function ReturnUserName(req, res) {
+  try {
+    const { userId } = req.body;
+    if (userId) {
+      const username = await GetUserName(userId);
+      return res.status(200).send(username);
+    } else {
+      return res.status(401).send({ error: "User Not Found...!" });
+    }
+  } catch (error) {
+    console.error("error occured during getuser", error);
+    return res
+      .status(500)
+      .send({ error: "an error occured while getting user" });
+  }
+}
+export async function ReturnUser(req, res) {
+  try {
+    const users = await GetUsers();
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occured during getuser", error);
+    return res
+      .status(500)
+      .send({ error: "an error occured while getting user" });
+  }
+}
+
+export async function DeleteUser(req, res) {
+  try {
+    const id = req.params.id; // Correctly access the id parameter from req.params
+    const users = await DeleteUsers(id);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occurred during delete user", error);
+    return res
+      .status(500)
+      .send({ error: "an error occurred while deleting user" });
+  }
+}
+export async function UpdateUser(req, res) {
+  try {
+    const { id } = req.params;
+    const { username, password, role, email } = req.body;
+    const users = await UpdateUserStaff(id, username, password, role, email);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occurred during Update user", error);
+    return res
+      .status(500)
+      .send({ error: "an error occurred while updating user" });
   }
 }
