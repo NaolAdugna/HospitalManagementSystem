@@ -8,3 +8,9 @@ Full stack Mysql/Express js/React js/Node js Web-Based Online Hospital Managemen
 # Install dependencies
 npm install
 ```
+
+```bash
+# Change directories
+cd client
+cd server
+```
