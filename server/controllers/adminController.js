@@ -14,6 +14,8 @@ import {
   GetUsers,
   DeleteUsers,
   UpdateUserStaff,
+  GetUserById,
+  GetRole,
 } from "../modelSchema/UserCreation.model.js";
 
 export async function register(req, res) {
@@ -92,6 +94,7 @@ export async function loginUser(req, res) {
             return res.status(200).send({
               msg: "Login Successful...!",
               username: user[0].username,
+              roles: user[0].role,
               token,
             });
           })
@@ -180,16 +183,63 @@ export async function DeleteUser(req, res) {
       .send({ error: "an error occurred while deleting user" });
   }
 }
-export async function UpdateUser(req, res) {
+export async function GetUserByIdController(req, res) {
   try {
-    const { id } = req.params;
-    const { username, password, role, email } = req.body;
-    const users = await UpdateUserStaff(id, username, password, role, email);
+    const id = req.params.id;
+    const users = await GetUserById(id);
     return res.status(200).send(users);
   } catch (error) {
-    console.error("error occurred during Update user", error);
+    console.error("error occurred during getting user", error);
     return res
       .status(500)
-      .send({ error: "an error occurred while updating user" });
+      .send({ error: "an error occurred while getting user" });
+  }
+}
+export async function UpdateUser(req, res) {
+  try {
+    const id = req.params.id;
+
+    const { username, password, role, email } = req.body;
+
+    if (!username || !password || !role || !email) {
+      return res.status(400).send({ error: "Missing required fields" });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const users = await UpdateUserStaff(
+      id,
+      username,
+      hashedPassword,
+      role,
+      email
+    );
+
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("Error occurred during Update user", error);
+    return res
+      .status(500)
+      .send({ error: "An error occurred while updating user" });
+  }
+}
+
+export async function ReturnUserRole(req, res) {
+  try {
+    const id = req.params.id;
+    console.log("in returning role controller got id" + id);
+    if (id) {
+      const role = await GetRole(id); // Retrieve role instead of username
+      if (role) {
+        return res.status(200).send(role); // Send role data if found
+      } else {
+        return res.status(404).send({ error: "User not found." }); // Correct status code for user not found
+      }
+    } else {
+      return res.status(400).send({ error: "User ID is required." }); // Correct status code for missing user ID
+    }
+  } catch (error) {
+    console.error("Error occurred during ReturnUserRole:", error);
+    return res
+      .status(500)
+      .send({ error: "An error occurred while returning role." });
   }
 }

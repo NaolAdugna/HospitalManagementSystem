@@ -152,9 +152,9 @@ export default function RegisterUsers() {
           marginLeft: sidebarWidth,
         }}
       >
-        <div className="card">
-          <div className="navBarContainer">
-            <div>
+        <div className="card RegisterNavBarCardContainer">
+          <div className="registerNavBarContainer">
+            <div className="registerNavBarHambugerContainer">
               <FontAwesomeIcon
                 icon={faBars}
                 className="navBarHamburger"
@@ -170,8 +170,8 @@ export default function RegisterUsers() {
         <div className="card mainCardContainer">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
           <div>
-            <div className="bodyContainer">
-              <div className="loginContainer">
+            <div className="bodyRegisterContainer">
+              <div className="RegisterContainer">
                 <div className="loginTitle">
                   <h2>REGISTER </h2>{" "}
                   <h2>
@@ -239,11 +239,11 @@ export default function RegisterUsers() {
                       name="role"
                     >
                       <option value="">Choose Role</option>
-                      <option value="Doctor">Doctor</option>
-                      <option value="Pharmacist">Pharmacist</option>
-                      <option value="Receptionist">Receptionist</option>
-                      <option value="Administrator">Administrator</option>
-                      <option value="Labratory Technician">
+                      <option value="doctor">Doctor</option>
+                      <option value="pharmacist">Pharmacist</option>
+                      <option value="receptionist">Receptionist</option>
+                      <option value="administrator">Administrator</option>
+                      <option value="labratorytechnician">
                         Labratory Technician
                       </option>
                     </select>

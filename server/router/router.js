@@ -47,5 +47,7 @@ router.route("/username").get(adminController.ReturnUserName);
 // RETURNING USER INFORMATION
 router.route("/users").get(adminController.ReturnUser);
 router.route("/users/:id").delete(adminController.DeleteUser);
+router.route("/users/:id").get(adminController.GetUserByIdController);
 router.route("/update-user/:id").put(adminController.UpdateUser);
+router.route("/user-role/:id").get(adminController.ReturnUserRole);
 export default router;

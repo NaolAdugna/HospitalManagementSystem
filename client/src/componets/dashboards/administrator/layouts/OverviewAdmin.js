@@ -179,8 +179,8 @@ export default function OverviewAdmin() {
           marginLeft: sidebarWidth,
         }}
       >
-        <div className="card">
-          <div className="navBarContainer">
+        <div className="card OverViewCardContainer">
+          <div className="OverViewnavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}

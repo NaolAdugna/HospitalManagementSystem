@@ -130,6 +130,19 @@
   cursor: pointer;
   overflow: hidden;
 }
+.ManagenavBarContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin: auto;
+  padding-left: 12px;
+}
+.ManageCardNavBarContainer {
+  display: flex;
+  align-items: center;
+}
 
 /* main start here */
 .mainContainer {
@@ -204,7 +217,7 @@
   .card:nth-child(1) {
     width: 80%;
   }
-  .navBarContainer {
+  .ManagenavBarContainer {
     width: 100%;
     padding-left: 8px;
   }
@@ -250,7 +263,7 @@
   .card {
     grid-area: initial !important;
   }
-  .navBarContainer {
+  .ManagenavBarContainer {
     padding-left: 12px;
     width: 100%;
   }
@@ -293,7 +306,7 @@
     grid-area: initial !important;
     height: 100%;
   }
-  .navBarContainer {
+  .ManagenavBarContainer {
     padding-left: 29px;
     width: 100%;
   }

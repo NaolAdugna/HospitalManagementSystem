@@ -1,11 +1,9 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useParams } from "react-router-dom";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 /** Make API Requests */
-
 /** To get username from Token */
 export async function getUsername() {
   const token = localStorage.getItem("token");
@@ -69,12 +67,11 @@ export async function registerUser(credentials) {
 }
 export async function updateUserChecker(id, credentials) {
   try {
+    const response = await axios.put(`/api/update-user/${id}`, credentials);
+
     const {
       data: { msg },
-      status,
-    } = await axios.put(`/api/update-user/${id}`, credentials);
-
-    let { username, email } = credentials;
+    } = response;
 
     return Promise.resolve(msg);
   } catch (error) {
@@ -92,9 +89,10 @@ export async function updateUserChecker(id, credentials) {
 export async function verifyPassword({ username, password }) {
   try {
     if (username) {
-      console.log("it got username");
-      const { data } = await axios.post("/api/login", { username, password });
-      console.log(data.token);
+      const { data } = await axios.post("/api/login-user-staff", {
+        username,
+        password,
+      });
       return Promise.resolve({ data });
     }
   } catch (error) {

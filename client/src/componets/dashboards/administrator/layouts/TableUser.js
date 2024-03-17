@@ -8,9 +8,11 @@ import toast from "react-hot-toast";
 
 export default function TableUser() {
   const [rows, setRows] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchUserData();
+    setIsLoading(false);
   }, []);
 
   const fetchUserData = async () => {
@@ -27,7 +29,6 @@ export default function TableUser() {
 
       toast.success("Row Deleted Successfully");
       window.location.reload();
-      // setRows(rows.filter((row) => row.id !== id));
     } catch (error) {
       console.error("error deleting row:", error);
     }
@@ -76,14 +77,16 @@ export default function TableUser() {
   ];
 
   return (
-    <div style={{ height: 550, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        checkboxSelection
-        disableSelectionOnClick
-      />
-    </div>
+    <>
+      <div style={{ height: 550, width: "100%" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          checkboxSelection
+          disableSelectionOnClick
+        />
+      </div>
+    </>
   );
 }

@@ -16,29 +16,11 @@ root {
 
 /* body {
 } */
-.bodyLoginContainer {
+.bodyContainer {
   display: flex;
   height: 100vh;
   align-items: center;
-  justify-content: center;
-  background: rgba(220, 220, 230, 0.35);
-  background-image: url("../assets/Background\ \(1\).png");
-  margin: auto;
-}
-.buttonForLogin {
-  padding: 10px 24px;
-  font-size: 18px;
-  background-color: var(--mainColor);
-  color: var(--navBarBg);
-  border: none;
-}
-.buttonForLogin:hover {
-  cursor: pointer;
-  scale: 1.02;
-  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
-}
-.loginStaff {
-  margin-right: 12px;
+  background-image: url("../../assets/Background\ \(1\).png");
 }
 .loginContainer {
   gap: 8px;
@@ -55,6 +37,9 @@ root {
   border-color: rgba(219, 219, 219, 0.123);
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 30px rgba(71, 71, 71, 0.043);
+  background-color: #f6f7f9;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
 }
 .loginTitle {
   display: flex;

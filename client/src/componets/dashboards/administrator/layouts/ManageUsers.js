@@ -17,7 +17,6 @@ import {
   faEnvelope,
   faChartSimple,
   faRepublican,
-  faMagnifyingGlass,
   faAdd,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -43,9 +42,6 @@ export default function ManageUsers() {
   };
 
   const navigate = useNavigate();
-  const [file, setFile] = useState();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -57,7 +53,6 @@ export default function ManageUsers() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      values = Object.assign(values, { profile: file || "" });
       let registerPromise = registerUser(values);
       toast.promise(registerPromise, {
         loading: "creating...",
@@ -139,8 +134,8 @@ export default function ManageUsers() {
           marginLeft: sidebarWidth,
         }}
       >
-        <div className="card">
-          <div className="navBarContainer">
+        <div className="card ManageCardNavBarContainer">
+          <div className="ManagenavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}

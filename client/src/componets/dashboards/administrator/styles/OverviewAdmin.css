@@ -69,7 +69,19 @@
 .card:nth-child(6) {
   grid-area: c6;
 }
-
+.OverViewCardContainer {
+  display: flex;
+  align-items: center;
+}
+.OverViewnavBarContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin: auto;
+  padding-left: 12px;
+}
 /* .sideBarContainer {
   width: 100%;
 } */

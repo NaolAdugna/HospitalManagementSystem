@@ -121,6 +121,16 @@ export const DeleteUsers = async (id) => {
     throw error;
   }
 };
+export const GetUserById = async (id) => {
+  try {
+    const sql = "SELECT * FROM users WHERE id = ?";
+    const [results] = await mysqlPool.execute(sql, [id]);
+    return results;
+  } catch (error) {
+    console.error("Error in GETTING USER BY ID:", error);
+    throw error;
+  }
+};
 export const UpdateUserStaff = async (id, username, password, role, email) => {
   try {
     const sql =
@@ -135,6 +145,19 @@ export const UpdateUserStaff = async (id, username, password, role, email) => {
     return updated;
   } catch (error) {
     console.error("Error occurred while updating: ", error);
+    throw error;
+  }
+};
+
+export const GetRole = async (id) => {
+  try {
+    const sql = "SELECT * FROM users WHERE id = ?";
+    const [response] = await mysqlPool.execute(sql, [id]);
+    console.log(response[0]);
+    const role = response[0];
+    return role;
+  } catch (error) {
+    console.error("Error in GetRole:", error);
     throw error;
   }
 };

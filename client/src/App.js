@@ -1,13 +1,7 @@
 import React from "react";
 // import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import {
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-  Routes,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // import all components
 import Home from "./componets/Home";
@@ -22,11 +16,19 @@ import OurServices from "./componets/OurService";
 import PageNotFound from "./componets/PageNotFound";
 
 import { AuthorizeUser } from "./middleware/auth";
-import Doctor from "./componets/dashboards/doctor/Doctor";
 import RegisterUser from "./componets/dashboards/administrator/layouts/RegisterUsers";
 import OverviewAdmin from "./componets/dashboards/administrator/layouts/OverviewAdmin";
 import ManageUsers from "./componets/dashboards/administrator/layouts/ManageUsers";
 import UpdateUser from "./componets/dashboards/administrator/layouts/UpdateUser";
+import LoginPatient from "./componets/dashboards/LoginPatient";
+import LoginUser from "./componets/dashboards/LoginUser";
+
+// dashboards
+import LabOverView from "./componets/dashboards/labTechnician/layout/LabOverView";
+import PatientOverView from "./componets/dashboards/patient/layout/PatientOverView";
+import PharmacyOverView from "./componets/dashboards/pharmacist/layout/PharmacyOverView";
+import ReceptionOverView from "./componets/dashboards/reception/layout/ReceptionOverView";
+import DoctorOverView from "./componets/dashboards/doctor/Doctor";
 
 // root routers
 const router = createBrowserRouter([
@@ -49,6 +51,14 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login></Login>,
+  },
+  {
+    path: "/login-user",
+    element: <LoginUser></LoginUser>,
+  },
+  {
+    path: "/login-patient",
+    element: <LoginPatient></LoginPatient>,
   },
   {
     path: "/password-recovery",
@@ -93,36 +103,33 @@ const router = createBrowserRouter([
     element: <UpdateUser></UpdateUser>,
   },
   {
+    path: "/doctor",
+    element: <DoctorOverView></DoctorOverView>,
+  },
+  {
+    path: "/reception",
+    element: <ReceptionOverView></ReceptionOverView>,
+  },
+  {
+    path: "/patient",
+    element: <PatientOverView></PatientOverView>,
+  },
+  {
+    path: "/pharmacy",
+    element: <PharmacyOverView></PharmacyOverView>,
+  },
+  {
+    path: "/labratory",
+    element: <LabOverView></LabOverView>,
+  },
+  {
     path: "*",
     element: <PageNotFound></PageNotFound>,
   },
 ]);
 
 export default function App() {
-  // const container = createBrowserRouter(
-  //   createRoutesFromElements(
-  //     <Route>
-  //       <Route index element={<Home />} />
-  //       <Route path="/about" element={<About />} />
-  //       <Route path="/services" element={<OurServices />} />
-  //       <Route path="/contact" element={<Contact />} />
-  //       <Route path="/login" element={<Login />} />
-  //       <Route path="/password-recovery" element={<Recovery />} />
-  //       <Route path="/password-reset" element={<Reset />} />
-  //       {/* <Route path="/register" element={<Register />} /> */}
-  //       <Route path="/profile" element={<Profile />} />
-  //       <Route path="/admin" element={<RegisterUser />} />
-  //       <Route path="/admin/report" element={<Report />} />
-  //       <Route path="/admin/overview" element={<Overview />} />
-  //       <Route path="*" element={<PageNotFound />} />
-  //     </Route>
-  //   )
-  // );
-
   return (
-    // <main>
-    //   <RouterProvider router={container} />
-    // </main>
     <main>
       <RouterProvider router={router}></RouterProvider>
     </main>

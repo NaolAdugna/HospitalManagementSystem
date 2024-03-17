@@ -1,22 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/UpdateUser.css";
 // import SideBarData from "./Data";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLock,
-  faUser,
-  faEyeSlash,
-  faEye,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
+
 import { TextField } from "@mui/material";
-import ReCAPTCHA from "react-google-recaptcha";
 import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 
-import { updateUserChecker } from "../../../../functions/checker";
 import { useParams, useNavigate } from "react-router-dom";
 
 import {
@@ -24,7 +16,13 @@ import {
   faChartSimple,
   faRepublican,
   faUserShield,
+  faLock,
+  faUser,
+  faEyeSlash,
+  faEye,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 export default function UpdateUser() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -33,6 +31,19 @@ export default function UpdateUser() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { id } = useParams();
+  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [role, setRole] = useState();
+
+  useEffect(() => {
+    axios.get(`/api/users/${id}`).then((res) => {
+      setUsername(res.data[0].username);
+      setEmail(res.data[0].email);
+      setPassword(res.data[0].password);
+      setRole(res.data[0].role);
+    });
+  }, []);
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
@@ -52,16 +63,22 @@ export default function UpdateUser() {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
-      password: "",
-      role: "",
-      email: "",
+      username: username,
+      password: password,
+      role: role,
+      email: email,
     },
     // validate: registerdValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      let registerPromise = updateUserChecker(id, values);
+      // let registerPromise = updateUserChecker(id, values);
+      let registerPromise = axios.put(`/api/update-user/` + id, {
+        username,
+        password,
+        role,
+        email,
+      });
       toast.promise(registerPromise, {
         loading: "Updating...",
         success: "Updated successfully...",
@@ -151,8 +168,8 @@ export default function UpdateUser() {
           marginLeft: sidebarWidth,
         }}
       >
-        <div className="card">
-          <div className="navBarContainer">
+        <div className="card UpdateCardNavBarContainer">
+          <div className="UpdatenavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -169,8 +186,8 @@ export default function UpdateUser() {
         <div className="card mainCardContainer">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
           <div>
-            <div className="bodyContainer">
-              <div className="loginContainer">
+            <div className="bodyUpdateContainer">
+              <div className="UpdateContainer">
                 <div className="loginTitle">
                   <h2>UPDATE </h2>{" "}
                   <h2>
@@ -189,12 +206,12 @@ export default function UpdateUser() {
                     <FontAwesomeIcon icon={faUser} className="loginNameIcon" />
                     <TextField
                       name="username"
-                      label="Enter Username"
                       variant="standard"
                       id="standard-basic idOfName"
-                      placeholder="Enter username"
                       className="loginInputs"
                       {...formik.getFieldProps("username")}
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
                   <div className="loginPassword loginName">
@@ -202,13 +219,14 @@ export default function UpdateUser() {
                     <div className="passwordContainer">
                       <TextField
                         name="password"
-                        label="Enter Password"
                         variant="standard"
                         id="standard-password-basic"
                         autoComplete="current-password"
                         type={isOpen ? "text" : "password"}
                         className="loginInputs"
                         {...formik.getFieldProps("password")}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                       {isPasswordVisible ? (
                         <FontAwesomeIcon
@@ -236,13 +254,15 @@ export default function UpdateUser() {
                       className="loginInputs"
                       {...formik.getFieldProps("role")}
                       name="role"
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
                     >
                       <option value="">Choose Role</option>
-                      <option value="Doctor">Doctor</option>
-                      <option value="Pharmacist">Pharmacist</option>
-                      <option value="Receptionist">Receptionist</option>
-                      <option value="Administrator">Administrator</option>
-                      <option value="Labratory Technician">
+                      <option value="doctor">Doctor</option>
+                      <option value="pharmacist">Pharmacist</option>
+                      <option value="receptionist">Receptionist</option>
+                      <option value="administrator">Administrator</option>
+                      <option value="labratorytechnician">
                         Labratory Technician
                       </option>
                     </select>
@@ -254,12 +274,12 @@ export default function UpdateUser() {
                     />
                     <TextField
                       name="email"
-                      label="Enter email address"
                       variant="standard"
                       id="standard-basic idOfEmail"
-                      placeholder="Enter email address"
                       className="loginInputs"
                       {...formik.getFieldProps("email")}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
 
@@ -267,14 +287,6 @@ export default function UpdateUser() {
                     <button className="loginPageButton" type="submit">
                       Update
                     </button>
-                  </div>
-                  <div className="recaptchaContainer">
-                    <ReCAPTCHA
-                      size="normal"
-                      badge="bottomright"
-                      className="recaptchaContent"
-                      sitekey="6Lc7vnEpAAAAAMTZG8RdEv78XquSIMvEa3EABIle"
-                    />
                   </div>
                 </form>
                 <div className="loginCopyRightContainer">
