@@ -38,7 +38,6 @@ export default function LoginUser() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      // setUsername(values.username);
       const username = values.username;
       const password = values.password;
       let loginPromise = verifyPassword({
@@ -53,8 +52,22 @@ export default function LoginUser() {
 
       loginPromise
         .then(async (res) => {
-          let { token, roles } = res.data;
-          localStorage.setItem("token", token);
+          let { token, roles, id, username } = res.data;
+
+          // const storageKey = `user_${id}`;
+          // sessionStorage.setItem(
+          //   storageKey,
+          //   JSON.stringify({
+          //     token: token,
+          //     id: id,
+          //     roles: roles,
+          //     username: username,
+          //   })
+          // );
+          sessionStorage.setItem("token", token);
+          sessionStorage.setItem("id", id);
+          sessionStorage.setItem("role", roles);
+          sessionStorage.setItem("username", username);
           if (roles === "doctor") {
             navigate("/doctor");
           } else if (roles === "pharmacist") {

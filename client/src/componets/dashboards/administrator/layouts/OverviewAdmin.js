@@ -4,31 +4,12 @@ import "../styles/OverviewAdmin.css";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLock,
-  faUser,
-  faEyeSlash,
-  faEye,
-  faBars,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import { TextField } from "@mui/material";
-import ReCAPTCHA from "react-google-recaptcha";
-import toast, { Toaster } from "react-hot-toast";
-import { useFormik } from "formik";
-
-import { registerdValidate } from "../../../../functions/validate";
-import { convertToBase64 } from "../../../../functions/validate";
-
-import Avatar from "../../../../assets/images/profile.webp";
-import { registerUser } from "../../../../functions/checker";
-import { NavLink, useNavigate } from "react-router-dom";
 
 import {
   faEnvelope,
   faChartSimple,
-  faHouse,
   faRepublican,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Calendar from "react-calendar";
@@ -52,69 +33,10 @@ export default function OverviewAdmin() {
     },
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 320) {
-        setShowSidebar(false);
-        setSidebarWidth(0);
-      } else if (window.innerWidth <= 640) {
-        setShowSidebar(true);
-        setSidebarWidth(300);
-      } else if (window.innerWidth <= 1024) {
-        setShowSidebar(true);
-        setSidebarWidth(300);
-      } else {
-        setShowSidebar(true);
-        setSidebarWidth(300);
-      }
-    };
+  const storedUsername = sessionStorage.getItem("username");
+  const storedRole = sessionStorage.getItem("role");
 
-    // Call handleResize initially and add event listener
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    // Remove event listener on component unmount
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const navigate = useNavigate();
-  const [file, setFile] = useState();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      username: "",
-      password: "",
-    },
-    validate: registerdValidate,
-    validateOnBlur: false,
-    validateOnChange: false,
-    onSubmit: async (values) => {
-      values = Object.assign(values, { profile: file || "" });
-      let registerPromise = registerUser(values);
-      toast.promise(registerPromise, {
-        loading: "creating...",
-        success: "register successfully...",
-        error: "could not register",
-      });
-
-      registerPromise.then(function () {
-        navigate("/");
-      });
-    },
-  });
-
-  const onUpload = async (e) => {
-    const base64 = await convertToBase64(e.target.files[0]);
-    setFile(base64);
-  };
-
-  const togglePasswordVisisbility = () => {
-    setIsOpen(!isOpen);
-    setIsPasswordVisible(!isPasswordVisible);
-  };
+  // const userNameFirstLetter = storedUsername.charAt(0);
 
   return (
     <div className="reportContainer">
@@ -123,15 +45,16 @@ export default function OverviewAdmin() {
           <div className="sideBarContainer">
             <div className="sideBarIdentityContainer">
               <div className="sideBarProfile">
-                <img
+                {/* <img
                   src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
                   alt="profile "
                   className="profileImage"
-                />
+                /> */}
+                {/* <h1 className="overViewProfileImage">{userNameFirstLetter}</h1> */}
                 <div className="sideBarContainerFooter">
                   <div>
-                    <h4>Naol Adugna</h4>
-                    <span>Doctor</span>
+                    <h4>{storedUsername}</h4>
+                    <span>{storedRole}</span>
                   </div>
                 </div>
               </div>

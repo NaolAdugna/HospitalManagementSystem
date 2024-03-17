@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/ManageUsers.css";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faBars } from "@fortawesome/free-solid-svg-icons";
-import { TextField } from "@mui/material";
-import toast from "react-hot-toast";
-import { useFormik } from "formik";
-
-import { registerdValidate } from "../../../../functions/validate";
-
-import { registerUser } from "../../../../functions/checker";
-import { useNavigate } from "react-router-dom";
 
 import {
   faEnvelope,
   faChartSimple,
   faRepublican,
   faAdd,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
 import TableUser from "./TableUser";
@@ -41,30 +33,10 @@ export default function ManageUsers() {
     },
   };
 
-  const navigate = useNavigate();
+  const storedUsername = sessionStorage.getItem("username");
+  const storedRole = sessionStorage.getItem("role");
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      username: "",
-      password: "",
-    },
-    validate: registerdValidate,
-    validateOnBlur: false,
-    validateOnChange: false,
-    onSubmit: async (values) => {
-      let registerPromise = registerUser(values);
-      toast.promise(registerPromise, {
-        loading: "creating...",
-        success: "register successfully...",
-        error: "could not register",
-      });
-
-      registerPromise.then(function () {
-        navigate("/");
-      });
-    },
-  });
+  // const userNameFirstLetter = storedUsername.charAt(0);
 
   return (
     <div className="reportContainer">
@@ -73,15 +45,16 @@ export default function ManageUsers() {
           <div className="sideBarContainer">
             <div className="sideBarIdentityContainer">
               <div className="sideBarProfile">
-                <img
+                {/* <img
                   src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
                   alt="profile "
                   className="profileImage"
-                />
+                /> */}
+                {/* <h1 className="manageProfileImage"> {userNameFirstLetter} </h1> */}
                 <div className="sideBarContainerFooter">
                   <div>
-                    <h4>Naol Adugna</h4>
-                    <span>Doctor</span>
+                    <h4>{storedUsername}</h4>
+                    <span>{storedRole}</span>
                   </div>
                 </div>
               </div>
@@ -151,21 +124,7 @@ export default function ManageUsers() {
         </div>
         <div className="card mainContainer">
           <div className="SearchandAddContainer">
-            <div className="searchContentContainer">
-              {/* <FontAwesomeIcon
-                icon={faMagnifyingGlass}
-                className="searchIconManageUser"
-              />
-              <TextField
-                name="username"
-                label="Search Here"
-                variant="standard"
-                id="standard-basic idOfName"
-                placeholder="Search Here"
-                className="searchInputManageUser"
-                {...formik.getFieldProps("username")}
-              /> */}
-            </div>
+            <div className="searchContentContainer"></div>
             <div className="addUserContainer">
               <button
                 onClick={() => {

@@ -96,6 +96,11 @@ export default function UpdateUser() {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
+  const storedUsername = sessionStorage.getItem("username");
+  const storedRole = sessionStorage.getItem("role");
+
+  // const userNameFirstLetter = storedUsername.charAt(0);
+
   return (
     <div className="reportContainer">
       <div
@@ -107,15 +112,16 @@ export default function UpdateUser() {
           <div className="sideBarContainer">
             <div className="sideBarIdentityContainer">
               <div className="sideBarProfile">
-                <img
+                {/* <img
                   src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
                   alt="profile "
                   className="profileImage"
-                />
+                /> */}
+                {/* <h1 className="updateProfileImage"> {userNameFirstLetter} </h1> */}
                 <div className="sideBarContainerFooter">
                   <div>
-                    <h4>Naol Adugna</h4>
-                    <span>Doctor</span>
+                    <h4> {storedUsername} </h4>
+                    <span> {storedRole} </span>
                   </div>
                 </div>
               </div>

@@ -282,9 +282,13 @@
   border-bottom: 1px solid gray;
 }
 
-/* .formContainer {
-  display: none;
-} */
+.RegisterProfileImage {
+  background-color: var(--mainColor);
+  color: var(--navBarBg);
+  width: 25%;
+  height: auto;
+  border-radius: 50%;
+}
 
 /* main end here */
 

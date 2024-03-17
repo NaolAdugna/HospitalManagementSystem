@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap");
+root {
+  --mainColor: #14ac5f;
+  --navBarBg: #fff;
+}
+.PharmacyCardNavBarContainer {
+  display: flex;
+  align-items: center;
+}
+.PharmacyavBarContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin: auto;
+  padding-left: 12px;
+}
+
+.profileImage {
+  background-color: var(--mainColor);
+  color: var(--navBarBg);
+  width: 25%;
+  height: auto;
+  border-radius: 50%;
+}

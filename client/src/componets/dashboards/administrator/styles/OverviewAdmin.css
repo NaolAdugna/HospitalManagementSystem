@@ -172,6 +172,14 @@
   justify-content: center;
 }
 
+.overViewProfileImage {
+  background-color: var(--mainColor);
+  color: var(--navBarBg);
+  width: 25%;
+  height: auto;
+  border-radius: 50%;
+}
+
 /* main end here */
 
 /* media query start */

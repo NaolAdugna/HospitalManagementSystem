@@ -95,6 +95,7 @@ export async function loginUser(req, res) {
               msg: "Login Successful...!",
               username: user[0].username,
               roles: user[0].role,
+              id: user[0].id,
               token,
             });
           })
