@@ -9,13 +9,15 @@ Hospital Management System is a full-stack web application developed using MySQL
 npm install
 # Change directories to the client folder and start the React.js development server:
 cd client
+npm install
 npm start
 
 # Change directories to the server folder and start the Node.js server:
 cd server
+npm install
 npm start
 ```
 
 ```bash
-# NOTE: Make sure you have MySQL installed and configured properly before running the application.
+# NOTE: Make sure you have MySQL installed and configured properly before running the application and the database schema file is in server/ database exported file.
 ```

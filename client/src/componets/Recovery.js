@@ -15,13 +15,15 @@ import { generateOTP, verifyOTP } from "../functions/checker";
 
 export default function Recovery() {
   const { username } = useAuthStore((state) => state.auth);
+  // const username = localStorage.getItem("usernameRecovery");
   const [OTP, setOTP] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("usernamefor otp", username);
     generateOTP(username)
       .then((OTP) => {
-        console.log(OTP);
+        console.log("otp code", OTP);
         if (OTP) return toast.success("OTP has been send to your email!");
         return toast.error("Problem while generating OTP!");
       })
@@ -33,10 +35,10 @@ export default function Recovery() {
   async function onSubmit(e) {
     e.preventDefault();
     try {
-      let { status } = await verifyOTP({ username, code: OTP });
+      let { status } = await verifyOTP(username, OTP);
       if (status === 201) {
         toast.success("Verify Successfully!");
-        return navigate("/password-reset");
+        return navigate("/about");
       }
     } catch (error) {
       return toast.error("Wrong OTP! Check email again!");

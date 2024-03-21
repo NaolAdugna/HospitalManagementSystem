@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import otpGenerator from "otp-generator";
 import ENV from "../../config.js";
-import axios from "axios";
 
 import {
   findEmail,
@@ -16,6 +15,7 @@ import {
   UpdateUserStaff,
   GetUserById,
   GetRole,
+  ReturnEmail,
 } from "../modelSchema/UserCreation.model.js";
 
 export async function register(req, res) {
@@ -47,7 +47,7 @@ export async function register(req, res) {
 
 export async function UserExistance(req, res, next) {
   try {
-    const { username } = req.body;
+    const { username } = req.method === "GET" ? req.query : req.body;
 
     if (!username) {
       return res.status(400).send({ error: "username is required" });
@@ -55,15 +55,26 @@ export async function UserExistance(req, res, next) {
 
     // check the user existance
     let exist = await findUser(username);
-    if (!exist)
-      return res.status(404).send({ error: `Can't find ${username}!` });
+    if (!exist) return res.status(404).send({ error: `User Did not exist!` });
     next();
   } catch (error) {
     console.error("error occurred in verify user middleware", error);
     return res.status(404).send({ error: "Authentication Error" });
   }
 }
-
+export async function ReturnEmailController(req, res) {
+  try {
+    const { username } = req.method === "GET" ? req.query : req.body;
+    if (!username) {
+      return res.status(400).send({ error: "username is required" });
+    }
+    let emailReturn = await ReturnEmail(username);
+    return res.status(200).send(emailReturn);
+  } catch (error) {
+    console.error("error in returning email controller", error);
+    return res.status(404).send({ error: "Retrieval error" });
+  }
+}
 export async function loginUser(req, res) {
   const { username, password } = req.body;
 
@@ -244,3 +255,30 @@ export async function ReturnUserRole(req, res) {
       .send({ error: "An error occurred while returning role." });
   }
 }
+export async function generateOTP(req, res) {
+  req.app.locals.OTP = await otpGenerator.generate(6, {
+    lowerCaseAlphabets: false,
+    upperCaseAlphabets: false,
+    specialChars: false,
+  });
+  res.status(201).send({ code: req.app.locals.OTP });
+}
+
+export async function verifyOTP(req, res) {
+  const { code } = req.query;
+  if (parseInt(req.app.locals.OTP) === parseInt(code)) {
+    req.app.locals.OTP = null;
+    return res.status(201).send({ msg: "Verified Successfully" });
+  }
+  return res.status(400).send({ error: "Invalid OTP" });
+}
+
+// export async function verifyOTP(req, res) {
+//   const { code } = req.query;
+//   if (parseInt(req.app.locals.OTP) === parseInt(code)) {
+//     req.app.locals.OTP = null; // reset the OTP value
+//     req.app.locals.resetSession = true; // start session for reset password
+//     return res.status(201).send({ msg: "Verify Successsfully!" });
+//   }
+//   return res.status(400).send({ error: "Invalid OTP" });
+// }

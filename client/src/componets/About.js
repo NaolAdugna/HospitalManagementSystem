@@ -1,13 +1,13 @@
 import React from "react";
-
+import "../styles/About.css";
 import Header from "./layouts/Header";
 
 export default function About() {
   return (
-    <div className="bodyContainers">
+    <div className="AboutbodyContainers">
       <Header />
       <div className="aboutPageContainer">
-        <h3>about </h3>
+        <div className="aboutHeroContainer">About</div>
       </div>
     </div>
   );

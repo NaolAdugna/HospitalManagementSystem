@@ -9,13 +9,21 @@ import About from "./componets/About";
 import Login from "./componets/Login";
 import Contact from "./componets/Contact";
 import Recovery from "./componets/Recovery";
+import UserNameRecovery from "./componets/UserNameRecovery";
 import Reset from "./componets/Reset";
 import Register from "./componets/Register";
 import Profile from "./componets/Profile";
 import OurServices from "./componets/OurService";
 import PageNotFound from "./componets/PageNotFound";
 
-import { AuthorizeUser } from "./middleware/auth";
+import {
+  AuthorizeUser,
+  AdminAuthorize,
+  DoctorAuthorize,
+  PharmacyAuthorize,
+  ReceptionAuthorize,
+  LabAuthorize,
+} from "./middleware/auth";
 import RegisterUser from "./componets/dashboards/administrator/layouts/RegisterUsers";
 import OverviewAdmin from "./componets/dashboards/administrator/layouts/OverviewAdmin";
 import ManageUsers from "./componets/dashboards/administrator/layouts/ManageUsers";
@@ -61,6 +69,10 @@ const router = createBrowserRouter([
     element: <LoginPatient></LoginPatient>,
   },
   {
+    path: "/password-username",
+    element: <UserNameRecovery />,
+  },
+  {
     path: "/password-recovery",
     element: <Recovery />,
   },
@@ -75,7 +87,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <Register></Register>,
+    element: (
+      <AuthorizeUser>
+        {" "}
+        <Register />
+      </AuthorizeUser>
+    ),
   },
   {
     path: "/profile",
@@ -88,39 +105,84 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <RegisterUser></RegisterUser>,
+    element: (
+      <AdminAuthorize>
+        {" "}
+        <RegisterUser />{" "}
+      </AdminAuthorize>
+    ),
   },
   {
     path: "/admin-overview",
-    element: <OverviewAdmin></OverviewAdmin>,
+    element: (
+      <AdminAuthorize>
+        {" "}
+        <OverviewAdmin />
+      </AdminAuthorize>
+    ),
   },
   {
     path: "/admin-manage-users",
-    element: <ManageUsers></ManageUsers>,
+    element: (
+      <AdminAuthorize>
+        {" "}
+        <ManageUsers />
+      </AdminAuthorize>
+    ),
   },
   {
     path: "/admin-update-user/:id",
-    element: <UpdateUser></UpdateUser>,
+    element: (
+      <AdminAuthorize>
+        {" "}
+        <UpdateUser />
+      </AdminAuthorize>
+    ),
   },
   {
     path: "/doctor",
-    element: <DoctorOverView></DoctorOverView>,
+    element: (
+      <DoctorAuthorize>
+        {" "}
+        <DoctorOverView />
+      </DoctorAuthorize>
+    ),
   },
   {
     path: "/reception",
-    element: <ReceptionOverView></ReceptionOverView>,
+    element: (
+      <ReceptionAuthorize>
+        {" "}
+        <ReceptionOverView />
+      </ReceptionAuthorize>
+    ),
   },
   {
     path: "/patient",
-    element: <PatientOverView></PatientOverView>,
+    element: (
+      <AuthorizeUser>
+        {" "}
+        <PatientOverView />
+      </AuthorizeUser>
+    ),
   },
   {
     path: "/pharmacy",
-    element: <PharmacyOverView></PharmacyOverView>,
+    element: (
+      <PharmacyAuthorize>
+        {" "}
+        <PharmacyOverView />
+      </PharmacyAuthorize>
+    ),
   },
   {
     path: "/labratory",
-    element: <LabOverView></LabOverView>,
+    element: (
+      <LabAuthorize>
+        {" "}
+        <LabOverView />
+      </LabAuthorize>
+    ),
   },
   {
     path: "*",

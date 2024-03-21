@@ -16,10 +16,10 @@ router
 router.route("/login").post(controller.verifyUser, controller.login); // login in app
 
 /** GET Methods */
-router.route("/user/:username").get(controller.getUser); // user with username
+// router.route("/user/:username").get(controller.getUser); // user with username
 router
   .route("/generateOTP")
-  .get(controller.verifyUser, localVariables, controller.generateOTP); // generate random OTP
+  .get(adminController.UserExistance, localVariables, controller.generateOTP); // generate random OTP
 router.route("/verifyOTP").get(controller.verifyUser, controller.verifyOTP); // verify generated OTP
 router.route("/createResetSession").get(controller.createResetSession); // reset all the variables
 
@@ -50,4 +50,34 @@ router.route("/users/:id").delete(adminController.DeleteUser);
 router.route("/users/:id").get(adminController.GetUserByIdController);
 router.route("/update-user/:id").put(adminController.UpdateUser);
 router.route("/user-role/:id").get(adminController.ReturnUserRole);
+router.route("/users/:username").get(async (req, res) => {
+  try {
+    const { username } = req.method === "GET" ? req.query : req.body;
+    // Fetch user data based on the provided username
+    const userData = await adminController.UserExistance(username);
+    if (!userData) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    return res.json(userData);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router
+  .route("/user-existance")
+  .post(adminController.UserExistance, (req, res) => res.end());
+
+router.route("/user-email").get(adminController.ReturnEmailController);
+router
+  .route("/otp-generator")
+  .get(
+    adminController.UserExistance,
+    localVariables,
+    adminController.generateOTP
+  );
+router
+  .route("/otp-verify")
+  .get(adminController.UserExistance, adminController.verifyOTP);
 export default router;

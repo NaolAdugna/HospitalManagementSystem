@@ -4,17 +4,13 @@ import "../style/LabOverView.css";
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import {
-  faEnvelope,
-  faChartSimple,
-  faRepublican,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faBars } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 export default function LabOverView() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300); // Initial width
-
+  const navigate = useNavigate();
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
     setSidebarWidth(showSidebar ? 0 : 300); // Toggle width
@@ -35,6 +31,14 @@ export default function LabOverView() {
   const userRole = sessionStorage.getItem("role");
 
   const userNameFirstLetter = userName.charAt(0);
+
+  function handleLogout() {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("token");
+    navigate("/");
+  }
 
   return (
     <div className="reportContainer">
@@ -64,18 +68,6 @@ export default function LabOverView() {
                     </div>
                     <div>Dashboard</div>
                   </li>
-                  <li className="sideBarLinks">
-                    <div id="icons">
-                      <FontAwesomeIcon icon={faChartSimple} />
-                    </div>
-                    <div>Manage Users</div>
-                  </li>
-                  <li className="sideBarLinks">
-                    <div id="icons">
-                      <FontAwesomeIcon icon={faRepublican} />
-                    </div>
-                    <div>Overview</div>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -100,8 +92,11 @@ export default function LabOverView() {
               />
             </div>
             <div className=" navBarLogoutContainer">
-              <h4>Welcome Naol Adugna</h4>
-              <button>Logout</button>
+              <h3 style={{ textDecoration: "underline" }}>
+                Welcome {userName}
+              </h3>
+              <h3>🤗🤗🤗 </h3>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           </div>
         </div>

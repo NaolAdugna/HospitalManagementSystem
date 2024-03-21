@@ -17,6 +17,7 @@ import { useFormik } from "formik";
 
 import { verifyPassword } from "../../functions/checker";
 
+import { usernameValidate } from "../../functions/validate";
 export default function LoginUser() {
   // const recaptcha = useRef(null);
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function LoginUser() {
       username: "",
       password: "",
     },
-    // validate: usernameValidate,
+    validate: usernameValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
@@ -75,8 +76,8 @@ export default function LoginUser() {
           } else if (roles === "receptionist") {
             navigate("/reception");
           } else if (roles === "administrator") {
-            navigate("/");
-          } else if (roles === "labratorytechnician") {
+            navigate("/admin");
+          } else if (roles === "labTechnician") {
             navigate("/labratory");
           }
         })
@@ -147,7 +148,7 @@ export default function LoginUser() {
             </div>
           </div>
           <div className="loginForgotPassword">
-            <NavLink to="/password-recovery" className="forgotPassword">
+            <NavLink to="/password-username" className="forgotPassword">
               Forgot Password?
             </NavLink>
           </div>

@@ -21,6 +21,15 @@ export async function authenticate(username) {
   }
 }
 
+export async function userExistanceChecker(username) {
+  try {
+    const response = await axios.post("/api/user-existance", { username });
+    return response;
+  } catch (error) {
+    return { error: "Username doesn't exist...!" };
+  }
+}
+
 /** get User details */
 export async function getUser({ username }) {
   try {
@@ -116,37 +125,52 @@ export async function updateUser(response) {
   }
 }
 
+export async function emailExistanceChecker(username) {
+  try {
+    const response = await axios.get("/api/user-email", {
+      params: { username },
+    });
+    const email = response.data;
+    console.log("withoutdata", response);
+    console.log("withdata", response.data);
+    return email;
+  } catch (error) {
+    // return { error: "Username doesn't exist...!" };
+    return null;
+  }
+}
 /** generate OTP */
 export async function generateOTP(username) {
   try {
     const {
       data: { code },
       status,
-    } = await axios.get("/api/generateOTP", { params: { username } });
+    } = await axios.get("/api/otp-generator", { params: { username } });
+    console.log("otp code is ", code);
 
     // send mail with the OTP
     if (status === 201) {
-      let {
-        data: { email },
-      } = await getUser({ username });
-      let text = `Your Password Recovery OTP is ${code}. Verify and recover your password.`;
+      console.log("username for otp emmail", username);
+      const email = await emailExistanceChecker(username);
+      console.log("email for otp is ", email);
+      const text = `Your Password Recovery OTP is ${code}. Verify and recover your password.`;
       await axios.post("/api/registerMail", {
-        username,
+        username: username,
         userEmail: email,
-        text,
+        text: text,
         subject: "Password Recovery OTP",
       });
     }
-    return Promise.resolve(code);
+    return code;
   } catch (error) {
-    return Promise.reject({ error });
+    return { error };
   }
 }
 
 /** verify OTP */
-export async function verifyOTP({ username, code }) {
+export async function verifyOTP(username, code) {
   try {
-    const { data, status } = await axios.get("/api/verifyOTP", {
+    const { data, status } = await axios.get("/api/otp-verify", {
       params: { username, code },
     });
     return { data, status };

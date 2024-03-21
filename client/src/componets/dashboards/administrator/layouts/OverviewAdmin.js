@@ -11,12 +11,13 @@ import {
   faRepublican,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 import Calendar from "react-calendar";
 export default function OverviewAdmin() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300); // Initial width
-
+  const navigate = useNavigate();
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
     setSidebarWidth(showSidebar ? 0 : 300); // Toggle width
@@ -36,7 +37,14 @@ export default function OverviewAdmin() {
   const storedUsername = sessionStorage.getItem("username");
   const storedRole = sessionStorage.getItem("role");
 
-  // const userNameFirstLetter = storedUsername.charAt(0);
+  const userNameFirstLetter = storedUsername.charAt(0);
+  function handleLogout() {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("token");
+    navigate("/");
+  }
 
   return (
     <div className="reportContainer">
@@ -50,7 +58,7 @@ export default function OverviewAdmin() {
                   alt="profile "
                   className="profileImage"
                 /> */}
-                {/* <h1 className="overViewProfileImage">{userNameFirstLetter}</h1> */}
+                <h1 className="overViewProfileImage">{userNameFirstLetter}</h1>
                 <div className="sideBarContainerFooter">
                   <div>
                     <h4>{storedUsername}</h4>
@@ -112,8 +120,11 @@ export default function OverviewAdmin() {
               />
             </div>
             <div className=" navBarLogoutContainer">
-              <h4>Welcome Naol Adugna</h4>
-              <button>Logout</button>
+              <h3 style={{ textDecoration: "underline" }}>
+                Welcome {storedUsername}
+              </h3>
+              <h3>🤗🤗🤗 </h3>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           </div>
         </div>

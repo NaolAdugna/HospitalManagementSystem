@@ -83,8 +83,14 @@ export default function RegisterUsers() {
   const storedUsername = sessionStorage.getItem("username");
   const storedRole = sessionStorage.getItem("role");
 
-  // const userNameFirstLetter = storedUsername.charAt(0);
-
+  const userNameFirstLetter = storedUsername.charAt(0);
+  function handleLogout() {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("token");
+    navigate("/");
+  }
   return (
     <div className="reportContainer">
       <div
@@ -101,10 +107,10 @@ export default function RegisterUsers() {
                   alt="profile "
                   className="profileImage"
                 /> */}
-                {/* <h1 className="RegisterProfileImage">
+                <h1 className="RegisterProfileImage">
                   {" "}
                   {userNameFirstLetter}{" "}
-                </h1> */}
+                </h1>
                 <div className="sideBarContainerFooter">
                   <div>
                     <h4>{storedUsername}</h4>
@@ -171,8 +177,11 @@ export default function RegisterUsers() {
               />
             </div>
             <div className=" navBarLogoutContainer">
-              <h4>Welcome Naol Adugna</h4>
-              <button>Logout</button>
+              <h3 style={{ textDecoration: "underline" }}>
+                Welcome {storedUsername}
+              </h3>
+              <h3>🤗🤗🤗 </h3>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           </div>
         </div>
@@ -252,7 +261,7 @@ export default function RegisterUsers() {
                       <option value="pharmacist">Pharmacist</option>
                       <option value="receptionist">Receptionist</option>
                       <option value="administrator">Administrator</option>
-                      <option value="labratorytechnician">
+                      <option value="labTechnician">
                         Labratory Technician
                       </option>
                     </select>

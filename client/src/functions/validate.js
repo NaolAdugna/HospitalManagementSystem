@@ -1,12 +1,12 @@
 import toast from "react-hot-toast";
-import { authenticate } from "./checker";
+import { userExistanceChecker } from "./checker";
 
 // validate login page inputs
 export async function usernameValidate(values) {
   const errors = usernameVerify({}, values);
 
   if (values.username) {
-    const { status } = await authenticate(values.username);
+    const { status } = await userExistanceChecker(values.username);
 
     if (status !== 200) {
       errors.exist = toast.error("User does not exist...");
@@ -15,6 +15,19 @@ export async function usernameValidate(values) {
 
   return errors;
 }
+
+// export async function usernameValidateValidator(values) {
+//   const errors = usernameVerify({}, values);
+
+//   if (values.username) {
+//     const { statusd } = await userExistanceChecker(values.username);
+//   }
+
+//   if (statusd !== 200) {
+//     errors.exist = toast.error("user does not exist");
+//   }
+//   return errors;
+// }
 
 export async function recoveryValidate(values) {
   const errors = recoveryVerify({}, values);

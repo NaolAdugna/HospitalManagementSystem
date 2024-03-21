@@ -15,6 +15,20 @@ export const findUser = async (username) => {
     throw error;
   }
 };
+export const ReturnEmail = async (username) => {
+  try {
+    const sql = "SELECT email from users WHERE username = ?";
+    const [user] = await mysqlPool.execute(sql, [username]);
+    if (user.length === 0) {
+      return false;
+    } else {
+      return user[0].email;
+    }
+  } catch (error) {
+    console.error("error occured in returning email", error);
+    throw error;
+  }
+};
 
 export const findEmail = async (email) => {
   try {

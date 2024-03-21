@@ -11,10 +11,13 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { useNavigate } from "react-router-dom";
+
 export default function ReceptionOverView() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300);
 
+  const navigate = useNavigate();
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
     setSidebarWidth(showSidebar ? 0 : 300);
@@ -36,6 +39,15 @@ export default function ReceptionOverView() {
   const userRole = sessionStorage.getItem("role");
 
   const userNameFirstLetter = userName.charAt(0);
+
+  function handleLogout() {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("token");
+    navigate("/");
+  }
+
   return (
     <div className="reportContainer">
       <div style={styles.side} className={showSidebar ? `side show` : `side`}>
@@ -67,18 +79,6 @@ export default function ReceptionOverView() {
                     </div>
                     <div>Dashboard</div>
                   </li>
-                  <li className="sideBarLinks">
-                    <div id="icons">
-                      <FontAwesomeIcon icon={faChartSimple} />
-                    </div>
-                    <div>Manage Users</div>
-                  </li>
-                  <li className="sideBarLinks">
-                    <div id="icons">
-                      <FontAwesomeIcon icon={faRepublican} />
-                    </div>
-                    <div>Overview</div>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -103,8 +103,11 @@ export default function ReceptionOverView() {
               />
             </div>
             <div className=" navBarLogoutContainer">
-              <h4>Welcome Naol Adugna</h4>
-              <button>Logout</button>
+              <h3 style={{ textDecoration: "underline" }}>
+                Welcome {userName}
+              </h3>
+              <h3>🤗🤗🤗 </h3>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           </div>
         </div>
