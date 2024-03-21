@@ -19,5 +19,6 @@ npm start
 ```
 
 ```bash
-# NOTE: Make sure you have MySQL installed and configured properly before running the application and the database schema file is in server/ database exported file.
+# NOTE: Make sure you have MySQL installed and configured properly before running the application
+# and the database schema file is in server/ database exported file.
 ```
