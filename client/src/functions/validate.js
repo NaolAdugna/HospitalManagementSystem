@@ -6,16 +6,23 @@ export async function usernameValidate(values) {
   const errors = usernameVerify({}, values);
 
   if (values.username) {
-    const { status } = await userExistanceChecker(values.username);
+    try {
+      const { status } = await userExistanceChecker(values.username);
 
-    if (status !== 200) {
-      errors.exist = toast.error("User does not exist...");
+      if (status === 404) {
+        errors.exist = toast.error("User does not exist...");
+      }
+    } catch (error) {
+      errors.exist = toast.error(error.message);
     }
   }
 
   return errors;
 }
-
+export async function userNameRecoveryValidate(values) {
+  const errors = usernameRecoveryVerify({}, values);
+  return errors;
+}
 // export async function usernameValidateValidator(values) {
 //   const errors = usernameVerify({}, values);
 
@@ -34,12 +41,7 @@ export async function recoveryValidate(values) {
   return errors;
 }
 export async function resetPasswordValidate(values) {
-  // Initialize errors object with an empty object
   const errors = resetVerify({}, values);
-
-  // Call resetVerify function and assign the returned errors to the errors object
-  // const resetVerifyErrors = resetVerify({}, values);
-  // Object.assign(errors, resetVerifyErrors);
 
   // Check if password and newPassword match
   if (values.password !== values.confirmPassword) {
@@ -80,6 +82,12 @@ function usernameVerify(error = {}, values) {
     error.password = toast.error("Wrong Password...");
   }
 
+  return error;
+}
+function usernameRecoveryVerify(error = {}, values) {
+  if (!values.username) {
+    error.username = toast.error("UserName Required!");
+  }
   return error;
 }
 

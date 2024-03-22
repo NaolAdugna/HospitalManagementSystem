@@ -10,6 +10,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthStore } from "../store/store";
 import { useFormik } from "formik";
+import { userNameRecoveryValidate } from "../functions/validate";
+import { userExistanceChecker } from "../functions/checker";
 
 export default function UserNameRecovery() {
   const navigate = useNavigate();
@@ -19,12 +21,27 @@ export default function UserNameRecovery() {
     initialValues: {
       username: "",
     },
+    validate: userNameRecoveryValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      const usernameValue = setUsername(values.username);
-      // localStorage.setItem("usernameRecovery", values.username);
-      navigate("/password-recovery");
+      let UserNameRecovery = userExistanceChecker(values.username);
+      toast.promise(UserNameRecovery, {
+        loading: "Checking...",
+        success: <b>UserName Sent Successfully...!</b>,
+        error: <b>User does not Exists!</b>,
+      });
+
+      UserNameRecovery.then(async (res) => {
+        if (res && res.error) {
+          toast.error("user DO NOT EXISTS");
+        } else {
+          const usernameValue = setUsername(values.username);
+          navigate("/password-recovery");
+        }
+      }).catch((error) => {
+        console.error("Error occured in username recovery ", error);
+      });
     },
   });
 

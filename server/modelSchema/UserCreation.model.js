@@ -175,3 +175,14 @@ export const GetRole = async (id) => {
     throw error;
   }
 };
+
+export const UpdateUserStaffPassword = async (username, password) => {
+  try {
+    const sql = "UPDATE users SET password = ? WHERE username = ?";
+    const [response] = await mysqlPool.execute(sql, [password, username]);
+    return response;
+  } catch (error) {
+    console.error("ERROR occured in reseting user password", error);
+    throw error;
+  }
+};

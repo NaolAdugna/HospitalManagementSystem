@@ -16,6 +16,7 @@ import {
   GetUserById,
   GetRole,
   ReturnEmail,
+  UpdateUserStaffPassword,
 } from "../modelSchema/UserCreation.model.js";
 
 export async function register(req, res) {
@@ -44,10 +45,9 @@ export async function register(req, res) {
     return res.status(500).send({ error: "Internal server error", error });
   }
 }
-
-export async function UserExistance(req, res, next) {
+export async function UserExistForLogin(req, res, next) {
   try {
-    const { username } = req.method === "GET" ? req.query : req.body;
+    const { username } = req.body;
 
     if (!username) {
       return res.status(400).send({ error: "username is required" });
@@ -62,6 +62,29 @@ export async function UserExistance(req, res, next) {
     return res.status(404).send({ error: "Authentication Error" });
   }
 }
+
+export async function UserExistance(req, res, next) {
+  try {
+    const { username } = req.method === "GET" ? req.query : req.body;
+
+    if (!username) {
+      return res.status(400).send({ error: "username is required" });
+    }
+
+    req.session.usernameForReset = username;
+    // check the user existance
+    let exist = await findUser(username);
+    // return exist;
+    if (!exist) {
+      return res.status(404).send({ error: `User Did not exist!` });
+    }
+    next();
+    req.userExit = true;
+  } catch (error) {
+    console.error("error occurred in verify user middleware", error);
+    return res.status(404).send({ error: "Authentication Error" });
+  }
+}
 export async function ReturnEmailController(req, res) {
   try {
     const { username } = req.method === "GET" ? req.query : req.body;
@@ -69,6 +92,8 @@ export async function ReturnEmailController(req, res) {
       return res.status(400).send({ error: "username is required" });
     }
     let emailReturn = await ReturnEmail(username);
+    if (!emailReturn)
+      return res.status(404).send({ error: `User Email did not Exists` });
     return res.status(200).send(emailReturn);
   } catch (error) {
     console.error("error in returning email controller", error);
@@ -77,6 +102,8 @@ export async function ReturnEmailController(req, res) {
 }
 export async function loginUser(req, res) {
   const { username, password } = req.body;
+
+  // const username = req.session.usernameForReset;
 
   try {
     findUser(username)
@@ -118,6 +145,7 @@ export async function loginUser(req, res) {
         return res.status(500).send({ error: "Error finding user" });
       });
   } catch (error) {
+    console.error("Error occurred:", error);
     return res.status(500).send({ error });
   }
 }
@@ -268,17 +296,40 @@ export async function verifyOTP(req, res) {
   const { code } = req.query;
   if (parseInt(req.app.locals.OTP) === parseInt(code)) {
     req.app.locals.OTP = null;
+    req.app.locals.resetSession = true;
     return res.status(201).send({ msg: "Verified Successfully" });
   }
   return res.status(400).send({ error: "Invalid OTP" });
 }
 
-// export async function verifyOTP(req, res) {
-//   const { code } = req.query;
-//   if (parseInt(req.app.locals.OTP) === parseInt(code)) {
-//     req.app.locals.OTP = null; // reset the OTP value
-//     req.app.locals.resetSession = true; // start session for reset password
-//     return res.status(201).send({ msg: "Verify Successsfully!" });
-//   }
-//   return res.status(400).send({ error: "Invalid OTP" });
-// }
+export async function resetPasswordAdminController(req, res) {
+  try {
+    // if (!req.app.locals.resetSession)
+    //   return res.status(440).send({ error: "Session expired!" });
+
+    const { password } = req.body;
+    const username = req.session.usernameForReset;
+    try {
+      const user = await findUser(username);
+
+      if (!user) {
+        return res.status(404).send({ error: "Username not found" });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      await UpdateUserStaffPassword(username, hashedPassword);
+
+      req.app.locals.resetSession = false; // reset session
+      return res.status(201).send({ msg: "Password Updated Successfully." });
+    } catch (error) {
+      console.error("Error occurred:", error);
+      return res
+        .status(500)
+        .send({ error: "An error occurred while resetting password." });
+    }
+  } catch (error) {
+    console.error("Error occurred:", error);
+    return res.status(401).send({ error: "Unauthorized" });
+  }
+}

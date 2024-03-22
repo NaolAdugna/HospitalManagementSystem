@@ -23,10 +23,15 @@ export async function authenticate(username) {
 
 export async function userExistanceChecker(username) {
   try {
-    const response = await axios.post("/api/user-existance", { username });
-    return response;
+    if (username) {
+      const { status } = await axios.post("/api/user-existance", { username });
+      console.log(status);
+
+      return Promise.resolve({ status });
+    }
   } catch (error) {
-    return { error: "Username doesn't exist...!" };
+    throw new Error("User did not exists!");
+    // return Promise.reject({ error: "Username doesn't exist HERE...!" });
   }
 }
 
@@ -131,12 +136,10 @@ export async function emailExistanceChecker(username) {
       params: { username },
     });
     const email = response.data;
-    console.log("withoutdata", response);
-    console.log("withdata", response.data);
     return email;
   } catch (error) {
-    // return { error: "Username doesn't exist...!" };
-    return null;
+    return { error: "Username doesn't exist...!" };
+    // return null;
   }
 }
 /** generate OTP */
@@ -146,13 +149,10 @@ export async function generateOTP(username) {
       data: { code },
       status,
     } = await axios.get("/api/otp-generator", { params: { username } });
-    console.log("otp code is ", code);
 
     // send mail with the OTP
     if (status === 201) {
-      console.log("username for otp emmail", username);
       const email = await emailExistanceChecker(username);
-      console.log("email for otp is ", email);
       const text = `Your Password Recovery OTP is ${code}. Verify and recover your password.`;
       await axios.post("/api/registerMail", {
         username: username,
@@ -182,7 +182,7 @@ export async function verifyOTP(username, code) {
 /** reset password */
 export async function resetPassword({ username, password }) {
   try {
-    const { data, status } = await axios.put("/api/resetPassword", {
+    const { data, status } = await axios.put("/api/reset-password", {
       username,
       password,
     });

@@ -20,25 +20,23 @@ export default function Recovery() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("usernamefor otp", username);
     generateOTP(username)
       .then((OTP) => {
-        console.log("otp code", OTP);
         if (OTP) return toast.success("OTP has been send to your email!");
         return toast.error("Problem while generating OTP!");
       })
       .catch((error) => {
         console.error("error generating otp: ", error);
       });
-  }, [username]);
+  }, []);
 
   async function onSubmit(e) {
     e.preventDefault();
     try {
       let { status } = await verifyOTP(username, OTP);
       if (status === 201) {
-        toast.success("Verify Successfully!");
-        return navigate("/about");
+        toast.success("Verified Successfully!");
+        return navigate("/password-reset");
       }
     } catch (error) {
       return toast.error("Wrong OTP! Check email again!");

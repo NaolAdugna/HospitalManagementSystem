@@ -37,7 +37,7 @@ router.route("/create-users").post(adminController.register);
 // Login User Staff
 router
   .route("/login-user-staff")
-  .post(adminController.UserExistance, adminController.loginUser);
+  .post(adminController.UserExistForLogin, adminController.loginUser);
 router
   .route("/update-user-staff")
   .put(Auth, adminController.updateUserStaffProfile);
@@ -80,4 +80,10 @@ router
 router
   .route("/otp-verify")
   .get(adminController.UserExistance, adminController.verifyOTP);
+router
+  .route("/reset-password")
+  .put(
+    adminController.UserExistance,
+    adminController.resetPasswordAdminController
+  );
 export default router;

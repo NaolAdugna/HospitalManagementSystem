@@ -33,9 +33,6 @@ export default function Reset() {
 
   const { username } = useAuthStore((state) => state.auth);
 
-  const [{ isLoading, apiData, status, serverError }] =
-    useFetch("createResetSession");
-
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -45,7 +42,6 @@ export default function Reset() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      // console.log(values);
       console.log(values.password, values.confirmPassword);
       let resetPromise = resetPassword({
         username,
@@ -59,15 +55,10 @@ export default function Reset() {
       });
 
       resetPromise.then(function () {
-        navigate("/contact");
+        navigate("/login");
       });
     },
   });
-  if (isLoading) return <h1 className="text-2xl font-bold">isLoading</h1>;
-  if (serverError)
-    return <h1 className="text-xl text-red-500">{serverError.message}</h1>;
-  if (status && status !== 201)
-    return <Navigate to={"/contact"} replace={true}></Navigate>;
 
   return (
     <div className="bodyContainer">

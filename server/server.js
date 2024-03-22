@@ -5,7 +5,7 @@ import cors from "cors";
 import mysqlPool from "../server/database/connection.js";
 import router from "./router/router.js";
 import axios from "axios";
-
+import session from "express-session";
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -13,6 +13,13 @@ app.use(morgan("tiny"));
 app.disable("x-powered-by");
 
 const port = 8080;
+app.use(
+  session({
+    secret: "secretnumber",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.get("/", (req, res) => {
   req.setTimeout(200000);

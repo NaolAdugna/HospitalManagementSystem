@@ -54,17 +54,6 @@ export default function LoginUser() {
       loginPromise
         .then(async (res) => {
           let { token, roles, id, username } = res.data;
-
-          // const storageKey = `user_${id}`;
-          // sessionStorage.setItem(
-          //   storageKey,
-          //   JSON.stringify({
-          //     token: token,
-          //     id: id,
-          //     roles: roles,
-          //     username: username,
-          //   })
-          // );
           sessionStorage.setItem("token", token);
           sessionStorage.setItem("id", id);
           sessionStorage.setItem("role", roles);
@@ -86,10 +75,6 @@ export default function LoginUser() {
         });
     },
   });
-
-  // const handleRecaptchaChange = (value) => {
-  //   setRecaptchaToken(value);
-  // };
 
   return (
     <div className="bodyContainer">
