@@ -24,10 +24,12 @@
 }
 
 .side {
-  background-color: var(--dashboardBg);
+  background-color: var(--navBarBg);
   grid-area: side;
   width: 300px;
   display: block;
+  background-color: white;
+  background: none;
 }
 
 .mainOverViewContainer {
@@ -165,19 +167,45 @@
   background-color: white;
 }
 
-.calendarContainar {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.overViewCalendar {
+  width: 80%;
+  height: 96%;
+  border: none;
+  box-shadow: 4px 4px 20px 8px rgba(0, 0, 0, 0.2);
+  font-size: 17px;
 }
 
 .overViewProfileImage {
   background-color: var(--mainColor);
   color: var(--navBarBg);
-  width: 25%;
+  width: 30%;
   height: auto;
   border-radius: 50%;
+}
+
+.overViewBarChart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.OverViewAddListContainer {
+  margin-top: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.OverViewAddListButton {
+  border: none;
+  font-size: 16px;
+  color: var(--navBarBg);
+  padding: 8px 20px;
+  background-color: var(--mainColor);
+}
+.OverViewAddListButton:hover {
+  cursor: pointer;
+  scale: 1.02;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* main end here */

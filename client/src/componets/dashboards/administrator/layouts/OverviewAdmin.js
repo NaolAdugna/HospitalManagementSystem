@@ -10,11 +10,74 @@ import {
   faChartSimple,
   faRepublican,
   faBars,
+  faAdd,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+
+import toast, { Toaster } from "react-hot-toast";
+import { useFormik } from "formik";
+
+// import { CreateList } from "../../../../functions/checker";
+import { CreateListChecker } from "../../../../functions/checker";
+// Chart Resources
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+
+import { faker } from "@faker-js/faker";
+
+import { TextField } from "@mui/material";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 export default function OverviewAdmin() {
+  const options = {
+    responsive: true,
+    Plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Chart.js Bar Chart",
+      },
+    },
+  };
+
+  const labels = [
+    "ADMINISTRATOR",
+    "RECEPTIONIST ",
+    "DOCTOR",
+    "PHARMCACIST",
+    "LAB TECHNICIAN",
+    "PATIENT",
+  ];
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        backgroundColor: "rgba(20, 172, 95,0.8)",
+      },
+    ],
+  };
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300); // Initial width
   const navigate = useNavigate();
@@ -45,6 +108,36 @@ export default function OverviewAdmin() {
     sessionStorage.removeItem("token");
     navigate("/");
   }
+
+  const formik = useFormik({
+    initialValues: {
+      listtitle: "",
+    },
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: async (values) => {
+      try {
+        const id = sessionStorage.getItem("id");
+        const listTitle = values.listtitle;
+
+        const createListPromise = CreateListChecker({ id, listTitle });
+
+        // Show toast based on the result of CreateListChecker
+        await toast.promise(createListPromise, {
+          loading: "Adding...",
+          success: "Added successfully...",
+          error: "Could not add",
+        });
+
+        // Reload the page after adding the list
+        window.location.reload();
+      } catch (error) {
+        // Handle any errors that occur during the process
+        console.error("Error occurred:", error);
+        toast.error("An error occurred. Please try again later.");
+      }
+    },
+  });
 
   return (
     <div className="reportContainer">
@@ -90,7 +183,12 @@ export default function OverviewAdmin() {
                     </div>
                     <div>Manage Users</div>
                   </li>
-                  <li className="sideBarLinks">
+                  <li
+                    className="sideBarLinks"
+                    onClick={() => {
+                      window.location.pathname = "/admin-overview";
+                    }}
+                  >
                     <div id="icons">
                       <FontAwesomeIcon icon={faRepublican} />
                     </div>
@@ -130,13 +228,62 @@ export default function OverviewAdmin() {
         </div>
         <div className="card"> </div>
         <div className="card"> </div>
-        <div className="card">
-          <div className="calendarContainar">
-            <Calendar className="calendar" />
+        <div
+          className="card"
+          style={{
+            width: "100%",
+            padding: "0px",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              lineHeight: "0.6rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Calendar className="overViewCalendar" />
           </div>
         </div>
-        <div className="card "></div>
-        <div className="card"> </div>
+        <div className="card ">
+          <div className="overViewBarChart">
+            <Bar
+              options={options}
+              data={data}
+              style={{ paddingBottom: "8px" }}
+            />
+          </div>
+        </div>
+        <div className="card">
+          <div>
+            <div>
+              <h2 style={{ textAlign: "center" }}>TO DO LIST</h2>
+            </div>
+            <div>
+              <form onSubmit={formik.handleSubmit}>
+                <div className="OverViewAddListContainer">
+                  <TextField
+                    id="outlined-basic"
+                    label="Add List Here"
+                    variant="outlined"
+                    name="listtitle"
+                    className="OverviewAddListInput"
+                    {...formik.getFieldProps("listtitle")}
+                  />
+                  <button className="OverViewAddListButton" type="submit">
+                    Add{" "}
+                    <span>
+                      <FontAwesomeIcon icon={faAdd} />
+                    </span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );

@@ -6,6 +6,8 @@ import mysqlPool from "../server/database/connection.js";
 import router from "./router/router.js";
 import axios from "axios";
 import session from "express-session";
+import ENV from "../config.js";
+import Jwt from "jsonwebtoken";
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -28,6 +30,21 @@ app.get("/", (req, res) => {
 
 // api routes
 app.use("/api", router);
+
+app.use(function (req, res, next) {
+  Jwt.verify(
+    req.sessionID["token"],
+    ENV.JWT_SECRET,
+    function (err, decodedToken) {
+      if (err) {
+        console.log("error in server js file ", err);
+      } else {
+        req.id = decodedToken.id;
+        next();
+      }
+    }
+  );
+});
 
 app.post("/api/verify-recaptcha", async (req, res) => {
   const { recaptchaToken } = req.body;

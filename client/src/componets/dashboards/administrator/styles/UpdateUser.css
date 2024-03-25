@@ -17,7 +17,7 @@
 .reportContainer {
   height: 100vh;
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 350px 1fr;
   grid-template-rows: 0 1fr;
   grid-template-areas:
     "side main"
@@ -25,12 +25,19 @@
 }
 
 .side {
-  background-color: var(--dashboardBg);
+  background-color: rgb(195, 196, 202, 0.5);
   grid-area: side;
-  width: 300px;
+  width: 350px;
   display: block;
+  color: #000;
 }
-
+.layoutContainer {
+  background-color: #f6f7f9;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
+  height: 95%;
+  margin: 25px 0 0 25px;
+}
 .mainUpdateContainer {
   background-color: rgb(195, 196, 202, 0.5);
   grid-area: main;
@@ -65,7 +72,7 @@
 }
 .sideBarProfile {
   display: flex;
-  color: white;
+  color: black;
   align-items: flex-start;
   justify-content: space-evenly;
   text-align: center;
@@ -85,6 +92,7 @@
 .sideBarUnorderList {
   height: 100%;
   margin-top: 61px;
+  color: #000;
 }
 .sideBarUnorderList .sideBarLinks {
   width: 100%;
@@ -94,12 +102,17 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: black;
   gap: 14px;
+  /* transition: 300ms ease-in-out; */
 }
 .sideBarLinks:hover {
   cursor: pointer;
+  /* color: var(--navBarBg); */
   background-color: #293846;
+  background-color: rgb(195, 196, 202, 0.5);
+  border-left: 4px solid var(--mainColor);
+  scale: 0.92;
 }
 /* .sideBarLinks #icons {
   flex: 10%;

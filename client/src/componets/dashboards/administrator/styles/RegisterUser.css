@@ -25,7 +25,7 @@
 }
 
 .side {
-  background-color: var(--dashboardBg);
+  background-color: var(--navBarBg);
   grid-area: side;
   width: 300px;
   display: block;
@@ -285,7 +285,7 @@
 .RegisterProfileImage {
   background-color: var(--mainColor);
   color: var(--navBarBg);
-  width: 25%;
+  width: 30%;
   height: auto;
   border-radius: 50%;
 }

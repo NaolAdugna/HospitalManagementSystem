@@ -102,8 +102,7 @@ const router = createBrowserRouter([
     path: "/admin",
     element: (
       <AdminAuthorize>
-        {" "}
-        <RegisterUser />{" "}
+        <OverviewAdmin />
       </AdminAuthorize>
     ),
   },
@@ -112,7 +111,7 @@ const router = createBrowserRouter([
     element: (
       <AdminAuthorize>
         {" "}
-        <OverviewAdmin />
+        <RegisterUser />{" "}
       </AdminAuthorize>
     ),
   },

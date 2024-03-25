@@ -25,7 +25,6 @@ export async function userExistanceChecker(username) {
   try {
     if (username) {
       const { status } = await axios.post("/api/user-existance", { username });
-      console.log(status);
 
       return Promise.resolve({ status });
     }
@@ -190,5 +189,15 @@ export async function resetPassword({ username, password }) {
   } catch (error) {
     console.error("error occured here in resetpassword checker", error);
     return Promise.reject({ error });
+  }
+}
+
+// creating to do lists
+export async function CreateListChecker({ id, listtitle }) {
+  try {
+    const response = await axios.post("/api/create-lists", { id, listtitle });
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
   }
 }

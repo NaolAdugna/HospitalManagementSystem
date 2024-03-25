@@ -186,3 +186,37 @@ export const UpdateUserStaffPassword = async (username, password) => {
     throw error;
   }
 };
+
+export const findList = async (id, listtitle) => {
+  try {
+    const sql = "SELECT * FROM lists WHERE user_id = ? AND title = ? ";
+    const [list] = await mysqlPool.execute(sql, [id, listtitle]);
+
+    if (list.length === 0) {
+      return false;
+    } else {
+      return list;
+    }
+  } catch (error) {
+    console.error("Error in find lists:", error.response.data);
+    throw error;
+  }
+};
+
+export const createList = async (id, listtitle) => {
+  try {
+    let sql = `INSERT INTO lists(
+        title,
+        created_at,
+        user_id
+    ) VALUES (
+      '${listtitle}',
+      CURRENT_TIMESTAMP,
+      '${id}'
+    )`;
+    let [list] = await mysqlPool.execute(sql);
+    return list;
+  } catch (error) {
+    console.error("Error occurred while creating: ", error);
+  }
+};

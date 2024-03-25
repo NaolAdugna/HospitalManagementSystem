@@ -86,4 +86,7 @@ router
     adminController.UserExistance,
     adminController.resetPasswordAdminController
   );
+
+router.route("/create-lists").post(Auth, adminController.CreateList);
+router.route("/token").post(Auth, adminController.Retrieval);
 export default router;

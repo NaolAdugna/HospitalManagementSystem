@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import otpGenerator from "otp-generator";
 import ENV from "../../config.js";
-
 import {
   findEmail,
   findUser,
@@ -17,6 +16,8 @@ import {
   GetRole,
   ReturnEmail,
   UpdateUserStaffPassword,
+  findList,
+  createList,
 } from "../modelSchema/UserCreation.model.js";
 
 export async function register(req, res) {
@@ -103,52 +104,87 @@ export async function ReturnEmailController(req, res) {
 export async function loginUser(req, res) {
   const { username, password } = req.body;
 
-  // const username = req.session.usernameForReset;
-
   try {
-    findUser(username)
-      .then((user) => {
-        if (!user) {
-          return res.status(404).send({ error: "Username not Found" });
-        }
+    const user = await findUser(username);
 
-        bcrypt
-          .compare(password, user[0].password)
-          .then((passwordCheck) => {
-            if (!passwordCheck) {
-              return res.status(400).send({ error: "Password does not Match" });
-            }
+    if (!user) {
+      return res.status(404).send({ error: "Username not found" });
+    }
 
-            // create jwt token
-            const token = jwt.sign(
-              {
-                id: user[0].id,
-                username: user[0].username,
-              },
-              ENV.JWT_SECRET,
-              { expiresIn: "24h" }
-            );
+    const passwordCheck = await bcrypt.compare(password, user[0].password);
 
-            return res.status(200).send({
-              msg: "Login Successful...!",
-              username: user[0].username,
-              roles: user[0].role,
-              id: user[0].id,
-              token,
-            });
-          })
-          .catch((error) => {
-            return res.status(500).send({ error: "Error comparing passwords" });
-          });
-      })
-      .catch((error) => {
-        return res.status(500).send({ error: "Error finding user" });
-      });
+    if (!passwordCheck) {
+      return res.status(400).send({ error: "Password does not match" });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user[0].id,
+        username: user[0].username,
+      },
+      ENV.JWT_SECRET,
+      { expiresIn: "24h" }
+    );
+
+    return res.status(200).send({
+      msg: "Login Successful",
+      username: user[0].username,
+      roles: user[0].role,
+      id: user[0].id,
+      token,
+    });
   } catch (error) {
     console.error("Error occurred:", error);
-    return res.status(500).send({ error });
+    return res.status(500).send({ error: "Internal server error" });
   }
 }
+// export async function loginUser(req, res) {
+//   const { username, password } = req.body;
+
+//   try {
+//     findUser(username)
+//       .then((user) => {
+//         if (!user) {
+//           return res.status(404).send({ error: "Username not Found" });
+//         }
+
+//         bcrypt
+//           .compare(password, user[0].password)
+//           .then((passwordCheck) => {
+//             if (!passwordCheck) {
+//               return res.status(400).send({ error: "Password does not Match" });
+//             }
+
+//             // create jwt token
+//             const token = jwt.sign(
+//               {
+//                 id: user[0].id,
+//                 username: user[0].username,
+//               },
+//               ENV.JWT_SECRET,
+//               { expiresIn: "24h" }
+//             );
+
+//             return res.status(200).send({
+//               msg: "Login Successful...!",
+//               username: user[0].username,
+//               roles: user[0].role,
+//               id: user[0].id,
+//               token,
+//             });
+//           })
+//           .catch((error) => {
+//             return res.status(500).send({ error: "Error comparing passwords" });
+//           });
+//       })
+//       .catch((error) => {
+//         return res.status(500).send({ error: "Error finding user" });
+//       });
+//   } catch (error) {
+//     console.error("Error occurred:", error);
+//     return res.status(500).send({ error });
+//   }
+// }
 
 export async function updateUserStaffProfile(req, res) {
   try {
@@ -331,5 +367,39 @@ export async function resetPasswordAdminController(req, res) {
   } catch (error) {
     console.error("Error occurred:", error);
     return res.status(401).send({ error: "Unauthorized" });
+  }
+}
+
+export async function CreateList(req, res) {
+  try {
+    const { listtitle } = req.body;
+    console.log("title from controller is ", listtitle);
+    const { id } = req.user;
+    console.log("id from controller is ", id);
+    const existingList = await findList(id, listtitle);
+
+    if (existingList) {
+      return res
+        .status(400)
+        .send({ error: "This list exists, please add another" });
+    }
+
+    const response = await createList(id, listtitle);
+    return res.status(201).send({ msg: "List created successfully" });
+  } catch (error) {
+    return res.status(500).send({ error: "Internal server error", error });
+  }
+}
+
+export async function Retrieval(req, res) {
+  try {
+    const { id } = req.user;
+    console.log("token retrieval");
+    if (id) {
+      console.log("id found ", id);
+    }
+    return id;
+  } catch (error) {
+    console.log(error);
   }
 }
