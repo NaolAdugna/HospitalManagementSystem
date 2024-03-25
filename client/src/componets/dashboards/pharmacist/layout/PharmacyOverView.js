@@ -10,7 +10,7 @@ import {
   faRepublican,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function PharmacyOverView() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -66,13 +66,13 @@ export default function PharmacyOverView() {
                 </div>
               </div>
               <div className="sideBarLinksContainer">
-                <ul className="sideBarUnorderList">
-                  <li className="sideBarLinks">
+                <ul className="PharmacysideBarUnorderList">
+                  <NavLink to="/pharmacy" className="PharmacysideBarLinks">
                     <div id="icons">
                       <FontAwesomeIcon icon={faEnvelope} />
                     </div>
                     <div>Dashboard</div>
-                  </li>
+                  </NavLink>
                 </ul>
               </div>
             </div>

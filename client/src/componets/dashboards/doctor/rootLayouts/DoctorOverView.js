@@ -1,19 +1,14 @@
 import React, { useId, useState } from "react";
-import "../styles/ReceptionOverView.css";
+import "../styles/Overview.css";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import {
-  faEnvelope,
-  faChartSimple,
-  faRepublican,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faBars } from "@fortawesome/free-solid-svg-icons";
 
 import { NavLink, useNavigate } from "react-router-dom";
 
-export default function ReceptionOverView() {
+export default function DoctorOverView() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300);
 
@@ -72,8 +67,8 @@ export default function ReceptionOverView() {
                 </div>
               </div>
               <div className="sideBarLinksContainer">
-                <ul className="ReceptionsideBarUnorderList">
-                  <NavLink to="/reception" className="ReceptionsideBarLinks">
+                <ul className="DoctorsideBarUnorderList">
+                  <NavLink to="/doctor" className="DoctorsideBarLinks">
                     <div id="icons">
                       <FontAwesomeIcon icon={faEnvelope} />
                     </div>
@@ -113,7 +108,7 @@ export default function ReceptionOverView() {
         </div>
         <div className="card mainReceptionContainer">
           <div>
-            <h2>ReceptionCardNavBarContainer</h2>
+            <h2>DoctorsideBarUnorderList</h2>
           </div>
         </div>
       </main>

@@ -36,7 +36,7 @@ import LabOverView from "./componets/dashboards/labTechnician/layout/LabOverView
 import PatientOverView from "./componets/dashboards/patient/layout/PatientOverView";
 import PharmacyOverView from "./componets/dashboards/pharmacist/layout/PharmacyOverView";
 import ReceptionOverView from "./componets/dashboards/reception/layout/ReceptionOverView";
-import DoctorOverView from "./componets/dashboards/doctor/Doctor";
+import DoctorOverView from "./componets/dashboards/doctor/rootLayouts/DoctorOverView";
 
 // root routers
 const router = createBrowserRouter([

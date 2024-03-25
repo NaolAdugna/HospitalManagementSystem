@@ -9,7 +9,7 @@ import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, NavLink } from "react-router-dom";
 
 import {
   faEnvelope,
@@ -47,7 +47,7 @@ export default function UpdateUser() {
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
-    setSidebarWidth(showSidebar ? 0 : 300); // Toggle width
+    setSidebarWidth(showSidebar ? 0 : 400); // Toggle width
   };
 
   const styles = {
@@ -134,39 +134,30 @@ export default function UpdateUser() {
               </div>
               <div className="sideBarLinksContainer">
                 <ul className="sideBarUnorderList">
-                  <li
-                    className="sideBarLinks"
-                    onClick={() => {
-                      window.location.pathname = "/admin";
-                    }}
-                  >
-                    <div id="icons">
-                      <FontAwesomeIcon icon={faEnvelope} />
-                    </div>
-                    <div>Dashboard</div>
-                  </li>
-                  <li
-                    className="sideBarLinks"
-                    onClick={() => {
-                      window.location.pathname = "/admin-manage-users";
-                    }}
-                  >
-                    <div id="icons">
-                      <FontAwesomeIcon icon={faChartSimple} />
-                    </div>
-                    <div>Manage Users</div>
-                  </li>
-                  <li
-                    className="sideBarLinks"
-                    onClick={() => {
-                      window.location.pathname = "/admin-overview";
-                    }}
-                  >
-                    <div id="icons">
-                      <FontAwesomeIcon icon={faRepublican} />
-                    </div>
-                    <div>Overview</div>
-                  </li>
+                  <NavLink to="/admin">
+                    <li className="sideBarLinks">
+                      <div id="icons">
+                        <FontAwesomeIcon icon={faEnvelope} />
+                      </div>
+                      <div>Dashboard</div>
+                    </li>
+                  </NavLink>
+                  <NavLink to="/admin-manage-users">
+                    <li className="sideBarLinks">
+                      <div id="icons">
+                        <FontAwesomeIcon icon={faChartSimple} />
+                      </div>
+                      <div>Manage Users</div>
+                    </li>
+                  </NavLink>
+                  <NavLink to="/admin-overview">
+                    <li className="sideBarLinks">
+                      <div id="icons">
+                        <FontAwesomeIcon icon={faRepublican} />
+                      </div>
+                      <div>Overview</div>
+                    </li>
+                  </NavLink>
                 </ul>
               </div>
             </div>

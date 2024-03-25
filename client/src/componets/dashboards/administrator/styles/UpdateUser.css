@@ -17,7 +17,7 @@
 .reportContainer {
   height: 100vh;
   display: grid;
-  grid-template-columns: 350px 1fr;
+  grid-template-columns: 390px 1fr;
   grid-template-rows: 0 1fr;
   grid-template-areas:
     "side main"
@@ -27,7 +27,7 @@
 .side {
   background-color: rgb(195, 196, 202, 0.5);
   grid-area: side;
-  width: 350px;
+  width: 390px;
   display: block;
   color: #000;
 }
@@ -41,14 +41,14 @@
 .mainUpdateContainer {
   background-color: rgb(195, 196, 202, 0.5);
   grid-area: main;
-  padding: 25px;
+  padding: 15px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 70px 1fr;
   grid-template-areas:
     "c1 c1"
     "c2 c2";
-  gap: 15px;
+  gap: 5px;
 }
 
 .card {
@@ -148,10 +148,13 @@
   background-color: transparent;
   padding: 8px 18px;
   border: 0.5px solid var(--mainColor);
+  transition: 300ms all;
 }
 .navBarLogoutContainer button:hover {
   cursor: pointer;
   overflow: hidden;
+  color: var(--navBarBg);
+  background-color: var(--mainColor);
 }
 .UpdatenavBarContainer {
   display: flex;
@@ -307,7 +310,7 @@
 .updateProfileImage {
   background-color: var(--mainColor);
   color: var(--navBarBg);
-  width: 25%;
+  width: 30%;
   height: auto;
   border-radius: 50%;
 }

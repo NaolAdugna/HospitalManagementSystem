@@ -4,7 +4,7 @@ import ENV from "../../config.js";
 /** auth middleware */
 export default async function Auth(req, res, next) {
   try {
-    const token = req.auth.bearer.split(" ")[1];
+    const token = req.headers.authorization.split(" ")[1];
 
     const decodedToken = await jwt.verify(token, ENV.JWT_SECRET);
     console.log("Decoded Token:", decodedToken);

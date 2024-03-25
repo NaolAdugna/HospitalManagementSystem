@@ -12,7 +12,7 @@ import {
   faBars,
   faAdd,
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -160,40 +160,31 @@ export default function OverviewAdmin() {
                 </div>
               </div>
               <div className="sideBarLinksContainer">
-                <ul className="sideBarUnorderList">
-                  <li
-                    className="sideBarLinks"
-                    onClick={() => {
-                      window.location.pathname = "/admin";
-                    }}
-                  >
+                <ul className="OverViewsideBarUnorderList">
+                  <NavLink to="/admin" className="OverViewsideBarLinks">
                     <div id="icons">
                       <FontAwesomeIcon icon={faEnvelope} />
                     </div>
                     <div>Dashboard</div>
-                  </li>
-                  <li
-                    className="sideBarLinks"
-                    onClick={() => {
-                      window.location.pathname = "/admin-manage-users";
-                    }}
+                  </NavLink>
+                  <NavLink
+                    to="/admin-manage-users"
+                    className="OverViewsideBarLinks"
                   >
                     <div id="icons">
                       <FontAwesomeIcon icon={faChartSimple} />
                     </div>
                     <div>Manage Users</div>
-                  </li>
-                  <li
-                    className="sideBarLinks"
-                    onClick={() => {
-                      window.location.pathname = "/admin-overview";
-                    }}
+                  </NavLink>
+                  <NavLink
+                    to="/admin-overview"
+                    className="OverViewsideBarLinks"
                   >
                     <div id="icons">
                       <FontAwesomeIcon icon={faRepublican} />
                     </div>
                     <div>Overview</div>
-                  </li>
+                  </NavLink>
                 </ul>
               </div>
             </div>

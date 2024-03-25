@@ -4,6 +4,34 @@ root {
   --navBarBg: #fff;
 }
 
+.LabsideBarUnorderList {
+  height: 100%;
+  margin-top: 61px;
+}
+.LabsideBarUnorderList a.active {
+  background-color: #293846;
+  background-color: rgb(195, 196, 202, 0.5);
+  border-left: 4px solid var(--mainColor);
+}
+.LabsideBarUnorderList .LabsideBarLinks {
+  width: 100%;
+  height: 43px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  gap: 14px;
+}
+.LabsideBarLinks:hover {
+  cursor: pointer;
+  background-color: #293846;
+  background-color: rgb(195, 196, 202, 0.5);
+  border-left: 4px solid var(--mainColor);
+  scale: 0.92;
+}
+
 .LabCardNavBarContainer {
   display: flex;
   align-items: center;
@@ -21,7 +49,7 @@ root {
 .LabProfileImage {
   background-color: var(--mainColor);
   color: var(--navBarBg);
-  width: 25%;
+  width: 30%;
   height: auto;
   border-radius: 50%;
 }

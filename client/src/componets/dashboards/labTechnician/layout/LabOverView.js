@@ -5,7 +5,7 @@ import "../style/LabOverView.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faEnvelope, faBars } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function LabOverView() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -61,13 +61,13 @@ export default function LabOverView() {
                 </div>
               </div>
               <div className="sideBarLinksContainer">
-                <ul className="sideBarUnorderList">
-                  <li className="sideBarLinks">
+                <ul className="LabsideBarUnorderList">
+                  <NavLink to="/labratory" className="LabsideBarLinks">
                     <div id="icons">
                       <FontAwesomeIcon icon={faEnvelope} />
                     </div>
                     <div>Dashboard</div>
-                  </li>
+                  </NavLink>
                 </ul>
               </div>
             </div>

@@ -19,7 +19,7 @@ import { useFormik } from "formik";
 import { registerdValidate } from "../../../../functions/validate";
 
 import { registerUser } from "../../../../functions/checker";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import {
   faEnvelope,
@@ -119,40 +119,31 @@ export default function RegisterUsers() {
                 </div>
               </div>
               <div className="sideBarLinksContainer">
-                <ul className="sideBarUnorderList">
-                  <li
-                    className="sideBarLinks"
-                    onClick={() => {
-                      window.location.pathname = "/admin";
-                    }}
-                  >
+                <ul className="RegistersideBarUnorderList">
+                  <NavLink to="/admin" className="RegistersideBarLinks">
                     <div id="icons">
                       <FontAwesomeIcon icon={faEnvelope} />
                     </div>
                     <div>Dashboard</div>
-                  </li>
-                  <li
-                    className="sideBarLinks"
-                    onClick={() => {
-                      window.location.pathname = "/admin-manage-users";
-                    }}
+                  </NavLink>
+                  <NavLink
+                    to="/admin-manage-users"
+                    className="RegistersideBarLinks"
                   >
                     <div id="icons">
                       <FontAwesomeIcon icon={faChartSimple} />
                     </div>
                     <div>Manage Users</div>
-                  </li>
-                  <li
-                    className="sideBarLinks"
-                    onClick={() => {
-                      window.location.pathname = "/admin-overview";
-                    }}
+                  </NavLink>
+                  <NavLink
+                    to="/admin-overview"
+                    className="RegistersideBarLinks"
                   >
                     <div id="icons">
                       <FontAwesomeIcon icon={faRepublican} />
                     </div>
                     <div>Overview</div>
-                  </li>
+                  </NavLink>
                 </ul>
               </div>
             </div>
