@@ -10,6 +10,9 @@ import {
   faRepublican,
   faAdd,
   faBars,
+  faListCheck,
+  faAddressBook,
+  faDashboard,
 } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -71,7 +74,7 @@ export default function ManageUsers() {
                 <ul className="ManagesideBarUnorderList">
                   <NavLink to="/admin" className="ManagesideBarLinks">
                     <div id="icons">
-                      <FontAwesomeIcon icon={faEnvelope} />
+                      <FontAwesomeIcon icon={faDashboard} />
                     </div>
                     <div>Dashboard</div>
                   </NavLink>
@@ -80,15 +83,15 @@ export default function ManageUsers() {
                     className="ManagesideBarLinks"
                   >
                     <div id="icons">
-                      <FontAwesomeIcon icon={faChartSimple} />
+                      <FontAwesomeIcon icon={faListCheck} />
                     </div>
                     <div>Manage Users</div>
                   </NavLink>
                   <NavLink to="/admin-overview" className="ManagesideBarLinks">
                     <div id="icons">
-                      <FontAwesomeIcon icon={faRepublican} />
+                      <FontAwesomeIcon icon={faAddressBook} />
                     </div>
-                    <div>Overview</div>
+                    <div>Register Users</div>
                   </NavLink>
                 </ul>
               </div>

@@ -26,6 +26,9 @@ import {
   faChartSimple,
   faRepublican,
   faUserShield,
+  faListCheck,
+  faAddressBook,
+  faDashboard,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function RegisterUsers() {
@@ -122,7 +125,7 @@ export default function RegisterUsers() {
                 <ul className="RegistersideBarUnorderList">
                   <NavLink to="/admin" className="RegistersideBarLinks">
                     <div id="icons">
-                      <FontAwesomeIcon icon={faEnvelope} />
+                      <FontAwesomeIcon icon={faDashboard} />
                     </div>
                     <div>Dashboard</div>
                   </NavLink>
@@ -131,7 +134,7 @@ export default function RegisterUsers() {
                     className="RegistersideBarLinks"
                   >
                     <div id="icons">
-                      <FontAwesomeIcon icon={faChartSimple} />
+                      <FontAwesomeIcon icon={faListCheck} />
                     </div>
                     <div>Manage Users</div>
                   </NavLink>
@@ -140,9 +143,9 @@ export default function RegisterUsers() {
                     className="RegistersideBarLinks"
                   >
                     <div id="icons">
-                      <FontAwesomeIcon icon={faRepublican} />
+                      <FontAwesomeIcon icon={faAddressBook} />
                     </div>
-                    <div>Overview</div>
+                    <div>Register Users</div>
                   </NavLink>
                 </ul>
               </div>

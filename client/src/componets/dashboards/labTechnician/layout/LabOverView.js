@@ -4,7 +4,7 @@ import "../style/LabOverView.css";
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faEnvelope, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faDashboard, faBars } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function LabOverView() {
@@ -64,7 +64,7 @@ export default function LabOverView() {
                 <ul className="LabsideBarUnorderList">
                   <NavLink to="/labratory" className="LabsideBarLinks">
                     <div id="icons">
-                      <FontAwesomeIcon icon={faEnvelope} />
+                      <FontAwesomeIcon icon={faDashboard} />
                     </div>
                     <div>Dashboard</div>
                   </NavLink>

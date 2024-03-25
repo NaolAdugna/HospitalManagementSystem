@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
   faEnvelope,
-  faChartSimple,
-  faRepublican,
+  faDashboard,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -69,7 +68,7 @@ export default function PharmacyOverView() {
                 <ul className="PharmacysideBarUnorderList">
                   <NavLink to="/pharmacy" className="PharmacysideBarLinks">
                     <div id="icons">
-                      <FontAwesomeIcon icon={faEnvelope} />
+                      <FontAwesomeIcon icon={faDashboard} />
                     </div>
                     <div>Dashboard</div>
                   </NavLink>

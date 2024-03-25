@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
   faEnvelope,
-  faChartSimple,
-  faRepublican,
+  faDashboard,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -75,7 +74,7 @@ export default function ReceptionOverView() {
                 <ul className="ReceptionsideBarUnorderList">
                   <NavLink to="/reception" className="ReceptionsideBarLinks">
                     <div id="icons">
-                      <FontAwesomeIcon icon={faEnvelope} />
+                      <FontAwesomeIcon icon={faDashboard} />
                     </div>
                     <div>Dashboard</div>
                   </NavLink>

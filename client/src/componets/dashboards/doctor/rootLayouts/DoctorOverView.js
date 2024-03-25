@@ -4,7 +4,11 @@ import "../styles/Overview.css";
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faEnvelope, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faBars,
+  faDashboard,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -70,7 +74,7 @@ export default function DoctorOverView() {
                 <ul className="DoctorsideBarUnorderList">
                   <NavLink to="/doctor" className="DoctorsideBarLinks">
                     <div id="icons">
-                      <FontAwesomeIcon icon={faEnvelope} />
+                      <FontAwesomeIcon icon={faDashboard} />
                     </div>
                     <div>Dashboard</div>
                   </NavLink>
