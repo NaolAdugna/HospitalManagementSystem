@@ -3,7 +3,12 @@ import "./index.css";
 import App from "./App";
 import FadeLoader from "react-spinners/FadeLoader";
 import { createRoot } from "react-dom/client";
-
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+const queryClient = new QueryClient();
 function RootComponent() {
   const [loading, setLoading] = useState(false);
   const color = "#14ac5f";
@@ -34,7 +39,9 @@ function RootComponent() {
           />
         </div>
       ) : (
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       )}
     </div>
   );

@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import otpGenerator from "otp-generator";
 import ENV from "../../config.js";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import {
   findEmail,
   findUser,
@@ -321,8 +322,9 @@ export async function ReturnUserRole(req, res) {
 }
 export async function generateOTP(req, res) {
   req.app.locals.OTP = await otpGenerator.generate(6, {
-    lowerCaseAlphabets: false,
-    upperCaseAlphabets: false,
+    digits: true,
+    lowerCaseAlphabets: true,
+    upperCaseAlphabets: true,
     specialChars: false,
   });
   res.status(201).send({ code: req.app.locals.OTP });
@@ -401,5 +403,29 @@ export async function Retrieval(req, res) {
     return id;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function geminiAI(req, res) {
+  const genAI = new GoogleGenerativeAI(ENV.API_KEY);
+  try {
+    const { prompt } = req.body;
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+    const chat = model.startChat({
+      history: [],
+      generationConfig: {
+        maxOutputTokens: 500,
+      },
+    });
+
+    const result = await model.generateContent([prompt]);
+
+    const response = await result.response;
+    const text = response.text();
+    res.send(text);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Failed to generate content");
   }
 }

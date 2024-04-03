@@ -89,4 +89,6 @@ router
 
 router.route("/create-lists").post(Auth, adminController.CreateList);
 router.route("/token").post(Auth, adminController.Retrieval);
+
+router.route("/gemini").post(adminController.geminiAI);
 export default router;

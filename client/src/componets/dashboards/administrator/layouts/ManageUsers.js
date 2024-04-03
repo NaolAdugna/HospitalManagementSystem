@@ -131,7 +131,7 @@ export default function ManageUsers() {
             <div className="addUserContainer">
               <button
                 onClick={() => {
-                  window.location.pathname = "/admin";
+                  window.location.pathname = "/admin-overview";
                 }}
               >
                 Add User{" "}

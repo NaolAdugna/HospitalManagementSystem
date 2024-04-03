@@ -10,5 +10,6 @@ const config = {
   DB_USER: "root",
   DB_NAME: "hospitalmanagementsystem",
   DB_PASSWORD: "naoladugna@MYSQL@123",
+  API_KEY: "AIzaSyAOCLhOVfnEUQD1RjarL0xHljhoNOh6zrU",
 };
 export default config;

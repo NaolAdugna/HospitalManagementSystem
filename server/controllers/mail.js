@@ -34,7 +34,7 @@ export const registerMail = async (req, res) => {
         text ||
         "Welcome to Gebre Tsadik Shawo General Hospital We're very excited to have you on board.",
       outro:
-        "Need help, or have questions? Just reply to this email, we'd love to help.",
+        "Welcome to Gebre Tsadik Shawo General Hospital We're very excited to have you on board. Need help, or have questions? Just reply to this email, we'd love to help.",
     },
   };
 
