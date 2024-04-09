@@ -19,6 +19,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import Header from "./layouts/Header";
+import Footer from "./layouts/Footer";
 
 export default function Home() {
   return (
@@ -128,6 +129,7 @@ export default function Home() {
           {/* Our Services Ends */}
         </main>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap");
 :root {
   --mainColor: #14ac5f;
+
   --navBarBg: #fff;
 }
 
@@ -13,7 +14,522 @@
   padding: 0;
 }
 /* About Us Start */
+.aboutHeroContainer {
+  width: 100%;
+  height: 740px;
+  background: url("../assets/images/HMBG\ 1.webp");
+  background-color: var(--navBarBg);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-left: 10%;
+}
+.aboutHeroContainer h1 {
+  font-size: 62px;
+  font-weight: bolder;
+  color: white;
+}
+.aboutUsHeroImage {
+  width: 100%;
+  height: 100%;
+  background-color: #14ac5f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.aboutHeroContentContainer {
+  position: absolute;
+  left: 10%;
+  top: 81%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+  margin: auto;
+}
+.aboutOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.aboutHeroContent {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  background-color: var(--navBarBg);
+  border: none;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  margin-right: 16px;
+  transition: 300ms all;
+}
+.aboutHeroContent:hover {
+  background-color: var(--navBarBg);
+  box-shadow: none;
+  scale: 0.98;
+  border: 0.5px solid var(--mainColor);
+}
+.aboutHeroContentIcon {
+  font-size: 29px;
+  margin-right: 11px;
+  color: var(--mainColor);
+}
 
+.aboutTextSectionContianer {
+  padding-top: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+}
+.aboutTextContentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin-right: 32px;
+}
+
+.aboutTextContentContainer h1 {
+  text-align: center;
+  font-size: 48px;
+  text-decoration: underline;
+}
+.aboutTextContentContainer p {
+  text-align: justify;
+  padding: 24px 0px 24px 82px;
+  line-height: 28px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.9);
+}
+.aboutGallerySectionContainer {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  width: 50%;
+  margin: auto;
+}
+.aboutFAQContainer {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.AboutCTA {
+  margin-top: 90px;
+}
+
+.aboutCTAContainer {
+  width: 50%;
+  margin: auto;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 0.5px solid #14ac5f;
+  background-color: aliceblue;
+}
+.aboutCTAImageContainer {
+  position: relative;
+}
+.aboutCTAImage {
+  position: absolute;
+  bottom: -100px;
+}
+.aboutCTATextContent {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-evenly;
+}
+.aboutCTATextContent p {
+  font-size: 17px;
+  text-align: justify;
+  padding: 8px 0;
+}
+.aboutCTATextContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: 100%;
+  justify-content: space-between;
+  gap: 8px;
+  float: right;
+  padding: 10px;
+
+  width: 70%;
+}
+.aboutCTATextContainer a {
+  background-color: var(--mainColor);
+  border: none;
+  padding: 9px 19px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--navBarBg);
+  transition: 300ms all;
+}
+.aboutCTATextContainer a:hover {
+  cursor: pointer;
+  filter: drop-shadow(12px 13px 13px rgba(0, 0, 0, 0.2));
+}
 /* About Us End */
 /* Media Queries Start */
+@media (max-width: 320px) {
+  .aboutHeroContainer {
+    width: 100%;
+    height: 740px;
+    background: url("../assets/images/HMBG\ 1.webp");
+    background-color: var(--navBarBg);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 10%;
+  }
+  .aboutHeroContainer h1 {
+    font-size: 62px;
+    font-weight: bolder;
+    color: white;
+  }
+  .aboutHeroContainer {
+    height: 576px;
+    padding-left: 0%;
+  }
+  .aboutHeroContainer h1 {
+    font-size: 32px;
+  }
+  .aboutOverlay {
+    height: 100%;
+  }
+  .aboutHeroContentContainer {
+    flex-direction: column;
+    left: 0%;
+    width: 100%;
+  }
+  .aboutHeroContent {
+    padding: 22px 0px;
+    margin-bottom: 8px;
+  }
+  .aboutHeroContentIcon {
+    margin-left: 11px;
+  }
+  .aboutTextSectionContianer {
+    padding-top: 532px;
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+  .aboutTextContentContainer {
+    flex-direction: column;
+    width: 94%;
+    margin-right: 0px;
+  }
+
+  .aboutTextContentContainer h1 {
+    font-size: 41px;
+  }
+  .aboutTextContentContainer p {
+    padding: 24px 0px 24px 0px;
+  }
+  .aboutGallerySectionContainer {
+    width: 96%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .aboutFAQContainer {
+    width: 94%;
+  }
+  .aboutFAQContainer {
+    width: 94%;
+  }
+  .AboutCTA {
+    margin-top: 40px;
+  }
+
+  .aboutCTAContainer {
+    width: 94%;
+    display: flex;
+    flex-direction: column;
+  }
+  .aboutCTAImage {
+    position: absolute;
+    bottom: -200px;
+    display: none;
+  }
+  .aboutCTATextContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-evenly;
+  }
+  .aboutCTATextContent p {
+    font-size: 17px;
+    text-align: justify;
+    padding: 8px 0;
+  }
+  .aboutCTATextContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    height: 100%;
+    justify-content: space-between;
+    gap: 8px;
+    float: right;
+    padding: 0px;
+
+    width: 90%;
+  }
+  .aboutCTATextContainer a {
+    background-color: var(--mainColor);
+    border: none;
+    padding: 9px 19px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--navBarBg);
+    transition: 300ms all;
+  }
+}
+@media (min-width: 321px) and (max-width: 640px) {
+  .aboutHeroContainer {
+    width: 100%;
+    height: 740px;
+    background: url("../assets/images/HMBG\ 1.webp");
+    background-color: var(--navBarBg);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 10%;
+  }
+  .aboutHeroContainer h1 {
+    font-size: 62px;
+    font-weight: bolder;
+    color: white;
+  }
+  .aboutHeroContainer {
+    height: 576px;
+    padding-left: 0%;
+  }
+  .aboutHeroContainer h1 {
+    font-size: 32px;
+  }
+  .aboutOverlay {
+    height: 70.5%;
+  }
+  .aboutHeroContentContainer {
+    flex-direction: column;
+    top: 66%;
+    left: 0%;
+    width: 100%;
+  }
+  .aboutHeroContent {
+    padding: 22px 0px;
+    margin-bottom: 8px;
+  }
+  .aboutHeroContentIcon {
+    margin-left: 11px;
+  }
+  .aboutTextSectionContianer {
+    padding-top: 440px;
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+  .aboutTextContentContainer {
+    flex-direction: column;
+    width: 94%;
+    margin-right: 0px;
+  }
+
+  .aboutTextContentContainer h1 {
+    font-size: 41px;
+  }
+  .aboutTextContentContainer p {
+    padding: 24px 0px 24px 0px;
+  }
+  .aboutGallerySectionContainer {
+    width: 96%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .aboutFAQContainer {
+    width: 94%;
+  }
+  .aboutFAQContainer {
+    width: 94%;
+  }
+  .AboutCTA {
+    margin-top: 40px;
+  }
+
+  .aboutCTAContainer {
+    width: 94%;
+    display: flex;
+    flex-direction: column;
+  }
+  .aboutCTAImage {
+    position: absolute;
+    bottom: -200px;
+    display: none;
+  }
+  .aboutCTATextContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-evenly;
+  }
+  .aboutCTATextContent p {
+    font-size: 17px;
+    text-align: justify;
+    padding: 8px 0;
+  }
+  .aboutCTATextContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    height: 100%;
+    justify-content: space-between;
+    gap: 8px;
+    float: right;
+    padding: 0px;
+
+    width: 90%;
+  }
+  .aboutCTATextContainer a {
+    background-color: var(--mainColor);
+    border: none;
+    padding: 9px 19px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--navBarBg);
+    transition: 300ms all;
+  }
+}
+@media (min-width: 641px) and (max-width: 1024px) {
+  .aboutHeroContainer {
+    width: 100%;
+    height: 740px;
+    background: url("../assets/images/HMBG\ 1.webp");
+    background-color: var(--navBarBg);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 10%;
+  }
+  .aboutHeroContainer h1 {
+    font-size: 62px;
+    font-weight: bolder;
+    color: white;
+  }
+  .aboutHeroContainer {
+    height: 576px;
+    padding-left: 0%;
+  }
+  .aboutHeroContainer h1 {
+    font-size: 32px;
+  }
+  .aboutOverlay {
+    height: 64.5%;
+  }
+  .aboutHeroContentContainer {
+    /* flex-direction: column; */
+    top: 59%;
+    left: 0%;
+    width: 100%;
+  }
+  .aboutHeroContent {
+    padding: 22px 0px;
+    margin-bottom: 8px;
+  }
+  .aboutHeroContentIcon {
+    margin-left: 11px;
+  }
+  .aboutTextSectionContianer {
+    padding-top: 200px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .aboutTextContentContainer {
+    flex-direction: column;
+    width: 94%;
+    margin-right: 0px;
+  }
+
+  .aboutTextContentContainer h1 {
+    font-size: 41px;
+  }
+  .aboutTextContentContainer p {
+    padding: 24px 0px 24px 0px;
+  }
+  .aboutGallerySectionContainer {
+    width: 96%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .aboutFAQContainer {
+    width: 94%;
+  }
+  .aboutFAQContainer {
+    width: 94%;
+  }
+  .AboutCTA {
+    margin-top: 90px;
+  }
+
+  .aboutCTAContainer {
+    width: 94%;
+    display: flex;
+    /* flex-direction: column; */
+  }
+  .aboutCTAImage {
+    position: absolute;
+    bottom: -100px;
+    /* display: none; */
+  }
+  .aboutCTATextContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-evenly;
+  }
+  .aboutCTATextContent p {
+    font-size: 17px;
+    text-align: justify;
+    padding: 8px 0;
+  }
+  .aboutCTATextContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    height: 100%;
+    justify-content: space-between;
+    gap: 8px;
+    float: right;
+    padding: 0px;
+
+    width: 70%;
+  }
+  .aboutCTATextContainer a {
+    background-color: var(--mainColor);
+    border: none;
+    padding: 9px 19px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--navBarBg);
+    transition: 300ms all;
+  }
+}
 /* Media Queries Ends */

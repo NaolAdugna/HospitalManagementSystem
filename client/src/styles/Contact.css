@@ -12,207 +12,398 @@
   margin: 0;
   padding: 0;
 }
-body {
-  height: auto;
-  padding-top: 90px;
-}
-/* Header Start */
-.rootLayoutContainer {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
 
-header {
+/* service Start */
+.contactHeroContainer {
+  width: 100%;
+  height: 740px;
+  background: url("../assets/images/HMBG\ 1.webp");
+  background-color: var(--navBarBg);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-left: 10%;
+}
+.contactHeroContainer h1 {
+  font-size: 62px;
+  font-weight: bolder;
+  color: white;
+}
+.contacteOverlay {
+  position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  margin: 0;
-  z-index: 1001;
+  width: 100%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.contactTextFormContainer {
+  padding-top: 20px;
+  padding-bottom: 50px;
+  width: 60%;
   display: flex;
-  position: fixed;
-  align-items: center;
-  padding: 0px 16px 0 5%;
+  align-items: flex-start;
   justify-content: space-between;
-  background-color: var(--navBarBg);
+  margin: auto;
+  /* background-color: orange; */
 }
-#navBarLogo {
-  width: 140px;
-  height: auto;
+.contactGetInTouchContainer {
+  width: 50%;
+  margin-right: 30px;
 }
-.navBarLinksAndButtonContainer {
+.contactGetInTouchContainer h1 {
+  font-weight: bolder;
+  font-size: 32px;
+  border-bottom: 2px solid var(--mainColor);
+  padding-bottom: 17px;
+  margin-bottom: 19px;
+}
+.contactGetInTouchContainer hr {
+  font-weight: bold;
+  font-size: 3px;
+  margin-bottom: 17px;
+  color: var(--mainColor);
+}
+.contactAddressContainer {
   display: flex;
-  align-items: center;
-  padding-right: 42px;
-  flex-direction: row;
-  justify-content: space-evenly;
+  align-items: start;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  background-color: aliceblue;
+  padding: 14px 0;
 }
-header nav a {
-  color: #000;
-  font-size: 16px;
-  font-weight: 900;
-  margin-right: 32px;
-  transition: 100ms ease-in-out;
-}
-header nav a:hover {
-  font-weight: 900;
-  padding-bottom: 4px;
-  transform: scaleY(1.1);
+.contactIcon {
+  font-size: 32px;
   color: var(--mainColor);
-  border-bottom: 1px solid var(--mainColor);
+  margin-right: 18px;
 }
-header nav a:last-child {
-  margin-right: 56px;
+#addressIcon {
+  margin-right: 28px;
 }
-header nav a.active {
-  font-weight: 900;
+.contactEmailContainer {
+  display: flex;
+  align-items: start;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  background-color: aliceblue;
+  padding: 14px 0;
+}
+.contactTelContainer {
+  display: flex;
+  align-items: start;
+  justify-content: flex-start;
+  background-color: aliceblue;
+  padding: 14px 0;
+  margin-bottom: 16px;
+}
+.contactinfo {
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+}
+.contactFormContainer {
+  width: 50%;
+  padding-bottom: 25px;
+  /* height: 430px; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* background-color: aliceblue; */
+  border: 1.8px solid rgb(209, 209, 209);
   color: var(--mainColor);
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--mainColor);
+  padding-top: 25px;
 }
-.loginButton {
-  font-weight: 600;
-  padding: 8px 23px;
-  border-radius: 10px;
-  color: var(--mainColor);
-  border: 2px solid var(--mainColor);
-  background-color: transparent;
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  margin-left: 25px;
+  margin-top: 25px;
+
+  width: 91%;
 }
-.loginButton:hover {
-  background-color: var(--mainColor);
-  color: white;
+.contactInput {
+  font-size: 15px;
+  width: 100%;
+  background: transparent;
+  border: 0.7px solid rgba(0, 0, 0, 0.4);
+  padding: 8px 17px;
+  outline: none;
+}
+.formButton {
   border: none;
-  transform: scale(1.03);
-  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.4));
+  font-size: 15px;
+  padding: 9px 18px;
+  background-color: var(--mainColor);
+  transition: 300ms all;
+  color: var(--navBarBg);
 }
-
-.navBarHamburgerIcon {
-  font-size: 26px;
-  display: none;
-  font-size: 600;
-}
-.navBarHamburgerIcon:hover {
+.formButton:hover {
   cursor: pointer;
+  filter: drop-shadow(6px 5px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* Header Endss */
+.contactMapContent {
+  width: 90%;
+  height: 60vh;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  margin: auto;
+}
+/* service Endss */
 
 /* Media Queries Start */
 
 @media (max-width: 320px) {
-  header {
-    padding: 0px 0px;
-    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+  .contactHeroContainer {
+    height: 570px;
+    padding-left: 0%;
   }
-  header nav {
+  .contactHeroContainer h1 {
+    font-size: 32px;
+  }
+  .contacteOverlay {
+    height: 100%;
+  }
+  .contactTextFormContainer {
+    padding-top: 20px;
+    padding-bottom: 50px;
+    width: 100%;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-around;
     flex-direction: column;
-  }
-  header nav > :not(:last-child) {
-    margin-bottom: 24px;
-  }
-  .navBarLinksAndButtonContainer {
-    position: fixed;
-    top: -110vh;
-    right: 10px;
-  }
-  .navBarLinksAndButtonContainer.active {
-    gap: 40px;
-    top: 78px;
-    right: 10px;
-    display: flex;
-    position: fixed;
-    transition: 500ms;
     align-items: flex-start;
-    flex-direction: column;
-    padding: 24px 32px 24px 8px;
-    justify-content: space-around;
-    background-color: var(--navBarBg);
-    border-top: 2px solid var(--mainColor);
+    justify-content: space-between;
+    margin: auto;
+    margin: auto;
   }
-  .navBarHamburgerIcon {
-    display: block;
-    padding-right: 18px;
+  .contactGetInTouchContainer {
+    width: 100%;
+    margin-right: 0px;
+  }
+  .contactGetInTouchContainer h1 {
+    font-size: 32px;
+    padding-bottom: 17px;
+    margin-bottom: 19px;
+  }
+  .contactGetInTouchContainer hr {
+    font-size: 3px;
+    margin-bottom: 17px;
+  }
+  .contactAddressContainer {
+    margin-bottom: 16px;
+    padding: 14px 0;
+  }
+  .contactIcon {
+    font-size: 22px;
+    margin-right: 8px;
+  }
+  #addressIcon {
+    margin-right: 16px;
+  }
+  .contactEmailContainer {
+    margin-bottom: 16px;
+    padding: 14px 0;
+    width: 100%;
+  }
+  .contactTelContainer {
+    padding: 14px 0;
+    margin-bottom: 15px;
+  }
+  .contactinfo {
+    gap: 4px;
+  }
+  .contactFormContainer {
+    width: 100%;
+    padding-bottom: 25px;
+    padding-top: 25px;
+  }
+  .formContainer {
+    margin-left: 15px;
+    margin-top: 15px;
+    width: 100%;
+  }
+  .contactInput {
+    font-size: 15px;
+    width: 100%;
+    padding: 8px 17px;
+  }
+  .formButton {
+    font-size: 15px;
+    padding: 9px 18px;
+  }
+  .contactMapContent {
+    width: 96%;
+    height: 30vh;
   }
 }
 
 @media (min-width: 321px) and (max-width: 640px) {
-  header {
-    padding: 0px 0px;
-    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+  .contacteOverlay {
+    height: 70%;
   }
-  header nav {
+  .contactHeroContainer {
+    height: 570px;
+    padding-left: 0%;
+  }
+  .contactHeroContainer h1 {
+    font-size: 32px;
+  }
+  .contactTextFormContainer {
+    padding-top: 20px;
+    padding-bottom: 50px;
+    width: 100%;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-around;
     flex-direction: column;
-  }
-  header nav > :not(:last-child) {
-    margin-bottom: 24px;
-  }
-  .navBarLinksAndButtonContainer {
-    position: fixed;
-    top: -110vh;
-    right: 10px;
-  }
-  .navBarLinksAndButtonContainer.active {
-    gap: 40px;
-    top: 78px;
-    right: 10px;
-    display: flex;
-    position: fixed;
-    transition: 500ms;
     align-items: flex-start;
-    flex-direction: column;
-    padding: 24px 32px 24px 8px;
-    justify-content: space-around;
-    background-color: var(--navBarBg);
-    border-top: 2px solid var(--mainColor);
+    justify-content: space-between;
+    margin: auto;
+    margin: auto;
   }
-  .navBarHamburgerIcon {
-    display: block;
-    padding-right: 18px;
+  .contactGetInTouchContainer {
+    width: 100%;
+    margin-right: 0px;
+  }
+  .contactGetInTouchContainer h1 {
+    font-size: 32px;
+    padding-bottom: 17px;
+    margin-bottom: 19px;
+  }
+  .contactGetInTouchContainer hr {
+    font-size: 3px;
+    margin-bottom: 17px;
+  }
+  .contactAddressContainer {
+    margin-bottom: 16px;
+    padding: 14px 0;
+  }
+  .contactIcon {
+    font-size: 22px;
+    margin-right: 8px;
+  }
+  #addressIcon {
+    margin-right: 16px;
+  }
+  .contactEmailContainer {
+    margin-bottom: 16px;
+    padding: 14px 0;
+    width: 100%;
+  }
+  .contactTelContainer {
+    padding: 14px 0;
+    margin-bottom: 15px;
+  }
+  .contactinfo {
+    gap: 4px;
+  }
+  .contactFormContainer {
+    width: 100%;
+    padding-bottom: 25px;
+    padding-top: 25px;
+  }
+  .formContainer {
+    margin-left: 15px;
+    margin-top: 15px;
+    width: 100%;
+  }
+  .contactInput {
+    font-size: 15px;
+    width: 100%;
+    padding: 8px 17px;
+  }
+  .formButton {
+    font-size: 15px;
+    padding: 9px 18px;
+  }
+  .contactMapContent {
+    width: 96%;
+    height: 30vh;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
-  header {
-    padding: 0px 24px;
-    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+  .contacteOverlay {
+    height: 71.5%;
   }
-  header nav {
+  .contactHeroContainer {
+    height: 570px;
+    padding-left: 0%;
+  }
+  .contactHeroContainer h1 {
+    font-size: 32px;
+  }
+  .contactTextFormContainer {
+    padding-top: 20px;
+    padding-bottom: 50px;
+    width: 100%;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-around;
     flex-direction: column;
-  }
-  header nav > :not(:last-child) {
-    margin-bottom: 24px;
-  }
-  .navBarLinksAndButtonContainer {
-    position: fixed;
-    top: -110vh;
-    right: 10px;
-  }
-  .navBarLinksAndButtonContainer.active {
-    gap: 40px;
-    top: 80px;
-    right: 10px;
-    display: flex;
-    position: fixed;
-    transition: 500ms;
     align-items: flex-start;
-    flex-direction: column;
-    padding: 24px 32px 24px 8px;
-    justify-content: space-around;
-    background-color: var(--navBarBg);
-    border-top: 2px solid var(--mainColor);
+    justify-content: space-between;
+    margin: auto;
+    margin: auto;
   }
-  .navBarHamburgerIcon {
-    display: block;
-    padding-right: 8px;
+  .contactGetInTouchContainer {
+    width: 100%;
+    margin-right: 0px;
+  }
+  .contactGetInTouchContainer h1 {
+    font-size: 32px;
+    padding-bottom: 17px;
+    margin-bottom: 19px;
+  }
+  .contactGetInTouchContainer hr {
+    font-size: 3px;
+    margin-bottom: 17px;
+  }
+  .contactAddressContainer {
+    margin-bottom: 16px;
+    padding: 14px 0;
+  }
+  .contactIcon {
+    font-size: 22px;
+    margin-right: 8px;
+  }
+  #addressIcon {
+    margin-right: 16px;
+  }
+  .contactEmailContainer {
+    margin-bottom: 16px;
+    padding: 14px 0;
+    width: 100%;
+  }
+  .contactTelContainer {
+    padding: 14px 0;
+    margin-bottom: 15px;
+  }
+  .contactinfo {
+    gap: 4px;
+  }
+  .contactFormContainer {
+    width: 100%;
+    padding-bottom: 25px;
+    padding-top: 25px;
+  }
+  .formContainer {
+    margin-left: 15px;
+    margin-top: 15px;
+    width: 100%;
+  }
+  .contactInput {
+    font-size: 15px;
+    width: 100%;
+    padding: 8px 17px;
+  }
+  .formButton {
+    font-size: 15px;
+    padding: 9px 18px;
+  }
+  .contactMapContent {
+    width: 96%;
+    height: 30vh;
   }
 }
 
