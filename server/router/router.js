@@ -91,4 +91,8 @@ router.route("/create-lists").post(Auth, adminController.CreateList);
 router.route("/token").post(Auth, adminController.Retrieval);
 
 router.route("/gemini").post(adminController.geminiAI);
+
+router
+  .route("/contact-send-message")
+  .post(adminController.contactSendMessageController);
 export default router;

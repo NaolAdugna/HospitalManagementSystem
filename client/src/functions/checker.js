@@ -201,3 +201,16 @@ export async function CreateListChecker({ id, listtitle }) {
     return Promise.reject(error);
   }
 }
+
+export async function sendContactMessage(credentials) {
+  try {
+    const {
+      data: { msg },
+      status,
+    } = await axios.post("/api/contact-send-message", credentials);
+
+    return Promise.resolve(msg);
+  } catch (error) {
+    console.log("error occured in contact send message ", error);
+  }
+}

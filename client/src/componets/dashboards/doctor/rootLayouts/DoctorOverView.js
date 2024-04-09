@@ -152,16 +152,9 @@ export default function DoctorOverView() {
             </span>
             <section>
               {mutation.isPending && (
-                <p>
+                <p className="geminiSkeleton">
                   {
-                    // <ScaleLoader
-                    //   color="#14ac5f"
-                    //   size="11"
-                    //   speedMultiplier="1"
-                    //   margin="4"
-                    //   style={{ float: "right" }}
-                    // />
-                    <Box sx={{ width: 1150 }}>
+                    <Box sx={{ width: "100%" }}>
                       <Skeleton animation="pulse" />
                       <Skeleton animation="pulse" />
                       <Skeleton animation="pulse" />

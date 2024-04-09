@@ -74,12 +74,8 @@ function emailVerify(error = [], values) {
 function usernameVerify(error = {}, values) {
   if (!values.username) {
     error.username = toast.error("Username required...");
-  } else if (values.username.includes(" ")) {
-    error.username = toast.error("Invalid Username");
   } else if (!values.password) {
     error.password = toast.error("Password required...");
-  } else if (values.password.includes(" ")) {
-    error.password = toast.error("Wrong Password...");
   }
 
   return error;

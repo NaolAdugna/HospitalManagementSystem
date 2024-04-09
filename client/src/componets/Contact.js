@@ -10,10 +10,38 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
 
-import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
+import toast, { Toaster } from "react-hot-toast";
+import { useFormik } from "formik";
+
+import { sendContactMessage } from "../functions/checker";
 
 export default function Contact() {
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+    //  validate: registerdValidate,
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: async (values, { resetForm }) => {
+      let registerPromise = sendContactMessage(values);
+      toast.promise(registerPromise, {
+        loading: "sending...",
+        success: "Message sent Successfully.",
+        error: "could not sent ",
+      });
+
+      registerPromise.then(function () {
+        // window.location.reload();
+        // values.name = "";
+        // values.email = "";
+        // values.message = "";
+        resetForm();
+      });
+    },
+  });
   return (
     <div className="homeContainer">
       <Header />
@@ -64,16 +92,19 @@ export default function Contact() {
               to connect and assist!
             </p>
             <div>
-              <form className="formContainer">
+              <form className="formContainer" onSubmit={formik.handleSubmit}>
+                <Toaster position="top-center" reverseOrder={false}></Toaster>
                 <input
                   type="text"
                   placeholder="Your Name"
                   className="contactInput"
+                  {...formik.getFieldProps("name")}
                 />
                 <input
                   type="email"
                   placeholder="Your Email"
                   className="contactInput"
+                  {...formik.getFieldProps("email")}
                 />
                 <textarea
                   type="email"
@@ -81,6 +112,7 @@ export default function Contact() {
                   className="contactInput"
                   style={{ resize: "none" }}
                   rows={5}
+                  {...formik.getFieldProps("message")}
                 />
                 <button type="submit" className="formButton">
                   Send Message

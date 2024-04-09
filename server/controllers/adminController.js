@@ -19,6 +19,7 @@ import {
   UpdateUserStaffPassword,
   findList,
   createList,
+  contactSendMessageMysql,
 } from "../modelSchema/UserCreation.model.js";
 
 export async function register(req, res) {
@@ -323,8 +324,8 @@ export async function ReturnUserRole(req, res) {
 export async function generateOTP(req, res) {
   req.app.locals.OTP = await otpGenerator.generate(6, {
     digits: true,
-    lowerCaseAlphabets: true,
-    upperCaseAlphabets: true,
+    lowerCaseAlphabets: false,
+    upperCaseAlphabets: false,
     specialChars: false,
   });
   res.status(201).send({ code: req.app.locals.OTP });
@@ -427,5 +428,29 @@ export async function geminiAI(req, res) {
   } catch (error) {
     console.log(error);
     res.status(500).send("Failed to generate content");
+  }
+}
+
+// export async function contactSendMessageController(req, res) {
+//   try {
+//     const { name, email, message } = req.body;
+//     const response = await contactSendMessageMysql(name, email, message);
+
+//     return res.status(201).send({ msg: "Message Sent successful" });
+//   } catch (error) {
+//     return res.status(500).send({ error: "Internal server error", error });
+//   }
+// }
+export async function contactSendMessageController(req, res) {
+  try {
+    const { name, email, message } = req.body;
+    if ((name, email, message)) {
+      const response = await contactSendMessageMysql(name, email, message);
+      return res.status(201).send({ msg: "Message Sent successfully" });
+    } else {
+      console.log("name is ", name, "email is ", email, "message ", message);
+    }
+  } catch (error) {
+    return res.status(500).send({ error: "Internal server error" });
   }
 }

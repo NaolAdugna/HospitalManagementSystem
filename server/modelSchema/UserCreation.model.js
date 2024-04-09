@@ -220,3 +220,23 @@ export const createList = async (id, listtitle) => {
     console.error("Error occurred while creating: ", error);
   }
 };
+
+export const contactSendMessageMysql = async (name, email, message) => {
+  try {
+    let sql = `INSERT INTO message(
+        name,
+        email,
+        message,
+        dateofmessagesent
+    ) VALUES (
+      '${name}',
+      '${email}',
+      '${message}',
+      CURRENT_TIMESTAMP
+      )`;
+    let [result] = await mysqlPool.execute(sql);
+    return result;
+  } catch (error) {
+    console.error("Error occurred while sending message: ", error);
+  }
+};
