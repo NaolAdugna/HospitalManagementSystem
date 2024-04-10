@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Home.css";
 
 import AboutImage from "../assets/images/about.webp";
@@ -21,7 +21,20 @@ import "swiper/css/pagination";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMedal,
+  faMoneyBill1Wave,
+  faUserTie,
+  faClock,
+} from "@fortawesome/free-solid-svg-icons";
+import { NavLink } from "react-router-dom";
+
+import CountUp from "react-countup";
+import ScrollTrigger from "react-scroll-trigger";
+
 export default function Home() {
+  const [counterOn, setCounterOn] = useState(false);
   return (
     <div className="homeBodyContainer">
       <Header />
@@ -90,14 +103,14 @@ export default function Home() {
           <h2 className="ourServicesTitle">
             OUR <span>SERVICES</span>
           </h2>
-          <div className="ourServiceParentContainer">
-            <div className="ourServiceContainer">
+          <div className="homeServiceParentContainer">
+            <div className="homeServiceContainer">
               {Data.HomeServiceData.map((item) => {
                 return (
                   <Card
                     sx={{ maxWidth: 380 }}
                     key={item.id}
-                    className="cardContainer"
+                    className="homeServiceCardContainer"
                   >
                     <CardActionArea>
                       <CardMedia
@@ -116,18 +129,131 @@ export default function Home() {
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                    <CardActions>
-                      <Button size="small" color="primary" to={item.url}>
-                        Learn more
-                      </Button>
-                    </CardActions>
                   </Card>
                 );
               })}
             </div>
+            <div className="homeServiceButtonContainer">
+              <NavLink to="/services" className="homeServicesButton">
+                View More Services
+              </NavLink>
+            </div>
           </div>
           {/* Our Services Ends */}
         </main>
+        <section className="homeWhyUsContainer">
+          <div className="homeWhyUsHeader">
+            <h1>
+              WHY <span style={{ color: "#14ac5f" }}> US? </span>
+            </h1>
+            <p style={{ textAlign: "center" }}>
+              Your Path to Exceptional Health Experiences
+            </p>
+          </div>
+          <div className="homeWhyUsFirst " id="homeWhyUsFirstId">
+            <div className="homeWhyUsFirstContent">
+              {" "}
+              <FontAwesomeIcon icon={faMedal} className="homeWhyUsIcon" />
+              <div className="homeWhyUsFirstHeader">
+                <h2>High Quality</h2>
+                <p>
+                  {" "}
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                  at scelerisque eros, id bibendum dui. Vestibulum aliquet
+                  cursus massa
+                </p>
+              </div>
+            </div>
+            <div className="homeWhyUsFirstContent">
+              <FontAwesomeIcon
+                icon={faMoneyBill1Wave}
+                className="homeWhyUsIcon"
+              />
+              <div className="homeWhyUsFirstHeader">
+                <h2>Cost Efficiency</h2>
+                <p>
+                  {" "}
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                  at scelerisque eros, id bibendum dui. Vestibulum aliquet
+                  cursus massa
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="homeWhyUsFirst">
+            <div className="homeWhyUsFirstContent">
+              {" "}
+              <FontAwesomeIcon icon={faUserTie} className="homeWhyUsIcon" />
+              <div className="homeWhyUsFirstHeader">
+                <h2>Expert Support</h2>
+                <p>
+                  {" "}
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                  at scelerisque eros, id bibendum dui. Vestibulum aliquet
+                  cursus massa
+                </p>
+              </div>
+            </div>
+            <div className="homeWhyUsFirstContent">
+              <FontAwesomeIcon icon={faClock} className="homeWhyUsIcon" />
+              <div className="homeWhyUsFirstHeader">
+                <h2>On-Time Delivery</h2>
+                <p>
+                  {" "}
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                  at scelerisque eros, id bibendum dui. Vestibulum aliquet
+                  cursus massa
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="homeCounterParentContainerSection">
+          <div className="homeCounterParentContainer">
+            <div style={{ textAlign: "center" }}>
+              <h1 className="homeCountTitle">
+                Some Count{" "}
+                <span style={{ color: "#14ac5f" }}>that Matters</span>{" "}
+              </h1>
+              <p>
+                We brings the best mind and talent to successfully drive service
+                innovations and transform your experience.
+              </p>
+            </div>
+            <div className="homeCountContainer">
+              {/* <div className="workPlaceCountContainer"> */}
+              {Data.HomeCountData.map((item) => {
+                return (
+                  <div className="homeCountContent" key={item.id}>
+                    <span>
+                      <ScrollTrigger
+                        onEnter={() => setCounterOn(true)}
+                        onExit={() => setCounterOn(false)}
+                      >
+                        {counterOn && (
+                          <CountUp
+                            suffix={item.suffix}
+                            start={0}
+                            end={item.dataValue}
+                            delay={0}
+                            className="homeCounterNumber"
+                          >
+                            <h1 className="homeCounterNumber">
+                              {" "}
+                              {item.value}{" "}
+                            </h1>
+                          </CountUp>
+                        )}{" "}
+                      </ScrollTrigger>
+                    </span>
+                    <h4> {item.title} </h4>
+                  </div>
+                );
+              })}
+              {/* </div> */}
+            </div>
+          </div>
+        </section>
       </div>
       <Footer />
     </div>

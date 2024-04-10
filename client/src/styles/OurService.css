@@ -37,20 +37,212 @@
   height: 90%;
   background-color: rgba(0, 0, 0, 0.3);
 }
+.ourServiceServicesContainer {
+  margin-top: 30px;
+}
+.ourServiceContainer {
+  /* width: 68%; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 14px;
+  width: 50%;
+  margin: auto;
+}
+.ourServiceCardContainer {
+  margin-right: 15px;
+  margin-top: 11px;
+}
+.ourServiceWhyUsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+  margin: auto;
+  padding-top: 50px;
+}
+.ourServiceWhyUsHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ourServiceWhyUsHeader h1 {
+  font-size: 42px;
+}
+.ourServiceWhyUsFirst {
+  margin-top: 15px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+#ourServiceWhyUsFirstId {
+  margin-top: 50px;
+}
+.ourServiceWhyUsIcon {
+  font-size: 28px;
+  color: var(--mainColor);
+  margin-right: 8px;
+}
+.ourServiceWhyUsFirstHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.ourServiceWhyUsFirstContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 0.4px solid var(--mainColor);
+  margin-right: 9px;
+  padding: 13px;
+  background-color: aliceblue;
+}
 /* service Endss */
 
 /* Media Queries Start */
 
-/* @media (max-width: 320px) {
-  
-} */
+@media (max-width: 320px) {
+  /* Our Service Starts */
 
-/* @media (min-width: 321px) and (max-width: 640px) {
-  
-} */
+  .ourServiceContainer {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 1px;
+    width: 94%;
+  }
+  .ourServiceCardContainer {
+    margin-right: 1px;
+  }
 
-/* @media (min-width: 641px) and (max-width: 1024px) {
- 
-} */
+  .ourServiceWhyUsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;
+    padding-top: 50px;
+  }
+  .ourServiceWhyUsHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ourServiceWhyUsFirst {
+    margin-top: 15px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  #ourServiceWhyUsFirstId {
+    margin-top: 20px;
+  }
+  .ourServiceWhyUsFirstHeader {
+    flex-direction: column;
+  }
+  .ourServiceWhyUsFirstContent {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  /* Our Service Ends */
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  /* Our Service Starts */
+
+  .ourServiceContainer {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 1px;
+    width: 94%;
+  }
+  .ourServiceCardContainer {
+    margin-right: 1px;
+  }
+
+  .ourServiceWhyUsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;
+    padding-top: 50px;
+  }
+  .ourServiceWhyUsHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ourServiceWhyUsFirst {
+    margin-top: 15px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  #ourServiceWhyUsFirstId {
+    margin-top: 20px;
+  }
+  .ourServiceWhyUsFirstHeader {
+    flex-direction: column;
+  }
+  .ourServiceWhyUsFirstContent {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  /* Our Service Ends */
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Our Service Starts */
+
+  .ourServiceContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 94%;
+  }
+  .ourServiceCardContainer {
+    margin-right: 1px;
+  }
+
+  .ourServiceWhyUsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;
+    padding-top: 50px;
+  }
+  .ourServiceWhyUsHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ourServiceWhyUsFirst {
+    margin-top: 10px;
+    flex-direction: row;
+    gap: 10px;
+  }
+  #ourServiceWhyUsFirstId {
+    margin-top: 20px;
+  }
+  .ourServiceWhyUsFirstHeader {
+    flex-direction: column;
+  }
+  .ourServiceWhyUsFirstContent {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  /* Our Service Ends */
+}
 
 /* Media Queries Ends */

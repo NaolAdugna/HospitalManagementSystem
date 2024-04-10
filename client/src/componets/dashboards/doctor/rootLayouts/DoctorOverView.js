@@ -18,6 +18,7 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import GeminiProfile from "../../../../assets/images/google-gemini-icon.webp";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
+
 export default function DoctorOverView() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(300);

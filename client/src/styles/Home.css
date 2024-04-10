@@ -152,18 +152,125 @@ body {
 .ourServicesTitle span {
   color: var(--mainColor);
 }
-.ourServiceParentContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.ourServiceContainer {
-  width: 68%;
+
+.homeServiceContainer {
+  /* width: 68%; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  row-gap: 24px;
+  row-gap: 14px;
+  width: 50%;
+  margin: auto;
+}
+.homeServiceCardContainer {
+  margin-right: 15px;
+  margin-top: 11px;
+}
+.homeServiceButtonContainer {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+}
+.homeServicesButton {
+  margin-top: 11px;
+  padding: 10px 20px;
+  border: none;
+  color: var(--navBarBg);
+  font-size: 16px;
+  background-color: var(--mainColor);
+  transition: 300ms all;
+}
+.homeServicesButton:hover {
+  cursor: pointer;
+  /* scale: 1.01; */
+  filter: drop-shadow(8px 11px 14px rgba(0, 0, 0, 0.2));
 }
 
+.homeWhyUsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+  margin: auto;
+  padding-top: 50px;
+}
+.homeWhyUsHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.homeWhyUsHeader h1 {
+  font-size: 42px;
+}
+.homeWhyUsFirst {
+  margin-top: 15px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+#homeWhyUsFirstId {
+  margin-top: 50px;
+}
+.homeWhyUsIcon {
+  font-size: 28px;
+  color: var(--mainColor);
+  margin-right: 8px;
+}
+.homeWhyUsFirstHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.homeWhyUsFirstContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 0.4px solid var(--mainColor);
+  margin-right: 9px;
+  padding: 13px;
+  background-color: aliceblue;
+}
+.homeCounterParentContainerSection {
+  margin-top: 50px;
+}
+.homeCounterParentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+  margin: auto;
+  /* background-color: aqua; */
+}
+.homeCountContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 10px;
+  margin-top: 19px;
+}
+.homeCountContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #14ac5f;
+  padding: 20px;
+  margin-right: 10px;
+  background-color: aliceblue;
+}
+.homeCounterNumber {
+  font-size: 42px;
+  font-weight: 500;
+}
+.homeCountTitle {
+  font-size: 42px;
+  margin-bottom: 8px;
+}
 /* Our Sercies Ends */
 
 /* Home Ends */
@@ -231,11 +338,68 @@ body {
 
   /* Our Service Starts */
 
-  .ourServiceContainer {
-    width: 90%;
-    display: grid;
-    grid-template-columns: none;
-    row-gap: 24px;
+  .homeServiceContainer {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 1px;
+    width: 94%;
+  }
+  .homeServiceCardContainer {
+    margin-right: 1px;
+  }
+  .homeServiceButtonContainer {
+    justify-content: center;
+    width: 100%;
+  }
+  .homeWhyUsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;
+    padding-top: 50px;
+  }
+  .homeWhyUsHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .homeWhyUsFirst {
+    margin-top: 15px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  #homeWhyUsFirstId {
+    margin-top: 20px;
+  }
+  .homeWhyUsFirstHeader {
+    flex-direction: column;
+  }
+  .homeWhyUsFirstContent {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+  .homeCounterParentContainerSection {
+    margin-top: 50px;
+  }
+  .homeCounterParentContainer {
+    width: 100%;
+  }
+  .homeCountContainer {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 0px;
+    gap: 12px;
+  }
+
+  .homeCounterNumber {
+    font-size: 32px;
+  }
+  .homeCountTitle {
+    font-size: 32px;
+    margin-bottom: 8px;
   }
 
   /* Our Service Ends */
@@ -297,19 +461,82 @@ body {
   .aboutTextContainer a {
     margin-left: 0px;
   }
-
-  /* About Us Ends */
   .cardContainer {
-    max-width: 500px;
+    margin-right: 25px;
+    margin-top: 11px;
   }
-  /* Service Start */
-  .ourServiceContainer {
-    width: 90%;
+  /* About Us Ends */
+
+  /* Our Service Starts */
+
+  .homeServiceContainer {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 1px;
+    width: 94%;
+  }
+  .homeServiceCardContainer {
+    margin-right: 1px;
+  }
+  .homeServiceButtonContainer {
+    justify-content: center;
+    width: 100%;
+  }
+  .homeWhyUsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;
+    padding-top: 50px;
+  }
+  .homeWhyUsHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .homeWhyUsFirst {
+    margin-top: 10px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #homeWhyUsFirstId {
+    margin-top: 20px;
+  }
+  .homeWhyUsFirstHeader {
+    flex-direction: column;
+  }
+  .homeWhyUsFirstContent {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .homeCounterParentContainerSection {
+    margin-top: 50px;
+  }
+  .homeCounterParentContainer {
+    width: 100%;
+  }
+  .homeCountContainer {
     display: grid;
-    grid-template-columns: none;
-    row-gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1px;
+    margin-top: 0px;
+    gap: 12px;
   }
-  /* Service Ends */
+  .homeCountContent {
+    padding: 14px;
+  }
+  .homeCounterNumber {
+    font-size: 32px;
+  }
+  .homeCountTitle {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+
+  /* Our Service Ends */
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -380,15 +607,78 @@ body {
   }
 
   /* About Us Ends */
-  /* Service Start */
-  .ourServiceContainer {
-    width: 90%;
+  /* Our Service Starts */
+
+  .homeServiceContainer {
+    grid-template-columns: repeat(2, 1fr);
+    /* row-gap: 5px; */
+    gap: 8px;
+    width: 94%;
+  }
+  .homeServiceCardContainer {
+    margin-right: 1px;
+  }
+  .homeServiceButtonContainer {
+    justify-content: center;
+    width: 100%;
+  }
+  .homeWhyUsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;
+    padding-top: 50px;
+  }
+  .homeWhyUsHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .homeWhyUsFirst {
+    margin-top: 10px;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  #homeWhyUsFirstId {
+    margin-top: 20px;
+  }
+  .homeWhyUsFirstHeader {
+    flex-direction: column;
+  }
+  .homeWhyUsFirstContent {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .homeCounterParentContainerSection {
+    margin-top: 50px;
+  }
+  .homeCounterParentContainer {
+    width: 100%;
+  }
+  .homeCountContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 24px;
-    gap: 17px;
+    row-gap: 1px;
+    margin-top: 0px;
+    gap: 12px;
   }
-  /* Service Ends */
+  .homeCountContent {
+    padding: 14px;
+  }
+  .homeCounterNumber {
+    font-size: 32px;
+  }
+  .homeCountTitle {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+
+  /* Our Service Ends */
 }
 
 /* Media Queries Ends */

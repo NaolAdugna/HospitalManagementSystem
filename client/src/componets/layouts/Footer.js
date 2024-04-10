@@ -5,6 +5,7 @@ import {
   faXTwitter,
   faInstagram,
   faLinkedin,
+  faTelegram,
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faLocationDot,
@@ -29,6 +30,7 @@ export default function Footer() {
         </p>
         <span className="footerIconContainer">
           <FontAwesomeIcon icon={faFacebook} className="icon" />
+          <FontAwesomeIcon icon={faTelegram} className="icon" />
           <FontAwesomeIcon icon={faXTwitter} className="icon" />
           <FontAwesomeIcon icon={faInstagram} className="icon" />
           <FontAwesomeIcon icon={faLinkedin} className="icon" />
