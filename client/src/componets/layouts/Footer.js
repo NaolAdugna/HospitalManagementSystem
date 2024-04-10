@@ -12,6 +12,7 @@ import {
   faEnvelope,
   faPhone,
   faCheck,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -92,6 +93,38 @@ export default function Footer() {
             LOGIN
           </NavLink>
         </main>
+      </div>
+      <div className="footerAddressContainer">
+        <h2 style={{ textDecoration: "underline", marginBottom: "12px" }}>
+          OPEN HOURS
+        </h2>
+        <div className="footerAddressContent">
+          <FontAwesomeIcon icon={faCheck} className="iconAddress " />
+          <h4 style={{ fontWeight: "500" }}>Emergency: All Hours</h4>
+        </div>
+        <div className="footerPhoneContent">
+          <FontAwesomeIcon icon={faCheck} className="iconAddress" />
+          <h4 style={{ fontWeight: "500" }}>Holidays: Only Emergency</h4>
+        </div>
+        <div className="footerEmailContent">
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="iconAddress iconaddress3"
+            style={{ color: "red", marginRight: "11px" }}
+          />
+          <h4 style={{ fontWeight: "500" }}>
+            Sunday: Closed( Only Emergency){" "}
+          </h4>
+        </div>
+        <div className="footerEmailContent">
+          <FontAwesomeIcon
+            icon={faCheck}
+            className="iconAddress iconaddress3"
+          />
+          <h4 style={{ fontWeight: "500" }}>
+            Monday-Saturday: 12:00 A.M - 12:00 P.M
+          </h4>
+        </div>
       </div>
       <div className="footerAddressContainer">
         <h2 style={{ textDecoration: "underline", marginBottom: "12px" }}>

@@ -3,51 +3,81 @@ root {
   --mainColor: #14ac5f;
   --navBarBg: #fff;
 }
-.PharmacysideBarUnorderList {
-  height: 100%;
-  margin-top: 61px;
-}
-.PharmacysideBarUnorderList a.active {
-  background-color: #293846;
+.pharmacyDashboard {
   background-color: rgb(195, 196, 202, 0.5);
-  border-left: 4px solid var(--mainColor);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "pharmacyDashboardFirstCard pharmacyDashboardFirstCard"
+    "pharmacyDashboardSecondCard pharmacyDashboardSecondCard";
+  gap: 10px;
+  height: 100vh;
 }
-.PharmacysideBarUnorderList .PharmacysideBarLinks {
-  width: 100%;
-  height: 43px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  gap: 14px;
+.pharmacyDashboardFirstCard {
+  background-color: #f0f8ff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  grid-area: pharmacyDashboardFirstCard;
 }
-.PharmacysideBarLinks:hover {
-  cursor: pointer;
-  background-color: #293846;
-  background-color: rgb(195, 196, 202, 0.5);
-  border-left: 4px solid var(--mainColor);
-  scale: 0.92;
+.pharmacyDashboardSecondCard {
+  background-color: #f6f7f9;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
+  grid-area: pharmacyDashboardSecondCard;
 }
-.PharmacyCardNavBarContainer {
+.pharmacyDashboardNavBarContainer {
+  padding: 10px;
   display: flex;
   align-items: center;
-}
-.PharmacyavBarContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
   justify-content: space-between;
-  width: 100%;
-  margin: auto;
-  padding-left: 12px;
+}
+.pharmacyDashboardLogOutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 20%;
+}
+.pharmacyDashboardNavImage {
+  background-color: #14ac5f;
+  padding: 4px 15px;
+  border-radius: 50%;
+  color: var(--navBarBg);
+}
+.pharmacyLogOutButton {
+  background-color: rgba(255, 0, 0, 0.8);
+  border: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  color: var(--navBarBg);
+}
+.pharmacyLogOutButton:hover {
+  cursor: pointer;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
 }
 
-.profileImage {
-  background-color: var(--mainColor);
-  color: var(--navBarBg);
-  width: 30%;
-  height: auto;
-  border-radius: 50%;
+@media (max-width: 320px) {
+  .pharmacyDashboardLogOutContainer {
+    justify-content: space-between;
+    width: 70%;
+  }
+  .pharmacyDashboardNavImage {
+    padding: 4px 12px;
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  .pharmacyDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .pharmacyDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
 }

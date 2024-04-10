@@ -8,6 +8,7 @@ import {
   faBars,
   faDashboard,
   faPaperPlane,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { NavLink, useNavigate } from "react-router-dom";
@@ -16,35 +17,26 @@ import axios from "axios";
 
 import ScaleLoader from "react-spinners/ScaleLoader";
 import GeminiProfile from "../../../../assets/images/google-gemini-icon.webp";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+
 export default function DoctorOverView() {
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [sidebarWidth, setSidebarWidth] = useState(300);
   const [prompt, setPrompt] = useState("");
   const inputRef = useRef(null);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-    setSidebarWidth(showSidebar ? 0 : 300);
-  };
 
-  const styles = {
-    side: {
-      width: sidebarWidth,
-    },
-    "@media (max-width: 320px)": {
-      side: {
-        width: showSidebar ? "0" : "100%",
-      },
-    },
-  };
-
-  const userId = sessionStorage.getItem("id");
   const userName = sessionStorage.getItem("username");
-  const userRole = sessionStorage.getItem("role");
-
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
@@ -54,6 +46,56 @@ export default function DoctorOverView() {
     sessionStorage.removeItem("token");
     navigate("/");
   }
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+  const DrawerList = (
+    <Box
+      sx={{
+        width: 250,
+        display: "flex",
+        alignItems: "flex-start",
+        justifyContent: "space-between",
+        background: "#f0f8ff",
+      }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+    >
+      <List
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-between",
+          height: "100vh",
+          width: "100%",
+        }}
+      >
+        {["Dashboard"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon style={{ color: "#14ac5f" }}>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        {/* <Divider /> */}
+        <div
+          style={{
+            display: "flex",
+            // alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <button onClick={handleLogout} className="doctorLogOutButton">
+            Log Out
+          </button>
+        </div>
+      </List>
+    </Box>
+  );
 
   const makeRequestAPI = async (prompt) => {
     const res = await axios.post("http://localhost:8080/api/gemini", {
@@ -84,69 +126,33 @@ export default function DoctorOverView() {
   };
 
   return (
-    <div className="reportContainer">
-      <div style={styles.side} className={showSidebar ? `side show` : `side`}>
-        <div className="layoutContainer">
-          <div className="sideBarContainer">
-            <div className="sideBarIdentityContainer">
-              <div className="sideBarProfile">
-                {/* <img
-                  src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
-                  alt="profile "
-                  className="profileImage"
-                /> */}
-                <h1 className="receptionProfileImage">
-                  {" "}
-                  {userNameFirstLetter}
-                </h1>
-                <div className="sideBarContainerFooter">
-                  <div>
-                    <h4 title="UserName"> {userName} </h4>
-                    <span title="Role">{userRole}</span>
-                  </div>
-                </div>
-              </div>
-              <div className="sideBarLinksContainer">
-                <ul className="DoctorsideBarUnorderList">
-                  <NavLink to="/doctor" className="DoctorsideBarLinks">
-                    <div id="icons">
-                      <FontAwesomeIcon icon={faDashboard} />
-                    </div>
-                    <div>Dashboard</div>
-                  </NavLink>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <main
-        className="main"
-        style={{
-          gridColumn: showSidebar ? "1 / 4" : "1 / 3",
-          marginLeft: sidebarWidth,
-        }}
-      >
-        <div className="card ReceptionCardNavBarContainer">
-          <div className="ReceptionnavBarContainer">
+    <div>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
+        {DrawerList}
+      </Drawer>
+      <main className="doctorDashboard ">
+        <div className="doctorDashboardFirstCard">
+          <div className="doctorDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
                 className="navBarHamburger"
-                onClick={toggleSidebar}
+                onClick={toggleDrawer(true)}
               />
             </div>
-            <div className=" navBarLogoutContainer">
-              <h3 style={{ textDecoration: "underline" }}>
+            <div className="doctorDashboardLogOutContainer">
+              <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
-              </h3>
-              <h3>🤗🤗🤗 </h3>
-              <button onClick={handleLogout}>Logout</button>
+              </h4>
+              <h1 className="doctorDashboardNavImage">
+                {" "}
+                {userNameFirstLetter}
+              </h1>
             </div>
           </div>
         </div>
-        <div className="card mainDoctorContainer">
+        <div className="doctorDashboardSecondCard">
+          {/* <div className="card mainDoctorContainer"> */}
           <div className="promptResult">
             <span className="promtResultAIProfile">
               <img src={GeminiProfile} className="promtResultImage" />
@@ -185,11 +191,16 @@ export default function DoctorOverView() {
                   // cols={5}
                   rows={3}
                 />
-                <FontAwesomeIcon icon={faPaperPlane} />
+                <FontAwesomeIcon
+                  icon={faPaperPlane}
+                  className="formIcon"
+                  onClick={submitHandler}
+                />
                 {/* <button type="submit">Generate Content</button> */}
               </div>
             </form>
           </div>
+          {/* </div> */}
         </div>
       </main>
     </div>

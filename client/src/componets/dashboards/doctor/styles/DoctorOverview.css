@@ -3,33 +3,7 @@ root {
   --mainColor: #14ac5f;
   --navBarBg: #fff;
 }
-.DoctorsideBarUnorderList {
-  height: 100%;
-  margin-top: 61px;
-}
-.DoctorsideBarUnorderList a.active {
-  background-color: #293846;
-  background-color: rgb(195, 196, 202, 0.5);
-  border-left: 4px solid var(--mainColor);
-}
-.DoctorsideBarUnorderList .DoctorsideBarLinks {
-  width: 100%;
-  height: 43px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  gap: 14px;
-}
-.DoctorsideBarLinks:hover {
-  cursor: pointer;
-  background-color: #293846;
-  background-color: rgb(195, 196, 202, 0.5);
-  border-left: 4px solid var(--mainColor);
-  scale: 0.92;
-}
+
 .mainDoctorContainer {
   width: 100%;
   height: 100%;
@@ -59,12 +33,8 @@ root {
   margin-bottom: 12px;
   margin-left: 12px;
   align-items: flex-start;
-  /* justify-content: center; */
   padding: 21px 32px 10px 16px;
   border: 0.5px solid rgba(0, 0, 0, 0.3);
-  /* background-color: #14ac5f; */
-  /* margin-top: 30%; */
-  /* margin-left: 12px; */
 }
 .promptInput {
   border: none;
@@ -95,4 +65,170 @@ root {
 .geminiSkeleton {
   margin-left: 50px;
   width: 100%;
+}
+
+.doctorDashboard {
+  background-color: rgb(195, 196, 202, 0.5);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "doctorDashboardFirstCard doctorDashboardFirstCard"
+    "doctorDashboardSecondCard doctorDashboardSecondCard";
+  gap: 10px;
+  height: 100vh;
+}
+.doctorDashboardFirstCard {
+  background-color: #f0f8ff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  grid-area: doctorDashboardFirstCard;
+}
+.doctorDashboardSecondCard {
+  background-color: #f6f7f9;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
+  grid-area: doctorDashboardSecondCard;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.doctorDashboardNavBarContainer {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.doctorDashboardLogOutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 20%;
+}
+.doctorDashboardNavImage {
+  background-color: #14ac5f;
+  padding: 4px 15px;
+  border-radius: 50%;
+  color: var(--navBarBg);
+}
+.doctorLogOutButton {
+  background-color: rgba(255, 0, 0, 0.8);
+  border: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  color: var(--navBarBg);
+}
+.doctorLogOutButton:hover {
+  cursor: pointer;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+}
+.formIcon {
+  font-size: 25px;
+  transition: 300ms all;
+}
+.formIcon:hover {
+  cursor: pointer;
+  font-weight: 900;
+  color: #14ac5f;
+}
+@media (max-width: 320px) {
+  .doctorDashboardLogOutContainer {
+    justify-content: space-between;
+    width: 70%;
+  }
+  .doctorDashboardNavImage {
+    padding: 4px 12px;
+    font-size: 22px;
+  }
+
+  .promptContainer {
+    margin-bottom: 2px;
+    margin-left: 0px;
+    padding: 21px 32px 10px 16px;
+  }
+  .promptInput {
+    width: 200px;
+    font-size: 18px;
+    padding: 0px 10px 10px 10px;
+  }
+
+  .promptResult {
+    width: 89%;
+    margin-left: 31px;
+  }
+
+  .promtResultImage {
+    width: 50px;
+    margin-right: 12px;
+  }
+  .geminiSkeleton {
+    margin-left: 50px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  .doctorDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+
+  .promptContainer {
+    margin-bottom: 2px;
+    margin-left: 0px;
+    padding: 21px 32px 10px 16px;
+  }
+  .promptInput {
+    width: 310px;
+    font-size: 18px;
+    padding: 0px 10px 10px 10px;
+  }
+
+  .promptResult {
+    width: 89%;
+    margin-left: 1px;
+  }
+
+  .promtResultImage {
+    width: 50px;
+    margin-right: 12px;
+  }
+  .geminiSkeleton {
+    margin-left: 50px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .doctorDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+
+  .promptContainer {
+    margin-bottom: 2px;
+    margin-left: 0px;
+    padding: 21px 32px 10px 16px;
+  }
+  .promptInput {
+    width: 600px;
+    font-size: 18px;
+    padding: 0px 10px 10px 10px;
+  }
+
+  .promptResult {
+    width: 89%;
+    margin-left: 1px;
+  }
+
+  .promtResultImage {
+    width: 50px;
+    margin-right: 12px;
+  }
+  .geminiSkeleton {
+    margin-left: 50px;
+    width: 100%;
+  }
 }
