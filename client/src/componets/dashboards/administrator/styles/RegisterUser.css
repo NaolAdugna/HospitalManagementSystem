@@ -13,155 +13,60 @@
   margin: 0;
   padding: 0;
 }
-
-.reportContainer {
-  height: 100%;
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 0 1fr;
-  grid-template-areas:
-    "side main"
-    "side main";
-}
-
-.side {
-  background-color: var(--navBarBg);
-  grid-area: side;
-  width: 300px;
-  display: block;
-}
-
-.mainRegisterContainer {
+.adminRegisterDashboard {
   background-color: rgb(195, 196, 202, 0.5);
-  grid-area: main;
-  padding: 25px;
+  padding: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 70px 1fr;
   grid-template-areas:
-    "c1 c1"
-    "c2 c2";
-  gap: 15px;
+    "adminRegisterDashboardFirstCard adminRegisterDashboardFirstCard"
+    "adminRegisterDashboardSecondCard adminRegisterDashboardSecondCard";
+  gap: 10px;
+  height: 100vh;
 }
-
-.card {
+.adminRegisterDashboardFirstCard {
+  background-color: #f0f8ff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  grid-area: adminRegisterDashboardFirstCard;
+}
+.adminRegisterDashboardSecondCard {
   background-color: #f6f7f9;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 10px;
+  grid-area: adminRegisterDashboardSecondCard;
 }
-.card.card:nth-child(1) {
-  grid-area: c1;
-}
-.card:nth-child(2) {
-  grid-area: c2;
-}
-/* .sideBarContainer {
-  width: 100%;
-} */
-.sideBarIdentityContainer {
-  display: flex;
-  flex-direction: column;
-  /* color: white; */
-}
-.sideBarProfile {
-  display: flex;
-  color: white;
-  align-items: flex-start;
-  justify-content: space-evenly;
-  text-align: center;
-  padding: 1.5rem 3.9rem 0.25rem 3.9rem;
-}
-.sideBarContainerFooter {
-  display: flex;
-  justify-content: space-evenly;
-  overflow: hidden;
-  transition: all 1s;
-}
-.profileImage {
-  height: 2.5rem;
-  border-radius: 0.375rem;
-}
-
-.RegistersideBarUnorderList {
-  height: 100%;
-  margin-top: 61px;
-}
-.RegistersideBarUnorderList a.active {
-  background-color: #293846;
-  background-color: rgb(195, 196, 202, 0.5);
-  border-left: 4px solid var(--mainColor);
-}
-.RegistersideBarUnorderList .RegistersideBarLinks {
-  width: 100%;
-  height: 43px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  gap: 14px;
-}
-.RegistersideBarLinks:hover {
-  cursor: pointer;
-  background-color: #293846;
-  background-color: rgb(195, 196, 202, 0.5);
-  border-left: 4px solid var(--mainColor);
-  scale: 0.92;
-}
-
-.navBarHamburger {
-  font-size: 42px;
-  transition: all 0.3s;
-}
-.navBarHamburger:hover {
-  cursor: pointer;
-}
-.navBarLogoutContainer {
-  width: 30%;
+.adminRegisterDashboardNavBarContainer {
+  padding: 10px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  overflow: hidden;
-}
-.navBarLogoutContainer h4 {
-  margin-right: 1rem;
-  font-size: 14px;
-  text-decoration: underline;
-}
-.navBarLogoutContainer button {
-  font-size: 14px;
-  padding: 8px 18px;
-  border: 0.5px solid var(--mainColor);
-}
-.navBarLogoutContainer button:hover {
-  cursor: pointer;
-  overflow: hidden;
-}
-.registerNavBarContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
   justify-content: space-between;
-  width: 100%;
-  margin: auto;
-  padding-left: 12px;
 }
-.RegisterNavBarCardContainer {
+.adminRegisterDashboardLogOutContainer {
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
+  width: 20%;
 }
-
-/* main start here */
-
-.bodyRegisterContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  background: none;
+.adminRegisterDashboardNavImage {
+  background-color: #14ac5f;
+  padding: 4px 15px;
+  border-radius: 50%;
+  color: var(--navBarBg);
 }
-.RegisterContainer {
+.adminRegisterLogOutButton {
+  background-color: rgba(255, 0, 0, 0.8);
+  border: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  color: var(--navBarBg);
+}
+.adminRegisterLogOutButton:hover {
+  cursor: pointer;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+}
+.adminRegisterContainer {
   gap: 8px;
   width: 25%;
   /* height: 78vh; */
@@ -178,51 +83,45 @@
   box-shadow: 0 4px 30px rgba(71, 71, 71, 0.043);
   background-color: var(--navBarBg);
 }
-.loginTitle {
+.adminRegisterLoginTitle {
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 80%;
   margin-bottom: 22px;
 }
-.formContainer {
-  width: 85%;
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-}
-.loginTitle h2 {
+.adminRegisterLoginTitle h2 {
   font-weight: 700;
   font-size: 32px;
   line-height: 41px;
   display: flex;
 }
-.loginName {
+.adminRegisterLoginName {
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 12px;
 }
-.loginNameIcon {
+.adminRegisterLoginNameIcon {
   font-size: 19px;
   padding-top: 14px;
   color: var(--mainColor);
 }
-.loginPassword {
+.adminRegisterLoginPassword {
   display: flex;
   align-items: center;
   margin-bottom: 7px;
 }
-.passwordContainer {
+.adminRegisterPasswordContainer {
   position: relative;
   width: 100%;
 }
-.loginInputs {
+.adminRegisterLoginInputs {
   width: 100%;
 }
 
-.showPassword {
+.adminRegisterShowPassword {
   top: 59%;
   right: 10px;
   color: #555;
@@ -231,20 +130,11 @@
   transition: color 0.3s;
   transform: translateY(-50%);
 }
-.showPassword:hover {
+.adminRegisterShowPassword:hover {
   color: #333;
 }
-.loginForgotPassword {
-  margin-bottom: 11px;
-  display: flex;
-  justify-content: flex-end;
-}
-.forgotPassword {
-  color: #000;
-  width: fit-content;
-}
 
-.loginPageButton {
+.adminRegisterLoginPageButton {
   font-weight: 600;
   font-size: 18px;
   padding: 8px 23px;
@@ -254,115 +144,53 @@
   border: 2px solid var(--mainColor);
   background-color: transparent;
 }
-.loginPageButton:hover {
+.adminRegisterLoginPageButton:hover {
   background-color: var(--mainColor);
   color: white;
   cursor: pointer;
   transform: scale(1.03);
   filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.4));
 }
-.loginCopyRightContainer {
+.adminRegisterLoginCopyRightContainer {
   width: 100%;
   height: 19vh;
   display: flex;
   align-items: flex-end;
   /* background-color: orange; */
 }
-.loginCopyRightContainer p {
+.adminRegisterLoginCopyRightContainer p {
   text-align: center;
 }
 
-.recaptchaContainer {
+.adminRegisterRecaptchaContainer {
   transform: scale(0.93);
   transform-origin: 0 0;
 }
-.grecaptcha-badge {
-  z-index: 1001;
-}
 
-.registerProfileFile {
-  display: none;
-}
-#selectOption {
+#adminRegisterSelectOption {
   font-size: 16px;
   border: none;
   padding: 8px 0px 5px 0px;
   border-bottom: 1px solid gray;
 }
 
-.RegisterProfileImage {
-  background-color: var(--mainColor);
-  color: var(--navBarBg);
-  width: 30%;
-  height: auto;
-  border-radius: 50%;
-}
-
-/* main end here */
-
-/* media query start */
-
 @media (max-width: 320px) {
-  .reportContainer {
-    /* background-color: orange; */
-    grid-template-columns: 0 100%;
-    height: 100%;
-    width: 100%;
+  .adminRegisterDashboardLogOutContainer {
+    justify-content: space-between;
+    /* background-color: aliceblue; */
+    width: 70%;
   }
-
-  .mainRegisterContainer {
-    grid-template-columns: 1fr;
-    grid-template-rows: 60px 100%;
-    padding: 10px;
-    grid-template-areas: initial;
-    /* width: 100%; */
+  .adminRegisterDashboardNavImage {
+    padding: 4px 12px;
+    font-size: 22px;
   }
-
-  .card {
-    grid-area: initial !important;
-    width: 100%;
-  }
-  .card:nth-child(1) {
-    width: 80%;
-  }
-  .registerNavBarContainer {
-    width: 100%;
-    padding-left: 8px;
-  }
-  .navBarLogoutContainer {
-    width: 80%;
-  }
-  .navBarLogoutContainer h4 {
-    font-size: 11px;
-    margin-right: 10px;
-  }
-  .navBarLogoutContainer button {
-    font-size: 12px;
-    padding: 6px 8px;
-  }
-  .sideBarContainer {
-    width: 100%;
-  }
-
   /* main start here */
-  .mainContainer {
-    width: 80%;
-    height: 80%;
-  }
-  .formContainer {
-    display: block;
-  }
-  .bodyContainer {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
 
-  .RegisterContainer {
+  .adminRegisterContainer {
     width: 100%;
     height: 90%;
   }
-  .loginTitle {
+  .adminRegisterLoginTitle {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -370,28 +198,28 @@
     margin-bottom: 0px;
   }
 
-  .loginTitle h2 {
+  .adminRegisterLoginTitle h2 {
     font-size: 22px;
     line-height: 32px;
   }
-  .loginName {
+  .adminRegisterLoginName {
     gap: 11px;
   }
-  .loginPassword {
+  .adminRegisterLoginPassword {
     margin-bottom: 7px;
   }
 
-  .loginPageButton {
+  .adminRegisterLoginPageButton {
     font-size: 15px;
   }
-  .loginCopyRightContainer {
+  .adminRegisterLoginCopyRightContainer {
     height: 8vh;
   }
-  .loginCopyRightContainer p {
+  .adminRegisterLoginCopyRightContainer p {
     font-size: 13px;
   }
 
-  .recaptchaContainer {
+  .adminRegisterRecaptchaContainer {
     transform: scale(0.68);
     transform-origin: 0 0;
   }
@@ -399,62 +227,23 @@
 }
 
 @media (min-width: 321px) and (max-width: 640px) {
-  .sideBarContainer {
-    width: 100%;
-  }
-  .reportContainer {
-    grid-template-columns: 0 100%;
-  }
-
-  .mainRegisterContainer {
-    grid-template-columns: 1fr;
-    grid-template-rows: 60px 100%;
-    padding: 10px;
-    grid-template-areas: initial;
-  }
-
-  .card {
-    grid-area: initial !important;
-  }
-  .registerNavBarContainer {
-    padding-left: 12px;
-    width: 100%;
-  }
-  .navBarLogoutContainer {
+  .adminRegisterDashboardLogOutContainer {
+    justify-content: space-evenly;
     width: 70%;
   }
-  .navBarLogoutContainer h4 {
-    font-size: 12px;
-    margin-right: 10px;
-  }
-  .navBarLogoutContainer button {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-  .sideBarContainer {
-    width: 100%;
-  }
-
   /* main start here */
-  .mainContainer {
-    width: 100%;
-    height: 100%;
-  }
-  .formContainer {
-    display: block;
-  }
-  .bodyContainer {
+  /* .body {
     height: 70%;
     width: 100%;
     overflow: hidden;
-  }
+  } */
 
-  .RegisterContainer {
+  .adminRegisterContainer {
     width: 100%;
     height: 90%;
   }
 
-  .loginTitle {
+  .adminRegisterLoginTitle {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -462,89 +251,44 @@
     margin-bottom: 16px;
   }
 
-  .loginTitle h2 {
+  .adminRegisterLoginTitle h2 {
     font-size: 28px;
     line-height: 36px;
   }
-  .loginName {
+  .adminRegisterLoginName {
     gap: 12px;
   }
-  .forgotPassword {
-    padding-right: 0px;
-  }
-
-  .loginPageButton {
+  .adminRegisterLoginPageButton {
     font-size: 17px;
   }
-  .loginCopyRightContainer p {
+  .adminRegisterLoginCopyRightContainer p {
     font-size: 15px;
   }
-  .loginCopyRightContainer {
+  .adminRegisterLoginCopyRightContainer {
     height: 11vh;
   }
-  .recaptchaContainer {
+  .adminRegisterRecaptchaContainer {
     transform: scale(0.84);
     transform-origin: 0 0;
   }
   /* main end here */
 }
+
 @media (min-width: 641px) and (max-width: 1024px) {
-  .reportContainer {
-    grid-template-columns: 100% 0;
-  }
-
-  .mainRegisterContainer {
-    grid-template-columns: 1fr;
-    grid-template-rows: 60px 100%;
-    padding: 10px;
-    grid-template-areas: initial;
-  }
-
-  .card {
-    grid-area: initial !important;
-    height: 100%;
-  }
-  .registerNavBarContainer {
-    padding-left: 29px;
-    width: 100%;
-  }
-  .navBarLogoutContainer {
-    width: 50%;
-  }
-  .navBarLogoutContainer h4 {
-    font-size: 16px;
-    margin-right: 10px;
-  }
-  .navBarLogoutContainer button {
-    font-size: 16px;
-    padding: 8px 12px;
-  }
-  .sideBarContainer {
-    width: 100%;
+  .adminRegisterDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
   }
   /* main start here */
-  .mainContainer {
+  /* .RegisterContainer {
     width: 100%;
     height: 80%;
-  }
-  .formContainer {
-    display: block;
-  }
-  .bodyContainer {
-    height: 90%;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .RegisterContainer {
-    width: 100%;
-    height: 80%;
-  }
-  .RegisterContainer {
+  } */
+  .adminRegisterContainer {
     width: 45%;
     height: 77vh;
   }
-  .loginTitle {
+  .adminRegisterLoginTitle {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -552,36 +296,30 @@
     margin-bottom: 16px;
   }
 
-  .loginTitle h2 {
+  .adminRegisterLoginTitle h2 {
     font-size: 34px;
     line-height: 44px;
   }
-  .loginName {
+  .adminRegisterLoginName {
     gap: 12px;
   }
-  .forgotPassword {
-    padding-right: 0px;
-    font-size: 18px;
-  }
-  .loginInputs {
+  .adminRegisterLoginInputs {
     font-size: 33px;
     width: 80%;
   }
 
-  .loginPageButton {
+  .adminRegisterLoginPageButton {
     font-size: 21px;
   }
-  .loginCopyRightContainer p {
+  .adminRegisterLoginCopyRightContainer p {
     font-size: 19px;
   }
-  .loginCopyRightContainer {
+  .adminRegisterLoginCopyRightContainer {
     height: 11vh;
   }
-  .recaptchaContainer {
+  .adminRegisterRecaptchaContainer {
     transform: scale(0.84);
     transform-origin: 0 0;
   }
   /* main end here */
 }
-
-/* media query ends  */

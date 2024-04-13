@@ -64,7 +64,10 @@ export default function TableUser() {
           </button>
           <button
             className="deleteButton"
-            onClick={() => handleDelete(params.row.id)}
+            // onClick={() => handleDelete(params.row.id)}
+            onClick={() => {
+              window.location.pathname = `/admin-delete-user/${params.row.id}`;
+            }}
           >
             Delete{" "}
             <span>

@@ -1,92 +1,62 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap");
-:root {
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap");
+root {
   --mainColor: #14ac5f;
   --navBarBg: #fff;
-  --dashboardBg: #2f4050;
 }
-
-* {
-  list-style: none;
-  text-decoration: none;
-  box-sizing: border-box;
-  font-family: "Manrope", sans-serif;
-  margin: 0;
-  padding: 0;
-}
-.adminManageDashboard {
+.adminViewMessagesDashboard {
   background-color: rgb(195, 196, 202, 0.5);
   padding: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 70px 1fr;
   grid-template-areas:
-    "adminManageDashboardFirstCard adminManageDashboardFirstCard"
-    "adminManageDashboardSecondCard adminManageDashboardSecondCard";
+    "adminViewMessagesDashboardFirstCard adminViewMessagesDashboardFirstCard"
+    "adminViewMessagesDashboardSecondCard adminViewMessagesDashboardSecondCard";
   gap: 10px;
   height: 100vh;
 }
-.adminManageDashboardFirstCard {
+.adminViewMessagesDashboardFirstCard {
   background-color: #f0f8ff;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 8px;
-  grid-area: adminManageDashboardFirstCard;
+  grid-area: adminViewMessagesDashboardFirstCard;
 }
-.adminManageDashboardSecondCard {
+.adminViewMessagesDashboardSecondCard {
   background-color: #f6f7f9;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 10px;
-  grid-area: adminManageDashboardSecondCard;
+  grid-area: adminViewMessagesDashboardSecondCard;
 }
-.adminManageDashboardNavBarContainer {
+.adminViewMessagesDashboardNavBarContainer {
   padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.adminManageDashboardLogOutContainer {
+.adminViewMessagesDashboardLogOutContainer {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   width: 20%;
 }
-.adminManageDashboardNavImage {
+.adminViewMessagesDashboardNavImage {
   background-color: #14ac5f;
   padding: 4px 15px;
   border-radius: 50%;
   color: var(--navBarBg);
 }
-.adminManageLogOutButton {
+.adminViewMessagesLogOutButton {
   background-color: rgba(255, 0, 0, 0.8);
   border: none;
   font-size: 14px;
   padding: 8px 16px;
   color: var(--navBarBg);
 }
-.adminManageLogOutButton:hover {
+.adminViewMessagesLogOutButton:hover {
   cursor: pointer;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
 }
-.SearchandAddContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-.addUserContainer {
-  padding: 24px;
-}
-.adminManageAddUserButton {
-  padding: 8px 20px;
-  border: none;
-  background-color: var(--mainColor);
-  color: var(--navBarBg);
-  font-size: 16px;
-}
-.adminManageAddUserButton:hover {
-  cursor: pointer;
-  scale: 1.02;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
-}
-.adminManageTableContainer {
+.adminViewMessagesTableContainer {
   padding: 25px;
   width: 80%;
   display: flex;
@@ -96,26 +66,26 @@
 }
 
 @media (max-width: 320px) {
-  .adminManageDashboardLogOutContainer {
+  .adminViewMessagesDashboardLogOutContainer {
     justify-content: space-between;
     /* background-color: aliceblue; */
     width: 70%;
   }
-  .adminManageDashboardNavImage {
+  .adminViewMessagesDashboardNavImage {
     padding: 4px 12px;
     font-size: 22px;
   }
 }
 
 @media (min-width: 321px) and (max-width: 640px) {
-  .adminManageDashboardLogOutContainer {
+  .adminViewMessagesDashboardLogOutContainer {
     justify-content: space-evenly;
     width: 70%;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
-  .adminManageDashboardLogOutContainer {
+  .adminViewMessagesDashboardLogOutContainer {
     justify-content: space-evenly;
     width: 70%;
   }

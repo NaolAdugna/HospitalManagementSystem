@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { userExistanceChecker } from "./checker";
+import { userExistanceChecker, PatientExistanceChecker } from "./checker";
 
 // validate login page inputs
 export async function usernameValidate(values) {
@@ -23,18 +23,10 @@ export async function userNameRecoveryValidate(values) {
   const errors = usernameRecoveryVerify({}, values);
   return errors;
 }
-// export async function usernameValidateValidator(values) {
-//   const errors = usernameVerify({}, values);
-
-//   if (values.username) {
-//     const { statusd } = await userExistanceChecker(values.username);
-//   }
-
-//   if (statusd !== 200) {
-//     errors.exist = toast.error("user does not exist");
-//   }
-//   return errors;
-// }
+export async function PatientRecoveryValidate(values) {
+  const errors = patientRecoveryVerify({}, values);
+  return errors;
+}
 
 export async function recoveryValidate(values) {
   const errors = recoveryVerify({}, values);
@@ -53,6 +45,13 @@ export async function resetPasswordValidate(values) {
 
 export async function registerdValidate(values) {
   const errors = usernameVerify({}, values);
+
+  emailVerify(errors, values);
+
+  return errors;
+}
+export async function registerPatientValidate(values) {
+  const errors = inputVerify({}, values);
 
   emailVerify(errors, values);
 
@@ -80,9 +79,28 @@ function usernameVerify(error = {}, values) {
 
   return error;
 }
+function inputVerify(error = {}, values) {
+  if (!values.name) {
+    error.name = toast.error("Name required...");
+  } else if (!values.password) {
+    error.password = toast.error("Password required...");
+  } else if (!values.age) {
+    error.age = toast.error("Age required...");
+  } else if (!values.gender) {
+    error.gender = toast.error("Gender required...");
+  }
+
+  return error;
+}
 function usernameRecoveryVerify(error = {}, values) {
   if (!values.username) {
     error.username = toast.error("UserName Required!");
+  }
+  return error;
+}
+function patientRecoveryVerify(error = {}, values) {
+  if (!values.name) {
+    error.username = toast.error("Name Required!");
   }
   return error;
 }
@@ -123,4 +141,31 @@ export function convertToBase64(file) {
       reject(error);
     };
   });
+}
+
+export async function patientNameValidate(values) {
+  const errors = patientNameVerify({}, values);
+
+  if (values.name) {
+    try {
+      const { status } = await PatientExistanceChecker(values.name);
+
+      if (status === 404) {
+        errors.exist = toast.error("User does not exist...");
+      }
+    } catch (error) {
+      errors.exist = toast.error(error.message);
+    }
+  }
+
+  return errors;
+}
+function patientNameVerify(error = {}, values) {
+  if (!values.name) {
+    error.username = toast.error("Name required...");
+  } else if (!values.password) {
+    error.password = toast.error("Password required...");
+  }
+
+  return error;
 }

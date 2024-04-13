@@ -240,3 +240,159 @@ export const contactSendMessageMysql = async (name, email, message) => {
     console.error("Error occurred while sending message: ", error);
   }
 };
+
+export const deleteUserRegister = async (
+  username,
+  role,
+  email,
+  reason,
+  deletedby
+) => {
+  try {
+    let sql = `INSERT INTO deletedusers(
+        username,
+        role,
+        email,
+        reason,
+        deletedby,
+        dateofdeletion
+    ) VALUES (
+      '${username}',
+      '${role}',
+      '${email}',
+      '${reason}',
+      '${deletedby}',
+      CURRENT_TIMESTAMP
+      )`;
+    let [deletion] = await mysqlPool.execute(sql);
+    return deletion;
+  } catch (error) {
+    console.error("Error occurred while deleting: ", error);
+  }
+};
+
+export const GetDeletedUsers = async () => {
+  try {
+    const sql =
+      "SELECT id, username,role,email,reason,deletedby,dateofdeletion FROM deletedusers";
+    const [results] = await mysqlPool.execute(sql);
+    return results;
+  } catch (error) {
+    console.error("Error in finddeletedUser:", error);
+    throw error;
+  }
+};
+export const GetContactUsMessage = async () => {
+  try {
+    const sql =
+      "SELECT id, name, email, message, dateofmessagesent FROM message ORDER BY dateofmessagesent DESC";
+
+    const [results] = await mysqlPool.execute(sql);
+    return results;
+  } catch (error) {
+    console.error("Error in finddeletedUser:", error);
+    throw error;
+  }
+};
+
+export const findPatient = async (username) => {
+  try {
+    const sql = "SELECT * FROM patient WHERE name = ?";
+    const [user] = await mysqlPool.execute(sql, [username]);
+
+    if (user.length === 0) {
+      return false;
+    } else {
+      return user;
+    }
+  } catch (error) {
+    console.error("Error in findPatient:", error);
+    throw error;
+  }
+};
+
+export const findPatientEmail = async (email) => {
+  try {
+    const sql = "SELECT * FROM patient WHERE email = ? ";
+    const [userEmail] = await mysqlPool.execute(sql, [email]);
+    if (userEmail.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  } catch (error) {
+    console.error("Error occurred in findEmail ", error);
+    throw error;
+  }
+};
+
+export const registerPatientUser = async (
+  name,
+  password,
+  age,
+  gender,
+  email,
+  medicalhistory
+) => {
+  try {
+    let sql = `INSERT INTO patient(
+        name,
+        password,
+        age,
+        gender,
+        email,
+        medicalhistory,
+        dateofregistration
+    ) VALUES (
+      '${name}',
+      '${password}',
+      '${age}',
+      '${gender}',
+      '${email}',
+      '${medicalhistory}',
+      CURRENT_TIMESTAMP
+      )`;
+    let [registration] = await mysqlPool.execute(sql);
+    return registration;
+  } catch (error) {
+    console.error("Error occurred while registering patient: ", error);
+  }
+};
+
+export const GetPatientUsers = async () => {
+  try {
+    const sql =
+      "SELECT id, name,age,gender,email,dateofregistration FROM patient";
+    const [results] = await mysqlPool.execute(sql);
+    return results;
+  } catch (error) {
+    console.error("Error in finddeletedUser:", error);
+    throw error;
+  }
+};
+
+export const ReturnPatientEmail = async (name) => {
+  try {
+    const sql = "SELECT email from patient WHERE name = ?";
+    const [user] = await mysqlPool.execute(sql, [name]);
+    if (user.length === 0) {
+      return false;
+    } else {
+      return user[0].email;
+    }
+  } catch (error) {
+    console.error("error occured in returning email", error);
+    throw error;
+  }
+};
+
+export const UpdatePatientPassword = async (name, password) => {
+  try {
+    const sql = "UPDATE patient SET password = ? WHERE name = ?";
+    const [response] = await mysqlPool.execute(sql, [password, name]);
+    return response;
+  } catch (error) {
+    console.error("ERROR occured in reseting user password", error);
+    throw error;
+  }
+};

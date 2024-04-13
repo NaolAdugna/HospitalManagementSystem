@@ -1,23 +1,9 @@
 import React, { useState } from "react";
-import "../styles/ManageUsers.css";
+import "../styles/ViewMessages.css";
 
-// Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import {
-  faEnvelope,
-  faChartSimple,
-  faRepublican,
-  faAdd,
-  faBars,
-  faListCheck,
-  faAddressBook,
-  faDashboard,
-} from "@fortawesome/free-solid-svg-icons";
-import { NavLink, useNavigate } from "react-router-dom";
-
-import TableUser from "./TableUser";
-
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -27,13 +13,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
-export default function ManageUsers() {
+import MessageTable from "./MessageTable";
+
+export default function ViewMessages() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -113,22 +100,24 @@ export default function ManageUsers() {
             justifyContent: "flex-end",
           }}
         >
-          <button onClick={handleLogout} className="adminManageLogOutButton">
+          <button
+            onClick={handleLogout}
+            className="adminViewMessagesLogOutButton"
+          >
             Log Out
           </button>
         </div>
       </List>
     </Box>
   );
-
   return (
     <div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
-      <main className="adminManageDashboard ">
-        <div className="adminManageDashboardFirstCard">
-          <div className="adminManageDashboardNavBarContainer">
+      <main className="adminViewMessagesDashboard ">
+        <div className="adminViewMessagesDashboardFirstCard">
+          <div className="adminViewMessagesDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -136,33 +125,20 @@ export default function ManageUsers() {
                 onClick={toggleDrawer(true)}
               />
             </div>
-            <div className="adminManageDashboardLogOutContainer">
+            <div className="adminViewMessagesDashboardLogOutContainer">
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
-              <h1 className="adminManageDashboardNavImage">
+              <h1 className="adminViewMessagesDashboardNavImage">
                 {" "}
                 {userNameFirstLetter}
               </h1>
             </div>
           </div>
         </div>
-        <div className="adminManageDashboardSecondCard">
-          <div className="SearchandAddContainer">
-            <div className="addUserContainer">
-              <NavLink
-                to="/admin-overview"
-                className="adminManageAddUserButton"
-              >
-                Add User{" "}
-                <span>
-                  <FontAwesomeIcon icon={faAdd} />
-                </span>{" "}
-              </NavLink>
-            </div>
-          </div>
-          <div className="adminManageTableContainer">
-            <TableUser />
+        <div className="adminViewMessagesDashboardSecondCard">
+          <div className="adminViewMessagesTableContainer">
+            <MessageTable />
           </div>
         </div>
       </main>

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import "../styles/ReceptionOverView.css";
-// Fontawesome family
+import "../styles/ViewDeletedUsers.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -14,8 +13,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
+import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
+import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
+import DeletedUsersTable from "./DeletedUsersTable";
 
-export default function ReceptionOverView() {
+export default function ViewDeletedUsers() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -49,45 +54,70 @@ export default function ReceptionOverView() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-start",
           height: "100vh",
           width: "100%",
         }}
       >
-        {["Dashboard"].map((text, index) => (
+        {[
+          {
+            text: "Dashboard",
+            link: "/admin",
+            icon: <DashboardCustomizeRoundedIcon />,
+          },
+          {
+            text: "Manage Users",
+            link: "/admin-manage-users",
+            icon: <ManageAccountsRoundedIcon />,
+          },
+          {
+            text: "Register Users",
+            link: "/admin-overview",
+            icon: <AppRegistrationRoundedIcon />,
+          },
+          {
+            text: "Deleted Users",
+            link: "/admin-view-deleted-users",
+            icon: <DeleteForeverRoundedIcon />,
+          },
+          {
+            text: "View Messages",
+            link: "/admin-view-messages",
+            icon: <PreviewRoundedIcon />,
+          },
+        ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon style={{ color: "#14ac5f" }}>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
+            <ListItemButton href={link}>
+              <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
-        {/* <Divider /> */}
         <div
           style={{
             display: "flex",
-            // alignItems: "center",
-            justifyContent: "center",
+            alignItems: "flex-end",
+            justifyContent: "flex-end",
           }}
         >
-          <button onClick={handleLogout} className="receptionLogOutButton">
+          <button
+            onClick={handleLogout}
+            className="adminViewDeletedUsersLogOutButton"
+          >
             Log Out
           </button>
         </div>
       </List>
     </Box>
   );
-
   return (
     <div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
-      <main className="receptionDashboard ">
-        <div className="receptionDashboardFirstCard">
-          <div className="receptionDashboardNavBarContainer">
+      <main className="adminViewDeletedUsersDashboard ">
+        <div className="adminViewDeletedUsersDashboardFirstCard">
+          <div className="adminViewDeletedUsersDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -95,20 +125,20 @@ export default function ReceptionOverView() {
                 onClick={toggleDrawer(true)}
               />
             </div>
-            <div className="receptionDashboardLogOutContainer">
+            <div className="adminViewDeletedUsersDashboardLogOutContainer">
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
-              <h1 className="receptionDashboardNavImage">
+              <h1 className="adminViewDeletedUsersDashboardNavImage">
                 {" "}
                 {userNameFirstLetter}
               </h1>
             </div>
           </div>
         </div>
-        <div className="ReceptionDashboardSecondCard">
-          <div>
-            <p>reception</p>
+        <div className="adminViewDeletedUsersDashboardSecondCard">
+          <div className="adminViewDeletedUsersTableContainer">
+            <DeletedUsersTable />
           </div>
         </div>
       </main>

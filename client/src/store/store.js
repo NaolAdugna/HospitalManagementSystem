@@ -9,3 +9,11 @@ export const useAuthStore = create((set) => ({
   setUsername: (username) =>
     set((state) => ({ auth: { ...state.auth, username: username } })),
 }));
+export const usePatientAuthStore = create((set) => ({
+  auth: {
+    name: "",
+    password: "",
+    active: false,
+  },
+  setName: (name) => set((state) => ({ auth: { ...state.auth, name: name } })),
+}));

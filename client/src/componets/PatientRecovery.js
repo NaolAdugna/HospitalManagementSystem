@@ -9,17 +9,15 @@ import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, NavLink } from "react-router-dom";
 
-import { generateOTP, verifyOTP } from "../functions/checker";
-import { useAuthStore } from "../store/store";
-
-export default function Recovery() {
-  const { username } = useAuthStore((state) => state.auth);
-  // const username = localStorage.getItem("usernameRecovery");
+import { generateOTPPatient, verifyPatientOTP } from "../functions/checker";
+import { usePatientAuthStore } from "../store/store";
+export default function PatientRecovery() {
+  const { name } = usePatientAuthStore((state) => state.auth);
   const [OTP, setOTP] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    generateOTP(username)
+    generateOTPPatient(name)
       .then((OTP) => {
         if (OTP) return toast.success("OTP has been send to your email!");
         return toast.error("Problem while generating OTP!");
@@ -32,10 +30,10 @@ export default function Recovery() {
   async function onSubmit(e) {
     e.preventDefault();
     try {
-      let { status } = await verifyOTP(username, OTP);
+      let { status } = await verifyPatientOTP(name, OTP);
       if (status === 201) {
         toast.success("Verified Successfully!");
-        return navigate("/password-reset");
+        return navigate("/password-patient-reset");
       }
     } catch (error) {
       return toast.error("Wrong OTP! Check email again!");
@@ -44,19 +42,14 @@ export default function Recovery() {
 
   // handler of resend OTP
   function resendOTP() {
-    let sentPromise = generateOTP(username);
+    let sentPromise = generateOTPPatient(name);
 
     toast.promise(sentPromise, {
       loading: "Sending...",
       success: <b>OTP has been send to your email!</b>,
       error: <b>Could not Send it!</b>,
     });
-
-    // sentPromise.then((OTP) => {
-    //   console.log(OTP);
-    // });
   }
-
   return (
     <div className="bodyContainer">
       <Toaster position="top-center"></Toaster>
@@ -89,7 +82,7 @@ export default function Recovery() {
             <FontAwesomeIcon icon={faLock} className="loginNameIcon" />
             <div className="passwordContainer">
               <TextField
-                name="username"
+                name="name"
                 label="Enter OTP code"
                 variant="standard"
                 id="standard-password-basic"
@@ -114,14 +107,6 @@ export default function Recovery() {
               Recover
             </button>
           </div>
-          {/* <div className="recaptchaContainer">
-            <ReCAPTCHA
-              size="normal"
-              badge="bottomright"
-              className="recaptchaContent"
-              sitekey="6Lc7vnEpAAAAAMTZG8RdEv78XquSIMvEa3EABIle"
-            />
-          </div> */}
         </form>
         <div className="loginCopyRightContainer">
           <p>

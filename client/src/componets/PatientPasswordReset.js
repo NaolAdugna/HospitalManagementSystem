@@ -11,15 +11,16 @@ import { useFormik } from "formik";
 
 import { resetPasswordValidate } from "../functions/validate";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../store/store";
-import { resetPassword } from "../functions/checker";
+import { usePatientAuthStore } from "../store/store";
+import { resetPatientPassword } from "../functions/checker";
 
-export default function Reset() {
+export default function PatientPasswordReset() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isNewOpen, setIsNewOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
+  const { name } = usePatientAuthStore((state) => state.auth);
 
   const togglePasswordVisisbility = () => {
     setIsOpen(!isOpen);
@@ -29,8 +30,6 @@ export default function Reset() {
     setIsNewOpen(!isNewOpen);
     setIsNewPasswordVisible(!isNewPasswordVisible);
   };
-
-  const { username } = useAuthStore((state) => state.auth);
 
   const formik = useFormik({
     initialValues: {
@@ -42,8 +41,8 @@ export default function Reset() {
     validateOnChange: false,
     onSubmit: async (values) => {
       console.log(values.password, values.confirmPassword);
-      let resetPromise = resetPassword({
-        username,
+      let resetPromise = resetPatientPassword({
+        name,
         password: values.password,
       });
 
@@ -58,7 +57,6 @@ export default function Reset() {
       });
     },
   });
-
   return (
     <div className="bodyContainer">
       <Toaster position="top-center"></Toaster>

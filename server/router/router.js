@@ -49,6 +49,12 @@ router.route("/users").get(adminController.ReturnUser);
 router.route("/users/:id").delete(adminController.DeleteUser);
 router.route("/users/:id").get(adminController.GetUserByIdController);
 router.route("/update-user/:id").put(adminController.UpdateUser);
+router.route("/delete-user/:id").delete(adminController.DeleteUser);
+router
+  .route("/delete-user-register/:id")
+  .post(adminController.deleteUserRegisterController);
+router.route("/deletedusers").get(adminController.ReturnDeletedUser);
+router.route("/contact-us-message").get(adminController.ReturnContactUsMessage);
 router.route("/user-role/:id").get(adminController.ReturnUserRole);
 router.route("/users/:username").get(async (req, res) => {
   try {
@@ -95,4 +101,40 @@ router.route("/gemini").post(adminController.geminiAI);
 router
   .route("/contact-send-message")
   .post(adminController.contactSendMessageController);
+
+// Register Patient by reception
+router.route("/create-patient").post(adminController.registerPatientController);
+
+router.route("/view-patient").get(adminController.ReturnPatientUser);
+
+// Login User Staff
+router
+  .route("/login-user-patient")
+  .post(adminController.PatientExistForLogin, adminController.loginPatient);
+
+router
+  .route("/patient-existance")
+  .post(adminController.PatientExistanceController, (req, res) => res.end());
+router
+  .route("/patient-email")
+  .get(adminController.ReturnPatientEmailController);
+
+router
+  .route("/otp-generator-patient")
+  .get(
+    adminController.PatientExistanceController,
+    localVariables,
+    adminController.generateOTP
+  );
+
+router
+  .route("/otp-verify-patient")
+  .get(adminController.PatientExistanceController, adminController.verifyOTP);
+router
+  .route("/reset-patient-password")
+  .put(
+    adminController.PatientExistanceController,
+    adminController.resetPatientPasswordAdminController
+  );
+
 export default router;

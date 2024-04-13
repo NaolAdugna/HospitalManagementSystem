@@ -13,355 +13,206 @@
   margin: 0;
   padding: 0;
 }
-.reportContainer {
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 0 1fr;
-  grid-template-areas:
-    "side main"
-    "side main";
-}
-
-.side {
-  background-color: var(--navBarBg);
-  grid-area: side;
-  width: 300px;
-  display: block;
-  background-color: white;
-  background: none;
-}
-
-.mainOverViewContainer {
+.adminOverviewDashboard {
   background-color: rgb(195, 196, 202, 0.5);
-  grid-area: main;
-  margin-left: 0;
-  padding: 25px;
+  padding: 10px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 70px 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px 1fr;
   grid-template-areas:
-    "c1 c1 c1"
-    "c2 c2 c4"
-    "c5 c5 c6"
-    "c5 c5 c6";
-  gap: 15px;
+    "adminOverviewDashboardFirstCard adminOverviewDashboardFirstCard"
+    "adminOverviewDashboardSecondCard adminOverviewDashboardSecondCard";
+  gap: 10px;
+  height: 100vh;
 }
-
-.card {
-  background-color: #f6f7f9;
+.adminOverviewDashboardFirstCard {
+  background-color: #f0f8ff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  grid-area: adminOverviewDashboardFirstCard;
+}
+.adminOverviewDashboardSecondCard {
+  background-color: #f0f8ff;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 10px;
+  grid-area: adminOverviewDashboardSecondCard;
+  padding: 25px;
+  gap: 25px;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "adminOverviewDashboardSecondFirstCard adminOverviewDashboardSecondFirstCard adminOverviewDashboardSecondSecondCard"
+    "adminOverviewDashboardSecondThirdCard adminOverviewDashboardSecondThirdCard adminOverviewDashboardSecondFourthCard"
+    "adminOverviewDashboardSecondThirdCard adminOverviewDashboardSecondThirdCard adminOverviewDashboardSecondFourthCard";
+  /* "c5 c5 c6"; */
 }
-.card.card:nth-child(1) {
-  grid-area: c1;
+
+.adminOverviewDashboardSecondFirstCard {
+  grid-area: adminOverviewDashboardSecondFirstCard;
+  background-color: #fff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
 }
-.card:nth-child(2) {
-  grid-area: c2;
+.adminOverviewDashboardSecondSecondCard {
+  grid-area: adminOverviewDashboardSecondSecondCard;
+  background-color: #fff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
 }
-.card.card:nth-child(3) {
-  grid-area: c3;
+.adminOverviewDashboardSecondThirdCard {
+  grid-area: adminOverviewDashboardSecondThirdCard;
+  background-color: #fff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
 }
-.card:nth-child(4) {
-  grid-area: c4;
+.adminOverviewDashboardSecondFourthCard {
+  grid-area: adminOverviewDashboardSecondFourthCard;
+  background-color: #fff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
 }
-.card.card:nth-child(5) {
-  grid-area: c5;
-}
-.card:nth-child(6) {
-  grid-area: c6;
-}
-.OverViewCardContainer {
+
+.adminOverviewDashboardNavBarContainer {
+  padding: 10px;
   display: flex;
   align-items: center;
-}
-.OverViewnavBarContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
   justify-content: space-between;
-  width: 100%;
-  margin: auto;
-  padding-left: 12px;
 }
-/* .sideBarContainer {
-  width: 100%;
-} */
-.sideBarIdentityContainer {
-  display: flex;
-  flex-direction: column;
-  /* color: white; */
-}
-.sideBarProfile {
-  display: flex;
-  color: white;
-  align-items: flex-start;
-  justify-content: space-evenly;
-  text-align: center;
-  padding: 1.5rem 3.9rem 0.25rem 3.9rem;
-}
-.sideBarContainerFooter {
-  display: flex;
-  justify-content: space-evenly;
-  overflow: hidden;
-  transition: all 1s;
-}
-.profileImage {
-  height: 2.5rem;
-  border-radius: 0.375rem;
-}
-
-.OverViewsideBarUnorderList {
-  height: 100%;
-  margin-top: 61px;
-}
-.OverViewsideBarUnorderList a.active {
-  background-color: #293846;
-  background-color: rgb(195, 196, 202, 0.5);
-  border-left: 4px solid var(--mainColor);
-}
-.OverViewsideBarUnorderList .OverViewsideBarLinks {
-  width: 100%;
-  height: 43px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  gap: 14px;
-}
-.OverViewsideBarLinks:hover {
-  cursor: pointer;
-  background-color: #293846;
-  background-color: rgb(195, 196, 202, 0.5);
-  border-left: 4px solid var(--mainColor);
-  scale: 0.92;
-}
-.navBarHamburger {
-  font-size: 32px;
-  transition: all 0.3s;
-}
-.navBarHamburger:hover {
-  cursor: pointer;
-}
-.navBarLogoutContainer {
-  width: 30%;
+.adminOverviewDashboardLogOutContainer {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  overflow: hidden;
+  justify-content: space-evenly;
+  width: 20%;
 }
-.navBarLogoutContainer h4 {
-  margin-right: 1rem;
+.adminOverviewDashboardNavImage {
+  background-color: #14ac5f;
+  padding: 4px 15px;
+  border-radius: 50%;
+  color: var(--navBarBg);
+}
+.adminOverviewLogOutButton {
+  background-color: rgba(255, 0, 0, 0.8);
+  border: none;
   font-size: 14px;
-  text-decoration: underline;
+  padding: 8px 16px;
+  color: var(--navBarBg);
 }
-.navBarLogoutContainer button {
-  font-size: 14px;
-  background-color: transparent;
-  padding: 8px 18px;
-  border: 0.5px solid var(--mainColor);
-}
-.navBarLogoutContainer button:hover {
+.adminOverviewLogOutButton:hover {
   cursor: pointer;
-  overflow: hidden;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
 }
-
-/* main start here */
-.mainContainer {
-  background: none;
-  background-color: white;
-}
-
-.overViewCalendar {
+.adminOverviewCalendar {
   width: 80%;
   height: 96%;
   border: none;
   box-shadow: 4px 4px 20px 8px rgba(0, 0, 0, 0.2);
   font-size: 17px;
+  background-color: aliceblue;
 }
-
-.overViewProfileImage {
-  background-color: var(--mainColor);
-  color: var(--navBarBg);
-  width: 30%;
-  height: auto;
-  border-radius: 50%;
-}
-
-.overViewBarChart {
+.adminOverviewBarChart {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.OverViewAddListContainer {
+.adminOverviewAddListContainer {
   margin-top: 11px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
 }
-.OverViewAddListButton {
+.adminOverViewAddListButton {
   border: none;
   font-size: 16px;
   color: var(--navBarBg);
   padding: 8px 20px;
   background-color: var(--mainColor);
 }
-.OverViewAddListButton:hover {
+.adminOverViewAddListButton:hover {
   cursor: pointer;
   scale: 1.02;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* main end here */
-
-/* media query start */
-
 @media (max-width: 320px) {
-  .reportContainer {
-    /* background-color: orange; */
-    grid-template-columns: 0 100%;
-    height: 100%;
-    width: 100%;
+  .adminOverviewDashboardLogOutContainer {
+    justify-content: space-between;
+    /* background-color: aliceblue; */
+    width: 70%;
   }
-
-  .main {
+  .adminOverviewDashboardNavImage {
+    padding: 4px 12px;
+    font-size: 22px;
+  }
+  .adminOverviewDashboardSecondCard {
+    gap: 25px;
+    padding: 15px;
+    /* display: grid; */
     grid-template-columns: 1fr;
-    grid-template-rows: 60px 200px 200px 280px 500px 200px;
-    padding: 10px;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-areas: initial;
-    /* width: 100%; */
   }
-
-  .card {
+  .adminOverviewDashboardSecondFirstCard {
     grid-area: initial !important;
-    width: 100%;
   }
-  .card:nth-child(1) {
-    width: 100%;
+  .adminOverviewDashboardSecondSecondCard {
+    grid-area: initial !important;
   }
-  .navBarContainer {
-    width: 100%;
-    padding-left: 8px;
+  .adminOverviewDashboardSecondThirdCard {
+    grid-area: initial !important;
   }
-  .navBarLogoutContainer {
-    width: 80%;
+  .adminOverviewDashboardSecondFourthCard {
+    grid-area: initial !important;
   }
-  .navBarLogoutContainer h4 {
-    font-size: 11px;
-    margin-right: 10px;
-  }
-  .navBarLogoutContainer button {
-    font-size: 12px;
-    padding: 6px 8px;
-  }
-  .sideBarContainer {
-    width: 100%;
-  }
-
-  /* main start here */
-  .mainContainer {
-    width: 80%;
-    height: 80%;
-  }
-
-  .tableUser {
-    width: 80%;
-  }
-  /* main end here */
 }
 
 @media (min-width: 321px) and (max-width: 640px) {
-  .sideBarContainer {
-    width: 100%;
-  }
-  .reportContainer {
-    grid-template-columns: 0 100%;
-  }
-
-  .main {
-    grid-template-columns: 1fr;
-    grid-template-rows: 60px 200px 200px 280px 500px 200px;
-    padding: 10px;
-    grid-template-areas: initial;
-  }
-
-  .card {
-    grid-area: initial !important;
-  }
-  .navBarContainer {
-    padding-left: 12px;
-    width: 100%;
-  }
-  .navBarLogoutContainer {
+  .adminOverviewDashboardLogOutContainer {
+    justify-content: space-evenly;
     width: 70%;
   }
-  .navBarLogoutContainer h4 {
-    font-size: 12px;
-    margin-right: 10px;
-  }
-  .navBarLogoutContainer button {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-  .sideBarContainer {
-    width: 100%;
-  }
-
-  /* main start here */
-  .mainContainer {
-    width: 100%;
-    height: 100%;
-  }
-  .tableUser {
-    width: 100%;
-  }
-
-  /* main end here */
-}
-@media (min-width: 641px) and (max-width: 1024px) {
-  .reportContainer {
-    grid-template-columns: 100% 0;
-  }
-
-  .main {
+  .adminOverviewDashboardSecondCard {
+    gap: 25px;
+    padding: 15px;
+    /* display: grid; */
     grid-template-columns: 1fr;
-    grid-template-rows: 60px 200px 200px 290px 700px 200px;
-    padding: 10px;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-areas: initial;
   }
-
-  .card {
+  .adminOverviewDashboardSecondFirstCard {
     grid-area: initial !important;
-    height: 100%;
   }
-  .navBarContainer {
-    padding-left: 29px;
-    width: 100%;
+  .adminOverviewDashboardSecondSecondCard {
+    grid-area: initial !important;
   }
-  .navBarLogoutContainer {
-    width: 50%;
+  .adminOverviewDashboardSecondThirdCard {
+    grid-area: initial !important;
   }
-  .navBarLogoutContainer h4 {
-    font-size: 16px;
-    margin-right: 10px;
+  .adminOverviewDashboardSecondFourthCard {
+    grid-area: initial !important;
   }
-  .navBarLogoutContainer button {
-    font-size: 16px;
-    padding: 8px 12px;
-  }
-  .sideBarContainer {
-    width: 100%;
-  }
-  /* main start here */
-  .mainContainer {
-    width: 100%;
-    height: 80%;
-  }
-
-  /* main end here */
 }
 
-/* media query ends  */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .adminOverviewDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+  .adminOverviewDashboardSecondCard {
+    gap: 25px;
+    padding: 15px;
+    /* display: grid; */
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas: initial;
+  }
+  .adminOverviewDashboardSecondFirstCard {
+    grid-area: initial !important;
+  }
+  .adminOverviewDashboardSecondSecondCard {
+    grid-area: initial !important;
+  }
+  .adminOverviewDashboardSecondThirdCard {
+    grid-area: initial !important;
+  }
+  .adminOverviewDashboardSecondFourthCard {
+    grid-area: initial !important;
+  }
+}

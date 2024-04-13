@@ -1,23 +1,9 @@
 import React, { useState } from "react";
-import "../styles/ManageUsers.css";
+import "../styles/ReceptionViewPatient.css";
 
-// Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import {
-  faEnvelope,
-  faChartSimple,
-  faRepublican,
-  faAdd,
-  faBars,
-  faListCheck,
-  faAddressBook,
-  faDashboard,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faAdd } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
-
-import TableUser from "./TableUser";
-
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -27,13 +13,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
-export default function ManageUsers() {
+import ViewPatientTable from "./ViewPatientTable";
+export default function ReceptionViewPatient() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -75,28 +61,13 @@ export default function ManageUsers() {
         {[
           {
             text: "Dashboard",
-            link: "/admin",
+            link: "/reception",
             icon: <DashboardCustomizeRoundedIcon />,
           },
           {
-            text: "Manage Users",
-            link: "/admin-manage-users",
+            text: "View Patients",
+            link: "/reception-view-patient",
             icon: <ManageAccountsRoundedIcon />,
-          },
-          {
-            text: "Register Users",
-            link: "/admin-overview",
-            icon: <AppRegistrationRoundedIcon />,
-          },
-          {
-            text: "Deleted Users",
-            link: "/admin-view-deleted-users",
-            icon: <DeleteForeverRoundedIcon />,
-          },
-          {
-            text: "View Messages",
-            link: "/admin-view-messages",
-            icon: <PreviewRoundedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
@@ -113,22 +84,24 @@ export default function ManageUsers() {
             justifyContent: "flex-end",
           }}
         >
-          <button onClick={handleLogout} className="adminManageLogOutButton">
+          <button
+            onClick={handleLogout}
+            className="receptionViewPatientLogOutButton"
+          >
             Log Out
           </button>
         </div>
       </List>
     </Box>
   );
-
   return (
     <div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
-      <main className="adminManageDashboard ">
-        <div className="adminManageDashboardFirstCard">
-          <div className="adminManageDashboardNavBarContainer">
+      <main className="receptionViewPatientDashboard ">
+        <div className="receptionViewPatientDashboardFirstCard">
+          <div className="receptionViewPatientDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -136,33 +109,33 @@ export default function ManageUsers() {
                 onClick={toggleDrawer(true)}
               />
             </div>
-            <div className="adminManageDashboardLogOutContainer">
+            <div className="receptionViewPatientDashboardLogOutContainer">
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
-              <h1 className="adminManageDashboardNavImage">
+              <h1 className="receptionViewPatientDashboardNavImage">
                 {" "}
                 {userNameFirstLetter}
               </h1>
             </div>
           </div>
         </div>
-        <div className="adminManageDashboardSecondCard">
+        <div className="receptionViewPatientDashboardSecondCard">
           <div className="SearchandAddContainer">
             <div className="addUserContainer">
               <NavLink
-                to="/admin-overview"
-                className="adminManageAddUserButton"
+                to="/reception"
+                className="receptionViewPatientAddUserButton"
               >
-                Add User{" "}
+                Add Patient{" "}
                 <span>
                   <FontAwesomeIcon icon={faAdd} />
                 </span>{" "}
               </NavLink>
             </div>
           </div>
-          <div className="adminManageTableContainer">
-            <TableUser />
+          <div className="receptionViewPatientTableContainer">
+            <ViewPatientTable />
           </div>
         </div>
       </main>

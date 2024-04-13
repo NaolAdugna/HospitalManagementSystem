@@ -20,6 +20,15 @@ import {
   findList,
   createList,
   contactSendMessageMysql,
+  deleteUserRegister,
+  GetDeletedUsers,
+  GetContactUsMessage,
+  registerPatientUser,
+  findPatient,
+  findPatientEmail,
+  GetPatientUsers,
+  ReturnPatientEmail,
+  UpdatePatientPassword,
 } from "../modelSchema/UserCreation.model.js";
 
 export async function register(req, res) {
@@ -125,7 +134,7 @@ export async function loginUser(req, res) {
         username: user[0].username,
       },
       ENV.JWT_SECRET,
-      { expiresIn: "24h" }
+      { expiresIn: "1h" }
     );
 
     return res.status(200).send({
@@ -343,9 +352,6 @@ export async function verifyOTP(req, res) {
 
 export async function resetPasswordAdminController(req, res) {
   try {
-    // if (!req.app.locals.resetSession)
-    //   return res.status(440).send({ error: "Session expired!" });
-
     const { password } = req.body;
     const username = req.session.usernameForReset;
     try {
@@ -452,5 +458,214 @@ export async function contactSendMessageController(req, res) {
     }
   } catch (error) {
     return res.status(500).send({ error: "Internal server error" });
+  }
+}
+
+export async function deleteUserRegisterController(req, res) {
+  try {
+    const { username, role, email, reason, deletedby } = req.body;
+    const response = await deleteUserRegister(
+      username,
+      role,
+      email,
+      reason,
+      deletedby
+    );
+    return res.status(201).send({ msg: "User Deleted Registered successful" });
+  } catch (error) {
+    return res.status(500).send({ error: "Internal server error", error });
+  }
+}
+
+export async function ReturnDeletedUser(req, res) {
+  try {
+    const users = await GetDeletedUsers();
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occured during get deleted user", error);
+    return res
+      .status(500)
+      .send({ error: "an error occured while getting deleted user" });
+  }
+}
+export async function ReturnContactUsMessage(req, res) {
+  try {
+    const users = await GetContactUsMessage();
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occured during get contact message", error);
+    return res
+      .status(500)
+      .send({ error: "an error occured while getting contact message" });
+  }
+}
+
+export async function registerPatientController(req, res) {
+  try {
+    const { name, password, age, gender, email, medicalhistory } = req.body;
+
+    const existingname = await findPatient(name);
+
+    if (existingname) {
+      return res.status(400).send({ error: "Please use a unique name" });
+    }
+
+    const existingEmail = await findPatientEmail(email);
+    if (existingEmail) {
+      return res.status(400).send({ error: "Please use a unique email" });
+    }
+
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const response = await registerPatientUser(
+        name,
+        hashedPassword,
+        age,
+        gender,
+        email,
+        medicalhistory
+      );
+      return res.status(201).send({ msg: "Patient registration successful" });
+    } else {
+      return res.status(400).send({ error: "Password is required" });
+    }
+  } catch (error) {
+    return res.status(500).send({ error: "Internal server error", error });
+  }
+}
+
+export async function ReturnPatientUser(req, res) {
+  try {
+    const users = await GetPatientUsers();
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occured during get Patient user", error);
+    return res
+      .status(500)
+      .send({ error: "an error occured while getting Patient user" });
+  }
+}
+
+export async function PatientExistForLogin(req, res, next) {
+  try {
+    const { name } = req.body;
+
+    if (!name) {
+      return res.status(400).send({ error: "name is required" });
+    }
+
+    // check the user existance
+    let exist = await findPatient(name);
+    if (!exist)
+      return res.status(404).send({ error: `Patient Did not exist!` });
+    next();
+  } catch (error) {
+    console.error("error occurred in verify user middleware", error);
+    return res.status(404).send({ error: "Authentication Error" });
+  }
+}
+
+export async function loginPatient(req, res) {
+  const { name, password } = req.body;
+
+  try {
+    const user = await findPatient(name);
+
+    if (!user) {
+      return res.status(404).send({ error: "Name not found" });
+    }
+
+    const passwordCheck = await bcrypt.compare(password, user[0].password);
+
+    if (!passwordCheck) {
+      return res.status(400).send({ error: "Password does not match" });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user[0].id,
+        name: user[0].name,
+      },
+      ENV.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    return res.status(200).send({
+      msg: "Login Successful",
+      name: user[0].name,
+      id: user[0].id,
+      token,
+    });
+  } catch (error) {
+    console.error("Error occurred:", error);
+    return res.status(500).send({ error: "Internal server error" });
+  }
+}
+
+export async function PatientExistanceController(req, res, next) {
+  try {
+    const { name } = req.method === "GET" ? req.query : req.body;
+
+    if (!name) {
+      return res.status(400).send({ error: "name is required" });
+    }
+
+    req.session.nameForReset = name;
+    // check the user existance
+    let exist = await findPatient(name);
+    // return exist;
+    if (!exist) {
+      return res.status(404).send({ error: `User Did not exist!` });
+    }
+    next();
+    req.userExit = true;
+  } catch (error) {
+    console.error("error occurred in verify find Patient middleware", error);
+    return res.status(404).send({ error: "Authentication Error" });
+  }
+}
+
+export async function ReturnPatientEmailController(req, res) {
+  try {
+    const { name } = req.method === "GET" ? req.query : req.body;
+    if (!name) {
+      return res.status(400).send({ error: "name is required" });
+    }
+    let emailReturn = await ReturnPatientEmail(name);
+    if (!emailReturn)
+      return res.status(404).send({ error: `User Email did not Exists` });
+    return res.status(200).send(emailReturn);
+  } catch (error) {
+    console.error("error in returning email controller", error);
+    return res.status(404).send({ error: "Retrieval error" });
+  }
+}
+
+export async function resetPatientPasswordAdminController(req, res) {
+  try {
+    const { password } = req.body;
+    const name = req.session.nameForReset;
+    try {
+      const user = await findPatient(name);
+
+      if (!user) {
+        return res.status(404).send({ error: "Name not found" });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      await UpdatePatientPassword(name, hashedPassword);
+
+      req.app.locals.resetSession = false; // reset session
+      return res.status(201).send({ msg: "Password Updated Successfully." });
+    } catch (error) {
+      console.error("Error occurred:", error);
+      return res
+        .status(500)
+        .send({ error: "An error occurred while resetting password." });
+    }
+  } catch (error) {
+    console.error("Error occurred:", error);
+    return res.status(401).send({ error: "Unauthorized" });
   }
 }

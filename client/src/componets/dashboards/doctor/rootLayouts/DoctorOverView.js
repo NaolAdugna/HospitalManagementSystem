@@ -29,7 +29,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-
+import SendIcon from "@mui/icons-material/Send";
 export default function DoctorOverView() {
   const [prompt, setPrompt] = useState("");
   const inputRef = useRef(null);
@@ -191,11 +191,14 @@ export default function DoctorOverView() {
                   // cols={5}
                   rows={3}
                 />
-                <FontAwesomeIcon
+                <span onClick={submitHandler}>
+                  <SendIcon className="formIcon" sx={{ fontSize: "40px" }} />
+                </span>
+                {/* <FontAwesomeIcon
                   icon={faPaperPlane}
                   className="formIcon"
                   onClick={submitHandler}
-                />
+                /> */}
                 {/* <button type="submit">Generate Content</button> */}
               </div>
             </form>

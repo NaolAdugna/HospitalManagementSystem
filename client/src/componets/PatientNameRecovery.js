@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../styles/Login.css";
 
 // Fontawesome family
@@ -9,26 +9,26 @@ import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { useAuthStore } from "../store/store";
-import { userNameRecoveryValidate } from "../functions/validate";
-import { userExistanceChecker } from "../functions/checker";
 
-export default function UserNameRecovery() {
+import { PatientRecoveryValidate } from "../functions/validate";
+import { PatientExistanceChecker } from "../functions/checker";
+import { usePatientAuthStore } from "../store/store";
+export default function PatientNameRecovery() {
   const navigate = useNavigate();
-  const setUsername = useAuthStore((state) => state.setUsername);
+  const setName = usePatientAuthStore((state) => state.setName);
 
   const formik = useFormik({
     initialValues: {
-      username: "",
+      name: "",
     },
-    validate: userNameRecoveryValidate,
+    validate: PatientRecoveryValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      let UserNameRecovery = userExistanceChecker(values.username);
+      let UserNameRecovery = PatientExistanceChecker(values.name);
       toast.promise(UserNameRecovery, {
         loading: "Checking...",
-        success: <b>UserName Sent Successfully...!</b>,
+        success: <b>Name Sent Successfully...!</b>,
         error: <b>User does not Exists!</b>,
       });
 
@@ -36,11 +36,11 @@ export default function UserNameRecovery() {
         if (res && res.error) {
           toast.error("user DO NOT EXISTS");
         } else {
-          const usernameValue = setUsername(values.username);
-          navigate("/password-recovery");
+          const nameValue = setName(values.name);
+          navigate("/password-patient-recovery");
         }
       }).catch((error) => {
-        console.error("Error occured in username recovery ", error);
+        console.error("Error occured in patient name recovery ", error);
       });
     },
   });
@@ -67,24 +67,20 @@ export default function UserNameRecovery() {
             </span>
           </h2>
         </div>
-        <div style={{ paddingBottom: "22px" }}>
-          {/* <p style={{ textAlign: "center" }}>
-            Enter 6 digit OTP sent to your email address
-          </p> */}
-        </div>
+        <div style={{ paddingBottom: "22px" }}></div>
         <form className="formContainer" onSubmit={formik.handleSubmit}>
           <div className="loginPassword loginName">
             <FontAwesomeIcon icon={faUser} className="loginNameIcon" />
             <div className="passwordContainer">
               <TextField
-                name="username"
-                label="Enter Your Username"
+                name="name"
+                label="Enter Your name"
                 variant="standard"
                 id="standard-password-basic"
                 autoComplete="current-password"
                 type="text"
                 className="loginInputs"
-                {...formik.getFieldProps("username")}
+                {...formik.getFieldProps("name")}
               />
             </div>
           </div>

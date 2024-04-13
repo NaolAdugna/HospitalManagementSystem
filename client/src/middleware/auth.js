@@ -59,6 +59,13 @@ export const LabAuthorize = ({ children }) => {
   }
   return children;
 };
+export const PatientAuthorize = ({ children }) => {
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+    return <Navigate to={"/login"} replace={true}></Navigate>;
+  }
+  return children;
+};
 
 export const ProtectRoute = ({ children }) => {
   const username = useAuthStore.getState().auth.username;

@@ -125,13 +125,15 @@ root {
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
 }
 .formIcon {
-  font-size: 25px;
-  transition: 300ms all;
+  padding: 2px 3px;
+  /* width: 30px; */
+  transition: 400ms all;
 }
 .formIcon:hover {
   cursor: pointer;
   font-weight: 900;
-  color: #14ac5f;
+  color: var(--navBarBg);
+  background-color: var(--mainColor);
 }
 @media (max-width: 320px) {
   .doctorDashboardLogOutContainer {

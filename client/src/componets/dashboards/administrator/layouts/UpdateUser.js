@@ -24,10 +24,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
+import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
+import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
+
 export default function UpdateUser() {
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [sidebarWidth, setSidebarWidth] = useState(300); // Initial width
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { id } = useParams();
@@ -45,21 +57,96 @@ export default function UpdateUser() {
     });
   }, []);
 
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-    setSidebarWidth(showSidebar ? 0 : 400); // Toggle width
-  };
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const styles = {
-    side: {
-      width: sidebarWidth,
-    },
-    "@media (max-width: 320px)": {
-      side: {
-        width: showSidebar ? "0" : "100%",
-      },
-    },
+  const userName = sessionStorage.getItem("username");
+  const userNameFirstLetter = userName.charAt(0);
+
+  function handleLogout() {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("token");
+    navigate("/");
+  }
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
   };
+  const togglePasswordVisisbility = () => {
+    setIsOpen(!isOpen);
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+  const DrawerList = (
+    <Box
+      sx={{
+        width: 250,
+        display: "flex",
+        alignItems: "flex-start",
+        justifyContent: "space-between",
+        background: "#f0f8ff",
+      }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+    >
+      <List
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          height: "100vh",
+          width: "100%",
+        }}
+      >
+        {[
+          {
+            text: "Dashboard",
+            link: "/admin",
+            icon: <DashboardCustomizeRoundedIcon />,
+          },
+          {
+            text: "Manage Users",
+            link: "/admin-manage-users",
+            icon: <ManageAccountsRoundedIcon />,
+          },
+          {
+            text: "Register Users",
+            link: "/admin-overview",
+            icon: <AppRegistrationRoundedIcon />,
+          },
+          {
+            text: "Deleted Users",
+            link: "/admin-view-deleted-users",
+            icon: <DeleteForeverRoundedIcon />,
+          },
+          {
+            text: "View Messages",
+            link: "/admin-view-messages",
+            icon: <PreviewRoundedIcon />,
+          },
+        ].map(({ text, link, icon }, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton href={link}>
+              <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "flex-end",
+          }}
+        >
+          <button onClick={handleLogout} className="adminUpdateLogOutButton">
+            Log Out
+          </button>
+        </div>
+      </List>
+    </Box>
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -91,143 +178,86 @@ export default function UpdateUser() {
     },
   });
 
-  const togglePasswordVisisbility = () => {
-    setIsOpen(!isOpen);
-    setIsPasswordVisible(!isPasswordVisible);
-  };
-
-  const storedUsername = sessionStorage.getItem("username");
-  const storedRole = sessionStorage.getItem("role");
-
-  const userNameFirstLetter = storedUsername.charAt(0);
-  function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
-    navigate("/");
-  }
-
   return (
-    <div className="reportContainer">
-      <div
-        style={styles.side}
-        className={showSidebar ? `side show` : `side`}
-        // style={{ width: sidebarWidth }}
-      >
-        <div className="layoutContainer">
-          <div className="sideBarContainer">
-            <div className="sideBarIdentityContainer">
-              <div className="sideBarProfile">
-                {/* <img
-                  src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
-                  alt="profile "
-                  className="profileImage"
-                /> */}
-                <h1 className="updateProfileImage"> {userNameFirstLetter} </h1>
-                <div className="sideBarContainerFooter">
-                  <div>
-                    <h4> {storedUsername} </h4>
-                    <span> {storedRole} </span>
-                  </div>
-                </div>
-              </div>
-              <div className="sideBarLinksContainer">
-                <ul className="sideBarUnorderList">
-                  <NavLink to="/admin">
-                    <li className="sideBarLinks">
-                      <div id="icons">
-                        <FontAwesomeIcon icon={faEnvelope} />
-                      </div>
-                      <div>Dashboard</div>
-                    </li>
-                  </NavLink>
-                  <NavLink to="/admin-manage-users">
-                    <li className="sideBarLinks">
-                      <div id="icons">
-                        <FontAwesomeIcon icon={faChartSimple} />
-                      </div>
-                      <div>Manage Users</div>
-                    </li>
-                  </NavLink>
-                  <NavLink to="/admin-overview">
-                    <li className="sideBarLinks">
-                      <div id="icons">
-                        <FontAwesomeIcon icon={faRepublican} />
-                      </div>
-                      <div>Overview</div>
-                    </li>
-                  </NavLink>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <main
-        className="mainUpdateContainer"
-        style={{
-          gridColumn: showSidebar ? "1 / 4" : "1 / 3",
-          marginLeft: sidebarWidth,
-        }}
-      >
-        <div className="card UpdateCardNavBarContainer">
-          <div className="UpdatenavBarContainer">
+    <div>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
+        {DrawerList}
+      </Drawer>
+      <main className="adminUpdateDashboard ">
+        <div className="adminUpdateDashboardFirstCard">
+          <div className="adminUpdateDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
                 className="navBarHamburger"
-                onClick={toggleSidebar}
+                onClick={toggleDrawer(true)}
               />
             </div>
-            <div className=" navBarLogoutContainer">
-              <h4>Welcome {storedUsername}</h4>
-              <button onClick={handleLogout}>Logout</button>
+            <div className="adminUpdateDashboardLogOutContainer">
+              <h4 style={{ textDecoration: "underline" }}>
+                Welcome {userName}
+              </h4>
+              <h1 className="adminUpdateDashboardNavImage">
+                {" "}
+                {userNameFirstLetter}
+              </h1>
             </div>
           </div>
         </div>
-        <div className="card mainCardContainer">
+        <div className="adminUpdateDashboardSecondCard">
+          {/* <div className="card mainCardContainer"> */}
           <Toaster position="top-center" reverseOrder={false}></Toaster>
           <div>
-            <div className="bodyUpdateContainer">
-              <div className="UpdateContainer">
-                <div className="loginTitle">
+            <div className="adminUpdateBodyUpdateContainer">
+              <div className="adminUpdateContainer">
+                <div className="adminUpdateLoginTitle">
                   <h2>UPDATE </h2>{" "}
                   <h2>
                     {" "}
                     <br />{" "}
                     <span
-                      style={{ color: "#14ac5f", textDecoration: "underline" }}
+                      style={{
+                        color: "#14ac5f",
+                        textDecoration: "underline",
+                      }}
                     >
                       {" "}
                       HERE
                     </span>
                   </h2>
                 </div>
-                <form className="formContainer" onSubmit={formik.handleSubmit}>
-                  <div className="loginName">
-                    <FontAwesomeIcon icon={faUser} className="loginNameIcon" />
+                <form
+                  className="adminUpdateFormContainer"
+                  onSubmit={formik.handleSubmit}
+                >
+                  <div className="adminUpdateLoginName">
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      className="adminUpdateLoginNameIcon"
+                    />
                     <TextField
                       name="username"
                       variant="standard"
                       id="standard-basic idOfName"
-                      className="loginInputs"
+                      className="adminUpdateLoginInputs"
                       {...formik.getFieldProps("username")}
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
-                  <div className="loginPassword loginName">
-                    <FontAwesomeIcon icon={faLock} className="loginNameIcon" />
-                    <div className="passwordContainer">
+                  <div className="adminUpdateLoginPassword adminUpdateLoginName">
+                    <FontAwesomeIcon
+                      icon={faLock}
+                      className="adminUpdateLoginNameIcon"
+                    />
+                    <div className="adminUpdatePasswordContainer">
                       <TextField
                         name="password"
                         variant="standard"
                         id="standard-password-basic"
                         autoComplete="current-password"
                         type={isOpen ? "text" : "password"}
-                        className="loginInputs"
+                        className="adminUpdateLoginInputs"
                         {...formik.getFieldProps("password")}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -235,27 +265,27 @@ export default function UpdateUser() {
                       {isPasswordVisible ? (
                         <FontAwesomeIcon
                           icon={faEye}
-                          className="showPassword"
+                          className="adminUpdateShowPassword"
                           onClick={togglePasswordVisisbility}
                         />
                       ) : (
                         <FontAwesomeIcon
                           icon={faEyeSlash}
-                          className="showPassword"
+                          className="adminUpdateShowPassword"
                           onClick={togglePasswordVisisbility}
                         />
                       )}
                     </div>
                   </div>
 
-                  <div className="loginName">
+                  {/* <div className="adminUpdateLoginName">
                     <FontAwesomeIcon
                       icon={faUserShield}
-                      className="loginNameIcon"
+                      className="adminUpdateLoginNameIcon"
                     />
                     <select
-                      id="selectOption"
-                      className="loginInputs"
+                      id="adminUpdateSelectOption"
+                      className="adminUpdateLoginInputs"
                       {...formik.getFieldProps("role")}
                       name="role"
                       value={role}
@@ -270,17 +300,17 @@ export default function UpdateUser() {
                         Labratory Technician
                       </option>
                     </select>
-                  </div>
-                  <div className="loginName">
+                  </div> */}
+                  <div className="adminUpdateLoginName">
                     <FontAwesomeIcon
                       icon={faEnvelope}
-                      className="loginNameIcon"
+                      className="adminUpdateLoginNameIcon"
                     />
                     <TextField
                       name="email"
                       variant="standard"
                       id="standard-basic idOfEmail"
-                      className="loginInputs"
+                      className="adminUpdateLoginInputs"
                       {...formik.getFieldProps("email")}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -288,12 +318,15 @@ export default function UpdateUser() {
                   </div>
 
                   <div className="loginButtonContainer">
-                    <button className="loginPageButton" type="submit">
+                    <button
+                      className="adminUpdateLoginPageButton"
+                      type="submit"
+                    >
                       Update
                     </button>
                   </div>
                 </form>
-                <div className="loginCopyRightContainer">
+                <div className="adminUpdateLoginCopyRightContainer">
                   <p>
                     CopyRight &copy; 2024 Gebretsadik Shawo General Hospital.
                     All Rights Reserverd.
@@ -302,6 +335,7 @@ export default function UpdateUser() {
               </div>
             </div>
           </div>
+          {/* </div> */}
         </div>
       </main>
     </div>

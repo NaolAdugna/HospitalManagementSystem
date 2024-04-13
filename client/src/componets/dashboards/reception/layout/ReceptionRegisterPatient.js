@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import "../styles/RegisterUser.css";
-// import SideBarData from "./Data";
-
+import "../styles/ReceptionRegister.css";
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,16 +10,14 @@ import {
   faBars,
   faEnvelope,
   faUserShield,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { TextField } from "@mui/material";
 import ReCAPTCHA from "react-google-recaptcha";
 import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
-
-import { registerdValidate } from "../../../../functions/validate";
-
-import { registerUser } from "../../../../functions/checker";
 import { useNavigate } from "react-router-dom";
+
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -31,13 +27,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
-import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
-import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
-import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
-export default function RegisterUsers() {
+import { registerPatientValidate } from "../../../../functions/validate";
+import { registerPatient } from "../../../../functions/checker";
+
+export default function ReceptionOverView() {
   const [isOpen, setIsOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [open, setOpen] = useState(false);
@@ -60,7 +56,6 @@ export default function RegisterUsers() {
     setIsOpen(!isOpen);
     setIsPasswordVisible(!isPasswordVisible);
   };
-
   const DrawerList = (
     <Box
       sx={{
@@ -86,28 +81,13 @@ export default function RegisterUsers() {
         {[
           {
             text: "Dashboard",
-            link: "/admin",
+            link: "/reception",
             icon: <DashboardCustomizeRoundedIcon />,
           },
           {
-            text: "Manage Users",
-            link: "/admin-manage-users",
+            text: "View Patients",
+            link: "/reception-view-patient",
             icon: <ManageAccountsRoundedIcon />,
-          },
-          {
-            text: "Register Users",
-            link: "/admin-overview",
-            icon: <AppRegistrationRoundedIcon />,
-          },
-          {
-            text: "Deleted Users",
-            link: "/admin-view-deleted-users",
-            icon: <DeleteForeverRoundedIcon />,
-          },
-          {
-            text: "View Messages",
-            link: "/admin-view-messages",
-            icon: <PreviewRoundedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
@@ -124,7 +104,10 @@ export default function RegisterUsers() {
             justifyContent: "flex-end",
           }}
         >
-          <button onClick={handleLogout} className="adminRegisterLogOutButton">
+          <button
+            onClick={handleLogout}
+            className="receptionRegisterLogOutButton"
+          >
             Log Out
           </button>
         </div>
@@ -134,16 +117,18 @@ export default function RegisterUsers() {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
+      name: "",
       password: "",
-      role: "",
+      age: "",
+      gender: "",
       email: "",
+      medicalhistory: "",
     },
-    validate: registerdValidate,
+    validate: registerPatientValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      let registerPromise = registerUser(values);
+      let registerPromise = registerPatient(values);
       toast.promise(registerPromise, {
         loading: "creating...",
         success: "register successfully...",
@@ -151,18 +136,19 @@ export default function RegisterUsers() {
       });
 
       registerPromise.then(function () {
-        navigate("/admin-manage-users");
+        navigate("/reception-view-patient");
       });
     },
   });
+
   return (
     <div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
-      <main className="adminRegisterDashboard ">
-        <div className="adminRegisterDashboardFirstCard">
-          <div className="adminRegisterDashboardNavBarContainer">
+      <main className="receptionRegisterDashboard ">
+        <div className="receptionRegisterDashboardFirstCard">
+          <div className="receptionRegisterDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -170,25 +156,24 @@ export default function RegisterUsers() {
                 onClick={toggleDrawer(true)}
               />
             </div>
-            <div className="adminRegisterDashboardLogOutContainer">
+            <div className="receptionRegisterDashboardLogOutContainer">
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
-              <h1 className="adminRegisterDashboardNavImage">
+              <h1 className="receptionRegisterDashboardNavImage">
                 {" "}
                 {userNameFirstLetter}
               </h1>
             </div>
           </div>
         </div>
-        <div className="adminRegisterDashboardSecondCard">
-          {/* <div className="card mainCardContainer"> */}
+        <div className="receptionRegisterDashboardSecondCard">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
           <div>
-            <div className="adminRegisterBodyRegisterContainer">
-              <div className="adminRegisterContainer">
-                <div className="adminRegisterLoginTitle">
-                  <h2>REGISTER </h2>{" "}
+            <div className="receptionRegisterBodyRegisterContainer">
+              <div className="receptionRegisterContainer">
+                <div className="receptionRegisterLoginTitle">
+                  <h2>REGISTER PATIENT </h2>{" "}
                   <h2>
                     {" "}
                     <br />{" "}
@@ -204,30 +189,30 @@ export default function RegisterUsers() {
                   </h2>
                 </div>
                 <form
-                  className="adminRegisterFormContainer"
+                  className="receptionRegisterFormContainer"
                   onSubmit={formik.handleSubmit}
                 >
-                  <div className="adminRegisterLoginName">
+                  <div className="receptionRegisterLoginName">
                     <FontAwesomeIcon
                       icon={faUser}
-                      className="adminRegisterLoginNameIcon"
+                      className="receptionRegisterLoginNameIcon"
                     />
                     <TextField
-                      name="username"
-                      label="Enter Username"
+                      name="name"
+                      label="Enter name"
                       variant="standard"
                       id="standard-basic idOfName"
-                      placeholder="Enter username"
-                      className="adminRegisterLoginInputs"
-                      {...formik.getFieldProps("username")}
+                      placeholder="Enter name"
+                      className="receptionRegisterLoginInputs"
+                      {...formik.getFieldProps("name")}
                     />
                   </div>
-                  <div className="adminRegisterLoginPassword adminRegisterLoginName">
+                  <div className="receptionRegisterLoginPassword receptionRegisterLoginName">
                     <FontAwesomeIcon
                       icon={faLock}
-                      className="adminRegisterLoginNameIcon"
+                      className="receptionRegisterLoginNameIcon"
                     />
-                    <div className="adminRegisterPasswordContainer">
+                    <div className="receptionRegisterPasswordContainer">
                       <TextField
                         name="password"
                         label="Enter Password"
@@ -235,50 +220,60 @@ export default function RegisterUsers() {
                         id="standard-password-basic"
                         autoComplete="current-password"
                         type={isOpen ? "text" : "password"}
-                        className="adminRegisterLoginInputs"
+                        className="receptionRegisterLoginInputs"
                         {...formik.getFieldProps("password")}
                       />
                       {isPasswordVisible ? (
                         <FontAwesomeIcon
                           icon={faEye}
-                          className="adminRegisterShowPassword"
+                          className="receptionRegisterShowPassword"
                           onClick={togglePasswordVisisbility}
                         />
                       ) : (
                         <FontAwesomeIcon
                           icon={faEyeSlash}
-                          className="adminRegisterShowPassword"
+                          className="receptionRegisterShowPassword"
                           onClick={togglePasswordVisisbility}
                         />
                       )}
                     </div>
                   </div>
+                  <div className="receptionRegisterLoginName">
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      className="receptionRegisterLoginNameIcon"
+                    />
+                    <TextField
+                      name="age"
+                      label="Enter age"
+                      variant="standard"
+                      id="standard-basic idOfName"
+                      placeholder="Enter age"
+                      className="receptionRegisterLoginInputs"
+                      {...formik.getFieldProps("age")}
+                    />
+                  </div>
 
-                  <div className="adminRegisterLoginName">
+                  <div className="receptionRegisterLoginName">
                     <FontAwesomeIcon
                       icon={faUserShield}
-                      className="adminRegisterLoginNameIcon"
+                      className="receptionRegisterLoginNameIcon"
                     />
                     <select
-                      id="adminRegisterSelectOption"
-                      className="adminRegisterLoginInputs"
-                      {...formik.getFieldProps("role")}
-                      name="role"
+                      id="receptionRegisterSelectOption"
+                      className="receptionRegisterLoginInputs"
+                      {...formik.getFieldProps("gender")}
+                      name="gender"
                     >
-                      <option value="">Choose Role</option>
-                      <option value="doctor">Doctor</option>
-                      <option value="pharmacist">Pharmacist</option>
-                      <option value="receptionist">Receptionist</option>
-                      <option value="administrator">Administrator</option>
-                      <option value="labTechnician">
-                        Labratory Technician
-                      </option>
+                      <option value="">Choose Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
                     </select>
                   </div>
-                  <div className="adminRegisterLoginName">
+                  <div className="receptionRegisterLoginName">
                     <FontAwesomeIcon
                       icon={faEnvelope}
-                      className="adminRegisterLoginNameIcon"
+                      className="receptionRegisterLoginNameIcon"
                     />
                     <TextField
                       name="email"
@@ -286,20 +281,45 @@ export default function RegisterUsers() {
                       variant="standard"
                       id="standard-basic idOfEmail"
                       placeholder="Enter email address"
-                      className="adminRegisterLoginInputs"
+                      className="receptionRegisterLoginInputs"
                       {...formik.getFieldProps("email")}
+                    />
+                  </div>
+                  <div className="receptionRegisterLoginName">
+                    <FontAwesomeIcon
+                      icon={faPenToSquare}
+                      className="receptionRegisterLoginNameIcon"
+                    />
+                    <textarea
+                      name="text"
+                      rows={6}
+                      style={{
+                        resize: "none",
+                        textAlign: "justify",
+                        padding: "4px 8px",
+                        fontSize: "16px",
+                      }}
+                      onResize={false}
+                      variant="standard"
+                      id="standard-basic idOfEmail"
+                      className="receptionRegisterLoginInputs"
+                      {...formik.getFieldProps("medicalhistory")}
+                      // value={reason}
+                      // onChange={(e) => setReason(e.target.value)}
+                      placeholder="Medical History"
+                      disabled
                     />
                   </div>
 
                   <div className="loginButtonContainer">
                     <button
-                      className="adminRegisterLoginPageButton"
+                      className="receptionRegisterLoginPageButton"
                       type="submit"
                     >
                       Register
                     </button>
                   </div>
-                  <div className="adminRegisterRecaptchaContainer">
+                  <div className="receptionRegisterRecaptchaContainer">
                     <ReCAPTCHA
                       size="normal"
                       badge="bottomright"
@@ -308,7 +328,7 @@ export default function RegisterUsers() {
                     />
                   </div>
                 </form>
-                <div className="adminRegisterLoginCopyRightContainer">
+                <div className="receptionRegisterLoginCopyRightContainer">
                   <p>
                     CopyRight &copy; 2024 Gebretsadik Shawo General Hospital.
                     All Rights Reserverd.
@@ -317,7 +337,6 @@ export default function RegisterUsers() {
               </div>
             </div>
           </div>
-          {/* </div> */}
         </div>
       </main>
     </div>

@@ -16,22 +16,16 @@ import ReCAPTCHA from "react-google-recaptcha";
 import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 
-import { usernameValidate } from "../../functions/validate";
+import { patientNameValidate } from "../../functions/validate";
 
 import { useAuthStore } from "../../store/store";
 import useFetch from "../../hooks/fetch";
-import { verifyPassword } from "../../functions/checker";
+import { verifyPatientPassword } from "../../functions/checker";
 
 export default function LoginPatient() {
-  // const recaptcha = useRef(null);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState("");
-
-  const setUsername = useAuthStore((state) => state.setUsername);
-  const { username } = useAuthStore((state) => state.auth);
-  const [{ isLoading, apiData, serverError }] = useFetch(`user/${username}`);
 
   const togglePasswordVisisbility = () => {
     setIsOpen(!isOpen);
@@ -40,23 +34,17 @@ export default function LoginPatient() {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
+      name: "",
       password: "",
     },
-    validate: usernameValidate,
+    validate: patientNameValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      // if (!recaptchaToken) {
-      //   toast.error("Please verify that you are not robot");
-      //   return;
-      // }
-
-      setUsername(values.username);
-      const username = values.username;
+      const name = values.name;
       const password = values.password;
-      let loginPromise = verifyPassword({
-        username: username,
+      let loginPromise = verifyPatientPassword({
+        name: name,
         password: password,
       });
       toast.promise(loginPromise, {
@@ -66,58 +54,18 @@ export default function LoginPatient() {
       });
 
       loginPromise
-        .then((res) => {
-          // console.log(res.data);
-          let { token } = res.data;
-          localStorage.setItem("token", token);
-          navigate("/password-recovery");
+        .then(async (res) => {
+          let { token, id, name } = res.data;
+          sessionStorage.setItem("token", token);
+          sessionStorage.setItem("id", id);
+          sessionStorage.setItem("name", name);
+          navigate("/patient");
         })
         .catch((error) => {
           console.error("error during login: ", error);
         });
-      // try {
-      //   const response = await axios.post("/api/verify-recaptcha", {
-      //     recaptchaToken,
-      //   });
-      //   const { success } = response.data;
-      //   if (success) {
-      //     let loginPromise = verifyPassword({
-      //       username: username,
-      //       password: password,
-      //     });
-      //     toast.promise(loginPromise, {
-      //       loading: "Checking...",
-      //       success: <b>Login Successfully...!</b>,
-      //       error: <b>Password Not Match!</b>,
-      //     });
-
-      //     loginPromise
-      //       .then((res) => {
-      //         // console.log(res.data);
-      //         let { token } = res.data;
-      //         localStorage.setItem("token", token);
-      //         navigate("/password-recovery");
-      //       })
-      //       .catch((error) => {
-      //         console.error("error during login: ", error);
-      //       });
-      //   } else {
-      //   }
-      // } catch (error) {
-      //   console.error("error verifying recaptcha", error);
-      //   // toast.error("Internal Server Error");
-      // }
     },
   });
-
-  const handleRecaptchaChange = (value) => {
-    setRecaptchaToken(value);
-  };
-
-  // if (isLoading) return <h1 className="text-2xl font-bold">isLoading</h1>;
-  // if (serverError)
-  //   return <h1 className="text-xl text-red-500">Error occurred</h1>;
-
   return (
     <div className="bodyContainer">
       <Toaster position="top-center"></Toaster>
@@ -137,13 +85,13 @@ export default function LoginPatient() {
           <div className="loginName">
             <FontAwesomeIcon icon={faUser} className="loginNameIcon" />
             <TextField
-              name="username"
-              label="Enter Username"
+              name="name"
+              label="Enter name"
               variant="standard"
               id="standard-basic"
-              placeholder="Enter username"
+              placeholder="Enter name"
               className="loginInputs"
-              {...formik.getFieldProps("username")}
+              {...formik.getFieldProps("name")}
             />
           </div>
           <div className="loginPassword loginName">
@@ -175,7 +123,7 @@ export default function LoginPatient() {
             </div>
           </div>
           <div className="loginForgotPassword">
-            <NavLink to="/password-recovery" className="forgotPassword">
+            <NavLink to="/password-patient-name" className="forgotPassword">
               Forgot Password?
             </NavLink>
           </div>
@@ -190,7 +138,7 @@ export default function LoginPatient() {
               badge="bottomright"
               className="recaptchaContent"
               sitekey="6Lc7vnEpAAAAAMTZG8RdEv78XquSIMvEa3EABIle"
-              onChange={handleRecaptchaChange}
+              // onChange={handleRecaptchaChange}
             />
           </div>
         </form>

@@ -66,14 +66,10 @@ export async function registerUser(credentials) {
     return Promise.resolve(msg);
   } catch (error) {
     if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
       return Promise.reject(error.response.data.error);
     } else if (error.request) {
-      // The request was made but no response was received
       return Promise.reject("No response received from server");
     } else {
-      // Something happened in setting up the request that triggered an Error
       return Promise.reject("Error while sending request");
     }
   }
@@ -212,5 +208,122 @@ export async function sendContactMessage(credentials) {
     return Promise.resolve(msg);
   } catch (error) {
     console.log("error occured in contact send message ", error);
+  }
+}
+
+export async function registerPatient(credentials) {
+  try {
+    const {
+      data: { msg },
+      status,
+    } = await axios.post("/api/create-patient", credentials);
+
+    let { name, email } = credentials;
+
+    /** send email */
+    if (status === 201) {
+      await axios.post("/api/registerMail", {
+        username: name,
+        userEmail: email,
+        text: msg,
+      });
+    }
+
+    return Promise.resolve(msg);
+  } catch (error) {
+    if (error.response) {
+      return Promise.reject(error.response.data.error);
+    } else if (error.request) {
+      return Promise.reject("No response received from server");
+    } else {
+      return Promise.reject("Error while sending request");
+    }
+  }
+}
+
+export async function verifyPatientPassword({ name, password }) {
+  try {
+    if (name) {
+      const { data } = await axios.post("/api/login-user-patient", {
+        name,
+        password,
+      });
+      return Promise.resolve({ data });
+    }
+  } catch (error) {
+    console.log(error + "error occuredd here");
+    console.error("error occured in verify password with ", error);
+    return Promise.reject({ error: "Password doesn't Match...!" });
+  }
+}
+
+export async function PatientExistanceChecker(name) {
+  try {
+    if (name) {
+      const { status } = await axios.post("/api/patient-existance", { name });
+
+      return Promise.resolve({ status });
+    }
+  } catch (error) {
+    throw new Error("Patient did not exists!");
+  }
+}
+export async function emailPatientExistanceChecker(name) {
+  try {
+    const response = await axios.get("/api/patient-email", {
+      params: { name },
+    });
+    const email = response.data;
+    return email;
+  } catch (error) {
+    return { error: "Username doesn't exist...!" };
+    // return null;
+  }
+}
+export async function generateOTPPatient(name) {
+  try {
+    const {
+      data: { code },
+      status,
+    } = await axios.get("/api/otp-generator-patient", { params: { name } });
+
+    // send mail with the OTP
+    if (status === 201) {
+      const email = await emailPatientExistanceChecker(name);
+      const text = `Your Password Recovery OTP is ${code}. Verify and recover your password.`;
+      await axios.post("/api/registerMail", {
+        username: name,
+        userEmail: email,
+        text: text,
+        subject: "Password Recovery OTP",
+      });
+    }
+    return code;
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function verifyPatientOTP(name, code) {
+  try {
+    const { data, status } = await axios.get("/api/otp-verify-patient", {
+      params: { name, code },
+    });
+    return { data, status };
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+/** reset password */
+export async function resetPatientPassword({ name, password }) {
+  try {
+    const { data, status } = await axios.put("/api/reset-patient-password", {
+      name,
+      password,
+    });
+    return Promise.resolve({ data, status });
+  } catch (error) {
+    console.error("error occured here in resetpassword checker", error);
+    return Promise.reject({ error });
   }
 }

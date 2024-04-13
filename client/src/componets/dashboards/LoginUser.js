@@ -19,11 +19,9 @@ import { verifyPassword } from "../../functions/checker";
 
 import { usernameValidate } from "../../functions/validate";
 export default function LoginUser() {
-  // const recaptcha = useRef(null);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  // const [recaptchaToken, setRecaptchaToken] = useState("");
 
   const togglePasswordVisisbility = () => {
     setIsOpen(!isOpen);
@@ -133,7 +131,11 @@ export default function LoginUser() {
             </div>
           </div>
           <div className="loginForgotPassword">
-            <NavLink to="/password-username" className="forgotPassword">
+            <NavLink
+              to="/password-username"
+              className="forgotPassword"
+              style={{ float: "right" }}
+            >
               Forgot Password?
             </NavLink>
           </div>
