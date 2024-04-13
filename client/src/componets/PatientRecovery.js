@@ -25,7 +25,7 @@ export default function PatientRecovery() {
       .catch((error) => {
         console.error("error generating otp: ", error);
       });
-  }, []);
+  }, [name]);
 
   async function onSubmit(e) {
     e.preventDefault();

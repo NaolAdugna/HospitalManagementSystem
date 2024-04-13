@@ -21,7 +21,7 @@
   background-color: var(--navBarBg);
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   padding-left: 10%;
 }
 .contactHeroContainer h1 {
@@ -66,7 +66,7 @@
 }
 .contactAddressContainer {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: flex-start;
   margin-bottom: 16px;
   background-color: aliceblue;
@@ -82,7 +82,7 @@
 }
 .contactEmailContainer {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: flex-start;
   margin-bottom: 16px;
   background-color: aliceblue;
@@ -90,7 +90,7 @@
 }
 .contactTelContainer {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: flex-start;
   background-color: aliceblue;
   padding: 14px 0;
@@ -100,7 +100,7 @@
   gap: 8px;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
 }
 .contactFormContainer {
@@ -118,7 +118,7 @@
 .formContainer {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   margin-left: 25px;
   margin-top: 25px;

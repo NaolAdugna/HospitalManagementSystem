@@ -11,16 +11,26 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
 import DeletedUsersTable from "./DeletedUsersTable";
-
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Avatar from "@mui/material/Avatar";
 export default function ViewDeletedUsers() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openProfile = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -129,10 +139,29 @@ export default function ViewDeletedUsers() {
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
-              <h1 className="adminViewDeletedUsersDashboardNavImage">
-                {" "}
-                {userNameFirstLetter}
-              </h1>
+              <Button
+                id="basic-button"
+                aria-controls={openProfile ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openProfile ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <Avatar sx={{ bgcolor: "#5c6bc0" }}>
+                  {userNameFirstLetter}
+                </Avatar>
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={openProfile}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
             </div>
           </div>
         </div>

@@ -27,7 +27,7 @@ export default function Recovery() {
       .catch((error) => {
         console.error("error generating otp: ", error);
       });
-  }, []);
+  }, [username]);
 
   async function onSubmit(e) {
     e.preventDefault();

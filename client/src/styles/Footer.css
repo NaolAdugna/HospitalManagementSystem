@@ -67,7 +67,7 @@
 .footerLinks {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-around;
 }
 .footerLinks a {
@@ -90,19 +90,19 @@
 .footerAddressContent {
   display: flex;
   align-items: flex-start;
-  justify-content: start;
+  justify-content: flex-start;
   margin-bottom: 12px;
 }
 .footerPhoneContent {
   display: flex;
   align-items: flex-start;
-  justify-content: start;
+  justify-content: flex-start;
   margin-bottom: 12px;
 }
 .footerEmailContent {
   display: flex;
   align-items: flex-start;
-  justify-content: start;
+  justify-content: flex-start;
   margin-bottom: 12px;
 }
 
@@ -145,7 +145,7 @@
   .footerLinks {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-around;
   }
   .footerLinks a {

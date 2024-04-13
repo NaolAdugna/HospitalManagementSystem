@@ -25,8 +25,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Avatar from "@mui/material/Avatar";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
@@ -34,6 +36,14 @@ import { registerPatientValidate } from "../../../../functions/validate";
 import { registerPatient } from "../../../../functions/checker";
 
 export default function ReceptionOverView() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openProfile = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const [isOpen, setIsOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [open, setOpen] = useState(false);
@@ -160,10 +170,29 @@ export default function ReceptionOverView() {
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
-              <h1 className="receptionRegisterDashboardNavImage">
-                {" "}
-                {userNameFirstLetter}
-              </h1>
+              <Button
+                id="basic-button"
+                aria-controls={openProfile ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openProfile ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <Avatar sx={{ bgcolor: "#5c6bc0" }}>
+                  {userNameFirstLetter}
+                </Avatar>
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={openProfile}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
             </div>
           </div>
         </div>

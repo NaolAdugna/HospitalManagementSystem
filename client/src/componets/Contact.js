@@ -123,6 +123,7 @@ export default function Contact() {
         </section>
         <section className="contactMapContainer">
           <iframe
+            title="gebretsadik map"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4266.894365819723!2d36.2400287108875!3d7.275036892701761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x17aebd40930482b1%3A0xffe5ba6432b82e6!2sBonga%20Gebre%20Tsadiq%20Shawo%20Memorial%20Hospital!5e1!3m2!1sen!2set!4v1712516931505!5m2!1sen!2set"
             style={{
               width: "90%",

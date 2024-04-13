@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/OverviewAdmin.css";
 // import SideBarData from "./Data";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import {
-  faEnvelope,
-  faChartSimple,
-  faRepublican,
-  faBars,
-  faAdd,
-  faListCheck,
-  faAddressBook,
-  faDashboard,
-} from "@fortawesome/free-solid-svg-icons";
-import { NavLink, useNavigate } from "react-router-dom";
+import { faBars, faAdd } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
+import Avatar from "@mui/material/Avatar";
 import Calendar from "react-calendar";
 
 import Box from "@mui/material/Box";
@@ -26,8 +18,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
@@ -36,7 +29,7 @@ import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
 
 import "react-calendar/dist/Calendar.css";
 
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useFormik } from "formik";
 
 // import { CreateList } from "../../../../functions/checker";
@@ -96,6 +89,14 @@ export default function OverviewAdmin() {
         backgroundColor: "rgba(20, 172, 95,0.8)",
       },
     ],
+  };
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openProfile = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -233,10 +234,29 @@ export default function OverviewAdmin() {
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
-              <h1 className="adminOverviewDashboardNavImage">
-                {" "}
-                {userNameFirstLetter}
-              </h1>
+              <Button
+                id="basic-button"
+                aria-controls={openProfile ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openProfile ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <Avatar sx={{ bgcolor: "#5c6bc0" }}>
+                  {userNameFirstLetter}
+                </Avatar>
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={openProfile}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
             </div>
           </div>
         </div>

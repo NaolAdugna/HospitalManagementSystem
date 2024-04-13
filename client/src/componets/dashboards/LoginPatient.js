@@ -1,6 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "./LoginPatient.css";
-import axios from "axios";
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,8 +17,6 @@ import { useFormik } from "formik";
 
 import { patientNameValidate } from "../../functions/validate";
 
-import { useAuthStore } from "../../store/store";
-import useFetch from "../../hooks/fetch";
 import { verifyPatientPassword } from "../../functions/checker";
 
 export default function LoginPatient() {

@@ -5,21 +5,15 @@ import "../styles/DeleteUser.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { TextField } from "@mui/material";
-import { TextareaAutosize } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 
-import { useParams, useNavigate, NavLink } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import {
   faEnvelope,
-  faChartSimple,
-  faRepublican,
   faUserShield,
-  faLock,
   faUser,
-  faEyeSlash,
-  faEye,
   faBars,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
@@ -32,17 +26,25 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
 export default function DeleteUser() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openProfile = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const { id } = useParams();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
@@ -50,25 +52,19 @@ export default function DeleteUser() {
   const [role, setRole] = useState();
   const [reason, setReason] = useState();
   const [deletedby, setDeletedBy] = useState();
-  // let usernameDelete = "";
-  // let emailDelete = "";
-  // let roleDelete = "";
 
   const userName = sessionStorage.getItem("username");
   const userNameFirstLetter = userName.charAt(0);
 
   useEffect(() => {
     axios.get(`/api/users/${id}`).then((res) => {
-      // usernameDelete = res.data[0].username;
-      // emailDelete = res.data[0].email;
-      // roleDelete = res.data[0].role;
       setUsername(res.data[0].username);
       setEmail(res.data[0].email);
       setPassword(res.data[0].password);
       setRole(res.data[0].role);
       setDeletedBy(userName);
     });
-  }, []);
+  }, [id]);
 
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -83,10 +79,7 @@ export default function DeleteUser() {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
-  const togglePasswordVisisbility = () => {
-    setIsOpen(!isOpen);
-    setIsPasswordVisible(!isPasswordVisible);
-  };
+
   const DrawerList = (
     <Box
       sx={{
@@ -216,10 +209,29 @@ export default function DeleteUser() {
                 <h4 style={{ textDecoration: "underline" }}>
                   Welcome {userName}
                 </h4>
-                <h1 className="adminDeleteDashboardNavImage">
-                  {" "}
-                  {userNameFirstLetter}
-                </h1>
+                <Button
+                  id="basic-button"
+                  aria-controls={openProfile ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={openProfile ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  <Avatar sx={{ bgcolor: "#5c6bc0" }}>
+                    {userNameFirstLetter}
+                  </Avatar>
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={openProfile}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../styles/Login.css";
 
 // Fontawesome family
@@ -7,7 +7,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { TextField } from "@mui/material";
 
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useAuthStore } from "../store/store";
 import { userNameRecoveryValidate } from "../functions/validate";
@@ -36,7 +36,7 @@ export default function UserNameRecovery() {
         if (res && res.error) {
           toast.error("user DO NOT EXISTS");
         } else {
-          const usernameValue = setUsername(values.username);
+          setUsername(values.username);
           navigate("/password-recovery");
         }
       }).catch((error) => {

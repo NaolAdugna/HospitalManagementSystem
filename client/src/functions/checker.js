@@ -202,7 +202,6 @@ export async function sendContactMessage(credentials) {
   try {
     const {
       data: { msg },
-      status,
     } = await axios.post("/api/contact-send-message", credentials);
 
     return Promise.resolve(msg);

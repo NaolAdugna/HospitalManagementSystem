@@ -4,18 +4,12 @@ import "../styles/DoctorOverview.css";
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import {
-  faBars,
-  faDashboard,
-  faPaperPlane,
-  faArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
-import ScaleLoader from "react-spinners/ScaleLoader";
 import GeminiProfile from "../../../../assets/images/google-gemini-icon.webp";
 // import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
@@ -30,7 +24,19 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import SendIcon from "@mui/icons-material/Send";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Avatar from "@mui/material/Avatar";
 export default function DoctorOverView() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openProfile = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const [prompt, setPrompt] = useState("");
   const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
@@ -144,10 +150,29 @@ export default function DoctorOverView() {
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
-              <h1 className="doctorDashboardNavImage">
-                {" "}
-                {userNameFirstLetter}
-              </h1>
+              <Button
+                id="basic-button"
+                aria-controls={openProfile ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openProfile ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <Avatar sx={{ bgcolor: "#5c6bc0" }}>
+                  {userNameFirstLetter}
+                </Avatar>
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={openProfile}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
             </div>
           </div>
         </div>
@@ -155,7 +180,11 @@ export default function DoctorOverView() {
           {/* <div className="card mainDoctorContainer"> */}
           <div className="promptResult">
             <span className="promtResultAIProfile">
-              <img src={GeminiProfile} className="promtResultImage" />
+              <img
+                src={GeminiProfile}
+                className="promtResultImage"
+                alt="gemini"
+              />
             </span>
             <section>
               {mutation.isPending && (

@@ -7,7 +7,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { TextField } from "@mui/material";
 
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 
 import { PatientRecoveryValidate } from "../functions/validate";
@@ -36,7 +36,7 @@ export default function PatientNameRecovery() {
         if (res && res.error) {
           toast.error("user DO NOT EXISTS");
         } else {
-          const nameValue = setName(values.name);
+          setName(values.name);
           navigate("/password-patient-recovery");
         }
       }).catch((error) => {

@@ -21,7 +21,7 @@
   background-color: var(--navBarBg);
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   padding-left: 10%;
 }
 .aboutHeroContainer h1 {
@@ -58,7 +58,7 @@
 }
 .aboutHeroContent {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   background-color: var(--navBarBg);
   border: none;
@@ -147,7 +147,7 @@
   width: 90%;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-evenly;
 }
 .aboutCTATextContent p {
@@ -158,7 +158,7 @@
 .aboutCTATextContainer {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   height: 100%;
   justify-content: space-between;
   gap: 8px;
@@ -190,7 +190,7 @@
     background-color: var(--navBarBg);
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     padding-left: 10%;
   }
   .aboutHeroContainer h1 {
@@ -267,7 +267,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-evenly;
   }
   .aboutCTATextContent p {
@@ -278,7 +278,7 @@
   .aboutCTATextContainer {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     height: 100%;
     justify-content: space-between;
     gap: 8px;
@@ -306,7 +306,7 @@
     background-color: var(--navBarBg);
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     padding-left: 10%;
   }
   .aboutHeroContainer h1 {
@@ -384,7 +384,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-evenly;
   }
   .aboutCTATextContent p {
@@ -395,7 +395,7 @@
   .aboutCTATextContainer {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     height: 100%;
     justify-content: space-between;
     gap: 8px;
@@ -423,7 +423,7 @@
     background-color: var(--navBarBg);
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     padding-left: 10%;
   }
   .aboutHeroContainer h1 {
@@ -501,7 +501,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-evenly;
   }
   .aboutCTATextContent p {
@@ -512,7 +512,7 @@
   .aboutCTATextContainer {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     height: 100%;
     justify-content: space-between;
     gap: 8px;
