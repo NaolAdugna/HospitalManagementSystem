@@ -136,5 +136,10 @@ router
     adminController.PatientExistanceController,
     adminController.resetPatientPasswordAdminController
   );
-
+router
+  .route("/update-user-profile/")
+  .put(adminController.UpdateUserProfileController);
+router
+  .route("/update-patient-profile/")
+  .put(adminController.UpdatePatientProfileController);
 export default router;

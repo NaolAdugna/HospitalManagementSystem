@@ -51,17 +51,20 @@ export default function LoginUser() {
 
       loginPromise
         .then(async (res) => {
-          let { token, roles, id, username } = res.data;
+          let { token, roles, id, username, email, dateofregistration } =
+            res.data;
           sessionStorage.setItem("token", token);
           sessionStorage.setItem("id", id);
           sessionStorage.setItem("role", roles);
           sessionStorage.setItem("username", username);
+          sessionStorage.setItem("email", email);
+          sessionStorage.setItem("dateofregistration", dateofregistration);
           if (roles === "doctor") {
             navigate("/doctor");
           } else if (roles === "pharmacist") {
             navigate("/pharmacy");
           } else if (roles === "receptionist") {
-            navigate("/reception");
+            navigate("/reception-view-patient");
           } else if (roles === "administrator") {
             navigate("/admin");
           } else if (roles === "labTechnician") {

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "../style/LabOverView.css";
+import React, { useRef, useState, useEffect } from "react";
+import "../styles/ReceptionPrepareFile.css";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,8 +13,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
+import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -30,21 +30,41 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Slide from "@mui/material/Slide";
 
+import ReactPrint from "react-to-print";
+import QRCode from "react-qr-code";
+import { Close } from "@mui/icons-material";
+import ReactWaterMark from "react-watermark-component";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-export default function LabOverView() {
+
+export default function ReceptionPrepareFile() {
+  const ref = useRef();
+  const [Dates, setDates] = useState("");
+  let newDate = new Date();
+  let date = newDate.getDate();
+  useEffect(() => {
+    const current = new Date();
+    const date = `${current.getDate()}/${
+      current.getMonth() + 1
+    }/${current.getFullYear()}`;
+    //  console.log(`Date is ${date}`);
+    setDates(date);
+  }, []);
+  const [openPopupFile, setOpenPopupFile] = useState(false);
+  const [List, setList] = useState([]);
+  const [patientFile, setPatientFile] = useState("");
+  const addDataFile = () => {
+    List.push({
+      patientname: patientFile,
+    });
+    setPatientFile("");
+    setOpenPopupFile(false);
+  };
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  ////
   const [openEditProfile, setOpenEditProfile] = React.useState(false);
   const [openProfileRecord, setOpenProfileRecord] = React.useState(false);
 
@@ -72,6 +92,21 @@ export default function LabOverView() {
     setUserName(newUserName);
     setEmailSession(newEmail);
   };
+
+  function handleLogout() {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("token");
+    navigate("/");
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const handleOpenEditProfile = () => {
     setOpenProfileRecord(false);
     setOpenEditProfile(true);
@@ -86,19 +121,13 @@ export default function LabOverView() {
   const handleCloseProfileRecord = () => {
     setOpenProfileRecord(false);
   };
-  ////
-  const userNameFirstLetter = userName.charAt(0);
 
-  function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
-    navigate("/");
-  }
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
+
+  const userNameFirstLetter = userName.charAt(0);
+
   const DrawerList = (
     <Box
       sx={{
@@ -116,45 +145,59 @@ export default function LabOverView() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-start",
           height: "100vh",
           width: "100%",
         }}
       >
-        {["Dashboard"].map((text, index) => (
+        {[
+          {
+            text: "Dashboard",
+            link: "/reception-view-patient",
+            icon: <DashboardCustomizeRoundedIcon />,
+          },
+          {
+            text: "Prepare File",
+            link: "/reception-prepare-file",
+            icon: <ManageAccountsRoundedIcon />,
+          },
+        ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon style={{ color: "#14ac5f" }}>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
+            <ListItemButton href={link}>
+              <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
-        {/* <Divider /> */}
         <div
           style={{
             display: "flex",
-            // alignItems: "center",
-            justifyContent: "center",
+            alignItems: "flex-end",
+            justifyContent: "flex-end",
           }}
-        >
-          <button onClick={handleLogout} className="labLogOutButton">
-            Log Out
-          </button>
-        </div>
+        ></div>
       </List>
     </Box>
   );
-
+  const text = "GebreTsadik ";
+  const options = {
+    chunkWidth: 200, // Increase chunk width for better readability
+    chunkHeight: 80, // Increase chunk height for better readability
+    textAlign: "center",
+    textBaseline: "bottom",
+    globalAlpha: 0.3, // Adjust transparency for better visibility
+    font: "bold 19px Arial", // Increase font size and change font family for better readability
+    rotateAngle: -26,
+    fillStyle: "rgba(0, 0, 0, 0.6)", // Change text color to a more subtle gray
+  };
   return (
     <div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
-      <main className="labDashboard ">
-        <div className="labDashboardFirstCard">
-          <div className="labDashboardNavBarContainer">
+      <main className="receptionPrepareFileDashboard ">
+        <div className="receptionPrepareFileDashboardFirstCard">
+          <div className="receptionPrepareFileDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -162,7 +205,7 @@ export default function LabOverView() {
                 onClick={toggleDrawer(true)}
               />
             </div>
-            <div className="labDashboardLogOutContainer">
+            <div className="receptionPrepareFileDashboardLogOutContainer">
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
@@ -308,11 +351,133 @@ export default function LabOverView() {
             </div>
           </div>
         </div>
-        <div className="labDashboardSecondCard">
+        <div className="receptionPrepareFileDashboardSecondCard">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
-          <div>
-            <p>labDashboard</p>
+          <div className="receptionPrepareFileContainer">
+            <div className="receptionPrepareFileContent" ref={ref}>
+              <ReactWaterMark
+                waterMarkText={text}
+                //   openSecurityDefense
+                options={options}
+              >
+                <div className="col-md-12">
+                  <div className="receptionPrepareFileHeader">
+                    <div className="col-md-4 brcode">
+                      <QRCode
+                        size={256}
+                        style={{
+                          height: "auto",
+                          maxWidth: "120px",
+                          width: "100%",
+                        }}
+                        value={Dates}
+                        viewBox={`0 0 256 256`}
+                      />
+                    </div>
+                    <div className="col-md-8 text-right bbc">
+                      <h2 style={{ color: "#325aa8" }}>
+                        <strong>Gebre Tsadik Shawo General Hospital</strong>
+                      </h2>
+                      <p>Tel: +251 912345678</p>
+                      <p>Email: gebretsadikshawogeneralhospital@gmail.com</p>
+                    </div>
+                  </div>
+                  <br />
+
+                  <br />
+                  <div>
+                    <div>
+                      <h2>Patient Name</h2>
+                    </div>
+                    <div>
+                      {List.length
+                        ? List.map((items, index) => {
+                            return (
+                              <span key={index}>
+                                <p className="col-md-9">{items.patientname}</p>
+                              </span>
+                            );
+                          })
+                        : null}
+                    </div>
+                  </div>
+                  <div>
+                    <br />
+                    <div className="col-md-12">
+                      <p>
+                        <b>Date :</b> {Dates}{" "}
+                      </p>
+                      <p>
+                        <b>Name: </b>
+                        {userName}
+                      </p>
+                      <p>
+                        <b>Contact: </b>
+                        {emailSession}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </ReactWaterMark>
+            </div>
+            <ReactPrint
+              trigger={() => (
+                <Button
+                  style={{
+                    // background: "rgba(0, 0, 255,0.2)",
+                    background: "#4bad95",
+                    border: "none",
+                    color: "white",
+                    marginRight: "8px",
+                  }}
+                >
+                  Print
+                </Button>
+              )}
+              content={() => ref.current}
+              documentTitle={`Patient File on ${Dates}`}
+            />
+
+            <Button
+              onClick={() => setOpenPopupFile(true)}
+              style={{
+                background: "rgba(20, 172, 95,0.4)",
+                background: "#14ac5f",
+                border: "none",
+                color: "white",
+              }}
+            >
+              Add File
+            </Button>
           </div>
+          <Dialog open={openPopupFile}>
+            <DialogTitle>
+              <div className="title">
+                <div className="hed">New File</div>
+                <div
+                  className="icon-cross"
+                  onClick={() => setOpenPopupFile(false)}
+                >
+                  <Close />
+                </div>
+              </div>
+            </DialogTitle>
+            <DialogContent>
+              <div className="container">
+                <div className="forms">
+                  <input
+                    type="text"
+                    value={patientFile}
+                    onChange={(e) => setPatientFile(e.target.value)}
+                    placeholder="Patient Names"
+                  />
+                </div>
+                <div className="buttons">
+                  <Button onClick={addDataFile}>Add</Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </main>
     </div>

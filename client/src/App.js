@@ -42,8 +42,8 @@ import LoginUser from "./componets/dashboards/LoginUser";
 import LabOverView from "./componets/dashboards/labTechnician/layout/LabOverView";
 import PatientOverView from "./componets/dashboards/patient/layout/PatientOverView";
 import PharmacyOverView from "./componets/dashboards/pharmacist/layout/PharmacyOverView";
-import ReceptionOverView from "./componets/dashboards/reception/layout/ReceptionRegisterPatient";
 import ReceptionViewPatient from "./componets/dashboards/reception/layout/ReceptionViewPatient";
+import ReceptionPrepareFile from "./componets/dashboards/reception/layout/ReceptionPrepareFile";
 import DoctorOverView from "./componets/dashboards/doctor/rootLayouts/DoctorOverView";
 
 // root routers
@@ -189,21 +189,30 @@ const router = createBrowserRouter([
       </DoctorAuthorize>
     ),
   },
-  {
-    path: "/reception",
-    element: (
-      <ReceptionAuthorize>
-        {" "}
-        <ReceptionOverView />
-      </ReceptionAuthorize>
-    ),
-  },
+  // {
+  //   path: "/reception",
+  //   element: (
+  //     <ReceptionAuthorize>
+  //       {" "}
+  //       <ReceptionOverView />
+  //     </ReceptionAuthorize>
+  //   ),
+  // },
   {
     path: "/reception-view-patient",
     element: (
       <ReceptionAuthorize>
         {" "}
         <ReceptionViewPatient />
+      </ReceptionAuthorize>
+    ),
+  },
+  {
+    path: "/reception-prepare-file",
+    element: (
+      <ReceptionAuthorize>
+        {" "}
+        <ReceptionPrepareFile />
       </ReceptionAuthorize>
     ),
   },

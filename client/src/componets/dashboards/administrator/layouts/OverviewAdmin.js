@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import * as React from "react";
 import "../styles/OverviewAdmin.css";
 // import SideBarData from "./Data";
 
@@ -26,9 +26,15 @@ import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded
 import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
-
 import "react-calendar/dist/Calendar.css";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
+import axios from "axios";
+import Slide from "@mui/material/Slide";
 import toast from "react-hot-toast";
 import { useFormik } from "formik";
 
@@ -57,6 +63,9 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
 
 export default function OverviewAdmin() {
   const options = {
@@ -90,7 +99,11 @@ export default function OverviewAdmin() {
       },
     ],
   };
-  const [anchorEl, setAnchorEl] = useState(null);
+
+  const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const openProfile = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -98,10 +111,49 @@ export default function OverviewAdmin() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  ////
+  const [openEditProfile, setOpenEditProfile] = React.useState(false);
+  const [openProfileRecord, setOpenProfileRecord] = React.useState(false);
 
-  const userName = sessionStorage.getItem("username");
+  const [userName, setUserName] = React.useState(
+    sessionStorage.getItem("username")
+  );
+  const [emailSession, setEmailSession] = React.useState(
+    sessionStorage.getItem("email")
+  );
+
+  const [Name, setName] = React.useState(userName);
+  const [Email, setEmail] = React.useState(emailSession);
+
+  const id = sessionStorage.getItem("id");
+  const roleSession = sessionStorage.getItem("role");
+  const dateofregistrationSession =
+    sessionStorage.getItem("dateofregistration");
+  React.useEffect(() => {
+    setUserName(sessionStorage.getItem("username"));
+    setEmailSession(sessionStorage.getItem("email"));
+  }, []);
+  const handleUpdateProfile = (newUserName, newEmail) => {
+    sessionStorage.setItem("username", newUserName);
+    sessionStorage.setItem("email", newEmail);
+    setUserName(newUserName);
+    setEmailSession(newEmail);
+  };
+  const handleOpenEditProfile = () => {
+    setOpenProfileRecord(false);
+    setOpenEditProfile(true);
+  };
+  const handleCloseEditProfile = () => {
+    setOpenEditProfile(false);
+  };
+  const handleClickOpenProfileRecord = () => {
+    setOpenProfileRecord(true);
+    setAnchorEl(null);
+  };
+  const handleCloseProfileRecord = () => {
+    setOpenProfileRecord(false);
+  };
+  ////
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
@@ -254,9 +306,125 @@ export default function OverviewAdmin() {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem
+                  onClick={handleClickOpenProfileRecord}
+                  style={{
+                    margin: "0px 4px 11px 4px",
+                  }}
+                >
+                  Profile
+                </MenuItem>
+                <MenuItem
+                  onClick={handleLogout}
+                  style={{
+                    backgroundColor: " rgba(255, 0, 0, 0.8)",
+                    margin: "11px 4px 4px 4px",
+                    color: "#fff",
+                  }}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
+              <Dialog
+                fullWidth
+                open={openProfileRecord}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleCloseProfileRecord}
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle>
+                  {"Your Profile "} {userName}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> ID: </b> {id}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Name: </b> {userName}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Email: </b> {emailSession}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b>Role: </b> {roleSession}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Date of Registration: </b> {dateofregistrationSession}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseProfileRecord}>Close</Button>
+                  <Button onClick={handleOpenEditProfile}>Edit</Button>
+                </DialogActions>
+              </Dialog>
+              <Dialog
+                open={openEditProfile}
+                onClose={handleCloseEditProfile}
+                PaperProps={{
+                  component: "form",
+                  onSubmit: (event) => {
+                    event.preventDefault();
+                    const formData = new FormData(event.currentTarget);
+                    const formJson = Object.fromEntries(formData.entries());
+                    let registerPromise = axios.put(
+                      `/api/update-user-profile/`,
+                      {
+                        id: formJson.id,
+                        Name: formJson.name,
+                        Email: formJson.email,
+                      }
+                    );
+                    registerPromise
+                      .then(() => {
+                        handleUpdateProfile(formJson.name, formJson.email);
+                        toast.success("Profile updated successfully");
+                      })
+                      .catch((error) => {
+                        console.error("Could not update profile:", error);
+                        toast.error("Failed to update profile");
+                      });
+                    handleCloseEditProfile();
+                  },
+                }}
+              >
+                <DialogTitle>Update Your Profile</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Fill the form to update you profile
+                  </DialogContentText>
+                  <input type="hidden" name="id" value={id} />
+                  <label>FULL NAME</label>
+                  <TextField
+                    required
+                    margin="dense"
+                    id="name"
+                    name="name"
+                    // label={userName}
+                    value={Name}
+                    onChange={(e) => setName(e.target.value)}
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                  />
+                  <label>EMAIL</label>
+                  <TextField
+                    required
+                    margin="dense"
+                    id="email"
+                    name="email"
+                    value={Email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseEditProfile}>Cancel</Button>
+                  <Button type="submit">Update</Button>
+                </DialogActions>
+              </Dialog>
             </div>
           </div>
         </div>

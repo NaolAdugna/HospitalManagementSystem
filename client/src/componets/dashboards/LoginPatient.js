@@ -52,10 +52,15 @@ export default function LoginPatient() {
 
       loginPromise
         .then(async (res) => {
-          let { token, id, name } = res.data;
+          let { token, id, name, dateofregistration, email, age, gender } =
+            res.data;
           sessionStorage.setItem("token", token);
           sessionStorage.setItem("id", id);
           sessionStorage.setItem("name", name);
+          sessionStorage.setItem("age", age);
+          sessionStorage.setItem("gender", gender);
+          sessionStorage.setItem("dateofregistration", dateofregistration);
+          sessionStorage.setItem("email", email);
           navigate("/patient");
         })
         .catch((error) => {

@@ -18,6 +18,20 @@ import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomiz
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
+import { TextField } from "@mui/material";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+import Slide from "@mui/material/Slide";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
 export default function PatientOverView() {
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
@@ -30,7 +44,56 @@ export default function PatientOverView() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const userName = sessionStorage.getItem("name");
+  ////
+  const [openEditProfile, setOpenEditProfile] = React.useState(false);
+  const [openProfileRecord, setOpenProfileRecord] = React.useState(false);
+
+  const [userName, setUserName] = React.useState(
+    sessionStorage.getItem("name")
+  );
+  const [emailSession, setEmailSession] = React.useState(
+    sessionStorage.getItem("email")
+  );
+  const [ageSession, setAgeSession] = React.useState(
+    sessionStorage.getItem("age")
+  );
+
+  const [Name, setName] = React.useState(userName);
+  const [Email, setEmailUpdateProfile] = React.useState(emailSession);
+  const [Age, setAgeUpdateProfile] = React.useState(ageSession);
+
+  const idProfile = sessionStorage.getItem("id");
+  const genderSession = sessionStorage.getItem("gender");
+  const dateofregistrationSession =
+    sessionStorage.getItem("dateofregistration");
+  React.useEffect(() => {
+    setUserName(sessionStorage.getItem("name"));
+    setEmailSession(sessionStorage.getItem("email"));
+    setAgeSession(sessionStorage.getItem("age"));
+  }, []);
+  const handleUpdateProfile = (newUserName, newEmail, newAge) => {
+    sessionStorage.setItem("username", newUserName);
+    sessionStorage.setItem("email", newEmail);
+    sessionStorage.setItem("age", newAge);
+    setUserName(newUserName);
+    setEmailSession(newEmail);
+    setAgeSession(newAge);
+  };
+  const handleOpenEditProfile = () => {
+    setOpenProfileRecord(false);
+    setOpenEditProfile(true);
+  };
+  const handleCloseEditProfile = () => {
+    setOpenEditProfile(false);
+  };
+  const handleClickOpenProfileRecord = () => {
+    setOpenProfileRecord(true);
+    setAnchorEl(null);
+  };
+  const handleCloseProfileRecord = () => {
+    setOpenProfileRecord(false);
+  };
+  ////
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
@@ -134,13 +197,147 @@ export default function PatientOverView() {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem
+                  onClick={handleClickOpenProfileRecord}
+                  style={{
+                    margin: "0px 4px 11px 4px",
+                  }}
+                >
+                  Profile
+                </MenuItem>
+                <MenuItem
+                  onClick={handleLogout}
+                  style={{
+                    backgroundColor: " rgba(255, 0, 0, 0.8)",
+                    margin: "11px 4px 4px 4px",
+                    color: "#fff",
+                  }}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
+              <Dialog
+                fullWidth
+                open={openProfileRecord}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleCloseProfileRecord}
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle>
+                  {"Your Profile "} {userName} is
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> ID: </b> {idProfile}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Name: </b> {userName}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Age: </b> {ageSession}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Gender: </b> {genderSession}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Email: </b> {emailSession}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Date of Registration: </b> {dateofregistrationSession}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseProfileRecord}>Close</Button>
+                  <Button onClick={handleOpenEditProfile}>Edit</Button>
+                </DialogActions>
+              </Dialog>
+              <Dialog
+                open={openEditProfile}
+                onClose={handleCloseEditProfile}
+                PaperProps={{
+                  component: "form",
+                  onSubmit: (event) => {
+                    event.preventDefault();
+                    const formData = new FormData(event.currentTarget);
+                    const formJson = Object.fromEntries(formData.entries());
+                    let registerPromise = axios.put(
+                      `/api/update-patient-profile/`,
+                      {
+                        id: formJson.id,
+                        Name: formJson.name,
+                        Email: formJson.email,
+                        Age: formJson.age,
+                      }
+                    );
+                    registerPromise
+                      .then(() => {
+                        handleUpdateProfile(formJson.name, formJson.email);
+                        toast.success("Profile updated successfully");
+                      })
+                      .catch((error) => {
+                        console.error("Could not update profile:", error);
+                        toast.error("Failed to update profile");
+                      });
+                    handleCloseEditProfile();
+                  },
+                }}
+              >
+                <DialogTitle>Update Your Profile</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Fill the form to update you profile
+                  </DialogContentText>
+                  <input type="hidden" name="id" value={idProfile} />
+                  <label>FULL NAME</label>
+                  <TextField
+                    required
+                    margin="dense"
+                    id="name"
+                    name="name"
+                    // label={userName}
+                    value={Name}
+                    onChange={(e) => setName(e.target.value)}
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                  />
+                  <label>AGE</label>
+                  <TextField
+                    required
+                    margin="dense"
+                    id="age"
+                    name="age"
+                    // label={userName}
+                    value={Age}
+                    onChange={(e) => setAgeUpdateProfile(e.target.value)}
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                  />
+                  <label>EMAIL</label>
+                  <TextField
+                    required
+                    margin="dense"
+                    id="email"
+                    name="email"
+                    value={Email}
+                    onChange={(e) => setEmailUpdateProfile(e.target.value)}
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseEditProfile}>Cancel</Button>
+                  <Button type="submit">Update</Button>
+                </DialogActions>
+              </Dialog>
             </div>
           </div>
         </div>
         <div className="patientOverviewDashboardSecondCard">
+          <Toaster position="top-center" reverseOrder={false}></Toaster>
           <div>
             <p>PatientOverView</p>
           </div>

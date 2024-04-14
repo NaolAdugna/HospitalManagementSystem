@@ -396,3 +396,24 @@ export const UpdatePatientPassword = async (name, password) => {
     throw error;
   }
 };
+
+export const UpdateUserStaffProfile = async (id, username, email) => {
+  try {
+    const sql = "UPDATE users SET username = ?, email = ? WHERE id = ?";
+    const [updated] = await mysqlPool.execute(sql, [username, email, id]);
+    return updated;
+  } catch (error) {
+    console.error("Error occurred while updating: ", error);
+    throw error;
+  }
+};
+export const UpdatePatientProfile = async (id, username, email, age) => {
+  try {
+    const sql = "UPDATE patient SET name = ?, age = ?,  email = ? WHERE id = ?";
+    const [updated] = await mysqlPool.execute(sql, [username, age, email, id]);
+    return updated;
+  } catch (error) {
+    console.error("Error occurred while updating: ", error);
+    throw error;
+  }
+};

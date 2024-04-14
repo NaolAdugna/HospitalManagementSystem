@@ -19,7 +19,6 @@ import {
   faEye,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -38,6 +37,18 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
+import axios from "axios";
+import Slide from "@mui/material/Slide";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
 export default function UpdateUser() {
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
@@ -67,7 +78,49 @@ export default function UpdateUser() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const userName = sessionStorage.getItem("username");
+  ////
+  const [openEditProfile, setOpenEditProfile] = React.useState(false);
+  const [openProfileRecord, setOpenProfileRecord] = React.useState(false);
+
+  const [userName, setUserName] = React.useState(
+    sessionStorage.getItem("username")
+  );
+  const [emailSession, setEmailSession] = React.useState(
+    sessionStorage.getItem("email")
+  );
+
+  const [Name, setName] = React.useState(userName);
+  const [Email, setEmailUpdateProfile] = React.useState(emailSession);
+
+  const idProfile = sessionStorage.getItem("id");
+  const roleSession = sessionStorage.getItem("role");
+  const dateofregistrationSession =
+    sessionStorage.getItem("dateofregistration");
+  React.useEffect(() => {
+    setUserName(sessionStorage.getItem("username"));
+    setEmailSession(sessionStorage.getItem("email"));
+  }, []);
+  const handleUpdateProfile = (newUserName, newEmail) => {
+    sessionStorage.setItem("username", newUserName);
+    sessionStorage.setItem("email", newEmail);
+    setUserName(newUserName);
+    setEmailSession(newEmail);
+  };
+  const handleOpenEditProfile = () => {
+    setOpenProfileRecord(false);
+    setOpenEditProfile(true);
+  };
+  const handleCloseEditProfile = () => {
+    setOpenEditProfile(false);
+  };
+  const handleClickOpenProfileRecord = () => {
+    setOpenProfileRecord(true);
+    setAnchorEl(null);
+  };
+  const handleCloseProfileRecord = () => {
+    setOpenProfileRecord(false);
+  };
+  ////
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
@@ -224,9 +277,125 @@ export default function UpdateUser() {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem
+                  onClick={handleClickOpenProfileRecord}
+                  style={{
+                    margin: "0px 4px 11px 4px",
+                  }}
+                >
+                  Profile
+                </MenuItem>
+                <MenuItem
+                  onClick={handleLogout}
+                  style={{
+                    backgroundColor: " rgba(255, 0, 0, 0.8)",
+                    margin: "11px 4px 4px 4px",
+                    color: "#fff",
+                  }}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
+              <Dialog
+                fullWidth
+                open={openProfileRecord}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleCloseProfileRecord}
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle>
+                  {"Your Profile "} {userName}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> ID: </b> {idProfile}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Name: </b> {userName}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Email: </b> {emailSession}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b>Role: </b> {roleSession}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Date of Registration: </b> {dateofregistrationSession}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseProfileRecord}>Close</Button>
+                  <Button onClick={handleOpenEditProfile}>Edit</Button>
+                </DialogActions>
+              </Dialog>
+              <Dialog
+                open={openEditProfile}
+                onClose={handleCloseEditProfile}
+                PaperProps={{
+                  component: "form",
+                  onSubmit: (event) => {
+                    event.preventDefault();
+                    const formData = new FormData(event.currentTarget);
+                    const formJson = Object.fromEntries(formData.entries());
+                    let registerPromise = axios.put(
+                      `/api/update-user-profile/`,
+                      {
+                        id: formJson.id,
+                        Name: formJson.name,
+                        Email: formJson.email,
+                      }
+                    );
+                    registerPromise
+                      .then(() => {
+                        handleUpdateProfile(formJson.name, formJson.email);
+                        toast.success("Profile updated successfully");
+                      })
+                      .catch((error) => {
+                        console.error("Could not update profile:", error);
+                        toast.error("Failed to update profile");
+                      });
+                    handleCloseEditProfile();
+                  },
+                }}
+              >
+                <DialogTitle>Update Your Profile</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Fill the form to update you profile
+                  </DialogContentText>
+                  <input type="hidden" name="id" value={idProfile} />
+                  <label>FULL NAME</label>
+                  <TextField
+                    required
+                    margin="dense"
+                    id="name"
+                    name="name"
+                    // label={userName}
+                    value={Name}
+                    onChange={(e) => setName(e.target.value)}
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                  />
+                  <label>EMAIL</label>
+                  <TextField
+                    required
+                    margin="dense"
+                    id="email"
+                    name="email"
+                    value={Email}
+                    onChange={(e) => setEmailUpdateProfile(e.target.value)}
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseEditProfile}>Cancel</Button>
+                  <Button type="submit">Update</Button>
+                </DialogActions>
+              </Dialog>
             </div>
           </div>
         </div>

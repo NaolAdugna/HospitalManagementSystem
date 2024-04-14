@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap");
+root {
+  --mainColor: #14ac5f;
+  --navBarBg: #fff;
+}
+.receptionPrepareFileDashboard {
+  background-color: rgb(195, 196, 202, 0.5);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "receptionPrepareFileDashboardFirstCard receptionPrepareFileDashboardFirstCard"
+    "receptionPrepareFileDashboardSecondCard receptionPrepareFileDashboardSecondCard";
+  gap: 10px;
+  height: 100vh;
+}
+.receptionPrepareFileDashboardFirstCard {
+  background-color: #f0f8ff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  grid-area: receptionPrepareFileDashboardFirstCard;
+}
+.receptionPrepareFileDashboardSecondCard {
+  background-color: #f6f7f9;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
+  grid-area: receptionPrepareFileDashboardSecondCard;
+}
+.receptionPrepareFileDashboardNavBarContainer {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.receptionPrepareFileDashboardLogOutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 20%;
+}
+.receptionPrepareFileDashboardNavImage {
+  background-color: #14ac5f;
+  padding: 4px 15px;
+  border-radius: 50%;
+  color: var(--navBarBg);
+}
+.receptionPrepareFileLogOutButton {
+  background-color: rgba(255, 0, 0, 0.8);
+  border: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  color: var(--navBarBg);
+}
+.receptionPrepareFileLogOutButton:hover {
+  cursor: pointer;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+}
+.receptionPrepareFileContainer {
+  width: 75%;
+
+  margin: auto;
+  /* background-color: orange; */
+}
+.receptionPrepareFileHeader {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: pink; */
+}
+.receptionPrepareFileContent {
+  width: 75%;
+  margin: auto;
+  padding: 13px;
+  border: 0.8px solid rgb(6, 42, 74);
+}
+@media (max-width: 320px) {
+  .receptionPrepareFileDashboardLogOutContainer {
+    justify-content: space-between;
+    width: 70%;
+  }
+  .receptionPrepareFileDashboardNavImage {
+    padding: 4px 12px;
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  .receptionPrepareFileDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .receptionPrepareFileDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+}

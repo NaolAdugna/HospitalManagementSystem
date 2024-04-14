@@ -29,6 +29,8 @@ import {
   GetPatientUsers,
   ReturnPatientEmail,
   UpdatePatientPassword,
+  UpdateUserStaffProfile,
+  UpdatePatientProfile,
 } from "../modelSchema/UserCreation.model.js";
 
 export async function register(req, res) {
@@ -142,6 +144,8 @@ export async function loginUser(req, res) {
       username: user[0].username,
       roles: user[0].role,
       id: user[0].id,
+      email: user[0].email,
+      dateofregistration: user[0].dateofregistration,
       token,
     });
   } catch (error) {
@@ -594,6 +598,10 @@ export async function loginPatient(req, res) {
       msg: "Login Successful",
       name: user[0].name,
       id: user[0].id,
+      email: user[0].email,
+      age: user[0].age,
+      gender: user[0].gender,
+      dateofregistration: user[0].dateofregistration,
       token,
     });
   } catch (error) {
@@ -667,5 +675,40 @@ export async function resetPatientPasswordAdminController(req, res) {
   } catch (error) {
     console.error("Error occurred:", error);
     return res.status(401).send({ error: "Unauthorized" });
+  }
+}
+
+export async function UpdateUserProfileController(req, res) {
+  try {
+    const { Name, Email, id } = req.body; // Change 'username' to 'Name'
+
+    if (!Name || !Email) {
+      return res.status(400).send({ error: "Missing required fields" });
+    }
+    const users = await UpdateUserStaffProfile(id, Name, Email); // Update 'username' to 'Name'
+
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("Error occurred during Update user", error);
+    return res
+      .status(500)
+      .send({ error: "An error occurred while updating user" });
+  }
+}
+export async function UpdatePatientProfileController(req, res) {
+  try {
+    const { Name, Email, Age, id } = req.body; // Change 'username' to 'Name'
+
+    if (!Name || !Email || !Age) {
+      return res.status(400).send({ error: "Missing required fields" });
+    }
+    const users = await UpdatePatientProfile(id, Name, Email, Age); // Update 'username' to 'Name'
+
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("Error occurred during Update user", error);
+    return res
+      .status(500)
+      .send({ error: "An error occurred while updating user" });
   }
 }
