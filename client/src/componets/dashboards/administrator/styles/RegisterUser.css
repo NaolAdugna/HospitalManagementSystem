@@ -6,14 +6,14 @@
 }
 
 * {
-  list-style: none;
-  text-decoration: none;
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
 }
 .adminRegisterDashboard {
+  list-style: none;
+  text-decoration: none;
   background-color: rgb(195, 196, 202, 0.5);
   padding: 10px;
   display: grid;

@@ -6,8 +6,6 @@ root {
   --navBarBg: #fff;
 }
 * {
-  list-style: none;
-  text-decoration: none;
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
   margin: 0;
@@ -17,6 +15,8 @@ root {
 /* body {
 } */
 .bodyContainer {
+  list-style: none;
+  text-decoration: none;
   display: flex;
   height: 100vh;
   align-items: center;

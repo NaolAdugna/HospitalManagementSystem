@@ -6,14 +6,16 @@
 }
 
 * {
-  list-style: none;
-  text-decoration: none;
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
   margin: 0;
   padding: 0;
 }
 /* About Us Start */
+.AboutbodyContainers {
+  list-style: none;
+  text-decoration: none;
+}
 .aboutHeroContainer {
   width: 100%;
   height: 740px;

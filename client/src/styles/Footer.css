@@ -5,8 +5,8 @@
 }
 
 * {
-  list-style: none;
-  text-decoration: none;
+  /* list-style: none;
+  text-decoration: none; */
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
   margin: 0;
@@ -75,6 +75,9 @@
   color: black;
   font-weight: 600;
   transition: 300ms all;
+
+  list-style: none;
+  text-decoration: none;
 }
 .footerLinks a:hover {
   color: #14ac5f;

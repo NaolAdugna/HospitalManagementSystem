@@ -33,7 +33,13 @@ import Slide from "@mui/material/Slide";
 import ReactPrint from "react-to-print";
 import QRCode from "react-qr-code";
 import { Close } from "@mui/icons-material";
+// import ReactWaterMark from "react-watermark-component";
 import ReactWaterMark from "react-watermark-component";
+import PrintOutlinedIcon from "@mui/icons-material/PrintOutlined";
+import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
+import AddIcon from "@mui/icons-material/Add";
+import generatePDF, { Resolution, Margin, Options } from "react-to-pdf";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
@@ -52,10 +58,10 @@ export default function ReceptionPrepareFile() {
     setDates(date);
   }, []);
   const [openPopupFile, setOpenPopupFile] = useState(false);
-  const [List, setList] = useState([]);
+  const [ListPatient, setListPatient] = useState([]);
   const [patientFile, setPatientFile] = useState("");
   const addDataFile = () => {
-    List.push({
+    ListPatient.push({
       patientname: patientFile,
     });
     setPatientFile("");
@@ -180,7 +186,7 @@ export default function ReceptionPrepareFile() {
     </Box>
   );
   const text = "GebreTsadik ";
-  const options = {
+  const optionWaterMark = {
     chunkWidth: 200, // Increase chunk width for better readability
     chunkHeight: 80, // Increase chunk height for better readability
     textAlign: "center",
@@ -190,6 +196,33 @@ export default function ReceptionPrepareFile() {
     rotateAngle: -26,
     fillStyle: "rgba(0, 0, 0, 0.6)", // Change text color to a more subtle gray
   };
+  const options = {
+    filename: `${Dates} Morning Patient Files.pdf`,
+    method: "save",
+
+    resolution: Resolution.EXTREME,
+    page: {
+      margin: Margin.SMALL,
+      format: "letter",
+      orientation: "landscape",
+    },
+    canvas: {
+      mimeType: "image/jpeg",
+      qualityRatio: 1,
+    },
+    overrides: {
+      pdf: {
+        compress: true,
+      },
+      canvas: {
+        useCORS: true,
+      },
+    },
+  };
+  const getTargetElement = () =>
+    document.getElementById("receptionPrepareFileContent");
+
+  const downloadPdf = () => generatePDF(getTargetElement, options);
   return (
     <div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
@@ -354,11 +387,54 @@ export default function ReceptionPrepareFile() {
         <div className="receptionPrepareFileDashboardSecondCard">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
           <div className="receptionPrepareFileContainer">
-            <div className="receptionPrepareFileContent" ref={ref}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginBottom: "11px",
+              }}
+            >
+              <Button
+                variant="outlined"
+                startIcon={<GetAppOutlinedIcon />}
+                style={{
+                  background: "#14ac5f",
+                  border: "none",
+                  color: "white",
+                  marginRight: "8px",
+                }}
+                onClick={downloadPdf}
+              >
+                Download File
+              </Button>
+              <ReactPrint
+                trigger={() => (
+                  <Button
+                    variant="outlined"
+                    startIcon={<PrintOutlinedIcon />}
+                    style={{
+                      background: "#4bad95",
+                      border: "none",
+                      color: "white",
+                      marginRight: "8px",
+                    }}
+                  >
+                    Print
+                  </Button>
+                )}
+                content={() => ref.current}
+                documentTitle={`Patient File on ${Dates}`}
+              />
+            </div>
+            <div
+              className="receptionPrepareFileContent"
+              id="receptionPrepareFileContent"
+              ref={ref}
+            >
               <ReactWaterMark
                 waterMarkText={text}
                 //   openSecurityDefense
-                options={options}
+                options={optionWaterMark}
               >
                 <div className="col-md-12">
                   <div className="receptionPrepareFileHeader">
@@ -378,8 +454,8 @@ export default function ReceptionPrepareFile() {
                       <h2 style={{ color: "#325aa8" }}>
                         <strong>Gebre Tsadik Shawo General Hospital</strong>
                       </h2>
-                      <p>Tel: +251 912345678</p>
                       <p>Email: gebretsadikshawogeneralhospital@gmail.com</p>
+                      <p>Tel: +251 912345678</p>
                     </div>
                   </div>
                   <br />
@@ -389,18 +465,17 @@ export default function ReceptionPrepareFile() {
                     <div>
                       <h2>Patient Name</h2>
                     </div>
-                    <div>
-                      {List.length
-                        ? List.map((items, index) => {
-                            return (
-                              <span key={index}>
-                                <p className="col-md-9">{items.patientname}</p>
-                              </span>
-                            );
-                          })
-                        : null}
+                    <div style={{ marginLeft: "16px", marginTop: "5px" }}>
+                      {ListPatient.length ? (
+                        <ol>
+                          {ListPatient.map((items, index) => {
+                            return <li key={index}>{items.patientname}</li>;
+                          })}
+                        </ol>
+                      ) : null}
                     </div>
                   </div>
+
                   <div>
                     <br />
                     <div className="col-md-12">
@@ -420,60 +495,59 @@ export default function ReceptionPrepareFile() {
                 </div>
               </ReactWaterMark>
             </div>
-            <ReactPrint
-              trigger={() => (
-                <Button
-                  style={{
-                    // background: "rgba(0, 0, 255,0.2)",
-                    background: "#4bad95",
-                    border: "none",
-                    color: "white",
-                    marginRight: "8px",
-                  }}
-                >
-                  Print
-                </Button>
-              )}
-              content={() => ref.current}
-              documentTitle={`Patient File on ${Dates}`}
-            />
 
-            <Button
-              onClick={() => setOpenPopupFile(true)}
-              style={{
-                background: "rgba(20, 172, 95,0.4)",
-                background: "#14ac5f",
-                border: "none",
-                color: "white",
-              }}
-            >
-              Add File
-            </Button>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button
+                variant="outlined"
+                endIcon={<AddIcon />}
+                onClick={() => setOpenPopupFile(true)}
+                style={{
+                  background: "#14ac5f",
+                  border: "none",
+                  color: "white",
+                }}
+              >
+                Add File
+              </Button>
+            </div>
           </div>
           <Dialog open={openPopupFile}>
             <DialogTitle>
-              <div className="title">
+              <div
+                className="title"
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
                 <div className="hed">New File</div>
                 <div
                   className="icon-cross"
                   onClick={() => setOpenPopupFile(false)}
                 >
-                  <Close />
+                  <Close className="addNewFileButton" />
                 </div>
               </div>
             </DialogTitle>
             <DialogContent>
               <div className="container">
                 <div className="forms">
-                  <input
+                  <TextField
+                    autoFocus
                     type="text"
                     value={patientFile}
                     onChange={(e) => setPatientFile(e.target.value)}
                     placeholder="Patient Names"
                   />
                 </div>
-                <div className="buttons">
-                  <Button onClick={addDataFile}>Add</Button>
+                <div className="buttons" style={{ float: "right" }}>
+                  <Button
+                    onClick={addDataFile}
+                    style={{
+                      background: "#14ac5f",
+                      color: "#fff",
+                      marginTop: "11px",
+                    }}
+                  >
+                    Add
+                  </Button>
                 </div>
               </div>
             </DialogContent>
