@@ -51,13 +51,21 @@ export default function LoginUser() {
 
       loginPromise
         .then(async (res) => {
-          let { token, roles, id, username, email, dateofregistration } =
-            res.data;
+          let {
+            token,
+            roles,
+            id,
+            username,
+            email,
+            dateofregistration,
+            secret,
+          } = res.data;
           sessionStorage.setItem("token", token);
           sessionStorage.setItem("id", id);
           sessionStorage.setItem("role", roles);
           sessionStorage.setItem("username", username);
           sessionStorage.setItem("email", email);
+          sessionStorage.setItem("secret", secret);
           sessionStorage.setItem("dateofregistration", dateofregistration);
           if (roles === "doctor") {
             navigate("/doctor");

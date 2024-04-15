@@ -362,7 +362,7 @@ export const registerPatientUser = async (
 export const GetPatientUsers = async () => {
   try {
     const sql =
-      "SELECT id, name,age,gender,email,dateofregistration FROM patient";
+      "SELECT id, name,age,gender,email,medicalhistory,dateofregistration FROM patient";
     const [results] = await mysqlPool.execute(sql);
     return results;
   } catch (error) {

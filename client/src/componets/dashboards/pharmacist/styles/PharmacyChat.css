@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap");
+root {
+  --mainColor: #14ac5f;
+  --navBarBg: #fff;
+}
+.pharmacyChatDashboard {
+  background-color: rgb(195, 196, 202, 0.5);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "pharmacyChatDashboardFirstCard pharmacyChatDashboardFirstCard"
+    "pharmacyChatDashboardSecondCard pharmacyChatDashboardSecondCard";
+  gap: 10px;
+  height: 100vh;
+}
+.pharmacyChatDashboardFirstCard {
+  background-color: #f0f8ff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  grid-area: pharmacyChatDashboardFirstCard;
+}
+.pharmacyChatDashboardSecondCard {
+  background-color: #f6f7f9;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
+  grid-area: pharmacyChatDashboardSecondCard;
+}
+.pharmacyChatDashboardNavBarContainer {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pharmacyChatDashboardLogOutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 20%;
+}
+.pharmacyChatDashboardNavImage {
+  background-color: #14ac5f;
+  padding: 4px 15px;
+  border-radius: 50%;
+  color: var(--navBarBg);
+}
+.pharmacyChatLogOutButton {
+  background-color: rgba(255, 0, 0, 0.8);
+  border: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  color: var(--navBarBg);
+}
+.pharmacyChatLogOutButton:hover {
+  cursor: pointer;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+}
+
+.ce-message-form-input {
+  padding: 20px 5px;
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.3));
+}
+.ce-attachment-icon {
+  font-size: 25px;
+}
+@media (max-width: 320px) {
+  .pharmacyChatDashboardLogOutContainer {
+    justify-content: space-between;
+    width: 70%;
+  }
+  .pharmacyChatDashboardNavImage {
+    padding: 4px 12px;
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  .pharmacyChatDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .pharmacyChatDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+}

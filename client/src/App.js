@@ -35,16 +35,22 @@ import UpdateUser from "./componets/dashboards/administrator/layouts/UpdateUser"
 import DeleteUser from "./componets/dashboards/administrator/layouts/DeleteUser";
 import ViewDeletedUsers from "./componets/dashboards/administrator/layouts/ViewDeletedUsers";
 import ViewMessages from "./componets/dashboards/administrator/layouts/ViewMessages";
+import AdminChat from "./componets/dashboards/administrator/layouts/AdminChat";
 import LoginPatient from "./componets/dashboards/LoginPatient";
 import LoginUser from "./componets/dashboards/LoginUser";
 
 // dashboards
 import LabOverView from "./componets/dashboards/labTechnician/layout/LabOverView";
+import LabChat from "./componets/dashboards/labTechnician/layout/LabChat";
 import PatientOverView from "./componets/dashboards/patient/layout/PatientOverView";
 import PharmacyOverView from "./componets/dashboards/pharmacist/layout/PharmacyOverView";
+import PharmacyChat from "./componets/dashboards/pharmacist/layout/PharmacyChat";
 import ReceptionViewPatient from "./componets/dashboards/reception/layout/ReceptionViewPatient";
 import ReceptionPrepareFile from "./componets/dashboards/reception/layout/ReceptionPrepareFile";
+import ReceptionChat from "./componets/dashboards/reception/layout/ReceptionChat";
 import DoctorOverView from "./componets/dashboards/doctor/rootLayouts/DoctorOverView";
+import DoctorChat from "./componets/dashboards/doctor/rootLayouts/DoctorChat";
+import DoctorViewPatient from "./componets/dashboards/doctor/rootLayouts/DoctorViewPatient";
 
 // root routers
 const router = createBrowserRouter([
@@ -181,7 +187,34 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/admin-chat",
+    element: (
+      <AdminAuthorize>
+        {" "}
+        <AdminChat />
+      </AdminAuthorize>
+    ),
+  },
+  {
     path: "/doctor",
+    element: (
+      <DoctorAuthorize>
+        {" "}
+        <DoctorViewPatient />
+      </DoctorAuthorize>
+    ),
+  },
+  {
+    path: "/doctor-chat",
+    element: (
+      <DoctorAuthorize>
+        {" "}
+        <DoctorChat />
+      </DoctorAuthorize>
+    ),
+  },
+  {
+    path: "/doctor-ai",
     element: (
       <DoctorAuthorize>
         {" "}
@@ -189,15 +222,7 @@ const router = createBrowserRouter([
       </DoctorAuthorize>
     ),
   },
-  // {
-  //   path: "/reception",
-  //   element: (
-  //     <ReceptionAuthorize>
-  //       {" "}
-  //       <ReceptionOverView />
-  //     </ReceptionAuthorize>
-  //   ),
-  // },
+
   {
     path: "/reception-view-patient",
     element: (
@@ -213,6 +238,15 @@ const router = createBrowserRouter([
       <ReceptionAuthorize>
         {" "}
         <ReceptionPrepareFile />
+      </ReceptionAuthorize>
+    ),
+  },
+  {
+    path: "/reception-chat",
+    element: (
+      <ReceptionAuthorize>
+        {" "}
+        <ReceptionChat />
       </ReceptionAuthorize>
     ),
   },
@@ -235,11 +269,29 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/pharmacy-chat",
+    element: (
+      <PharmacyAuthorize>
+        {" "}
+        <PharmacyChat />
+      </PharmacyAuthorize>
+    ),
+  },
+  {
     path: "/labratory",
     element: (
       <LabAuthorize>
         {" "}
         <LabOverView />
+      </LabAuthorize>
+    ),
+  },
+  {
+    path: "/labratory-chat",
+    element: (
+      <LabAuthorize>
+        {" "}
+        <LabChat />
       </LabAuthorize>
     ),
   },

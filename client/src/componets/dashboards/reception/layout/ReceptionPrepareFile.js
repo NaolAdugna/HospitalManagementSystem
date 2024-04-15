@@ -15,6 +15,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -100,10 +101,7 @@ export default function ReceptionPrepareFile() {
   };
 
   function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     navigate("/");
   }
 
@@ -166,6 +164,11 @@ export default function ReceptionPrepareFile() {
             text: "Prepare File",
             link: "/reception-prepare-file",
             icon: <ManageAccountsRoundedIcon />,
+          },
+          {
+            text: "Chat Staff",
+            link: "/reception-chat",
+            icon: <ChatOutlinedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>

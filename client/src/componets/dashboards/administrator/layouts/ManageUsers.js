@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import "../styles/ManageUsers.css";
 
 // Fontawesome family
+import TableUser from "./TableUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faAdd, faBars } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
-
-import TableUser from "./TableUser";
 
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -26,6 +25,7 @@ import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded
 import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -94,10 +94,7 @@ export default function ManageUsers() {
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     navigate("/");
   }
   const toggleDrawer = (newOpen) => () => {
@@ -150,6 +147,11 @@ export default function ManageUsers() {
             text: "View Messages",
             link: "/admin-view-messages",
             icon: <PreviewRoundedIcon />,
+          },
+          {
+            text: "Chat Staff",
+            link: "/admin-chat",
+            icon: <ChatOutlinedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>

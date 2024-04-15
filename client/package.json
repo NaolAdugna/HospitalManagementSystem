@@ -24,6 +24,8 @@
     "react": "^18.2.0",
     "react-calendar": "^4.8.0",
     "react-chartjs-2": "^5.2.0",
+    "react-chat-engine-advanced": "^0.1.28",
+    "react-chat-engine-pretty": "^0.1.8",
     "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.12",

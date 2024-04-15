@@ -117,10 +117,7 @@ export default function ReceptionViewPatient() {
   };
 
   function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     navigate("/");
   }
 

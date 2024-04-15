@@ -20,6 +20,7 @@ import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
 import DeletedUsersTable from "./DeletedUsersTable";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
 import Dialog from "@mui/material/Dialog";
@@ -94,10 +95,7 @@ export default function ViewDeletedUsers() {
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     navigate("/");
   }
   const toggleDrawer = (newOpen) => () => {
@@ -150,6 +148,11 @@ export default function ViewDeletedUsers() {
             text: "View Messages",
             link: "/admin-view-messages",
             icon: <PreviewRoundedIcon />,
+          },
+          {
+            text: "Chat Staff",
+            link: "/admin-chat",
+            icon: <ChatOutlinedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>

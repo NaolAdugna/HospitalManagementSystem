@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-
 import jwt from "jsonwebtoken";
 import otpGenerator from "otp-generator";
 import ENV from "../../config.js";
@@ -33,6 +32,7 @@ import {
   UpdatePatientProfile,
 } from "../modelSchema/UserCreation.model.js";
 
+import axios from "axios"; // Import axios library if not already imported
 export async function register(req, res) {
   try {
     const { username, password, role, email } = req.body;
@@ -51,6 +51,7 @@ export async function register(req, res) {
     if (password) {
       const hashedPassword = await bcrypt.hash(password, 10);
       const response = await saveUser(username, hashedPassword, role, email);
+
       return res.status(201).send({ msg: "User registration successful" });
     } else {
       return res.status(400).send({ error: "Password is required" });
@@ -114,6 +115,7 @@ export async function ReturnEmailController(req, res) {
     return res.status(404).send({ error: "Retrieval error" });
   }
 }
+
 export async function loginUser(req, res) {
   const { username, password } = req.body;
 
@@ -130,29 +132,87 @@ export async function loginUser(req, res) {
       return res.status(400).send({ error: "Password does not match" });
     }
 
-    const token = jwt.sign(
-      {
-        id: user[0].id,
-        username: user[0].username,
-      },
-      ENV.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+    // Add ChatEngine user creation/update logic here
+    try {
+      const r = await axios.put(
+        "https://api.chatengine.io/users/",
+        { username: username, secret: password, first_name: username },
+        { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+      );
+      // console.log("ChatEngine user created/updated:", r.data.username);
+      // console.log("ChatEngine user created/updated:", r.data.secret);
 
-    return res.status(200).send({
-      msg: "Login Successful",
-      username: user[0].username,
-      roles: user[0].role,
-      id: user[0].id,
-      email: user[0].email,
-      dateofregistration: user[0].dateofregistration,
-      token,
-    });
+      const token = jwt.sign(
+        {
+          id: user[0].id,
+          username: user[0].username,
+        },
+        ENV.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+
+      // Return the login response and ChatEngine API response together
+      return res.status(200).send({
+        msg: "Login Successful",
+        username: user[0].username,
+        roles: user[0].role,
+        id: user[0].id,
+        email: user[0].email,
+        dateofregistration: user[0].dateofregistration,
+        secret: password,
+        token,
+      });
+    } catch (e) {
+      console.error(
+        "Error occurred while creating/updating ChatEngine user:",
+        e
+      );
+    }
   } catch (error) {
     console.error("Error occurred:", error);
     return res.status(500).send({ error: "Internal server error" });
   }
 }
+
+// export async function loginUser(req, res) {
+//   const { username, password } = req.body;
+
+//   try {
+//     const user = await findUser(username);
+
+//     if (!user) {
+//       return res.status(404).send({ error: "Username not found" });
+//     }
+
+//     const passwordCheck = await bcrypt.compare(password, user[0].password);
+
+//     if (!passwordCheck) {
+//       return res.status(400).send({ error: "Password does not match" });
+//     }
+
+//     const token = jwt.sign(
+//       {
+//         id: user[0].id,
+//         username: user[0].username,
+//       },
+//       ENV.JWT_SECRET,
+//       { expiresIn: "1h" }
+//     );
+
+//     return res.status(200).send({
+//       msg: "Login Successful",
+//       username: user[0].username,
+//       roles: user[0].role,
+//       id: user[0].id,
+//       email: user[0].email,
+//       dateofregistration: user[0].dateofregistration,
+//       token,
+//     });
+//   } catch (error) {
+//     console.error("Error occurred:", error);
+//     return res.status(500).send({ error: "Internal server error" });
+//   }
+// }
 // export async function loginUser(req, res) {
 //   const { username, password } = req.body;
 

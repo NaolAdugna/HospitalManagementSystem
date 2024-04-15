@@ -33,11 +33,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
+import GridViewIcon from "@mui/icons-material/GridView";
 import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Slide from "@mui/material/Slide";
 
+import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
@@ -127,33 +130,42 @@ export default function DoctorOverView() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-start",
           height: "100vh",
           width: "100%",
         }}
       >
-        {["Dashboard"].map((text, index) => (
+        {[
+          {
+            text: "Dashboard",
+            link: "/doctor",
+            icon: <DashboardCustomizeRoundedIcon />,
+          },
+          {
+            text: "Chat Staff",
+            link: "/doctor-chat",
+            icon: <ChatOutlinedIcon />,
+          },
+          {
+            text: "Gemini AI",
+            link: "/doctor-ai",
+            icon: <GridViewIcon />,
+          },
+        ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon style={{ color: "#14ac5f" }}>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
+            <ListItemButton href={link}>
+              <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
-        {/* <Divider /> */}
         <div
           style={{
             display: "flex",
-            // alignItems: "center",
-            justifyContent: "center",
+            alignItems: "flex-end",
+            justifyContent: "flex-end",
           }}
-        >
-          <button onClick={handleLogout} className="doctorLogOutButton">
-            Log Out
-          </button>
-        </div>
+        ></div>
       </List>
     </Box>
   );

@@ -18,7 +18,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 
-import { registerdValidate } from "../../../../functions/validate";
+import { userRegistrationValidate } from "../../../../functions/validate";
 
 import { registerUser } from "../../../../functions/checker";
 import { useNavigate } from "react-router-dom";
@@ -42,6 +42,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import axios from "axios";
@@ -110,10 +111,7 @@ export default function RegisterUsers() {
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     navigate("/");
   }
   const toggleDrawer = (newOpen) => () => {
@@ -172,6 +170,11 @@ export default function RegisterUsers() {
             link: "/admin-view-messages",
             icon: <PreviewRoundedIcon />,
           },
+          {
+            text: "Chat Staff",
+            link: "/admin-chat",
+            icon: <ChatOutlinedIcon />,
+          },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton href={link}>
@@ -202,7 +205,7 @@ export default function RegisterUsers() {
       role: "",
       email: "",
     },
-    validate: registerdValidate,
+    validate: userRegistrationValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {

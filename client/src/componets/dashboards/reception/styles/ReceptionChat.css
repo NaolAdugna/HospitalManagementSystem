@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap");
+root {
+  --mainColor: #14ac5f;
+  --navBarBg: #fff;
+}
+.receptionChatDashboard {
+  background-color: rgb(195, 196, 202, 0.5);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "receptionChatDashboardFirstCard receptionChatDashboardFirstCard"
+    "receptionChatDashboardSecondCard receptionChatDashboardSecondCard";
+  gap: 10px;
+  height: 100vh;
+}
+.receptionChatDashboardFirstCard {
+  background-color: #f0f8ff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  grid-area: receptionChatDashboardFirstCard;
+}
+.receptionChatDashboardSecondCard {
+  background-color: #f6f7f9;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
+  grid-area: receptionChatDashboardSecondCard;
+}
+.receptionChatDashboardNavBarContainer {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.receptionChatDashboardLogOutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 20%;
+}
+.receptionChatDashboardNavImage {
+  background-color: #14ac5f;
+  padding: 4px 15px;
+  border-radius: 50%;
+  color: var(--navBarBg);
+}
+.receptionChatLogOutButton {
+  background-color: rgba(255, 0, 0, 0.8);
+  border: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  color: var(--navBarBg);
+}
+.receptionChatLogOutButton:hover {
+  cursor: pointer;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+}
+
+.ce-message-form-input {
+  padding: 20px 5px;
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.3));
+}
+.ce-attachment-icon {
+  font-size: 25px;
+}
+@media (max-width: 320px) {
+  .receptionChatDashboardLogOutContainer {
+    justify-content: space-between;
+    width: 70%;
+  }
+  .receptionChatDashboardNavImage {
+    padding: 4px 12px;
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  .receptionChatDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .receptionChatDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+}

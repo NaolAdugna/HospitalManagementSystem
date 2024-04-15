@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import "../styles/PharmacyOverView.css";
+import "../styles/AdminChat.css";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
@@ -26,17 +25,28 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import { TextField } from "@mui/material";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
+import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
+import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
+import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Slide from "@mui/material/Slide";
 
+import { PrettyChatWindow } from "react-chat-engine-pretty";
+import {
+  ChatEngine,
+  MultiChatSocket,
+  useMultiChatLogic,
+  MultiChatWindow,
+} from "react-chat-engine-advanced";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-export default function PharmacyOverView() {
+export default function AdminChat() {
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -62,6 +72,8 @@ export default function PharmacyOverView() {
   const [Email, setEmailUpdateProfile] = React.useState(emailSession);
 
   const idProfile = sessionStorage.getItem("id");
+  const secret = sessionStorage.getItem("secret");
+  const Pass = sessionStorage.getItem("password");
   const roleSession = sessionStorage.getItem("role");
   const dateofregistrationSession =
     sessionStorage.getItem("dateofregistration");
@@ -93,10 +105,7 @@ export default function PharmacyOverView() {
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     navigate("/");
   }
   const toggleDrawer = (newOpen) => () => {
@@ -127,12 +136,32 @@ export default function PharmacyOverView() {
         {[
           {
             text: "Dashboard",
-            link: "/pharmacy",
+            link: "/admin",
             icon: <DashboardCustomizeRoundedIcon />,
           },
           {
+            text: "Manage Users",
+            link: "/admin-manage-users",
+            icon: <ManageAccountsRoundedIcon />,
+          },
+          {
+            text: "Register Users",
+            link: "/admin-overview",
+            icon: <AppRegistrationRoundedIcon />,
+          },
+          {
+            text: "Deleted Users",
+            link: "/admin-view-deleted-users",
+            icon: <DeleteForeverRoundedIcon />,
+          },
+          {
+            text: "View Messages",
+            link: "/admin-view-messages",
+            icon: <PreviewRoundedIcon />,
+          },
+          {
             text: "Chat Staff",
-            link: "/pharmacy-chat",
+            link: "/admin-chat",
             icon: <ChatOutlinedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
@@ -149,9 +178,18 @@ export default function PharmacyOverView() {
             alignItems: "flex-end",
             justifyContent: "flex-end",
           }}
-        ></div>
+        >
+          <button onClick={handleLogout} className="AdminChatLogOutButton">
+            Log Out
+          </button>
+        </div>
       </List>
     </Box>
+  );
+  const chatProps = useMultiChatLogic(
+    "d2e9312c-a726-4848-b9fb-6e8e1712395f",
+    `${userName}`,
+    `${secret}`
   );
 
   return (
@@ -159,9 +197,9 @@ export default function PharmacyOverView() {
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
-      <main className="pharmacyDashboard ">
-        <div className="pharmacyDashboardFirstCard">
-          <div className="pharmacyDashboardNavBarContainer">
+      <main className="AdminChatDashboard ">
+        <div className="AdminChatDashboardFirstCard">
+          <div className="AdminChatDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -169,7 +207,7 @@ export default function PharmacyOverView() {
                 onClick={toggleDrawer(true)}
               />
             </div>
-            <div className="pharmacyDashboardLogOutContainer">
+            <div className="AdminChatDashboardLogOutContainer">
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
@@ -315,10 +353,20 @@ export default function PharmacyOverView() {
             </div>
           </div>
         </div>
-        <div className="pharmacyDashboardSecondCard">
+        <div className="AdminChatDashboardSecondCard">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
           <div>
-            <p>pharmacyDashboard</p>
+            <MultiChatWindow {...chatProps} style={{ height: "90vh" }} />
+            <MultiChatSocket {...chatProps} style={{ height: "90vh" }} />
+            {/* const chatProps = useMultiChatLogic(
+            "d2e9312c-a726-4848-b9fb-6e8e1712395f", `${userName}`, `${secret}`
+            ); */}
+            {/* <PrettyChatWindow
+              projectId="d2e9312c-a726-4848-b9fb-6e8e1712395f"
+              username={userName}
+              secret={secret}
+              style={{ height: "100vh" }}
+            /> */}
           </div>
         </div>
       </main>

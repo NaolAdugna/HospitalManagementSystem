@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import "../styles/PharmacyOverView.css";
+import "../styles/DoctorViewPatient.css";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
@@ -25,18 +24,19 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
-import { TextField } from "@mui/material";
+import GridViewIcon from "@mui/icons-material/GridView";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
+import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Slide from "@mui/material/Slide";
 
+import DoctorViewTable from "./DoctorViewTable";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-export default function PharmacyOverView() {
+export default function DoctorViewPatient() {
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -62,12 +62,14 @@ export default function PharmacyOverView() {
   const [Email, setEmailUpdateProfile] = React.useState(emailSession);
 
   const idProfile = sessionStorage.getItem("id");
+  const secret = sessionStorage.getItem("secret");
   const roleSession = sessionStorage.getItem("role");
   const dateofregistrationSession =
     sessionStorage.getItem("dateofregistration");
   React.useEffect(() => {
     setUserName(sessionStorage.getItem("username"));
     setEmailSession(sessionStorage.getItem("email"));
+    console.log("secret is ", secret);
   }, []);
   const handleUpdateProfile = (newUserName, newEmail) => {
     sessionStorage.setItem("username", newUserName);
@@ -93,10 +95,7 @@ export default function PharmacyOverView() {
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     navigate("/");
   }
   const toggleDrawer = (newOpen) => () => {
@@ -127,13 +126,18 @@ export default function PharmacyOverView() {
         {[
           {
             text: "Dashboard",
-            link: "/pharmacy",
+            link: "/doctor",
             icon: <DashboardCustomizeRoundedIcon />,
           },
           {
             text: "Chat Staff",
-            link: "/pharmacy-chat",
+            link: "/doctor-chat",
             icon: <ChatOutlinedIcon />,
+          },
+          {
+            text: "Gemini AI",
+            link: "/doctor-ai",
+            icon: <GridViewIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
@@ -153,15 +157,14 @@ export default function PharmacyOverView() {
       </List>
     </Box>
   );
-
   return (
     <div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
-      <main className="pharmacyDashboard ">
-        <div className="pharmacyDashboardFirstCard">
-          <div className="pharmacyDashboardNavBarContainer">
+      <main className="doctorViewPatientDashboard ">
+        <div className="doctorViewPatientDashboardFirstCard">
+          <div className="doctorViewPatientDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -169,7 +172,7 @@ export default function PharmacyOverView() {
                 onClick={toggleDrawer(true)}
               />
             </div>
-            <div className="pharmacyDashboardLogOutContainer">
+            <div className="doctorViewPatientDashboardLogOutContainer">
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
@@ -315,10 +318,19 @@ export default function PharmacyOverView() {
             </div>
           </div>
         </div>
-        <div className="pharmacyDashboardSecondCard">
+        <div className="doctorViewPatientDashboardSecondCard">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
-          <div>
-            <p>pharmacyDashboard</p>
+          <div
+            style={{
+              padding: "25px",
+              width: "90%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "auto",
+            }}
+          >
+            <DoctorViewTable />
           </div>
         </div>
       </main>

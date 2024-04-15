@@ -16,6 +16,7 @@ import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomiz
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
 import MessageTable from "./MessageTable";
 import Button from "@mui/material/Button";
@@ -95,10 +96,7 @@ export default function ViewMessages() {
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     navigate("/");
   }
   const toggleDrawer = (newOpen) => () => {
@@ -151,6 +149,11 @@ export default function ViewMessages() {
             text: "View Messages",
             link: "/admin-view-messages",
             icon: <PreviewRoundedIcon />,
+          },
+          {
+            text: "Chat Staff",
+            link: "/admin-chat",
+            icon: <ChatOutlinedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>

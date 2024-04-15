@@ -50,6 +50,13 @@ export async function registerdValidate(values) {
 
   return errors;
 }
+export async function userRegistrationValidate(values) {
+  const errors = registrationUsernameVerify({}, values);
+
+  emailVerify(errors, values);
+
+  return errors;
+}
 export async function registerPatientValidate(values) {
   const errors = inputVerify({}, values);
 
@@ -75,6 +82,17 @@ function usernameVerify(error = {}, values) {
     error.username = toast.error("Username required...");
   } else if (!values.password) {
     error.password = toast.error("Password required...");
+  }
+
+  return error;
+}
+function registrationUsernameVerify(error = {}, values) {
+  if (!values.username) {
+    error.username = toast.error("Username required...");
+  } else if (!values.password) {
+    error.password = toast.error("Password required...");
+  } else if (!values.role) {
+    error.role = toast.error("Role is required...");
   }
 
   return error;

@@ -25,6 +25,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
+import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
@@ -116,33 +118,37 @@ export default function LabOverView() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-start",
           height: "100vh",
           width: "100%",
         }}
       >
-        {["Dashboard"].map((text, index) => (
+        {[
+          {
+            text: "Dashboard",
+            link: "/labratory",
+            icon: <DashboardCustomizeRoundedIcon />,
+          },
+          {
+            text: "Chat Staff",
+            link: "/labratory-chat",
+            icon: <ChatOutlinedIcon />,
+          },
+        ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon style={{ color: "#14ac5f" }}>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
+            <ListItemButton href={link}>
+              <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
-        {/* <Divider /> */}
         <div
           style={{
             display: "flex",
-            // alignItems: "center",
-            justifyContent: "center",
+            alignItems: "flex-end",
+            justifyContent: "flex-end",
           }}
-        >
-          <button onClick={handleLogout} className="labLogOutButton">
-            Log Out
-          </button>
-        </div>
+        ></div>
       </List>
     </Box>
   );

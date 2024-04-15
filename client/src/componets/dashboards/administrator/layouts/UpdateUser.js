@@ -42,6 +42,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 
 import axios from "axios";
 import Slide from "@mui/material/Slide";
@@ -124,10 +125,7 @@ export default function UpdateUser() {
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     navigate("/");
   }
   const toggleDrawer = (newOpen) => () => {
@@ -184,6 +182,11 @@ export default function UpdateUser() {
             text: "View Messages",
             link: "/admin-view-messages",
             icon: <PreviewRoundedIcon />,
+          },
+          {
+            text: "Chat Staff",
+            link: "/admin-chat",
+            icon: <ChatOutlinedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
