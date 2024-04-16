@@ -79,6 +79,7 @@ export default function DeleteUser() {
   const [Email, setEmailUpdateProfile] = React.useState(emailSession);
 
   const idProfile = sessionStorage.getItem("id");
+  const chatEnginePass = sessionStorage.getItem("chatenginepass");
   const roleSession = sessionStorage.getItem("role");
   const dateofregistrationSession =
     sessionStorage.getItem("dateofregistration");
@@ -253,6 +254,7 @@ export default function DeleteUser() {
         <main className="adminDeleteDashboard ">
           <div className="adminDeleteDashboardFirstCard">
             <div className="adminDeleteDashboardNavBarContainer">
+              <input type="hidden" value={chatEnginePass} name="user_id" />
               <div>
                 <FontAwesomeIcon
                   icon={faBars}
@@ -549,7 +551,7 @@ export default function DeleteUser() {
                         className="adminDeleteLoginNameIcon"
                       />
                       <TextField
-                        name="username"
+                        name="name"
                         variant="standard"
                         id="standard-basic idOfName"
                         className="adminDeleteLoginInputs"

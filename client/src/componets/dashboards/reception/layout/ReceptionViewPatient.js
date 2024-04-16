@@ -38,6 +38,7 @@ import NativeSelect from "@mui/material/NativeSelect";
 import Input from "@mui/material/Input";
 import Slide from "@mui/material/Slide";
 import axios from "axios";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import ViewPatientTable from "./ViewPatientTable";
 import { registerPatient } from "../../../../functions/checker";
 
@@ -60,6 +61,7 @@ export default function ReceptionViewPatient() {
   );
 
   const id = sessionStorage.getItem("id");
+  const ChatPassword = sessionStorage.getItem("secret");
   // const userName = sessionStorage.getItem("username");
   // const emailSession = sessionStorage.getItem("email");
   const roleSession = sessionStorage.getItem("role");
@@ -153,6 +155,12 @@ export default function ReceptionViewPatient() {
             text: "Prepare File",
             link: "/reception-prepare-file",
             icon: <ManageAccountsRoundedIcon />,
+          },
+
+          {
+            text: "Chat Staff",
+            link: "/reception-chat",
+            icon: <ChatOutlinedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
@@ -276,6 +284,7 @@ export default function ReceptionViewPatient() {
                       `/api/update-user-profile/`,
                       {
                         id: formJson.id,
+                        chatpassword: formJson.chatpassword,
                         Name: formJson.name,
                         Email: formJson.email,
                       }
@@ -299,6 +308,11 @@ export default function ReceptionViewPatient() {
                     Fill the form to update you profile
                   </DialogContentText>
                   <input type="hidden" name="id" value={id} />
+                  <input
+                    type="hidden"
+                    name="chatpassword"
+                    value={ChatPassword}
+                  />
                   <label>FULL NAME</label>
                   <TextField
                     required

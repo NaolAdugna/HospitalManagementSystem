@@ -65,6 +65,7 @@ export default function LabChat() {
 
   const idProfile = sessionStorage.getItem("id");
   const secret = sessionStorage.getItem("secret");
+  const ChatPassword = sessionStorage.getItem("secret");
   const roleSession = sessionStorage.getItem("role");
   const dateofregistrationSession =
     sessionStorage.getItem("dateofregistration");
@@ -263,6 +264,7 @@ export default function LabChat() {
                       `/api/update-user-profile/`,
                       {
                         id: formJson.id,
+                        chatpassword: formJson.chatpassword,
                         Name: formJson.name,
                         Email: formJson.email,
                       }
@@ -286,6 +288,11 @@ export default function LabChat() {
                     Fill the form to update you profile
                   </DialogContentText>
                   <input type="hidden" name="id" value={idProfile} />
+                  <input
+                    type="hidden"
+                    name="chatpassword"
+                    value={ChatPassword}
+                  />
                   <label>FULL NAME</label>
                   <TextField
                     required

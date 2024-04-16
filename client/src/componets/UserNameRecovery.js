@@ -37,6 +37,7 @@ export default function UserNameRecovery() {
           toast.error("user DO NOT EXISTS");
         } else {
           setUsername(values.username);
+          sessionStorage.setItem("recoveryname", values.username);
           navigate("/password-recovery");
         }
       }).catch((error) => {

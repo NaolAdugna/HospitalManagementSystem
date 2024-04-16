@@ -65,6 +65,7 @@ export default function ViewMessages() {
   const [Email, setEmailUpdateProfile] = React.useState(emailSession);
 
   const idProfile = sessionStorage.getItem("id");
+  const ChatPassword = sessionStorage.getItem("secret");
   const roleSession = sessionStorage.getItem("role");
   const dateofregistrationSession =
     sessionStorage.getItem("dateofregistration");
@@ -284,6 +285,7 @@ export default function ViewMessages() {
                       `/api/update-user-profile/`,
                       {
                         id: formJson.id,
+                        chatpassword: formJson.chatpassword,
                         Name: formJson.name,
                         Email: formJson.email,
                       }
@@ -307,6 +309,11 @@ export default function ViewMessages() {
                     Fill the form to update you profile
                   </DialogContentText>
                   <input type="hidden" name="id" value={idProfile} />
+                  <input
+                    type="hidden"
+                    name="chatpassword"
+                    value={ChatPassword}
+                  />
                   <label>FULL NAME</label>
                   <TextField
                     required

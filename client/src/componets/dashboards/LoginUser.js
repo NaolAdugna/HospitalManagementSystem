@@ -59,6 +59,7 @@ export default function LoginUser() {
             email,
             dateofregistration,
             secret,
+            chatEnginePass,
           } = res.data;
           sessionStorage.setItem("token", token);
           sessionStorage.setItem("id", id);
@@ -66,6 +67,7 @@ export default function LoginUser() {
           sessionStorage.setItem("username", username);
           sessionStorage.setItem("email", email);
           sessionStorage.setItem("secret", secret);
+          sessionStorage.setItem("chatenginepass", chatEnginePass);
           sessionStorage.setItem("dateofregistration", dateofregistration);
           if (roles === "doctor") {
             navigate("/doctor");

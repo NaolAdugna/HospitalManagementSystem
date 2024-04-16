@@ -140,7 +140,7 @@ export async function loginUser(req, res) {
         { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
       );
       // console.log("ChatEngine user created/updated:", r.data.username);
-      // console.log("ChatEngine user created/updated:", r.data.secret);
+      // console.log("ChatEngine user created/updated:", r.data);
 
       const token = jwt.sign(
         {
@@ -151,7 +151,6 @@ export async function loginUser(req, res) {
         { expiresIn: "1h" }
       );
 
-      // Return the login response and ChatEngine API response together
       return res.status(200).send({
         msg: "Login Successful",
         username: user[0].username,
@@ -160,6 +159,7 @@ export async function loginUser(req, res) {
         email: user[0].email,
         dateofregistration: user[0].dateofregistration,
         secret: password,
+        chatEnginePass: r.data.id,
         token,
       });
     } catch (e) {
@@ -324,16 +324,54 @@ export async function ReturnUser(req, res) {
 
 export async function DeleteUser(req, res) {
   try {
-    const id = req.params.id; // Correctly access the id parameter from req.params
+    const id = req.params.id;
+    const userId = req.params.id;
+    const username = await GetUserName(userId);
+
     const users = await DeleteUsers(id);
+    try {
+      const r = await axios.put(
+        `https://api.chatengine.io/users/`,
+        { username: username, secret: "reception", first_name: username },
+        { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+      );
+      const user_id = r.data.id;
+      await axios.delete(`https://api.chatengine.io/users/${user_id}/`, {
+        headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" },
+      });
+    } catch (error) {
+      console.error(error);
+    }
     return res.status(200).send(users);
   } catch (error) {
-    console.error("error occurred during delete user", error);
+    console.error("An error occurred during delete user:", error.message);
+    if (error.response) {
+      console.error("Response status:", error.response.status);
+      console.error("Response data:", error.response.data);
+    }
     return res
       .status(500)
-      .send({ error: "an error occurred while deleting user" });
+      .send({ error: "An error occurred while deleting user" });
   }
 }
+
+// export async function DeleteUser(req, res) {
+//   try {
+//     const id = req.params.id;
+//     const { user_id } = req.body;
+//     const users = await DeleteUsers(id);
+//     const r = await axios.delete(
+//       `https://api.chatengine.io/users/{{user_id}}/`,
+//       { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+//     );
+//     return res.status(200).send(users);
+//   } catch (error) {
+//     console.error("error occurred during delete user", error);
+//     return res
+//       .status(500)
+//       .send({ error: "an error occurred while deleting user" });
+//   }
+// }
 export async function GetUserByIdController(req, res) {
   try {
     const id = req.params.id;
@@ -349,6 +387,9 @@ export async function GetUserByIdController(req, res) {
 export async function UpdateUser(req, res) {
   try {
     const id = req.params.id;
+    const userId = req.params.id;
+    const usernameValue = await GetUserName(userId);
+    console.log("user name is ", usernameValue);
 
     const { username, password, role, email } = req.body;
 
@@ -364,6 +405,33 @@ export async function UpdateUser(req, res) {
       email
     );
 
+    console.log("user is updated ");
+    // try {
+    //   const r = await axios.put(
+    //     `https://api.chatengine.io/users/`,
+    //     {
+    //       username: usernameValue,
+    //       secret: "reception13",
+    //       first_name: usernameValue,
+    //     },
+    //     { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+    //   );
+    //   console.log("user data is ", r.data);
+    //   const user_id = r.data.id;
+    //   console.log("user id is ", user_id);
+    //   await axios.patch(
+    //     `https://api.chatengine.io/users/${user_id}/`,
+    //     {
+    //       username: username,
+    //       secret: password,
+    //       first_name: username,
+    //     },
+    //     { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+    //   );
+    //   console.log("User updated successfully in ChatEngine.io");
+    // } catch (error) {
+    //   console.error(error);
+    // }
     return res.status(200).send(users);
   } catch (error) {
     console.error("Error occurred during Update user", error);
@@ -740,12 +808,48 @@ export async function resetPatientPasswordAdminController(req, res) {
 
 export async function UpdateUserProfileController(req, res) {
   try {
-    const { Name, Email, id } = req.body; // Change 'username' to 'Name'
+    const { Name, Email, id, chatpassword } = req.body;
+    const userId = id;
+    const usernameValues = await GetUserName(userId);
+
+    // var data =
 
     if (!Name || !Email) {
       return res.status(400).send({ error: "Missing required fields" });
     }
-    const users = await UpdateUserStaffProfile(id, Name, Email); // Update 'username' to 'Name'
+    const users = await UpdateUserStaffProfile(id, Name, Email);
+    try {
+      // Make a PUT request to create the user and obtain the user ID
+      const r = await axios.put(
+        `https://api.chatengine.io/users/`,
+        {
+          username: usernameValues,
+          secret: chatpassword,
+          first_name: usernameValues,
+        },
+        { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+      );
+
+      const user_id = r.data.id; // Obtain the user ID from the response
+
+      // Make a PATCH request to update the user with the obtained user ID
+      await axios.patch(
+        `https://api.chatengine.io/users/${user_id}/`,
+        {
+          username: Name,
+          secret: chatpassword,
+          first_name: Name,
+        },
+        { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+      );
+
+      console.log("User updated successfully in ChatEngine.io");
+    } catch (error) {
+      console.error(
+        "Error occurred while updating user in ChatEngine.io:",
+        error
+      );
+    }
 
     return res.status(200).send(users);
   } catch (error) {
