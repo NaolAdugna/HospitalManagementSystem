@@ -1,174 +1,22 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/DoctorOverview.css";
-
-// Fontawesome family
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-
-import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-
 import GeminiProfile from "../../../../assets/images/google-gemini-icon.webp";
-// import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
-
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import SendIcon from "@mui/icons-material/Send";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Avatar from "@mui/material/Avatar";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-
-import GridViewIcon from "@mui/icons-material/GridView";
-import { TextField } from "@mui/material";
-import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-import Slide from "@mui/material/Slide";
 
-import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
-import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
+import DoctorRoot from "./DoctorRoot";
+import Avatar from "@mui/material/Avatar";
+
 export default function DoctorOverView() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const openProfile = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const [prompt, setPrompt] = useState("");
-  const inputRef = useRef(null);
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-
-  ////
-  const [openEditProfile, setOpenEditProfile] = React.useState(false);
-  const [openProfileRecord, setOpenProfileRecord] = React.useState(false);
-
+  const [chatHistory, setChatHistory] = useState([]);
   const [userName, setUserName] = React.useState(
     sessionStorage.getItem("username")
   );
-  const [emailSession, setEmailSession] = React.useState(
-    sessionStorage.getItem("email")
-  );
-
-  const [Name, setName] = React.useState(userName);
-  const [Email, setEmailUpdateProfile] = React.useState(emailSession);
-
-  const idProfile = sessionStorage.getItem("id");
-  const roleSession = sessionStorage.getItem("role");
-  const dateofregistrationSession =
-    sessionStorage.getItem("dateofregistration");
-  React.useEffect(() => {
-    setUserName(sessionStorage.getItem("username"));
-    setEmailSession(sessionStorage.getItem("email"));
-  }, []);
-  const handleUpdateProfile = (newUserName, newEmail) => {
-    sessionStorage.setItem("username", newUserName);
-    sessionStorage.setItem("email", newEmail);
-    setUserName(newUserName);
-    setEmailSession(newEmail);
-  };
-  const handleOpenEditProfile = () => {
-    setOpenProfileRecord(false);
-    setOpenEditProfile(true);
-  };
-  const handleCloseEditProfile = () => {
-    setOpenEditProfile(false);
-  };
-  const handleClickOpenProfileRecord = () => {
-    setOpenProfileRecord(true);
-    setAnchorEl(null);
-  };
-  const handleCloseProfileRecord = () => {
-    setOpenProfileRecord(false);
-  };
-  ////
-  const userNameFirstLetter = userName.charAt(0);
-
-  function handleLogout() {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("token");
-    navigate("/");
-  }
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
-  const DrawerList = (
-    <Box
-      sx={{
-        width: 250,
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "space-between",
-        background: "#f0f8ff",
-      }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-    >
-      <List
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          height: "100vh",
-          width: "100%",
-        }}
-      >
-        {[
-          {
-            text: "Dashboard",
-            link: "/doctor",
-            icon: <DashboardCustomizeRoundedIcon />,
-          },
-          {
-            text: "Chat Staff",
-            link: "/doctor-chat",
-            icon: <ChatOutlinedIcon />,
-          },
-          {
-            text: "Gemini AI",
-            link: "/doctor-ai",
-            icon: <GridViewIcon />,
-          },
-        ].map(({ text, link, icon }, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton href={link}>
-              <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-          }}
-        ></div>
-      </List>
-    </Box>
-  );
+  const inputRef = useRef(null);
 
   const makeRequestAPI = async (prompt) => {
     const res = await axios.post("http://localhost:8080/api/gemini", {
@@ -180,244 +28,113 @@ export default function DoctorOverView() {
   const mutation = useMutation({
     mutationFn: makeRequestAPI,
     mutationKey: ["gemini-ai-request"],
+    onSuccess: (data) => {
+      setChatHistory([
+        ...chatHistory,
+        { prompt: prompt, response: data }, // Add both prompt and response to chat history
+      ]);
+      setPrompt(""); // Clear prompt after adding to chat history
+    },
   });
-  //!submit handler
+
   const submitHandler = (e) => {
     if (e) {
       e.preventDefault();
     }
     mutation.mutate(prompt);
-    setPrompt("");
     inputRef.current.blur();
   };
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault(); // Prevents the default behavior of the Enter key (typically form submission)
-      submitHandler(); // Calls the function to handle form submission or any desired action
+      e.preventDefault();
+      submitHandler();
     }
   };
 
+  useEffect(() => {
+    setUserName(sessionStorage.getItem("username"));
+    setChatHistory([]);
+  }, []);
+  const userNameFirstLetter = userName.charAt(0).toUpperCase();
+
   return (
     <div>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
-        {DrawerList}
-      </Drawer>
-      <main className="doctorDashboard ">
-        <div className="doctorDashboardFirstCard">
-          <div className="doctorDashboardNavBarContainer">
-            <div>
-              <FontAwesomeIcon
-                icon={faBars}
-                className="navBarHamburger"
-                onClick={toggleDrawer(true)}
-              />
+      <DoctorRoot
+        component={
+          <main className="doctorOverViewMainContainer">
+            <div className="promptResult">
+              <span className="promtResultAIProfile"></span>
+              <section>
+                {/* <p style={{ display: "flex", alignItems: "center" }}>
+                  <Avatar sx={{ bgcolor: "#5c6bc0", marginRight: "15px" }}>
+                    {userNameFirstLetter}
+                  </Avatar>
+                  <b>{prompt}</b>
+                </p> */}
+                {chatHistory.map((chat, index) => (
+                  <div key={index}>
+                    <p style={{ display: "flex", alignItems: "center" }}>
+                      <Avatar sx={{ bgcolor: "#5c6bc0", marginRight: "21px" }}>
+                        {userNameFirstLetter}
+                      </Avatar>
+                      <b>{chat.prompt}</b>
+                    </p>
+                    <br />
+                    <p style={{ display: "flex", alignItems: "center" }}>
+                      <img
+                        src={GeminiProfile}
+                        className="promtResultImage"
+                        alt="gemini"
+                      />
+                      {chat.response}
+                    </p>
+                  </div>
+                ))}
+                {mutation.isPending && (
+                  <p className="geminiSkeleton">
+                    {
+                      <Box sx={{ width: "100%" }}>
+                        <Skeleton animation="pulse" />
+                        <Skeleton animation="pulse" />
+                        <Skeleton animation="pulse" />
+                        <Skeleton animation="pulse" />
+                        <Skeleton animation="pulse" />
+                        <Skeleton animation="pulse" />
+                        <Skeleton animation="pulse" />
+                      </Box>
+                    }
+                  </p>
+                )}
+                {mutation.isError && (
+                  <p>
+                    <b>Refresh the page an error occured.</b>
+                  </p>
+                )}
+              </section>
             </div>
-            <div className="doctorDashboardLogOutContainer">
-              <h4 style={{ textDecoration: "underline" }}>
-                Welcome {userName}
-              </h4>
-              <Button
-                id="basic-button"
-                aria-controls={openProfile ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={openProfile ? "true" : undefined}
-                onClick={handleClick}
-              >
-                <Avatar sx={{ bgcolor: "#5c6bc0" }}>
-                  {userNameFirstLetter}
-                </Avatar>
-              </Button>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={openProfile}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-              >
-                <MenuItem
-                  onClick={handleClickOpenProfileRecord}
-                  style={{
-                    margin: "0px 4px 11px 4px",
-                  }}
-                >
-                  Profile
-                </MenuItem>
-                <MenuItem
-                  onClick={handleLogout}
-                  style={{
-                    backgroundColor: " rgba(255, 0, 0, 0.8)",
-                    margin: "11px 4px 4px 4px",
-                    color: "#fff",
-                  }}
-                >
-                  Logout
-                </MenuItem>
-              </Menu>
-              <Dialog
-                fullWidth
-                open={openProfileRecord}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleCloseProfileRecord}
-                aria-describedby="alert-dialog-slide-description"
-              >
-                <DialogTitle>
-                  {"Your Profile "} {userName}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    <b> ID: </b> {idProfile}
-                  </DialogContentText>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    <b> Name: </b> {userName}
-                  </DialogContentText>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    <b> Email: </b> {emailSession}
-                  </DialogContentText>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    <b>Role: </b> {roleSession}
-                  </DialogContentText>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    <b> Date of Registration: </b> {dateofregistrationSession}
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleCloseProfileRecord}>Close</Button>
-                  <Button onClick={handleOpenEditProfile}>Edit</Button>
-                </DialogActions>
-              </Dialog>
-              <Dialog
-                open={openEditProfile}
-                onClose={handleCloseEditProfile}
-                PaperProps={{
-                  component: "form",
-                  onSubmit: (event) => {
-                    event.preventDefault();
-                    const formData = new FormData(event.currentTarget);
-                    const formJson = Object.fromEntries(formData.entries());
-                    let registerPromise = axios.put(
-                      `/api/update-user-profile/`,
-                      {
-                        id: formJson.id,
-                        Name: formJson.name,
-                        Email: formJson.email,
-                      }
-                    );
-                    registerPromise
-                      .then(() => {
-                        handleUpdateProfile(formJson.name, formJson.email);
-                        toast.success("Profile updated successfully");
-                      })
-                      .catch((error) => {
-                        console.error("Could not update profile:", error);
-                        toast.error("Failed to update profile");
-                      });
-                    handleCloseEditProfile();
-                  },
-                }}
-              >
-                <DialogTitle>Update Your Profile</DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    Fill the form to update you profile
-                  </DialogContentText>
-                  <input type="hidden" name="id" value={idProfile} />
-                  <label>FULL NAME</label>
-                  <TextField
-                    required
-                    margin="dense"
-                    id="name"
-                    name="name"
-                    // label={userName}
-                    value={Name}
-                    onChange={(e) => setName(e.target.value)}
+            <div className="geminiContainer">
+              <form onSubmit={submitHandler}>
+                <div className="promptContainer">
+                  <textarea
                     type="text"
-                    fullWidth
-                    variant="standard"
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    placeholder="Enter Prompt Here..."
+                    className="promptInput"
+                    ref={inputRef}
+                    rows={3}
                   />
-                  <label>EMAIL</label>
-                  <TextField
-                    required
-                    margin="dense"
-                    id="email"
-                    name="email"
-                    value={Email}
-                    onChange={(e) => setEmailUpdateProfile(e.target.value)}
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                  />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleCloseEditProfile}>Cancel</Button>
-                  <Button type="submit">Update</Button>
-                </DialogActions>
-              </Dialog>
+                  <span onClick={submitHandler}>
+                    <SendIcon className="formIcon" sx={{ fontSize: "40px" }} />
+                  </span>
+                </div>
+              </form>
             </div>
-          </div>
-        </div>
-        <div className="doctorDashboardSecondCard">
-          <Toaster position="top-center" reverseOrder={false}></Toaster>
-          <div className="promptResult">
-            <span className="promtResultAIProfile">
-              <img
-                src={GeminiProfile}
-                className="promtResultImage"
-                alt="gemini"
-              />
-            </span>
-            <section>
-              {mutation.isPending && (
-                <p className="geminiSkeleton">
-                  {
-                    <Box sx={{ width: "100%" }}>
-                      <Skeleton animation="pulse" />
-                      <Skeleton animation="pulse" />
-                      <Skeleton animation="pulse" />
-                      <Skeleton animation="pulse" />
-                      <Skeleton animation="pulse" />
-                      <Skeleton animation="pulse" />
-                      <Skeleton animation="pulse" />
-                    </Box>
-                  }
-                </p>
-              )}
-              {mutation.isError && <p>{mutation.error.message}</p>}
-              {mutation.isSuccess && <p>{mutation.data}</p>}
-            </section>
-          </div>
-          <div className="geminiContainer">
-            <form onSubmit={submitHandler}>
-              <div className="promptContainer">
-                <textarea
-                  type="text"
-                  value={prompt}
-                  onChange={(e) => setPrompt(e.target.value)}
-                  onKeyDown={handleKeyPress}
-                  placeholder="Enter Prompt Here..."
-                  className="promptInput"
-                  ref={inputRef}
-                  // cols={5}
-                  rows={3}
-                />
-                <span onClick={submitHandler}>
-                  <SendIcon className="formIcon" sx={{ fontSize: "40px" }} />
-                </span>
-                {/* <FontAwesomeIcon
-                  icon={faPaperPlane}
-                  className="formIcon"
-                  onClick={submitHandler}
-                /> */}
-                {/* <button type="submit">Generate Content</button> */}
-              </div>
-            </form>
-          </div>
-          {/* </div> */}
-        </div>
-      </main>
+          </main>
+        }
+      />
     </div>
   );
 }

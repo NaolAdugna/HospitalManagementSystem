@@ -546,11 +546,19 @@ export async function Retrieval(req, res) {
 }
 
 export async function geminiAI(req, res) {
-  const genAI = new GoogleGenerativeAI(ENV.API_KEY);
   try {
     const { prompt } = req.body;
+
+    // Input validation
+    if (!prompt || typeof prompt !== "string") {
+      return res.status(400).send("Invalid prompt");
+    }
+
+    // Initialize Generative AI model
+    const genAI = new GoogleGenerativeAI(ENV.API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
+    // Start chat with the model
     const chat = model.startChat({
       history: [],
       generationConfig: {
@@ -558,16 +566,41 @@ export async function geminiAI(req, res) {
       },
     });
 
-    const result = await model.generateContent([prompt]);
+    // Generate response
+    const result = await chat.sendMessage([prompt]);
+    const text = await result.response.text();
 
-    const response = await result.response;
-    const text = response.text();
+    // Send response
     res.send(text);
   } catch (error) {
-    console.log(error);
+    console.error("Error:", error);
     res.status(500).send("Failed to generate content");
   }
 }
+
+// export async function geminiAI(req, res) {
+//   const genAI = new GoogleGenerativeAI(ENV.API_KEY);
+//   try {
+//     const { prompt } = req.body;
+//     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+//     const chat = model.startChat({
+//       history: [],
+//       generationConfig: {
+//         maxOutputTokens: 500,
+//       },
+//     });
+
+//     const result = await model.generateContent([prompt]);
+
+//     const response = await result.response;
+//     const text = response.text();
+//     res.send(text);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send("Failed to generate content");
+//   }
+// }
 
 // export async function contactSendMessageController(req, res) {
 //   try {

@@ -51,6 +51,7 @@ import ReceptionChat from "./componets/dashboards/reception/layout/ReceptionChat
 import DoctorOverView from "./componets/dashboards/doctor/rootLayouts/DoctorOverView";
 import DoctorChat from "./componets/dashboards/doctor/rootLayouts/DoctorChat";
 import DoctorViewPatient from "./componets/dashboards/doctor/rootLayouts/DoctorViewPatient";
+import DoctorRoot from "./componets/dashboards/doctor/rootLayouts/DoctorRoot";
 
 // root routers
 const router = createBrowserRouter([
@@ -210,6 +211,15 @@ const router = createBrowserRouter([
       <DoctorAuthorize>
         {" "}
         <DoctorChat />
+      </DoctorAuthorize>
+    ),
+  },
+  {
+    path: "/doctor-root",
+    element: (
+      <DoctorAuthorize>
+        {" "}
+        <DoctorRoot />
       </DoctorAuthorize>
     ),
   },
