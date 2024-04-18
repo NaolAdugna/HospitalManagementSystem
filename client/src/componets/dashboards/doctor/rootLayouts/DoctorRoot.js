@@ -29,11 +29,21 @@ import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Slide from "@mui/material/Slide";
+import { styled } from "@mui/material/styles";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import DarkMode from "./DarkMode.js";
 
+import { ReactComponent as Sun } from "../../../../assets/icon/Sun.svg";
+import { ReactComponent as Moon } from "../../../../assets/icon/Moon.svg";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-export default function DoctorRoot(props) {
+export default function DoctorRoot({ component }) {
+  const [theme, setTheme] = useState(
+    localStorage.getItem("selectedTheme") || "light"
+  );
+
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -66,7 +76,6 @@ export default function DoctorRoot(props) {
   React.useEffect(() => {
     setUserName(sessionStorage.getItem("username"));
     setEmailSession(sessionStorage.getItem("email"));
-    console.log("secret is ", secret);
   }, []);
   const handleUpdateProfile = (newUserName, newEmail) => {
     sessionStorage.setItem("username", newUserName);
@@ -105,13 +114,15 @@ export default function DoctorRoot(props) {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "space-between",
-        background: "#f0f8ff",
+        // background: "orange",
       }}
       role="presentation"
       onClick={toggleDrawer(false)}
     >
       <List
+        className="doctorRootDrawerContainer"
         style={{
+          // background: "pink",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -140,7 +151,10 @@ export default function DoctorRoot(props) {
           <ListItem key={text} disablePadding>
             <ListItemButton href={link}>
               <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText
+                primary={text}
+                className="doctorRootDrawerContainer"
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -154,9 +168,32 @@ export default function DoctorRoot(props) {
       </List>
     </Box>
   );
+
+  const setDarkMode = () => {
+    document.querySelector("body").setAttribute("data-theme", "dark");
+    localStorage.setItem("selectedTheme", "dark");
+  };
+  const setLightMode = () => {
+    document.querySelector("body").setAttribute("data-theme", "light");
+    localStorage.setItem("selectedTheme", "light");
+  };
+  const selectedTheme = localStorage.getItem("selectedTheme");
+  if (selectedTheme === "dark") {
+    setDarkMode();
+  }
+
+  const toggleTheme = (e) => {
+    if (e.target.checked) setDarkMode();
+    else setLightMode();
+  };
+
   return (
     <div>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+      <Drawer
+        open={open}
+        onClose={toggleDrawer(false)}
+        className="doctorRootDrawerContainer"
+      >
         {DrawerList}
       </Drawer>
       <main className="doctorRootDashboard ">
@@ -184,6 +221,26 @@ export default function DoctorRoot(props) {
                   {userNameFirstLetter}
                 </Avatar>
               </Button>
+
+              <div className="dark_mode">
+                <input
+                  className="dark_mode_input"
+                  type="checkbox"
+                  id="darkmode-toggle"
+                  onChange={toggleTheme}
+                  defaultChecked={selectedTheme === "dark"}
+                />
+                <label className="dark_mode_label" htmlFor="darkmode-toggle">
+                  <Sun />
+                  <Moon />
+                </label>
+              </div>
+              {/* <DarkMode /> */}
+
+              {/* <FormControlLabel
+                control={<MaterialUISwitch sx={{ m: 1 }} />}
+                // label="MUI switch"
+              /> */}
               <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
@@ -212,39 +269,41 @@ export default function DoctorRoot(props) {
                   Logout
                 </MenuItem>
               </Menu>
-              <Dialog
-                fullWidth
-                open={openProfileRecord}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleCloseProfileRecord}
-                aria-describedby="alert-dialog-slide-description"
-              >
-                <DialogTitle>
-                  {"Your Profile "} {userName}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    <b> ID: </b> {idProfile}
-                  </DialogContentText>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    <b> Name: </b> {userName}
-                  </DialogContentText>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    <b> Email: </b> {emailSession}
-                  </DialogContentText>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    <b>Role: </b> {roleSession}
-                  </DialogContentText>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    <b> Date of Registration: </b> {dateofregistrationSession}
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleCloseProfileRecord}>Close</Button>
-                  <Button onClick={handleOpenEditProfile}>Edit</Button>
-                </DialogActions>
-              </Dialog>
+              <div>
+                <Dialog
+                  fullWidth
+                  open={openProfileRecord}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClose={handleCloseProfileRecord}
+                  aria-describedby="alert-dialog-slide-description"
+                >
+                  <DialogTitle>
+                    {"Your Profile "} {userName}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      <b> ID: </b> {idProfile}
+                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      <b> Name: </b> {userName}
+                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      <b> Email: </b> {emailSession}
+                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      <b>Role: </b> {roleSession}
+                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      <b> Date of Registration: </b> {dateofregistrationSession}
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleCloseProfileRecord}>Close</Button>
+                    <Button onClick={handleOpenEditProfile}>Edit</Button>
+                  </DialogActions>
+                </Dialog>
+              </div>
               <Dialog
                 open={openEditProfile}
                 onClose={handleCloseEditProfile}
@@ -317,8 +376,8 @@ export default function DoctorRoot(props) {
         </div>
         <div className="doctorRootDashboardSecondCard">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
-          {/* <h2>DoctorRoot</h2> */}
-          {props.component}
+          {/* {props.component} */}
+          {React.cloneElement(component, { theme })}
         </div>
       </main>
     </div>

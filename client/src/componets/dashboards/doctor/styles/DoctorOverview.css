@@ -2,6 +2,13 @@
 root {
   --mainColor: #14ac5f;
   --navBarBg: #fff;
+  --bodyColor: #000;
+  --bodyLink: navy;
+}
+[data-theme="dark"] {
+  --navBarBg: #282c34;
+  --bodyColor: white;
+  --bodyLink: cyan;
 }
 .doctorOverViewMainContainer {
   height: 100%;
@@ -41,7 +48,7 @@ root {
 .promptContainer {
   width: 100%;
   margin: auto;
-  color: #000;
+  color: var(--bodyColor);
   display: flex;
   flex-direction: row;
   border-radius: 14px;
@@ -49,13 +56,13 @@ root {
   margin-left: 12px;
   align-items: flex-start;
   padding: 21px 32px 10px 16px;
-  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border: 0.5px solid var(--mainColor);
 }
 
 .promptInput {
   border: none;
   width: 800px;
-  color: #000;
+  color: var(--bodyColor);
   outline: none;
   font-size: 18px;
   text-align: justify;

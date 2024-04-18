@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
-export default function DoctorViewTable() {
+
+export default function DoctorViewTable({ theme }) {
   const [rows, setRows] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [Theme, setSelectedTheme] = useState(
+    localStorage.getItem("seletedTheme")
+  );
 
   useEffect(() => {
     fetchUserData();
     setIsLoading(false);
+    console.log("theme is eff ", theme);
+    console.log("theme is eff ", Theme);
   }, []);
 
   const fetchUserData = async () => {
@@ -18,6 +24,7 @@ export default function DoctorViewTable() {
       console.error("error fetching Patient User Data", error);
     }
   };
+
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "name", headerName: "Name", width: 130 },
@@ -35,6 +42,7 @@ export default function DoctorViewTable() {
       width: 230,
     },
   ];
+
   return (
     <>
       <div style={{ height: 550, width: "100%" }}>
@@ -44,6 +52,7 @@ export default function DoctorViewTable() {
           pageSize={5}
           checkboxSelection
           disableSelectionOnClick
+          sx={{ color: Theme === "dark" ? "white" : "#14ac5f" }}
         />
       </div>
     </>

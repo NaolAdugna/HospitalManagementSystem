@@ -95,13 +95,38 @@ export default function DoctorOverView() {
                   <p className="geminiSkeleton">
                     {
                       <Box sx={{ width: "100%" }}>
-                        <Skeleton animation="pulse" />
-                        <Skeleton animation="pulse" />
-                        <Skeleton animation="pulse" />
-                        <Skeleton animation="pulse" />
-                        <Skeleton animation="pulse" />
-                        <Skeleton animation="pulse" />
-                        <Skeleton animation="pulse" />
+                        <Skeleton
+                          animation="pulse"
+                          sx={{
+                            bgcolor: "rgba(4, 30, 73,0.74)",
+                          }}
+                        />
+                        <Skeleton
+                          animation="pulse"
+                          sx={{
+                            bgcolor: "rgba(4, 30, 73,0.74)",
+                          }}
+                        />
+                        <Skeleton
+                          animation="pulse"
+                          sx={{ bgcolor: "rgba(4, 30, 73,0.74)" }}
+                        />
+                        <Skeleton
+                          animation="pulse"
+                          sx={{ bgcolor: "rgba(4, 30, 73,0.74)" }}
+                        />
+                        <Skeleton
+                          animation="pulse"
+                          sx={{ bgcolor: "rgba(4, 30, 73,0.74)" }}
+                        />
+                        <Skeleton
+                          animation="pulse"
+                          sx={{ bgcolor: "rgba(4, 30, 73,0.74)" }}
+                        />
+                        <Skeleton
+                          animation="pulse"
+                          sx={{ bgcolor: "rgba(4, 30, 73,0.74)" }}
+                        />
                       </Box>
                     }
                   </p>

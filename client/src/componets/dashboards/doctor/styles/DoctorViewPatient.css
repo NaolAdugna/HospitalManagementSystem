@@ -2,82 +2,17 @@
 root {
   --mainColor: #14ac5f;
   --navBarBg: #fff;
+  --bodyColor: #000;
+  --bodyLink: navy;
 }
-.doctorViewPatientDashboard {
-  background-color: rgb(195, 196, 202, 0.5);
-  padding: 10px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 70px 1fr;
-  grid-template-areas:
-    "doctorViewPatientDashboardFirstCard doctorViewPatientDashboardFirstCard"
-    "doctorViewPatientDashboardSecondCard doctorViewPatientDashboardSecondCard";
-  gap: 10px;
-  height: 100vh;
+[data-theme="dark"] {
+  --navBarBg: #282c34;
+  --bodyColor: white;
+  --bodyLink: cyan;
 }
-.doctorViewPatientDashboardFirstCard {
-  background-color: #f0f8ff;
-  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
-  border-radius: 8px;
-  grid-area: doctorViewPatientDashboardFirstCard;
+.doctorViewPatientTable {
+  color: var(--bodyColor);
 }
-.doctorViewPatientDashboardSecondCard {
-  background-color: #f6f7f9;
-  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
-  border-radius: 10px;
-  grid-area: doctorViewPatientDashboardSecondCard;
-}
-.doctorViewPatientDashboardNavBarContainer {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.doctorViewPatientDashboardLogOutContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 20%;
-}
-.doctorViewPatientDashboardNavImage {
-  background-color: #14ac5f;
-  padding: 4px 15px;
-  border-radius: 50%;
-  color: var(--navBarBg);
-}
-.doctorViewPatientLogOutButton {
-  background-color: rgba(255, 0, 0, 0.8);
-  border: none;
-  font-size: 14px;
-  padding: 8px 16px;
-  color: var(--navBarBg);
-}
-.doctorViewPatientLogOutButton:hover {
-  cursor: pointer;
-  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
-}
-
-@media (max-width: 320px) {
-  .doctorViewPatientDashboardLogOutContainer {
-    justify-content: space-between;
-    width: 70%;
-  }
-  .doctorViewPatientDashboardNavImage {
-    padding: 4px 12px;
-    font-size: 22px;
-  }
-}
-
-@media (min-width: 321px) and (max-width: 640px) {
-  .doctorViewPatientDashboardLogOutContainer {
-    justify-content: space-evenly;
-    width: 70%;
-  }
-}
-
-@media (min-width: 641px) and (max-width: 1024px) {
-  .doctorViewPatientDashboardLogOutContainer {
-    justify-content: space-evenly;
-    width: 70%;
-  }
+.doctorTable {
+  color: var(--bodyColor);
 }
