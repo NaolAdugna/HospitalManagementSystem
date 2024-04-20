@@ -3,7 +3,7 @@ import "../styles/DoctorChat.css";
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -146,10 +146,15 @@ export default function DoctorChat() {
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton href={link}>
-              <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+            <NavLink
+              to={link}
+              style={{ color: "black", textDecoration: "none", width: "100%" }}
+            >
+              <ListItemButton>
+                <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </NavLink>
           </ListItem>
         ))}
         <div

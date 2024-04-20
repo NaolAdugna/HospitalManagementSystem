@@ -52,6 +52,8 @@ import DoctorOverView from "./componets/dashboards/doctor/rootLayouts/DoctorOver
 import DoctorChat from "./componets/dashboards/doctor/rootLayouts/DoctorChat";
 import DoctorViewPatient from "./componets/dashboards/doctor/rootLayouts/DoctorViewPatient";
 import DoctorRoot from "./componets/dashboards/doctor/rootLayouts/DoctorRoot";
+import DoctorPrescription from "./componets/dashboards/doctor/rootLayouts/DoctorPrescription";
+import DoctorLabRequest from "./componets/dashboards/doctor/rootLayouts/DoctorLabRequest";
 
 // root routers
 const router = createBrowserRouter([
@@ -229,6 +231,24 @@ const router = createBrowserRouter([
       <DoctorAuthorize>
         {" "}
         <DoctorOverView />
+      </DoctorAuthorize>
+    ),
+  },
+  {
+    path: "/doctor-prescription",
+    element: (
+      <DoctorAuthorize>
+        {" "}
+        <DoctorPrescription />
+      </DoctorAuthorize>
+    ),
+  },
+  {
+    path: "/doctor-lab-request",
+    element: (
+      <DoctorAuthorize>
+        {" "}
+        <DoctorLabRequest />
       </DoctorAuthorize>
     ),
   },

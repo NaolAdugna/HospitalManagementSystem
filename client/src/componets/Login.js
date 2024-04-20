@@ -2,25 +2,26 @@ import React from "react";
 import "../styles/Login.css";
 // Fontawesome family
 
+import { NavLink } from "react-router-dom";
 export default function Login() {
   return (
     <div className="bodyLoginContainer">
       <div>
-        <button
-          className="buttonForLogin loginStaff"
-          onClick={() => {
-            window.location.pathname = "/login-user";
-          }}
-        >
-          Login For Staff{" "}
+        <button className="buttonForLogin loginStaff">
+          <NavLink
+            to="/login-user"
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Login For Staff{" "}
+          </NavLink>
         </button>
-        <button
-          className="buttonForLogin"
-          onClick={() => {
-            window.location.pathname = "/login-patient";
-          }}
-        >
-          Login For Patient{" "}
+        <button className="buttonForLogin">
+          <NavLink
+            to="/lgoin-patient"
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Login For Patient{" "}
+          </NavLink>
         </button>
       </div>
     </div>

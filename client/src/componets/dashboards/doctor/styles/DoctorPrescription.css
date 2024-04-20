@@ -4,31 +4,31 @@ root {
   --navBarBg: #fff;
 }
 
-.receptionPrepareFileDashboardSecondCard {
+.doctorPrescriptionDashboardSecondCard {
   background-color: #f6f7f9;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 10px;
   height: 100%;
-  grid-area: receptionPrepareFileDashboardSecondCard;
+  grid-area: doctorPrescriptionDashboardSecondCard;
 }
 
-.receptionPrepareFileMainContainerSection {
+.doctorPrescriptionMainContainerSection {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
-.receptionPrepareFileContainer {
+.doctorPrescriptionContainer {
   width: 65%;
 
   margin: auto;
 }
-.receptionPrepareFileHeader {
+.doctorPrescriptionHeader {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
 }
-.receptionPrepareFileContent {
+.doctorPrescriptionContent {
   width: 75%;
   margin: auto;
   padding: 13px;
@@ -37,69 +37,84 @@ root {
 .addNewFileButton:hover {
   cursor: pointer;
 }
-.receptionPrepareFileEditor {
+.doctorPrescriptionEditor {
   height: 50vh;
   width: 24vw;
   border: 1px solid #14ac5f;
   margin-right: 11px;
   margin-top: 11px;
 }
+.doctorPrescriptionPatientFile {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
 @media (max-width: 320px) {
-  .receptionPrepareFileMainContainerSection {
+  .doctorPrescriptionMainContainerSection {
     flex-direction: column;
   }
-  .receptionPrepareFileContainer {
+  .doctorPrescriptionContainer {
     width: 95%;
 
     margin: auto;
   }
 
-  .receptionPrepareFileContent {
+  .doctorPrescriptionContent {
     width: 100%;
   }
 
-  .receptionPrepareFileEditor {
+  .doctorPrescriptionEditor {
     height: 50vh;
     width: 86vw;
+  }
+  .doctorPrescriptionPatientFile {
+    width: 100%;
   }
 }
 
 @media (min-width: 321px) and (max-width: 640px) {
-  .receptionPrepareFileMainContainerSection {
+  .doctorPrescriptionMainContainerSection {
     flex-direction: column;
   }
-  .receptionPrepareFileContainer {
+  .doctorPrescriptionContainer {
     width: 95%;
 
     margin: auto;
   }
 
-  .receptionPrepareFileContent {
+  .doctorPrescriptionContent {
     width: 100%;
   }
 
-  .receptionPrepareFileEditor {
+  .doctorPrescriptionEditor {
     height: 50vh;
     width: 86vw;
+  }
+  .doctorPrescriptionPatientFile {
+    width: 100%;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
-  .receptionPrepareFileMainContainerSection {
+  .doctorPrescriptionMainContainerSection {
     flex-direction: column;
   }
-  .receptionPrepareFileContainer {
+  .doctorPrescriptionContainer {
     width: 95%;
 
     margin: auto;
   }
 
-  .receptionPrepareFileContent {
+  .doctorPrescriptionContent {
     width: 100%;
   }
 
-  .receptionPrepareFileEditor {
+  .doctorPrescriptionEditor {
     height: 50vh;
     width: 86vw;
+  }
+  .doctorPrescriptionPatientFile {
+    width: 100%;
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/DoctorRoot.css";
+import "../styles/ReceptionRoot.css";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,18 +24,17 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import GridViewIcon from "@mui/icons-material/GridView";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
-import MedicationIcon from "@mui/icons-material/Medication";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import Slide from "@mui/material/Slide";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-export default function DoctorRoot(props) {
+export default function ReceptionRoot(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -126,28 +125,19 @@ export default function DoctorRoot(props) {
         {[
           {
             text: "Dashboard",
-            link: "/doctor",
+            link: "/reception-view-patient",
             icon: <DashboardCustomizeRoundedIcon />,
           },
           {
+            text: "Prepare File",
+            link: "/reception-prepare-file",
+            icon: <ManageAccountsRoundedIcon />,
+          },
+
+          {
             text: "Chat Staff",
-            link: "/doctor-chat",
+            link: "/reception-chat",
             icon: <ChatOutlinedIcon />,
-          },
-          {
-            text: "Gemini AI",
-            link: "/doctor-ai",
-            icon: <GridViewIcon />,
-          },
-          {
-            text: "Prepare Prescription",
-            link: "/doctor-prescription",
-            icon: <MedicationIcon />,
-          },
-          {
-            text: "Prepare Lab Reques",
-            link: "/doctor-lab-request",
-            icon: <BookmarkBorderIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
@@ -181,13 +171,13 @@ export default function DoctorRoot(props) {
       <Drawer
         open={open}
         onClose={toggleDrawer(false)}
-        className="doctorRootDrawerContainer"
+        className="receptionRootDrawerContainer"
       >
         {DrawerList}
       </Drawer>
-      <main className="doctorRootDashboard ">
-        <div className="doctorRootDashboardFirstCard">
-          <div className="doctorRootDashboardNavBarContainer">
+      <main className="receptionRootDashboard ">
+        <div className="receptionRootDashboardFirstCard">
+          <div className="receptionRootDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -195,7 +185,7 @@ export default function DoctorRoot(props) {
                 onClick={toggleDrawer(true)}
               />
             </div>
-            <div className="doctorRootDashboardLogOutContainer">
+            <div className="receptionRootDashboardLogOutContainer">
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
@@ -344,7 +334,7 @@ export default function DoctorRoot(props) {
             </div>
           </div>
         </div>
-        <div className="doctorRootDashboardSecondCard">
+        <div className="receptionRootDashboardSecondCard">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
           {props.component}
         </div>

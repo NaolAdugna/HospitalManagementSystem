@@ -13,10 +13,9 @@ import { generateOTP, verifyOTP } from "../functions/checker";
 import { useAuthStore } from "../store/store";
 
 export default function Recovery() {
-  const { username } = useAuthStore((state) => state.auth);
-  // const username = localStorage.getItem("usernameRecovery");
   const [OTP, setOTP] = useState("");
   const navigate = useNavigate();
+  const { username } = useAuthStore((state) => state.auth);
 
   useEffect(() => {
     generateOTP(username)

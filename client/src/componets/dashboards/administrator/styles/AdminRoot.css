@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap");
+:root {
+  --mainColor: #14ac5f;
+  --navBarBg: #fff;
+  --dashboardBg: #2f4050;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.adminRootDashboard {
+  list-style: none;
+  text-decoration: none;
+  background-color: rgb(195, 196, 202, 0.5);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "adminRootDashboardFirstCard adminRootDashboardFirstCard"
+    "adminRootDashboardSecondCard adminRootDashboardSecondCard";
+  gap: 10px;
+  height: 100vh;
+}
+.adminRootDashboardFirstCard {
+  background-color: #f0f8ff;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  grid-area: adminRootDashboardFirstCard;
+}
+.adminRootDashboardSecondCard {
+  background-color: #f6f7f9;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
+  grid-area: adminRootDashboardSecondCard;
+}
+.adminRootDashboardNavBarContainer {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.adminRootDashboardLogOutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 20%;
+}
+
+@media (max-width: 320px) {
+  .adminRootDashboardLogOutContainer {
+    justify-content: space-between;
+    /* background-color: aliceblue; */
+    width: 70%;
+  }
+  .adminRootDashboardNavImage {
+    padding: 4px 12px;
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  .adminRootDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .adminRootDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+}

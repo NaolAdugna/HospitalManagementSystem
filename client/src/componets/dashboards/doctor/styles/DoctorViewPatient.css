@@ -16,3 +16,6 @@ root {
 .doctorTable {
   color: var(--bodyColor);
 }
+.rowss {
+  color: red;
+}

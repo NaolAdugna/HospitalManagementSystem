@@ -6,16 +6,17 @@ import "../styles/DoctorViewPatient.css";
 import DoctorRoot from "./DoctorRoot";
 
 import DoctorViewTable from "./DoctorViewTable";
+import { useThemeMode } from "../../../../store/store";
 
-export default function DoctorViewPatient({ theme }) {
+export default function DoctorViewPatient() {
   const [rows, setRows] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const theme = localStorage.getItem("selectedTheme") || "light";
-  // console.log("theme is pat ", theme);
+
   useEffect(() => {
     fetchUserData();
     setIsLoading(false);
   }, []);
+
   const fetchUserData = async () => {
     try {
       const response = await axios.get("/api/view-patient");
@@ -63,7 +64,7 @@ export default function DoctorViewPatient({ theme }) {
                 pageSize={5}
                 checkboxSelection
                 disableSelectionOnClick
-                sx={{ color: theme === "dark" ? "white" : "orange" }}
+                className="rowss"
               />
             </div>
           </div>

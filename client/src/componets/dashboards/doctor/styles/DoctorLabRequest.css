@@ -4,31 +4,31 @@ root {
   --navBarBg: #fff;
 }
 
-.receptionPrepareFileDashboardSecondCard {
+.doctorLabRequestDashboardSecondCard {
   background-color: #f6f7f9;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 10px;
   height: 100%;
-  grid-area: receptionPrepareFileDashboardSecondCard;
+  grid-area: doctorLabRequestDashboardSecondCard;
 }
 
-.receptionPrepareFileMainContainerSection {
+.doctorLabRequestMainContainerSection {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
-.receptionPrepareFileContainer {
+.doctorLabRequestContainer {
   width: 65%;
 
   margin: auto;
 }
-.receptionPrepareFileHeader {
+.doctorLabRequestHeader {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
 }
-.receptionPrepareFileContent {
+.doctorLabRequestContent {
   width: 75%;
   margin: auto;
   padding: 13px;
@@ -37,68 +37,74 @@ root {
 .addNewFileButton:hover {
   cursor: pointer;
 }
-.receptionPrepareFileEditor {
+.doctorLabRequestEditor {
   height: 50vh;
   width: 24vw;
   border: 1px solid #14ac5f;
   margin-right: 11px;
   margin-top: 11px;
 }
+.doctorLabRequestFile {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
 @media (max-width: 320px) {
-  .receptionPrepareFileMainContainerSection {
+  .doctorLabRequestMainContainerSection {
     flex-direction: column;
   }
-  .receptionPrepareFileContainer {
+  .doctorLabRequestContainer {
     width: 95%;
 
     margin: auto;
   }
 
-  .receptionPrepareFileContent {
+  .doctorLabRequestContent {
     width: 100%;
   }
 
-  .receptionPrepareFileEditor {
+  .doctorLabRequestEditor {
     height: 50vh;
     width: 86vw;
   }
 }
 
 @media (min-width: 321px) and (max-width: 640px) {
-  .receptionPrepareFileMainContainerSection {
+  .doctorLabRequestMainContainerSection {
     flex-direction: column;
   }
-  .receptionPrepareFileContainer {
+  .doctorLabRequestContainer {
     width: 95%;
 
     margin: auto;
   }
 
-  .receptionPrepareFileContent {
+  .doctorLabRequestContent {
     width: 100%;
   }
 
-  .receptionPrepareFileEditor {
+  .doctorLabRequestEditor {
     height: 50vh;
     width: 86vw;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
-  .receptionPrepareFileMainContainerSection {
+  .doctorLabRequestMainContainerSection {
     flex-direction: column;
   }
-  .receptionPrepareFileContainer {
+  .doctorLabRequestContainer {
     width: 95%;
 
     margin: auto;
   }
 
-  .receptionPrepareFileContent {
+  .doctorLabRequestContent {
     width: 100%;
   }
 
-  .receptionPrepareFileEditor {
+  .doctorLabRequestEditor {
     height: 50vh;
     width: 86vw;
   }

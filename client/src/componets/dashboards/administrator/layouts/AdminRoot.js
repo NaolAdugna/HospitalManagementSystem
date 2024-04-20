@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import "../styles/DoctorRoot.css";
+import React, { useState } from "react";
+import "../styles/AdminRoot.css";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,18 +24,20 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import GridViewIcon from "@mui/icons-material/GridView";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
-import MedicationIcon from "@mui/icons-material/Medication";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import AppRegistrationRoundedIcon from "@mui/icons-material/AppRegistrationRounded";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import PreviewRoundedIcon from "@mui/icons-material/PreviewRounded";
 import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import Slide from "@mui/material/Slide";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-export default function DoctorRoot(props) {
+export default function AdminRoot(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -126,34 +128,43 @@ export default function DoctorRoot(props) {
         {[
           {
             text: "Dashboard",
-            link: "/doctor",
+            link: "/admin",
             icon: <DashboardCustomizeRoundedIcon />,
           },
           {
+            text: "Manage Users",
+            link: "/admin-manage-users",
+            icon: <ManageAccountsRoundedIcon />,
+          },
+          {
+            text: "Register Users",
+            link: "/admin-overview",
+            icon: <AppRegistrationRoundedIcon />,
+          },
+          {
+            text: "Deleted Users",
+            link: "/admin-view-deleted-users",
+            icon: <DeleteForeverRoundedIcon />,
+          },
+          {
+            text: "View Messages",
+            link: "/admin-view-messages",
+            icon: <PreviewRoundedIcon />,
+          },
+          {
             text: "Chat Staff",
-            link: "/doctor-chat",
+            link: "/admin-chat",
             icon: <ChatOutlinedIcon />,
-          },
-          {
-            text: "Gemini AI",
-            link: "/doctor-ai",
-            icon: <GridViewIcon />,
-          },
-          {
-            text: "Prepare Prescription",
-            link: "/doctor-prescription",
-            icon: <MedicationIcon />,
-          },
-          {
-            text: "Prepare Lab Reques",
-            link: "/doctor-lab-request",
-            icon: <BookmarkBorderIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
             <NavLink
               to={link}
-              style={{ color: "black", textDecoration: "none", width: "100%" }}
+              style={{
+                color: "black",
+                textDecoration: "none",
+                width: "100%",
+              }}
             >
               <ListItemButton>
                 <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
@@ -175,19 +186,18 @@ export default function DoctorRoot(props) {
       </List>
     </Box>
   );
-
   return (
     <div>
       <Drawer
         open={open}
         onClose={toggleDrawer(false)}
-        className="doctorRootDrawerContainer"
+        className="adminRootDrawerContainer"
       >
         {DrawerList}
       </Drawer>
-      <main className="doctorRootDashboard ">
-        <div className="doctorRootDashboardFirstCard">
-          <div className="doctorRootDashboardNavBarContainer">
+      <main className="adminRootDashboard ">
+        <div className="adminRootDashboardFirstCard">
+          <div className="adminRootDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -195,7 +205,7 @@ export default function DoctorRoot(props) {
                 onClick={toggleDrawer(true)}
               />
             </div>
-            <div className="doctorRootDashboardLogOutContainer">
+            <div className="adminRootDashboardLogOutContainer">
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
@@ -344,7 +354,7 @@ export default function DoctorRoot(props) {
             </div>
           </div>
         </div>
-        <div className="doctorRootDashboardSecondCard">
+        <div className="adminRootDashboardSecondCard">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
           {props.component}
         </div>

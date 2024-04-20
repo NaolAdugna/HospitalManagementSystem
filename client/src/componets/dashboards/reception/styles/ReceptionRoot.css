@@ -11,7 +11,7 @@
   margin: 0;
   padding: 0;
 }
-.receptionViewPatientDashboard {
+.receptionRootDashboard {
   list-style: none;
   text-decoration: none;
   background-color: rgb(195, 196, 202, 0.5);
@@ -20,98 +20,43 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 70px 1fr;
   grid-template-areas:
-    "receptionViewPatientDashboardFirstCard receptionViewPatientDashboardFirstCard"
-    "receptionViewPatientDashboardSecondCard receptionViewPatientDashboardSecondCard";
+    "receptionRootDashboardFirstCard receptionRootDashboardFirstCard"
+    "receptionRootDashboardSecondCard receptionRootDashboardSecondCard";
   gap: 10px;
   height: 100vh;
 }
-.receptionViewPatientDashboardFirstCard {
+.receptionRootDashboardFirstCard {
   background-color: #f0f8ff;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 8px;
-  grid-area: receptionViewPatientDashboardFirstCard;
+  grid-area: receptionRootDashboardFirstCard;
 }
-.receptionViewPatientDashboardSecondCard {
+.receptionRootDashboardSecondCard {
   background-color: #f6f7f9;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 10px;
-  grid-area: receptionViewPatientDashboardSecondCard;
-  /* background-color: orange; */
-  /* display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas: ; */
+  grid-area: receptionRootDashboardSecondCard;
 }
-.receptionViewPatientDashboardNavBarContainer {
+.receptionRootDashboardNavBarContainer {
   padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.receptionViewPatientDashboardLogOutContainer {
+.receptionRootDashboardLogOutContainer {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   width: 20%;
 }
-.receptionViewPatientDashboardNavImage {
-  background-color: #14ac5f;
-  padding: 4px 15px;
-  border-radius: 50%;
-  color: var(--navBarBg);
-  color: ali;
-}
-.receptionViewPatientLogOutButton {
-  background-color: rgba(255, 0, 0, 0.8);
-  border: none;
-  font-size: 14px;
-  padding: 8px 16px;
-  color: var(--navBarBg);
-}
-.receptionViewPatientLogOutButton:hover {
-  cursor: pointer;
-  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
-}
-.SearchandAddContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-.addUserContainer {
-  padding: 24px;
-}
-.receptionViewPatientAddUserButton {
-  padding: 8px 20px;
-  border: none;
-  background-color: var(--mainColor);
-  color: var(--navBarBg);
-  font-size: 16px;
-}
-.receptionViewPatientAddUserButton:hover {
-  cursor: pointer;
-  scale: 1.02;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
-}
-.receptionViewTableContent {
-  padding: 25px;
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-}
 
-.receptionEditor {
-  height: 50vh;
-  width: 24vw;
-  border: 1px solid #14ac5f;
-}
 @media (max-width: 320px) {
-  .receptionViewPatientDashboardLogOutContainer {
+  .receptionRootDashboardLogOutContainer {
     justify-content: space-between;
     /* background-color: aliceblue; */
     width: 70%;
   }
-  .receptionViewPatientDashboardNavImage {
+  .receptionRootDashboardNavImage {
     padding: 4px 12px;
     font-size: 22px;
   }
@@ -132,7 +77,7 @@
 }
 
 @media (min-width: 321px) and (max-width: 640px) {
-  .receptionViewPatientDashboardLogOutContainer {
+  .receptionRootDashboardLogOutContainer {
     justify-content: space-evenly;
     width: 70%;
   }
@@ -153,7 +98,7 @@
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
-  .receptionViewPatientDashboardLogOutContainer {
+  .receptionRootDashboardLogOutContainer {
     justify-content: space-evenly;
     width: 70%;
   }
