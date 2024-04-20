@@ -24,11 +24,12 @@ root {
   height: 100vh;
 }
 .doctorRootDashboardFirstCard {
-  background-color: #f0f8ff;
-  background-color: var(--navBarBg);
+  background-color: #282c34;
+  /* background-color: var(--navBarBg); */
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 8px;
   grid-area: doctorRootDashboardFirstCard;
+  color: white;
 }
 .doctorRootDashboardSecondCard {
   background-color: #f6f7f9;

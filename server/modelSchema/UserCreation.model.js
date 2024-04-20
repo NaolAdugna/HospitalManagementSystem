@@ -417,3 +417,23 @@ export const UpdatePatientProfile = async (id, username, email, age) => {
     throw error;
   }
 };
+
+export const SaveMarkedAttendance = async (UserName, id, Status) => {
+  try {
+    let sql = `INSERT INTO attendance(
+        user_id,
+        user_name,
+        status,
+        present_time
+    ) VALUES (
+      '${id}',
+      '${UserName}',
+      '${Status}',
+      CURRENT_TIMESTAMP
+      )`;
+    let [Attendance] = await mysqlPool.execute(sql);
+    return Attendance;
+  } catch (error) {
+    console.error("Error occurred while attendance: ", error);
+  }
+};

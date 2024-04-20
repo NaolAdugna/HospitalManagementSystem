@@ -30,6 +30,7 @@ import {
   UpdatePatientPassword,
   UpdateUserStaffProfile,
   UpdatePatientProfile,
+  SaveMarkedAttendance,
 } from "../modelSchema/UserCreation.model.js";
 
 import axios from "axios"; // Import axios library if not already imported
@@ -907,5 +908,17 @@ export async function UpdatePatientProfileController(req, res) {
     return res
       .status(500)
       .send({ error: "An error occurred while updating user" });
+  }
+}
+
+export async function MarkAttendance(req, res) {
+  try {
+    const { UserName, id, Status } = req.body;
+
+    await SaveMarkedAttendance(UserName, id, Status);
+
+    return res.status(201).send({ msg: "Attendance Marked Successfully" });
+  } catch (error) {
+    return res.status(500).send({ error: "Internal server error", error });
   }
 }

@@ -142,4 +142,7 @@ router
 router
   .route("/update-patient-profile/")
   .put(adminController.UpdatePatientProfileController);
+
+// User Mark Attendance
+router.route("/user-attendance").post(adminController.MarkAttendance);
 export default router;

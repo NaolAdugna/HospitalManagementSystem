@@ -31,7 +31,8 @@ import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Slide from "@mui/material/Slide";
-
+import MedicationIcon from "@mui/icons-material/Medication";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import {
   MultiChatSocket,
   useMultiChatLogic,
@@ -113,7 +114,7 @@ export default function DoctorChat() {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "space-between",
-        background: "#f0f8ff",
+        background: "#282c34",
       }}
       role="presentation"
       onClick={toggleDrawer(false)}
@@ -126,6 +127,7 @@ export default function DoctorChat() {
           justifyContent: "flex-start",
           height: "100vh",
           width: "100%",
+          borderRight: "0.5px solid white",
         }}
       >
         {[
@@ -144,14 +146,24 @@ export default function DoctorChat() {
             link: "/doctor-ai",
             icon: <GridViewIcon />,
           },
+          {
+            text: "Prepare Prescription",
+            link: "/doctor-prescription",
+            icon: <MedicationIcon />,
+          },
+          {
+            text: "Prepare Lab Reques",
+            link: "/doctor-lab-request",
+            icon: <BookmarkBorderIcon />,
+          },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
             <NavLink
               to={link}
-              style={{ color: "black", textDecoration: "none", width: "100%" }}
+              style={{ color: "white", textDecoration: "none", width: "100%" }}
             >
               <ListItemButton>
-                <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
+                <ListItemIcon style={{ color: "#fff" }}>{icon}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </NavLink>
