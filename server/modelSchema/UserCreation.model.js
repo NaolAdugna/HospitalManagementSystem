@@ -437,3 +437,33 @@ export const SaveMarkedAttendance = async (UserName, id, Status) => {
     console.error("Error occurred while attendance: ", error);
   }
 };
+
+export const DidUserMarkedAttendance = async (id) => {
+  try {
+    const currentDate = new Date().toISOString().split("T")[0];
+    const sql =
+      "SELECT * FROM attendance WHERE user_id = ? AND present_time = ?";
+    const [user] = await mysqlPool.execute(sql, [id, currentDate]);
+
+    if (user.length === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error in did user marked attendance:", error);
+    throw error;
+  }
+};
+
+export const GetAttendanceUsers = async () => {
+  try {
+    const sql =
+      "SELECT id, user_id,user_name,status,present_time FROM attendance";
+    const [results] = await mysqlPool.execute(sql);
+    return results;
+  } catch (error) {
+    console.error("Error in finddeletedUser:", error);
+    throw error;
+  }
+};

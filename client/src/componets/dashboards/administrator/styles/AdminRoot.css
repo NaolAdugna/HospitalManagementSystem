@@ -26,10 +26,11 @@
   height: 100vh;
 }
 .adminRootDashboardFirstCard {
-  background-color: #f0f8ff;
+  background-color: #282c34;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 8px;
   grid-area: adminRootDashboardFirstCard;
+  color: #fff;
 }
 .adminRootDashboardSecondCard {
   background-color: #f6f7f9;
@@ -47,7 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 20%;
+  width: 30%;
 }
 
 @media (max-width: 320px) {

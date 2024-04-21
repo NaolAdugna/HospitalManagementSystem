@@ -58,18 +58,6 @@ export default function DoctorPrescription() {
   const [dosageForm, setDosageForm] = useState("");
   const [drugDuration, setDrugDuration] = useState("");
   const addDataFile = () => {
-    // ListPrescription.push({
-    //   Prescriptionname: PrescriptionFile,
-    //   Prescriptionsex: PrescriptionSex,
-    //   Prescriptionage: PrescriptionAge,
-    // });
-    //  let Prescriptionname = PrescriptionFile;
-    //   let Prescriptionsex = PrescriptionSex;
-    //   let Prescriptionage = PrescriptionAge;
-
-    // setPrescriptionFile("");
-    // setPrescriptionSex("");
-    // setPrescriptionAge("");
     setOpenPopupFile(false);
   };
 

@@ -31,6 +31,8 @@ import {
   UpdateUserStaffProfile,
   UpdatePatientProfile,
   SaveMarkedAttendance,
+  DidUserMarkedAttendance,
+  GetAttendanceUsers,
 } from "../modelSchema/UserCreation.model.js";
 
 import axios from "axios"; // Import axios library if not already imported
@@ -140,8 +142,6 @@ export async function loginUser(req, res) {
         { username: username, secret: password, first_name: username },
         { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
       );
-      // console.log("ChatEngine user created/updated:", r.data.username);
-      // console.log("ChatEngine user created/updated:", r.data);
 
       const token = jwt.sign(
         {
@@ -174,93 +174,6 @@ export async function loginUser(req, res) {
     return res.status(500).send({ error: "Internal server error" });
   }
 }
-
-// export async function loginUser(req, res) {
-//   const { username, password } = req.body;
-
-//   try {
-//     const user = await findUser(username);
-
-//     if (!user) {
-//       return res.status(404).send({ error: "Username not found" });
-//     }
-
-//     const passwordCheck = await bcrypt.compare(password, user[0].password);
-
-//     if (!passwordCheck) {
-//       return res.status(400).send({ error: "Password does not match" });
-//     }
-
-//     const token = jwt.sign(
-//       {
-//         id: user[0].id,
-//         username: user[0].username,
-//       },
-//       ENV.JWT_SECRET,
-//       { expiresIn: "1h" }
-//     );
-
-//     return res.status(200).send({
-//       msg: "Login Successful",
-//       username: user[0].username,
-//       roles: user[0].role,
-//       id: user[0].id,
-//       email: user[0].email,
-//       dateofregistration: user[0].dateofregistration,
-//       token,
-//     });
-//   } catch (error) {
-//     console.error("Error occurred:", error);
-//     return res.status(500).send({ error: "Internal server error" });
-//   }
-// }
-// export async function loginUser(req, res) {
-//   const { username, password } = req.body;
-
-//   try {
-//     findUser(username)
-//       .then((user) => {
-//         if (!user) {
-//           return res.status(404).send({ error: "Username not Found" });
-//         }
-
-//         bcrypt
-//           .compare(password, user[0].password)
-//           .then((passwordCheck) => {
-//             if (!passwordCheck) {
-//               return res.status(400).send({ error: "Password does not Match" });
-//             }
-
-//             // create jwt token
-//             const token = jwt.sign(
-//               {
-//                 id: user[0].id,
-//                 username: user[0].username,
-//               },
-//               ENV.JWT_SECRET,
-//               { expiresIn: "24h" }
-//             );
-
-//             return res.status(200).send({
-//               msg: "Login Successful...!",
-//               username: user[0].username,
-//               roles: user[0].role,
-//               id: user[0].id,
-//               token,
-//             });
-//           })
-//           .catch((error) => {
-//             return res.status(500).send({ error: "Error comparing passwords" });
-//           });
-//       })
-//       .catch((error) => {
-//         return res.status(500).send({ error: "Error finding user" });
-//       });
-//   } catch (error) {
-//     console.error("Error occurred:", error);
-//     return res.status(500).send({ error });
-//   }
-// }
 
 export async function updateUserStaffProfile(req, res) {
   try {
@@ -920,5 +833,27 @@ export async function MarkAttendance(req, res) {
     return res.status(201).send({ msg: "Attendance Marked Successfully" });
   } catch (error) {
     return res.status(500).send({ error: "Internal server error", error });
+  }
+}
+
+export async function DidUserMarkedAttendanceController(req, res) {
+  try {
+    const { id } = req.query; // Retrieve id from query parameters
+    const value = await DidUserMarkedAttendance(id);
+    return res.status(200).send(value);
+  } catch (error) {
+    return res.status(500).send({ error: "internal server error", error });
+  }
+}
+
+export async function ReturnFetchAttendance(req, res) {
+  try {
+    const users = await GetAttendanceUsers();
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occured during get Attendance user", error);
+    return res
+      .status(500)
+      .send({ error: "an error occured while getting Attendance user" });
   }
 }

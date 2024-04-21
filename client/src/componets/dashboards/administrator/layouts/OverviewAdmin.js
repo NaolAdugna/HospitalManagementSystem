@@ -6,7 +6,7 @@ import "../styles/OverviewAdmin.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faBars, faAdd } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 import Avatar from "@mui/material/Avatar";
 import Calendar from "react-calendar";
@@ -33,11 +33,16 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-
+import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import axios from "axios";
 import Slide from "@mui/material/Slide";
 import toast from "react-hot-toast";
 import { useFormik } from "formik";
+
+// modules for attendance
+import CoPresentRoundedIcon from "@mui/icons-material/CoPresentRounded";
+import moment from "moment";
+import CountdownTimer from "../../reception/layout/CountdownTimer";
 
 // import { CreateList } from "../../../../functions/checker";
 import { CreateListChecker } from "../../../../functions/checker";
@@ -99,6 +104,48 @@ export default function OverviewAdmin() {
         backgroundColor: "rgba(20, 172, 95,0.8)",
       },
     ],
+  };
+  const idProfile = sessionStorage.getItem("id");
+  const [currentTime, setCurrentTime] = React.useState(moment());
+  const [endTimes, setEndTimes] = React.useState("");
+
+  React.useEffect(() => {
+    setEndTimes(calculateAttendanceTime());
+  }, []);
+
+  const calculateAttendanceTime = () => {
+    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
+    const endTime = moment().set({ hour: 16, minute: 58, second: 0 });
+    return endTime;
+  };
+  const isAttendanceTime = () => {
+    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
+    return currentTime.isBetween(startTime, endTimes);
+  };
+
+  const [openAttendance, setOpenAttendance] = React.useState(false);
+  const [attendanceMarked, setAttendanceMarked] = React.useState(false);
+  const status = "present";
+  React.useEffect(() => {
+    axios
+      .get(`/api/user-marked-attendance`, {
+        params: {
+          id: idProfile,
+        },
+      })
+      .then((response) => {
+        setAttendanceMarked(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching attendance status:", error);
+      });
+  }, []);
+
+  const handleCloseAttendance = () => {
+    setOpenAttendance(false);
+  };
+  const handleOpenAttendance = () => {
+    setOpenAttendance(true);
   };
 
   const [open, setOpen] = React.useState(false);
@@ -179,12 +226,14 @@ export default function OverviewAdmin() {
     >
       <List
         style={{
+          background: "#282c34",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
           height: "100vh",
           width: "100%",
+          borderRight: "0.5px solid white",
         }}
       >
         {[
@@ -214,29 +263,36 @@ export default function OverviewAdmin() {
             icon: <PreviewRoundedIcon />,
           },
           {
+            text: "View Attendance",
+            link: "/admin-view-attendance",
+            icon: <TextSnippetIcon />,
+          },
+          {
             text: "Chat Staff",
             link: "/admin-chat",
             icon: <ChatOutlinedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton href={link}>
-              <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+            <NavLink
+              to={link}
+              style={{
+                color: "white",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              <ListItemButton>
+                <ListItemIcon style={{ color: "#fff" }}>{icon}</ListItemIcon>
+                <ListItemText
+                  primary={text}
+                  className="doctorRootDrawerContainer"
+                  style={{ background: "transparent" }}
+                />
+              </ListItemButton>
+            </NavLink>
           </ListItem>
         ))}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-          }}
-        >
-          <button onClick={handleLogout} className="adminOverviewLogOutButton">
-            Log Out
-          </button>
-        </div>
       </List>
     </Box>
   );
@@ -301,6 +357,84 @@ export default function OverviewAdmin() {
                   {userNameFirstLetter}
                 </Avatar>
               </Button>
+              {/* Attendance start */}
+              {isAttendanceTime() && attendanceMarked ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <CountdownTimer endTime={endTimes} />
+                  <Button
+                    variant="outlined"
+                    onClick={handleOpenAttendance}
+                    endIcon={<CoPresentRoundedIcon />}
+                    style={{
+                      background: "#14ac5f",
+                      border: "none",
+                      color: "white",
+                      marginRight: "11px",
+                    }}
+                  >
+                    Attendance
+                  </Button>
+                </div>
+              ) : (
+                <div></div>
+              )}
+              <Dialog
+                open={openAttendance}
+                onClose={handleCloseAttendance}
+                PaperProps={{
+                  component: "form",
+                  onSubmit: (event) => {
+                    event.preventDefault();
+                    const formData = new FormData(event.currentTarget);
+                    const formJson = Object.fromEntries(formData.entries());
+                    let AttendancePromise = axios.post(`/api/user-attendance`, {
+                      id: formJson.id,
+                      UserName: formJson.username,
+                      Status: formJson.status,
+                    });
+                    AttendancePromise.then(() => {
+                      toast.success("Attendance Marked Present successfully");
+                      window.location.reload();
+                    }).catch((error) => {
+                      console.error("Could not mark present profile:", error);
+                      toast.error("Failed to mark present");
+                    });
+                    handleCloseAttendance();
+                  },
+                }}
+              >
+                <DialogTitle> Today Attendance</DialogTitle>
+                <DialogContent>
+                  <DialogContentText style={{ color: "black" }}>
+                    Please mark your attendance to ensure accurate records of
+                    your presence.!
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <input type="hidden" name="id" value={idProfile} />
+                  <input type="hidden" name="username" value={userName} />
+                  <input type="hidden" name="status" value={status} />
+                  <Button
+                    onClick={handleCloseAttendance}
+                    style={{ color: "white", background: "gray" }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    style={{ color: "white", background: "#14ac5f" }}
+                  >
+                    Present
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              {/* Attendance End */}
               <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
@@ -439,7 +573,6 @@ export default function OverviewAdmin() {
           </div>
         </div>
         <div className="adminOverviewDashboardSecondCard">
-          {/* <div className="adminOverviewDashboardSecondFirstCard"> </div> */}
           <div className="adminOverviewDashboardSecondFirstCard"> </div>
           <div
             className="adminOverviewDashboardSecondSecondCard"

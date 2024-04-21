@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-// import "../styles/ViewDeletedUsers.css";
+import React from "react";
 
-import DeletedUsersTable from "./DeletedUsersTable";
-
+import AttendanceTable from "./AttendanceTable";
 import AdminRoot from "./AdminRoot";
 
-export default function ViewDeletedUsers() {
+export default function AdminViewAttendance() {
   return (
     <div>
       <AdminRoot
@@ -22,9 +20,9 @@ export default function ViewDeletedUsers() {
             }}
           >
             <h2 style={{ color: "#14ac5f", fontWeight: "bold" }}>
-              DELETED USERS FROM THE SYSTEM
+              USER ATTENDANCE
             </h2>
-            <DeletedUsersTable />
+            <AttendanceTable />
           </div>
         }
       />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/ReceptionRoot.css";
+import "../style/LabRoot.css";
 
 // Fontawesome family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +13,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -22,22 +23,22 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import GridViewIcon from "@mui/icons-material/GridView";
+
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import { TextField } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import Slide from "@mui/material/Slide";
 
+// modules for attendance
 import CoPresentRoundedIcon from "@mui/icons-material/CoPresentRounded";
 import moment from "moment";
-import CountdownTimer from "./CountdownTimer";
+import CountdownTimer from "../../reception/layout/CountdownTimer";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-export default function ReceptionRoot(props) {
+export default function LabRoot(props) {
   const idProfile = sessionStorage.getItem("id");
   const [currentTime, setCurrentTime] = useState(moment());
   const [endTimes, setEndTimes] = useState("");
@@ -48,7 +49,7 @@ export default function ReceptionRoot(props) {
 
   const calculateAttendanceTime = () => {
     const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
-    const endTime = moment().set({ hour: 14, minute: 38, second: 0 });
+    const endTime = moment().set({ hour: 16, minute: 38, second: 0 });
     return endTime;
   };
   const isAttendanceTime = () => {
@@ -105,7 +106,6 @@ export default function ReceptionRoot(props) {
   const [Name, setName] = React.useState(userName);
   const [Email, setEmailUpdateProfile] = React.useState(emailSession);
 
-  const secret = sessionStorage.getItem("secret");
   const roleSession = sessionStorage.getItem("role");
   const dateofregistrationSession =
     sessionStorage.getItem("dateofregistration");
@@ -137,7 +137,10 @@ export default function ReceptionRoot(props) {
   const userNameFirstLetter = userName.charAt(0);
 
   function handleLogout() {
-    sessionStorage.clear();
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("token");
     navigate("/");
   }
   const toggleDrawer = (newOpen) => () => {
@@ -150,13 +153,12 @@ export default function ReceptionRoot(props) {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "space-between",
-        // background: "orange",
+        background: "#f0f8ff",
       }}
       role="presentation"
       onClick={toggleDrawer(false)}
     >
       <List
-        className="doctorRootDrawerContainer"
         style={{
           background: "#282c34",
           display: "flex",
@@ -171,18 +173,12 @@ export default function ReceptionRoot(props) {
         {[
           {
             text: "Dashboard",
-            link: "/reception-view-patient",
+            link: "/labratory",
             icon: <DashboardCustomizeRoundedIcon />,
           },
           {
-            text: "Prepare File",
-            link: "/reception-prepare-file",
-            icon: <ManageAccountsRoundedIcon />,
-          },
-
-          {
             text: "Chat Staff",
-            link: "/reception-chat",
+            link: "/labratory-chat",
             icon: <ChatOutlinedIcon />,
           },
         ].map(({ text, link, icon }, index) => (
@@ -219,17 +215,12 @@ export default function ReceptionRoot(props) {
 
   return (
     <div>
-      <Drawer
-        open={open}
-        onClose={toggleDrawer(false)}
-        className="receptionRootDrawerContainer"
-        style={{ borderRight: "1px solid white" }}
-      >
+      <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
-      <main className="receptionRootDashboard ">
-        <div className="receptionRootDashboardFirstCard">
-          <div className="receptionRootDashboardNavBarContainer">
+      <main className="labRootDashboard ">
+        <div className="labRootDashboardFirstCard">
+          <div className="labRootDashboardNavBarContainer">
             <div>
               <FontAwesomeIcon
                 icon={faBars}
@@ -237,7 +228,7 @@ export default function ReceptionRoot(props) {
                 onClick={toggleDrawer(true)}
               />
             </div>
-            <div className="receptionRootDashboardLogOutContainer">
+            <div className="labRootDashboardLogOutContainer">
               <h4 style={{ textDecoration: "underline" }}>
                 Welcome {userName}
               </h4>
@@ -252,7 +243,6 @@ export default function ReceptionRoot(props) {
                   {userNameFirstLetter}
                 </Avatar>
               </Button>
-
               {/* Attendance start */}
               {isAttendanceTime() && attendanceMarked ? (
                 <div
@@ -331,7 +321,6 @@ export default function ReceptionRoot(props) {
                 </DialogActions>
               </Dialog>
               {/* Attendance End */}
-
               <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
@@ -360,41 +349,39 @@ export default function ReceptionRoot(props) {
                   Logout
                 </MenuItem>
               </Menu>
-              <div>
-                <Dialog
-                  fullWidth
-                  open={openProfileRecord}
-                  TransitionComponent={Transition}
-                  keepMounted
-                  onClose={handleCloseProfileRecord}
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogTitle>
-                    {"Your Profile "} {userName}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      <b> ID: </b> {idProfile}
-                    </DialogContentText>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      <b> Name: </b> {userName}
-                    </DialogContentText>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      <b> Email: </b> {emailSession}
-                    </DialogContentText>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      <b>Role: </b> {roleSession}
-                    </DialogContentText>
-                    <DialogContentText id="alert-dialog-slide-description">
-                      <b> Date of Registration: </b> {dateofregistrationSession}
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleCloseProfileRecord}>Close</Button>
-                    <Button onClick={handleOpenEditProfile}>Edit</Button>
-                  </DialogActions>
-                </Dialog>
-              </div>
+              <Dialog
+                fullWidth
+                open={openProfileRecord}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleCloseProfileRecord}
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle>
+                  {"Your Profile "} {userName}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> ID: </b> {idProfile}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Name: </b> {userName}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Email: </b> {emailSession}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b>Role: </b> {roleSession}
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    <b> Date of Registration: </b> {dateofregistrationSession}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseProfileRecord}>Close</Button>
+                  <Button onClick={handleOpenEditProfile}>Edit</Button>
+                </DialogActions>
+              </Dialog>
               <Dialog
                 open={openEditProfile}
                 onClose={handleCloseEditProfile}
@@ -465,7 +452,7 @@ export default function ReceptionRoot(props) {
             </div>
           </div>
         </div>
-        <div className="receptionRootDashboardSecondCard">
+        <div className="labRootDashboardSecondCard">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
           {props.component}
         </div>

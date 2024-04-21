@@ -52,9 +52,9 @@ export default function DoctorLabRequest() {
   const [ListPatient, setListPatient] = useState([]);
   const [ListDrugProperty, setListDrugProperty] = useState([]);
   const [patientFile, setPatientFile] = useState("");
-  const [PrescriptionFile, setPrescriptionFile] = useState("");
-  const [PrescriptionSex, setPrescriptionSex] = useState("");
-  const [PrescriptionAge, setPrescriptionAge] = useState("");
+  const [LabFile, setLabFile] = useState("");
+  const [LabPatientSex, setLabPatientSex] = useState("");
+  const [LabPatientAge, setLabPatientAge] = useState("");
   const [drugName, setDrugName] = useState("");
   const [dosageForm, setDosageForm] = useState("");
   const [drugDuration, setDrugDuration] = useState("");
@@ -89,7 +89,7 @@ export default function DoctorLabRequest() {
     fillStyle: "rgba(0, 0, 0, 0.6)",
   };
   const options = {
-    filename: `${Dates} Morning Patient Files.pdf`,
+    filename: `${LabFile} Labratory Reques on ${Dates}.pdf`,
     method: "save",
 
     resolution: Resolution.EXTREME,
@@ -180,7 +180,7 @@ export default function DoctorLabRequest() {
                               maxWidth: "120px",
                               width: "100%",
                             }}
-                            value={Dates}
+                            value={`${LabFile} Labratory Request`}
                             viewBox={`0 0 256 256`}
                           />
                         </div>
@@ -204,19 +204,19 @@ export default function DoctorLabRequest() {
                         <div>
                           <h3>Patient Name</h3>
                           <div style={{ marginLeft: "16px", marginTop: "5px" }}>
-                            <li>{PrescriptionFile}</li>
+                            <li>{LabFile}</li>
                           </div>
                         </div>
                         <div>
                           <h3>Patient Sex</h3>
                           <div style={{ marginLeft: "16px", marginTop: "5px" }}>
-                            <li>{PrescriptionSex}</li>
+                            <li>{LabPatientSex}</li>
                           </div>
                         </div>
                         <div>
                           <h3>Patient Age</h3>
                           <div style={{ marginLeft: "16px", marginTop: "5px" }}>
-                            <li>{PrescriptionAge}</li>
+                            <li>{LabPatientAge}</li>
                           </div>
                         </div>
                       </div>
@@ -352,8 +352,8 @@ export default function DoctorLabRequest() {
                       autoFocus
                       fullWidth
                       type="text"
-                      value={PrescriptionFile}
-                      onChange={(e) => setPrescriptionFile(e.target.value)}
+                      value={LabFile}
+                      onChange={(e) => setLabFile(e.target.value)}
                       placeholder="Patient Names"
                     />
                   </div>
@@ -364,8 +364,8 @@ export default function DoctorLabRequest() {
                       required
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={PrescriptionSex}
-                      onChange={(e) => setPrescriptionSex(e.target.value)}
+                      value={LabPatientSex}
+                      onChange={(e) => setLabPatientSex(e.target.value)}
                       label="Choose Gender"
                       placeholder="Choose Gender"
                     >
@@ -379,8 +379,8 @@ export default function DoctorLabRequest() {
                     <TextField
                       type="text"
                       fullWidth
-                      value={PrescriptionAge}
-                      onChange={(e) => setPrescriptionAge(e.target.value)}
+                      value={LabPatientAge}
+                      onChange={(e) => setLabPatientAge(e.target.value)}
                       placeholder="Patient Age"
                     />
                   </div>

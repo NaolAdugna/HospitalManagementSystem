@@ -34,70 +34,48 @@ import Slide from "@mui/material/Slide";
 // modules for attendance
 import CoPresentRoundedIcon from "@mui/icons-material/CoPresentRounded";
 import moment from "moment";
-import momentTimezone from "moment-timezone";
+import CountdownTimer from "../../reception/layout/CountdownTimer";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-const getLocalTime = () => {
-  return moment().tz("Africa/Addis_Ababa"); // Return a moment object representing the current local time
-};
 
 export default function DoctorRoot(props) {
-  const [currentTime, setCurrentTime] = useState(getLocalTime());
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(getLocalTime());
-    }, 1000);
+  const idProfile = sessionStorage.getItem("id");
+  const [currentTime, setCurrentTime] = useState(moment());
+  const [endTimes, setEndTimes] = useState("");
 
-    return () => clearInterval(interval);
+  useEffect(() => {
+    setEndTimes(calculateAttendanceTime());
   }, []);
 
-  // momentTimezone.tz.setDefault("Africa/Addis_Ababa");
-
+  const calculateAttendanceTime = () => {
+    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
+    const endTime = moment().set({ hour: 16, minute: 38, second: 0 });
+    return endTime;
+  };
   const isAttendanceTime = () => {
-    const startTime = moment()
-      .set({ hour: 4, minute: 0, second: 0 })
-      .tz("Africa/Addis_Ababa");
-    const endTime = moment()
-      .set({ hour: 5, minute: 30, second: 0 })
-      .tz("Africa/Addis_Ababa");
-
-    // console.log("ct", currentTime);
-    // console.log("st", startTime);
-    // console.log("et", endTime);
-
-    // Check if the current time is between the start and end times
-    return currentTime.isBetween(startTime, endTime);
-    // const startTime = moment().set({ hour: 4, minute: 0, second: 0 });
-    // const endTime = moment().set({ hour: 5, minute: 30, second: 0 });
-
-    // // Format the current time with the desired format
-    // const formattedCurrentTime = currentTime.format(
-    //   "h:mm A dddd, MMMM D, YYYY (GMTZ)"
-    // );
-
-    // // Format the start and end times with the same format
-    // const formattedStartTime = startTime.format(
-    //   "h:mm A dddd, MMMM D, YYYY (GMTZ)"
-    // );
-    // const formattedEndTime = endTime.format("h:mm A dddd, MMMM D, YYYY (GMTZ)");
-    // console.log("st", formattedStartTime);
-    // console.log("et", formattedEndTime);
-    // console.log("ct", formattedCurrentTime);
-
-    // // Check if the formatted current time is between the formatted start and end times
-    // const result = moment(
-    //   formattedCurrentTime,
-    //   "h:mm A dddd, MMMM D, YYYY (GMTZ)"
-    // ).isBetween(formattedStartTime, formattedEndTime);
-
-    // console.log("mome", result);
-    // return result;
+    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
+    return currentTime.isBetween(startTime, endTimes);
   };
 
   const [openAttendance, setOpenAttendance] = useState(false);
+  const [attendanceMarked, setAttendanceMarked] = useState(false);
   const status = "present";
+  useEffect(() => {
+    axios
+      .get(`/api/user-marked-attendance`, {
+        params: {
+          id: idProfile,
+        },
+      })
+      .then((response) => {
+        setAttendanceMarked(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching attendance status:", error);
+      });
+  }, []);
 
   const handleCloseAttendance = () => {
     setOpenAttendance(false);
@@ -130,7 +108,6 @@ export default function DoctorRoot(props) {
   const [Name, setName] = React.useState(userName);
   const [Email, setEmailUpdateProfile] = React.useState(emailSession);
 
-  const idProfile = sessionStorage.getItem("id");
   const secret = sessionStorage.getItem("secret");
   const roleSession = sessionStorage.getItem("role");
   const dateofregistrationSession =
@@ -287,8 +264,16 @@ export default function DoctorRoot(props) {
                   {userNameFirstLetter}
                 </Avatar>
               </Button>
-              {isAttendanceTime() ? (
-                <div>
+              {/* Attendance start */}
+              {isAttendanceTime() && attendanceMarked ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <CountdownTimer endTime={endTimes} />
                   <Button
                     variant="outlined"
                     onClick={handleOpenAttendance}
@@ -304,9 +289,7 @@ export default function DoctorRoot(props) {
                   </Button>
                 </div>
               ) : (
-                <div>
-                  <h3>no</h3>
-                </div>
+                <div></div>
               )}
               <Dialog
                 open={openAttendance}
@@ -324,6 +307,7 @@ export default function DoctorRoot(props) {
                     });
                     AttendancePromise.then(() => {
                       toast.success("Attendance Marked Present successfully");
+                      window.location.reload();
                     }).catch((error) => {
                       console.error("Could not mark present profile:", error);
                       toast.error("Failed to mark present");
@@ -357,24 +341,7 @@ export default function DoctorRoot(props) {
                   </Button>
                 </DialogActions>
               </Dialog>
-
-              {/* {isAttendanceTime() && (
-                <div>
-                  <Button
-                    variant="outlined"
-                    endIcon={<CoPresentRoundedIcon />}
-                    // onClick={() => setOpenPopupFile(true)}
-                    style={{
-                      background: "#14ac5f",
-                      border: "none",
-                      color: "white",
-                      marginRight: "11px",
-                    }}
-                  >
-                    Attendance
-                  </Button>
-                </div>
-              )} */}
+              {/* Attendance End */}
 
               <Menu
                 id="basic-menu"

@@ -36,6 +36,7 @@ import DeleteUser from "./componets/dashboards/administrator/layouts/DeleteUser"
 import ViewDeletedUsers from "./componets/dashboards/administrator/layouts/ViewDeletedUsers";
 import ViewMessages from "./componets/dashboards/administrator/layouts/ViewMessages";
 import AdminChat from "./componets/dashboards/administrator/layouts/AdminChat";
+import AdminViewAttendance from "./componets/dashboards/administrator/layouts/AdminViewAttendance";
 import LoginPatient from "./componets/dashboards/LoginPatient";
 import LoginUser from "./componets/dashboards/LoginUser";
 
@@ -186,6 +187,15 @@ const router = createBrowserRouter([
       <AdminAuthorize>
         {" "}
         <ViewMessages />
+      </AdminAuthorize>
+    ),
+  },
+  {
+    path: "/admin-view-attendance",
+    element: (
+      <AdminAuthorize>
+        {" "}
+        <AdminViewAttendance />
       </AdminAuthorize>
     ),
   },

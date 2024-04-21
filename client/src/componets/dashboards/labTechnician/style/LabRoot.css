@@ -3,77 +3,66 @@ root {
   --mainColor: #14ac5f;
   --navBarBg: #fff;
 }
-.labChatDashboard {
+.labRootDashboard {
   background-color: rgb(195, 196, 202, 0.5);
   padding: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 70px 1fr;
   grid-template-areas:
-    "labChatDashboardFirstCard labChatDashboardFirstCard"
-    "labChatDashboardSecondCard labChatDashboardSecondCard";
+    "labRootDashboardFirstCard labRootDashboardFirstCard"
+    "labRootDashboardSecondCard labRootDashboardSecondCard";
   gap: 10px;
   height: 100vh;
 }
-.labChatDashboardFirstCard {
+.labRootDashboardFirstCard {
   background-color: #282c34;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 8px;
-  grid-area: labChatDashboardFirstCard;
+  grid-area: labRootDashboardFirstCard;
   color: white;
 }
-.labChatDashboardSecondCard {
+.labRootDashboardSecondCard {
   background-color: #f6f7f9;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 10px;
-  grid-area: labChatDashboardSecondCard;
+  grid-area: labRootDashboardSecondCard;
 }
-.labChatDashboardNavBarContainer {
+.labRootDashboardNavBarContainer {
   padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.labChatDashboardLogOutContainer {
+.labRootDashboardLogOutContainer {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   width: 30%;
 }
-.labChatDashboardNavImage {
+.labRootDashboardNavImage {
   background-color: #14ac5f;
   padding: 4px 15px;
   border-radius: 50%;
   color: var(--navBarBg);
 }
 
-.ce-message-form-input {
-  padding: 20px 5px;
-  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.3));
-}
-.ce-attachment-icon {
-  font-size: 25px;
-}
 @media (max-width: 320px) {
-  .labChatDashboardLogOutContainer {
+  .labRootDashboardLogOutContainer {
     justify-content: space-between;
     width: 70%;
-  }
-  .labChatDashboardNavImage {
-    padding: 4px 12px;
-    font-size: 22px;
   }
 }
 
 @media (min-width: 321px) and (max-width: 640px) {
-  .labChatDashboardLogOutContainer {
+  .labRootDashboardLogOutContainer {
     justify-content: space-evenly;
     width: 70%;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
-  .labChatDashboardLogOutContainer {
+  .labRootDashboardLogOutContainer {
     justify-content: space-evenly;
     width: 70%;
   }

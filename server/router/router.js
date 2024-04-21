@@ -145,4 +145,9 @@ router
 
 // User Mark Attendance
 router.route("/user-attendance").post(adminController.MarkAttendance);
+router
+  .route("/user-marked-attendance")
+  .get(adminController.DidUserMarkedAttendanceController);
+
+router.route("/fetch-attendance").get(adminController.ReturnFetchAttendance);
 export default router;
