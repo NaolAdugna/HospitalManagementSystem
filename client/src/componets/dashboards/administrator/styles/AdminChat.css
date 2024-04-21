@@ -38,7 +38,7 @@ root {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 30%;
+  width: 40%;
 }
 .AdminChatDashboardNavImage {
   background-color: #14ac5f;

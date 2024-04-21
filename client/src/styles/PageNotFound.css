@@ -1,0 +1,40 @@
+.pagenotFoundMain {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.pagenotFoundMain h1 {
+  font-size: 70px;
+  font-weight: 800;
+  line-height: 70px;
+  /* margin-bottom: 11px; */
+}
+
+.pagenotFoundMain h2 {
+  font-size: 38px;
+  font-weight: 600;
+  margin-bottom: 11px;
+}
+
+.pagenotFoundMain h3 {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.pagenotFoundMain a {
+  text-decoration: none;
+  padding: 13px 27px;
+  font-size: 17px;
+  border-radius: 12px;
+  color: white;
+  background-color: #14ac5f;
+  margin-top: 11px;
+  transition: 200ms all;
+}
+.pagenotFoundMain a:hover {
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.3));
+}
