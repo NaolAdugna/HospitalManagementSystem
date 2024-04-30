@@ -44,17 +44,30 @@ export default function LabRoot(props) {
   const [currentTime, setCurrentTime] = useState(moment());
   const [endTimes, setEndTimes] = useState("");
 
+  const [endTimesAfternoon, setEndTimesAfternoon] = useState("");
+
+  useEffect(() => {
+    setEndTimesAfternoon(calculateAttendanceTimeAfternoon());
+  }, []);
+
+  const calculateAttendanceTimeAfternoon = () => {
+    const endTime = moment().set({ hour: 18, minute: 30, second: 0 });
+    return endTime;
+  };
+  const isAttendanceTimeAfternoon = () => {
+    const startTime = moment().set({ hour: 18, minute: 0, second: 0 });
+    return currentTime.isBetween(startTime, endTimesAfternoon);
+  };
   useEffect(() => {
     setEndTimes(calculateAttendanceTime());
   }, []);
 
   const calculateAttendanceTime = () => {
-    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
-    const endTime = moment().set({ hour: 16, minute: 38, second: 0 });
+    const endTime = moment().set({ hour: 8, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTime = () => {
-    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 8, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimes);
   };
 
@@ -300,7 +313,7 @@ export default function LabRoot(props) {
               ) : (
                 <div></div>
               )}
-              {isAttendanceTime() && afternoonAttendanceMarked ? (
+              {isAttendanceTimeAfternoon() && afternoonAttendanceMarked ? (
                 <div
                   style={{
                     display: "flex",
@@ -308,7 +321,7 @@ export default function LabRoot(props) {
                     alignItems: "center",
                   }}
                 >
-                  <CountdownTimer endTime={endTimes} />
+                  <CountdownTimer endTime={endTimesAfternoon} />
                   <Button
                     variant="outlined"
                     onClick={handleOpenAfternoonAttendance}

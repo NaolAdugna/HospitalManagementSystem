@@ -486,13 +486,18 @@ export const DidUserMarkedAttendance = async (id) => {
     throw error;
   }
 };
-
 export const DidUserAfternoonMarkedAttendance = async (id) => {
   try {
     const currentDate = new Date().toISOString().split("T")[0];
     const sql =
       "SELECT afternoon_status FROM attendance WHERE user_id = ? AND present_time = ?";
     const [user] = await mysqlPool.execute(sql, [id, currentDate]);
+
+    // Check if the user array is empty
+    if (user.length === 0) {
+      return null;
+    }
+
     return user;
   } catch (error) {
     console.error("Error in did user marked attendance:", error);

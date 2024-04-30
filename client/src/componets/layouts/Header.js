@@ -7,8 +7,20 @@ import { Link, NavLink } from "react-router-dom";
 // Font Awesome Family
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Fade from "@mui/material/Fade";
 export default function Header() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openDropDown = Boolean(anchorEl);
+  const handleClickOpenDropDown = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseDropDown = () => {
+    setAnchorEl(null);
+  };
+
   const [isOpen, setIsOpen] = useState(false);
 
   let handleOpen = () => {
@@ -41,9 +53,49 @@ export default function Header() {
               );
             })}
           </nav>
-          <Link to="/login" className="loginButton">
+          <Button
+            id="fade-button"
+            aria-controls={openDropDown ? "fade-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={openDropDown ? "true" : undefined}
+            onClick={handleClickOpenDropDown}
+            style={{ fontWeight: "500", color: "#fff", background: "#14ac5f" }}
+          >
             Login
-          </Link>
+          </Button>
+          <Menu
+            id="fade-menu"
+            MenuListProps={{
+              "aria-labelledby": "fade-button",
+            }}
+            anchorEl={anchorEl}
+            open={openDropDown}
+            onClose={handleCloseDropDown}
+            TransitionComponent={Fade}
+            style={{ marginRight: "12px" }}
+          >
+            <MenuItem onClick={handleCloseDropDown}>
+              {" "}
+              <NavLink
+                to="/login-user"
+                style={{ color: "#000", textDecoration: "none" }}
+              >
+                For Staff User{" "}
+              </NavLink>
+            </MenuItem>
+            <MenuItem onClick={handleCloseDropDown}>
+              <NavLink
+                to="/login-patient"
+                style={{ color: "#000", textDecoration: "none" }}
+              >
+                For Patient User{" "}
+              </NavLink>
+            </MenuItem>
+          </Menu>
+
+          {/* <Link to="/login" className="loginButton">
+            Login
+          </Link> */}
         </div>
         <FontAwesomeIcon
           icon={isOpen ? faXmark : faBars}

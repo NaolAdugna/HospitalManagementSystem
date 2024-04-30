@@ -48,17 +48,26 @@ export default function ReceptionChat() {
   const [currentTime, setCurrentTime] = useState(moment());
   const [endTimes, setEndTimes] = useState("");
 
+  const [endTimesAfternoon, setEndTimesAfternoon] = useState("");
+
+  useEffect(() => {
+    setEndTimesAfternoon(calculateAttendanceTimeAfternoon());
+  }, []);
+
+  const calculateAttendanceTimeAfternoon = () => {
+    const endTime = moment().set({ hour: 17, minute: 30, second: 0 });
+    return endTime;
+  };
+  const isAttendanceTimeAfternoon = () => {
+    const startTime = moment().set({ hour: 17, minute: 0, second: 0 });
+    return currentTime.isBetween(startTime, endTimesAfternoon);
+  };
   useEffect(() => {
     setEndTimes(calculateAttendanceTime());
   }, []);
 
   const calculateAttendanceTime = () => {
-    const startTime = moment()
-      .utcOffset(180)
-      .set({ hour: 8, minute: 0, second: 0 });
-    const endTime = moment()
-      .utcOffset(180)
-      .set({ hour: 8, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 8, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTime = () => {
@@ -307,7 +316,7 @@ export default function ReceptionChat() {
               ) : (
                 <div></div>
               )}
-              {isAttendanceTime() && afternoonAttendanceMarked ? (
+              {isAttendanceTimeAfternoon() && afternoonAttendanceMarked ? (
                 <div
                   style={{
                     display: "flex",
@@ -315,7 +324,7 @@ export default function ReceptionChat() {
                     alignItems: "center",
                   }}
                 >
-                  <CountdownTimer endTime={endTimes} />
+                  <CountdownTimer endTime={endTimesAfternoon} />
                   <Button
                     variant="outlined"
                     onClick={handleOpenAfternoonAttendance}
