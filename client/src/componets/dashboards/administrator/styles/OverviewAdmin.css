@@ -37,36 +37,21 @@
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
   border-radius: 10px;
   grid-area: adminOverviewDashboardSecondCard;
-  padding: 25px;
-  gap: 25px;
   padding: 15px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas:
-    "adminOverviewDashboardSecondFirstCard adminOverviewDashboardSecondFirstCard adminOverviewDashboardSecondSecondCard"
-    "adminOverviewDashboardSecondThirdCard adminOverviewDashboardSecondThirdCard adminOverviewDashboardSecondFourthCard"
-    "adminOverviewDashboardSecondThirdCard adminOverviewDashboardSecondThirdCard adminOverviewDashboardSecondFourthCard";
-  /* "c5 c5 c6"; */
+  grid-template-columns: 1fr 400px; /* Two columns */
+  grid-template-rows: 1fr; /* One row */
+  grid-template-areas: "adminOverviewDashboardSecondThirdCard adminOverviewDashboardSecondSecondCard"; /* Define areas for the two columns */
 }
 
-.adminOverviewDashboardSecondFirstCard {
-  grid-area: adminOverviewDashboardSecondFirstCard;
-  background-color: #fff;
-  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
-}
 .adminOverviewDashboardSecondSecondCard {
   grid-area: adminOverviewDashboardSecondSecondCard;
   background-color: #fff;
-  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  /* filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2)); */
 }
+
 .adminOverviewDashboardSecondThirdCard {
   grid-area: adminOverviewDashboardSecondThirdCard;
-  background-color: #fff;
-  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
-}
-.adminOverviewDashboardSecondFourthCard {
-  grid-area: adminOverviewDashboardSecondFourthCard;
   background-color: #fff;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
 }
@@ -112,6 +97,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 83%;
+  margin: auto;
 }
 .adminOverviewAddListContainer {
   margin-top: 11px;

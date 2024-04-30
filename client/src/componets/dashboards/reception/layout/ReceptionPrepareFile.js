@@ -21,8 +21,10 @@ import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ReceptionRoot from "./ReceptionRoot";
+import { usePatientData } from "../../../../store/store";
 
 export default function ReceptionPrepareFile() {
+  const { datavalue, setDataValue } = usePatientData();
   const [userName, setUserName] = React.useState(
     sessionStorage.getItem("username")
   );
@@ -36,6 +38,8 @@ export default function ReceptionPrepareFile() {
   const [editorValue, setEditorValue] = useState([]);
   const ref = useRef();
   const [Dates, setDates] = useState("");
+  const [Day, setDay] = useState("");
+
   let newDate = new Date();
   let date = newDate.getDate();
   useEffect(() => {
@@ -43,7 +47,19 @@ export default function ReceptionPrepareFile() {
     const date = `${current.getDate()}/${
       current.getMonth() + 1
     }/${current.getFullYear()}`;
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const day = `${current.getDay()}`;
+    const dayOfWeekName = daysOfWeek[day];
     setDates(date);
+    setDay(dayOfWeekName);
   }, []);
   const [openPopupFile, setOpenPopupFile] = useState(false);
   const [ListPatient, setListPatient] = useState([]);
@@ -68,7 +84,7 @@ export default function ReceptionPrepareFile() {
     fillStyle: "rgba(0, 0, 0, 0.6)",
   };
   const options = {
-    filename: `${Dates} Morning Patient Files.pdf`,
+    filename: `On ${Day} Patient Files on ${Dates}.pdf`,
     method: "save",
 
     resolution: Resolution.EXTREME,
@@ -101,6 +117,15 @@ export default function ReceptionPrepareFile() {
           <div className="receptionPrepareFileDashboardSecondCard">
             <section className="receptionPrepareFileMainContainerSection">
               <div className="receptionPrepareFileContainer">
+                <h1
+                  style={{
+                    textAlign: "center",
+                    marginBottom: "12px",
+                    marginTop: "12px",
+                  }}
+                >
+                  Patient Files Manager{" "}
+                </h1>
                 <div
                   style={{
                     display: "flex",
@@ -137,7 +162,7 @@ export default function ReceptionPrepareFile() {
                       </Button>
                     )}
                     content={() => ref.current}
-                    documentTitle={`Patient File on ${Dates}`}
+                    documentTitle={`On ${Day} Patient Files on ${Dates}`}
                   />
                 </div>
                 <div
@@ -159,7 +184,7 @@ export default function ReceptionPrepareFile() {
                               maxWidth: "120px",
                               width: "100%",
                             }}
-                            value={Dates}
+                            value={`On ${Dates} Patient Names for GebreTsadik Shawo General Hospital.`}
                             viewBox={`0 0 256 256`}
                           />
                         </div>
@@ -229,7 +254,8 @@ export default function ReceptionPrepareFile() {
               <section>
                 <ReactQuill
                   theme="snow"
-                  value={editorValue}
+                  // value={editorValue}
+                  value={datavalue}
                   onChange={setEditorValue}
                   className="receptionPrepareFileEditor"
                 />

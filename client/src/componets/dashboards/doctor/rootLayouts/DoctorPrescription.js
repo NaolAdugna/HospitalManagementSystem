@@ -23,7 +23,21 @@ import MenuItem from "@mui/material/MenuItem";
 import NativeSelect from "@mui/material/NativeSelect";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import {
+  usePatientDataId,
+  usePatientDataName,
+  usePatientDataAge,
+  usePatientDataGender,
+  usePatientDataMedicalHistory,
+} from "../../../../store/store";
 export default function DoctorPrescription() {
+  const [editorValue, setEditorValue] = useState();
+  const { id, setId } = usePatientDataId();
+  const { name, setName } = usePatientDataName();
+  const { age, setAge } = usePatientDataAge();
+  const { gender, setGender } = usePatientDataGender();
+  const { medicalhistory, setMedicalHistory } = usePatientDataMedicalHistory();
+
   const [userName, setUserName] = React.useState(
     sessionStorage.getItem("username")
   );
@@ -34,7 +48,31 @@ export default function DoctorPrescription() {
     setUserName(sessionStorage.getItem("username"));
     setEmailSession(sessionStorage.getItem("email"));
   }, []);
-  const [editorValue, setEditorValue] = useState([]);
+  React.useEffect(() => {
+    const combinedValue = `<p> <b> ID Number </b> - ${id} <br/> <b>Name - </b> ${name} <br/> <b>Age - </b> ${age} <br/> <b>Gender - </b> ${gender} <br/> <b>Medical History - </b> ${medicalhistory} </p>`;
+    setEditorValue(combinedValue);
+    localStorage.setItem("namepre", name);
+
+    localStorage.setItem("agepre", age);
+    localStorage.setItem("genderpre", gender);
+  }, [id]);
+  React.useEffect(() => {
+    setPrescriptionFile(name);
+    setPrescriptionAge(age);
+    setPrescriptionSex(gender);
+  }, [id]);
+  React.useEffect(() => {
+    const storedValue = localStorage.getItem("editorValue");
+    if (storedValue) {
+      setEditorValue(storedValue);
+    }
+    setPrescriptionFile(name);
+    setPrescriptionAge(age);
+    setPrescriptionSex(gender);
+  }, []);
+  const handleEditorChange = (value) => {
+    localStorage.setItem("editorValue", value);
+  };
   const ref = useRef();
   const [Dates, setDates] = useState("");
   let newDate = new Date();
@@ -85,7 +123,7 @@ export default function DoctorPrescription() {
     fillStyle: "rgba(0, 0, 0, 0.6)",
   };
   const options = {
-    filename: ` ${PrescriptionFile} Prescription Form on ${Dates} .pdf`,
+    filename: `${PrescriptionFile} Prescription Form on ${Dates} .pdf`,
     method: "save",
 
     resolution: Resolution.EXTREME,
@@ -111,6 +149,12 @@ export default function DoctorPrescription() {
     document.getElementById("doctorPrescriptionContent");
 
   const downloadPdf = () => generatePDF(getTargetElement, options);
+  React.useEffect(() => {
+    setPrescriptionFile(name);
+    setPrescriptionSex(gender);
+    setPrescriptionAge(age);
+  }, []);
+
   return (
     <div>
       <DoctorRoot
@@ -118,6 +162,15 @@ export default function DoctorPrescription() {
           <div className="doctorPrescriptionDashboardSecondCard">
             <section className="doctorPrescriptionMainContainerSection">
               <div className="doctorPrescriptionContainer">
+                <h1
+                  style={{
+                    textAlign: "center",
+                    marginBottom: "12px",
+                    marginTop: "12px",
+                  }}
+                >
+                  Prescription Form Manager{" "}
+                </h1>
                 <div
                   style={{
                     display: "flex",
@@ -176,7 +229,7 @@ export default function DoctorPrescription() {
                               maxWidth: "120px",
                               width: "100%",
                             }}
-                            value={PrescriptionFile}
+                            value={`${PrescriptionFile} Prescription Form`}
                             viewBox={`0 0 256 256`}
                           />
                         </div>
@@ -219,7 +272,7 @@ export default function DoctorPrescription() {
                       </div>
                       <div className="doctorPrescriptionPatientFile">
                         <div>
-                          <h3>Drug Name</h3>
+                          <h3>Hematology</h3>
                           <div style={{ marginLeft: "16px", marginTop: "5px" }}>
                             {ListDrugProperty.length ? (
                               <ol>
@@ -231,7 +284,7 @@ export default function DoctorPrescription() {
                           </div>
                         </div>
                         <div>
-                          <h3>Dosage Form</h3>
+                          <h3>Chemistry</h3>
                           <div style={{ marginLeft: "16px", marginTop: "5px" }}>
                             {ListDrugProperty.length ? (
                               <ol>
@@ -318,10 +371,17 @@ export default function DoctorPrescription() {
                 <ReactQuill
                   theme="snow"
                   value={editorValue}
-                  onChange={setEditorValue}
+                  onChange={handleEditorChange}
                   className="doctorPrescriptionEditor"
+                  readOnly={true}
+                  // modules={{
+                  //   toolbar: false,
+                  // }}
+                  // modules={{
+                  //   toolbar: false, // Disable toolbar
+                  //   readOnly: true, // Make the editor read-only
+                  // }}
                 />
-                ;
               </section>
             </section>
 

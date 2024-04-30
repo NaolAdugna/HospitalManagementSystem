@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 
+import Button from "@mui/material/Button";
 import DoctorRoot from "./DoctorRoot";
 import Avatar from "@mui/material/Avatar";
 
@@ -127,7 +128,13 @@ export default function DoctorOverView() {
                     rows={3}
                   />
                   <span onClick={submitHandler}>
-                    <SendIcon className="formIcon" sx={{ fontSize: "40px" }} />
+                    <Button
+                      variant="contained"
+                      sx={{ background: "#14ac5f" }}
+                      endIcon={<SendIcon />}
+                    >
+                      Send
+                    </Button>
                   </span>
                 </div>
               </form>

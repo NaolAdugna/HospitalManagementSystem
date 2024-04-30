@@ -418,23 +418,54 @@ export const UpdatePatientProfile = async (id, username, email, age) => {
   }
 };
 
-export const SaveMarkedAttendance = async (UserName, id, Status) => {
+export const SaveMarkedAttendance = async (
+  UserName,
+  id,
+  Morning_Status,
+  Afternoon_Status
+) => {
   try {
     let sql = `INSERT INTO attendance(
         user_id,
         user_name,
-        status,
+        moring_status,
+        afternoon_status,
         present_time
     ) VALUES (
       '${id}',
       '${UserName}',
-      '${Status}',
+      '${Morning_Status}',
+      '${Afternoon_Status}',
       CURRENT_TIMESTAMP
       )`;
     let [Attendance] = await mysqlPool.execute(sql);
     return Attendance;
   } catch (error) {
     console.error("Error occurred while attendance: ", error);
+  }
+};
+
+export const SaveAfternoonMarkedAttendance = async (id, Afternoon_Status2) => {
+  try {
+    const currentDate = new Date().toISOString().split("T")[0];
+    let sql = `UPDATE attendance SET afternoon_status = ? WHERE user_id = ? AND present_time =  `;
+
+    let [Attendance] = await mysqlPool.execute(sql, [
+      Afternoon_Status2,
+      id,
+      currentDate,
+    ]);
+    console.log(
+      "id is ",
+      id,
+      "att val ",
+      Afternoon_Status2,
+      "result ",
+      Attendance
+    );
+    return Attendance;
+  } catch (error) {
+    console.error("Error occurred while marking attendance: ", error);
   }
 };
 
@@ -456,6 +487,19 @@ export const DidUserMarkedAttendance = async (id) => {
   }
 };
 
+export const DidUserAfternoonMarkedAttendance = async (id) => {
+  try {
+    const currentDate = new Date().toISOString().split("T")[0];
+    const sql =
+      "SELECT afternoon_status FROM attendance WHERE user_id = ? AND present_time = ?";
+    const [user] = await mysqlPool.execute(sql, [id, currentDate]);
+    return user;
+  } catch (error) {
+    console.error("Error in did user marked attendance:", error);
+    throw error;
+  }
+};
+
 export const GetAttendanceUsers = async () => {
   try {
     const sql =
@@ -464,6 +508,236 @@ export const GetAttendanceUsers = async () => {
     return results;
   } catch (error) {
     console.error("Error in finddeletedUser:", error);
+    throw error;
+  }
+};
+
+export const GetPatientById = async (id) => {
+  try {
+    const sql = "SELECT medicalhistory FROM patient WHERE id = ?";
+    const [results] = await mysqlPool.execute(sql, [id]);
+    return results;
+  } catch (error) {
+    console.error("Error in GETTING patient BY ID:", error);
+    throw error;
+  }
+};
+export const GetPatientByIdAllData = async (id) => {
+  try {
+    const sql =
+      "SELECT id, name, age, gender,medicalhistory FROM patient WHERE id = ?";
+    const [results] = await mysqlPool.execute(sql, [id]);
+    return results;
+  } catch (error) {
+    console.error("Error in GETTING patient BY ID:", error);
+    throw error;
+  }
+};
+
+export const UpdatePatient = async (id, medicalhistory) => {
+  try {
+    const sql = "UPDATE patient SET medicalhistory = ? WHERE id = ?";
+    const [updated] = await mysqlPool.execute(sql, [medicalhistory, id]);
+    return updated;
+  } catch (error) {
+    console.error("Error occurred while updating: ", error);
+    throw error;
+  }
+};
+
+export const findPatientAppointment = async (
+  patient_name,
+  date_of_appointment
+) => {
+  try {
+    const sql =
+      "SELECT * FROM appointment WHERE patient_name = ? AND date_of_appointment = ?";
+    const [user] = await mysqlPool.execute(sql, [
+      patient_name,
+      date_of_appointment,
+    ]);
+
+    if (user.length === 0) {
+      return false;
+    } else {
+      return user;
+    }
+  } catch (error) {
+    console.error("Error in findPatient:", error);
+    throw error;
+  }
+};
+
+export const registerPatientAppointment = async (
+  patient_id,
+  patient_name,
+  doctor_name,
+  date_of_appointment
+) => {
+  try {
+    let sql = `INSERT INTO appointment(
+        patient_id,
+        patient_name,
+        doctor_name,
+        date_of_appointment,
+        date_of_appointment_given
+    ) VALUES (
+      '${patient_id}',
+      '${patient_name}',
+      '${doctor_name}',
+      '${date_of_appointment}',
+      CURRENT_TIMESTAMP
+      )`;
+    let [registration] = await mysqlPool.execute(sql);
+    return registration;
+  } catch (error) {
+    console.error("Error occurred while registering patient: ", error);
+  }
+};
+export const GetPatientAppointment = async (doctorName) => {
+  try {
+    const sql =
+      "SELECT * FROM appointment WHERE doctor_name = ? ORDER BY date_of_appointment ASC";
+    const [results] = await mysqlPool.execute(sql, [doctorName]);
+    return results;
+  } catch (error) {
+    console.error("Error in finddeletedUser:", error);
+    throw error;
+  }
+};
+
+export const GetPatientAppointmentByIdAllData = async (id) => {
+  try {
+    const sql =
+      "SELECT id,patient_id, patient_name, doctor_name, date_of_appointment,date_of_appointment_given FROM appointment WHERE id = ?";
+    const [results] = await mysqlPool.execute(sql, [id]);
+    return results;
+  } catch (error) {
+    console.error("Error in GETTING appointment BY ID:", error);
+    throw error;
+  }
+};
+
+export const DeleteAppointment = async (rowsID) => {
+  try {
+    if (rowsID === undefined) {
+      throw new Error("User ID is undefined");
+    }
+
+    const sql = "DELETE FROM appointment WHERE id = ?";
+    const [results] = await mysqlPool.execute(sql, [rowsID]);
+    return results;
+  } catch (error) {
+    console.error("Error in delete app:", error);
+    throw error;
+  }
+};
+
+export const deletedAppointmentRegister = async (
+  patient_id,
+  patient_name,
+  doctor_name,
+  date_of_appointment,
+  reason_of_deletion
+) => {
+  try {
+    let sql = `INSERT INTO deletedappointment(
+          patient_id,
+         patient_name,
+  doctor_name,
+  date_of_appointment,
+  reason_of_deletion,
+        date_of_appointment_deletion
+    ) VALUES (
+      '${patient_id}',
+      '${patient_name}',
+      '${doctor_name}',
+      '${date_of_appointment}',
+      '${reason_of_deletion}',
+      CURRENT_TIMESTAMP
+      )`;
+    let [deletion] = await mysqlPool.execute(sql);
+    return deletion;
+  } catch (error) {
+    console.error("Error occurred while deleting app: ", error);
+  }
+};
+
+export const UpdateAppointment = async (
+  editRowId,
+  date_of_appointment_updated
+) => {
+  try {
+    const sql = "UPDATE appointment SET date_of_appointment = ? WHERE id = ?";
+    const [updated] = await mysqlPool.execute(sql, [
+      date_of_appointment_updated,
+      editRowId,
+    ]);
+    return updated;
+  } catch (error) {
+    console.error("Error occurred while updating app: ", error);
+    throw error;
+  }
+};
+
+export const GetDeletedAppointment = async (doctorName) => {
+  try {
+    const sql =
+      "SELECT * FROM deletedappointment WHERE doctor_name = ? ORDER BY date_of_appointment ASC";
+    const [results] = await mysqlPool.execute(sql, [doctorName]);
+    return results;
+  } catch (error) {
+    console.error("Error in finddeletedUser:", error);
+    throw error;
+  }
+};
+
+export const findAdministratorUser = async (role) => {
+  try {
+    const sql = "SELECT * FROM users WHERE role = ? ";
+    const [userEmail] = await mysqlPool.execute(sql, [role]);
+    return userEmail.length;
+    // if (userEmail.length === 0) {
+    //   return false;
+    // } else {
+    //   return true;
+    // }
+  } catch (error) {
+    console.error("Error occurred in findEmail ", error);
+    throw error;
+  }
+};
+
+export const findNumberOfPatient = async () => {
+  try {
+    const sql = "SELECT * FROM patient";
+    const [userEmail] = await mysqlPool.execute(sql);
+    return userEmail.length;
+  } catch (error) {
+    console.error("Error occurred in findEmail ", error);
+    throw error;
+  }
+};
+
+export const ReturnPatientMedicalHistory = async (name) => {
+  try {
+    const sql = "SELECT medicalhistory FROM patient WHERE name = ? ";
+    const [userEmail] = await mysqlPool.execute(sql, [name]);
+    return userEmail;
+  } catch (error) {
+    console.error("Error occurred in findEmail ", error);
+    throw error;
+  }
+};
+
+export const ReturnPatientAppointmentData = async (name) => {
+  try {
+    const sql =
+      "SELECT doctor_name,date_of_appointment FROM appointment WHERE patient_name = ? ";
+    const [userEmail] = await mysqlPool.execute(sql, [name]);
+    return userEmail;
+  } catch (error) {
+    console.error("Error occurred in findEmail ", error);
     throw error;
   }
 };

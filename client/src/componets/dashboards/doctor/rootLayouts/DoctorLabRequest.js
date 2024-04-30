@@ -23,19 +23,76 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import {
+  usePatientDataFormId,
+  usePatientDataFormName,
+  usePatientDataFormAge,
+  usePatientDataFormGender,
+  usePatientDataFormMedicalHistory,
+} from "../../../../store/store";
 import DoctorRoot from "./DoctorRoot";
 export default function DoctorLabRequest() {
+  const [editorValue, setEditorValue] = useState();
+  const { idForm, setIdForm } = usePatientDataFormId();
+  const { nameForm, setNameForm } = usePatientDataFormName();
+  const { ageForm, setAgeForm } = usePatientDataFormAge();
+  const { genderForm, setGenderForm } = usePatientDataFormGender();
+  const { medicalhistoryForm, setMedicalhistoryForm } =
+    usePatientDataFormMedicalHistory();
   const [userName, setUserName] = React.useState(
     sessionStorage.getItem("username")
   );
   const [emailSession, setEmailSession] = React.useState(
     sessionStorage.getItem("email")
   );
+  const [openPopupFile, setOpenPopupFile] = useState(false);
+  const [openPrescriptionPopUp, setopenPrescriptionPopUp] = useState(false);
+  const [ListPatient, setListPatient] = useState([]);
+  const [ListDrugProperty, setListDrugProperty] = useState([]);
+  const [patientFile, setPatientFile] = useState("");
+  const [LabFile, setLabFile] = useState(nameForm);
+  const [LabPatientSex, setLabPatientSex] = useState(genderForm);
+  const [LabPatientAge, setLabPatientAge] = useState(ageForm);
+  const [drugName, setDrugName] = useState("");
+  const [dosageForm, setDosageForm] = useState("");
+  const [drugDuration, setDrugDuration] = useState("");
+
   React.useEffect(() => {
     setUserName(sessionStorage.getItem("username"));
     setEmailSession(sessionStorage.getItem("email"));
   }, []);
-  const [editorValue, setEditorValue] = useState([]);
+  React.useEffect(() => {
+    const combinedValue = `<p> <b> ID Number </b> - ${idForm} <br/> <b>Name - </b> ${nameForm} <br/> <b>Age - </b> ${ageForm} <br/> <b>Gender - </b> ${genderForm} <br/> <b>Medical History - </b> ${medicalhistoryForm} </p>`;
+    setEditorValue(combinedValue);
+    localStorage.setItem("nameForm", nameForm);
+
+    localStorage.setItem("ageForm", ageForm);
+    localStorage.setItem("genderForm", genderForm);
+  }, [idForm]);
+  React.useEffect(() => {
+    setLabFile(nameForm);
+    setLabPatientSex(genderForm);
+    setLabPatientAge(ageForm);
+  }, [idForm]);
+
+  React.useEffect(() => {
+    const storedValue = localStorage.getItem("editorValueLab");
+    if (storedValue) {
+      setEditorValue(storedValue);
+    }
+    const valueName = localStorage.getItem("nameForm");
+    const valueAge = localStorage.getItem("ageForm");
+    const valueGender = localStorage.getItem("genderForm");
+    if (valueName || valueAge || valueGender) {
+      setLabFile(valueName);
+      setLabPatientSex(valueGender);
+      setLabPatientAge(valueAge);
+    }
+  }, []);
+  const handleEditorChange = (value) => {
+    localStorage.setItem("editorValueLab", value);
+  };
+
   const ref = useRef();
   const [Dates, setDates] = useState("");
   let newDate = new Date();
@@ -47,22 +104,8 @@ export default function DoctorLabRequest() {
     }/${current.getFullYear()}`;
     setDates(date);
   }, []);
-  const [openPopupFile, setOpenPopupFile] = useState(false);
-  const [openPrescriptionPopUp, setopenPrescriptionPopUp] = useState(false);
-  const [ListPatient, setListPatient] = useState([]);
-  const [ListDrugProperty, setListDrugProperty] = useState([]);
-  const [patientFile, setPatientFile] = useState("");
-  const [LabFile, setLabFile] = useState("");
-  const [LabPatientSex, setLabPatientSex] = useState("");
-  const [LabPatientAge, setLabPatientAge] = useState("");
-  const [drugName, setDrugName] = useState("");
-  const [dosageForm, setDosageForm] = useState("");
-  const [drugDuration, setDrugDuration] = useState("");
+
   const addDataFile = () => {
-    // ListPatient.push({
-    //   patientname: patientFile,
-    // });
-    // setPatientFile("");
     setOpenPopupFile(false);
   };
   const addDrugFile = () => {
@@ -115,6 +158,7 @@ export default function DoctorLabRequest() {
     document.getElementById("doctorLabRequestContent");
 
   const downloadPdf = () => generatePDF(getTargetElement, options);
+
   return (
     <div>
       <DoctorRoot
@@ -122,6 +166,15 @@ export default function DoctorLabRequest() {
           <div className="doctorLabRequestDashboardSecondCard">
             <section className="doctorLabRequestMainContainerSection">
               <div className="doctorLabRequestContainer">
+                <h1
+                  style={{
+                    textAlign: "center",
+                    marginBottom: "12px",
+                    marginTop: "12px",
+                  }}
+                >
+                  Labratory Request Manager{" "}
+                </h1>
                 <div
                   style={{
                     display: "flex",
@@ -322,8 +375,9 @@ export default function DoctorLabRequest() {
                 <ReactQuill
                   theme="snow"
                   value={editorValue}
-                  onChange={setEditorValue}
                   className="doctorLabRequestEditor"
+                  onChange={handleEditorChange}
+                  readOnly={true}
                 />
                 ;
               </section>
@@ -354,6 +408,7 @@ export default function DoctorLabRequest() {
                       type="text"
                       value={LabFile}
                       onChange={(e) => setLabFile(e.target.value)}
+                      // onChange={handleDataChange}
                       placeholder="Patient Names"
                     />
                   </div>
@@ -366,6 +421,7 @@ export default function DoctorLabRequest() {
                       id="demo-simple-select"
                       value={LabPatientSex}
                       onChange={(e) => setLabPatientSex(e.target.value)}
+                      // onChange={handleDataChange}
                       label="Choose Gender"
                       placeholder="Choose Gender"
                     >
@@ -381,6 +437,7 @@ export default function DoctorLabRequest() {
                       fullWidth
                       value={LabPatientAge}
                       onChange={(e) => setLabPatientAge(e.target.value)}
+                      // onChange={handleDataChange}
                       placeholder="Patient Age"
                     />
                   </div>
@@ -421,6 +478,7 @@ export default function DoctorLabRequest() {
                     <TextField
                       autoFocus
                       fullWidth
+                      required
                       type="text"
                       value={drugName}
                       onChange={(e) => setDrugName(e.target.value)}
@@ -432,6 +490,7 @@ export default function DoctorLabRequest() {
                     <TextField
                       type="text"
                       fullWidth
+                      required
                       value={dosageForm}
                       onChange={(e) => setDosageForm(e.target.value)}
                       placeholder="Dosage Form"
@@ -442,6 +501,7 @@ export default function DoctorLabRequest() {
                     <TextField
                       type="text"
                       fullWidth
+                      required
                       value={drugDuration}
                       onChange={(e) => setDrugDuration(e.target.value)}
                       placeholder="Drug Duration"

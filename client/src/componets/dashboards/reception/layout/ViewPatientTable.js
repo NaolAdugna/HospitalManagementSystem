@@ -14,8 +14,10 @@ export default function ViewPatientTable() {
     try {
       const response = await axios.get("/api/view-patient");
       setRows(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.error("error fetching Patient User Data", error);
+      setIsLoading(false);
     }
   };
 

@@ -18,6 +18,7 @@ import { useFormik } from "formik";
 import { verifyPassword } from "../../functions/checker";
 
 import { usernameValidate } from "../../functions/validate";
+
 export default function LoginUser() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +52,7 @@ export default function LoginUser() {
 
       loginPromise
         .then(async (res) => {
+          localStorage.setItem("user", JSON.stringify(res.data));
           let {
             token,
             roles,

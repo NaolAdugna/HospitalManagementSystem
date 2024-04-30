@@ -27,7 +27,7 @@ root {
   border-radius: 10px;
   grid-area: labDashboardSecondCard;
 }
-.labDashboardNavBarContainer {
+/* .labDashboardNavBarContainer {
   padding: 10px;
   display: flex;
   align-items: center;
@@ -55,6 +55,27 @@ root {
 .labLogOutButton:hover {
   cursor: pointer;
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+} */
+
+.labDashboardContainer {
+  width: 65%;
+
+  margin: auto;
+}
+.labDashboardHeader {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
+.labDashboardContent {
+  width: 75%;
+  margin: auto;
+  padding: 13px;
+  border: 0.8px solid rgb(6, 42, 74);
+}
+.addNewFileButton:hover {
+  cursor: pointer;
 }
 
 @media (max-width: 320px) {

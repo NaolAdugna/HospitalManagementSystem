@@ -326,3 +326,41 @@ export async function resetPatientPassword({ name, password }) {
     return Promise.reject({ error });
   }
 }
+
+export async function registerAppointment(credentials) {
+  try {
+    const {
+      data: { msg },
+      status,
+    } = await axios.post("/api/create-appointment", credentials);
+
+    return Promise.resolve(msg);
+  } catch (error) {
+    if (error.response) {
+      return Promise.reject(error.response.data.error);
+    } else if (error.request) {
+      return Promise.reject("No response received from server");
+    } else {
+      return Promise.reject("Error while sending request");
+    }
+  }
+}
+
+export async function DeleteAppointment(credentials) {
+  try {
+    const {
+      data: { msg },
+      status,
+    } = await axios.post("/api/delete-appointment", credentials);
+
+    return Promise.resolve(msg);
+  } catch (error) {
+    if (error.response) {
+      return Promise.reject(error.response.data.error);
+    } else if (error.request) {
+      return Promise.reject("No response received from server");
+    } else {
+      return Promise.reject("Error while sending request");
+    }
+  }
+}

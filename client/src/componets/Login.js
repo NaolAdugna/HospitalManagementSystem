@@ -17,7 +17,7 @@ export default function Login() {
         </button>
         <button className="buttonForLogin">
           <NavLink
-            to="/lgoin-patient"
+            to="/login-patient"
             style={{ color: "white", textDecoration: "none" }}
           >
             Login For Patient{" "}

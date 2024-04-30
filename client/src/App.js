@@ -43,6 +43,7 @@ import LoginUser from "./componets/dashboards/LoginUser";
 // dashboards
 import LabOverView from "./componets/dashboards/labTechnician/layout/LabOverView";
 import LabChat from "./componets/dashboards/labTechnician/layout/LabChat";
+import LabReport from "./componets/dashboards/labTechnician/layout/LabReport";
 import PatientOverView from "./componets/dashboards/patient/layout/PatientOverView";
 import PharmacyOverView from "./componets/dashboards/pharmacist/layout/PharmacyOverView";
 import PharmacyChat from "./componets/dashboards/pharmacist/layout/PharmacyChat";
@@ -55,6 +56,8 @@ import DoctorViewPatient from "./componets/dashboards/doctor/rootLayouts/DoctorV
 import DoctorRoot from "./componets/dashboards/doctor/rootLayouts/DoctorRoot";
 import DoctorPrescription from "./componets/dashboards/doctor/rootLayouts/DoctorPrescription";
 import DoctorLabRequest from "./componets/dashboards/doctor/rootLayouts/DoctorLabRequest";
+import DoctorAppointment from "./componets/dashboards/doctor/rootLayouts/DoctorAppointment";
+import DoctorViewDeletedAppointment from "./componets/dashboards/doctor/rootLayouts/DoctorViewDeletedAppointment";
 
 // root routers
 const router = createBrowserRouter([
@@ -262,6 +265,24 @@ const router = createBrowserRouter([
       </DoctorAuthorize>
     ),
   },
+  {
+    path: "/doctor-appointment",
+    element: (
+      <DoctorAuthorize>
+        {" "}
+        <DoctorAppointment />
+      </DoctorAuthorize>
+    ),
+  },
+  {
+    path: "/doctor-deleted-appointment",
+    element: (
+      <DoctorAuthorize>
+        {" "}
+        <DoctorViewDeletedAppointment />
+      </DoctorAuthorize>
+    ),
+  },
 
   {
     path: "/reception-view-patient",
@@ -323,6 +344,15 @@ const router = createBrowserRouter([
       <LabAuthorize>
         {" "}
         <LabOverView />
+      </LabAuthorize>
+    ),
+  },
+  {
+    path: "/labratory-report",
+    element: (
+      <LabAuthorize>
+        {" "}
+        <LabReport />
       </LabAuthorize>
     ),
   },

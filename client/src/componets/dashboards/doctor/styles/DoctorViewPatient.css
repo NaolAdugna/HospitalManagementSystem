@@ -19,3 +19,50 @@ root {
 .rowss {
   color: red;
 }
+
+.doctorEditButton {
+  padding: 8px;
+  border: none;
+  font-size: 15px;
+  background-color: rgba(52, 152, 219, 0.87);
+  color: var(--navBarBg);
+  gap: 10px;
+  margin-right: 5px;
+  transition: 300ms all;
+}
+.doctorEditButton:hover {
+  cursor: pointer;
+  background-color: rgb(9, 142, 231);
+}
+
+.doctorPrescriptionButton {
+  padding: 8px;
+  border: none;
+  font-size: 15px;
+  background-color: rgba(0, 100, 0, 0.87);
+  color: var(--navBarBg);
+  gap: 10px;
+  margin-right: 5px;
+  text-decoration: none;
+  transition: 300ms all;
+}
+.doctorPrescriptionButton:hover {
+  cursor: pointer;
+  background-color: rgb(0, 100, 0);
+}
+
+.doctorLabButton {
+  padding: 8px;
+  border: none;
+  font-size: 15px;
+  background-color: rgba(255, 0, 0, 0.77);
+  color: var(--navBarBg);
+  gap: 10px;
+  text-decoration: none;
+  margin-right: 5px;
+  transition: 300ms all;
+}
+.doctorLabButton:hover {
+  cursor: pointer;
+  background-color: rgb(255, 0, 0);
+}

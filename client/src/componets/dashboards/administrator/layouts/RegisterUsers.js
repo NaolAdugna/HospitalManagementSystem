@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../styles/RegisterUser.css";
 // import SideBarData from "./Data";
 
@@ -24,10 +24,13 @@ import { useNavigate } from "react-router-dom";
 
 import AdminRoot from "./AdminRoot";
 
+// chat
+import { AuthContext } from "../../../../context/context";
 export default function RegisterUsers() {
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const navigate = useNavigate();
 
   const togglePasswordVisisbility = () => {
     setIsOpen(!isOpen);

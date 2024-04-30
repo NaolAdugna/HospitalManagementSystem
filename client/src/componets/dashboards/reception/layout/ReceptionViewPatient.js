@@ -29,8 +29,12 @@ import { registerPatient } from "../../../../functions/checker";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+import { usePatientData } from "../../../../store/store";
+
 export default function ReceptionViewPatient() {
-  const [editorValue, setEditorValue] = React.useState([]);
+  const emptyFile = "Empty File";
+  const { datavalue, setDataValue } = usePatientData();
+  const [textEditorValue, settextEditorValue] = React.useState(datavalue);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [openRegistration, setOpenRegistration] = React.useState(false);
@@ -43,6 +47,18 @@ export default function ReceptionViewPatient() {
 
   const handleCloseRegistration = () => {
     setOpenRegistration(false);
+  };
+  React.useEffect(() => {
+    const storedValue = localStorage.getItem("textEditorValue");
+    if (storedValue) {
+      settextEditorValue(storedValue);
+      setDataValue(storedValue);
+    }
+  }, []);
+  const handleEditorChange = (value) => {
+    settextEditorValue(value); // Update local state
+    setDataValue(value); // Update store value
+    localStorage.setItem("textEditorValue", value);
   };
 
   return (
@@ -123,9 +139,6 @@ export default function ReceptionViewPatient() {
                       variant="standard"
                     />
 
-                    {/* <InputLabel htmlFor="standard-adornment-password" >
-                    Password
-                  </InputLabel> */}
                     <Input
                       fullWidth
                       required
@@ -191,6 +204,14 @@ export default function ReceptionViewPatient() {
                       disabled
                       fullWidth
                       margin="dense"
+                      value={emptyFile}
+                      name="medicalhistory"
+                    />
+
+                    <input
+                      type="hidden"
+                      name="medicalhistory"
+                      value={emptyFile}
                     />
                   </DialogContent>
                   <DialogActions>
@@ -207,8 +228,8 @@ export default function ReceptionViewPatient() {
               <section className="receptionViewEditorContainer">
                 <ReactQuill
                   theme="snow"
-                  value={editorValue}
-                  onChange={setEditorValue}
+                  value={textEditorValue}
+                  onChange={handleEditorChange}
                   className="receptionEditor"
                 />
                 ;

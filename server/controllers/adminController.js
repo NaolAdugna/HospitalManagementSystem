@@ -33,6 +33,24 @@ import {
   SaveMarkedAttendance,
   DidUserMarkedAttendance,
   GetAttendanceUsers,
+  GetPatientById,
+  UpdatePatient,
+  GetPatientByIdAllData,
+  findPatientAppointment,
+  registerPatientAppointment,
+  GetPatientAppointment,
+  GetPatientAppointmentByIdAllData,
+  DeleteAppointment,
+  deletedAppointmentRegister,
+  UpdateAppointment,
+  GetDeletedAppointment,
+  findAdministratorUser,
+  findNumberOfPatient,
+  ReturnPatientMedicalHistory,
+  // ReturnPatientAppointment,
+  ReturnPatientAppointmentData,
+  SaveAfternoonMarkedAttendance,
+  DidUserAfternoonMarkedAttendance,
 } from "../modelSchema/UserCreation.model.js";
 
 import axios from "axios"; // Import axios library if not already imported
@@ -140,7 +158,7 @@ export async function loginUser(req, res) {
       const r = await axios.put(
         "https://api.chatengine.io/users/",
         { username: username, secret: password, first_name: username },
-        { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+        { headers: { "Private-Key": ENV.Private_Key } }
       );
 
       const token = jwt.sign(
@@ -247,11 +265,11 @@ export async function DeleteUser(req, res) {
       const r = await axios.put(
         `https://api.chatengine.io/users/`,
         { username: username, secret: "reception", first_name: username },
-        { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+        { headers: { "Private-Key": ENV.Private_Key } }
       );
       const user_id = r.data.id;
       await axios.delete(`https://api.chatengine.io/users/${user_id}/`, {
-        headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" },
+        headers: { "Private-Key": ENV.Private_Key },
       });
     } catch (error) {
       console.error(error);
@@ -320,32 +338,7 @@ export async function UpdateUser(req, res) {
     );
 
     console.log("user is updated ");
-    // try {
-    //   const r = await axios.put(
-    //     `https://api.chatengine.io/users/`,
-    //     {
-    //       username: usernameValue,
-    //       secret: "reception13",
-    //       first_name: usernameValue,
-    //     },
-    //     { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
-    //   );
-    //   console.log("user data is ", r.data);
-    //   const user_id = r.data.id;
-    //   console.log("user id is ", user_id);
-    //   await axios.patch(
-    //     `https://api.chatengine.io/users/${user_id}/`,
-    //     {
-    //       username: username,
-    //       secret: password,
-    //       first_name: username,
-    //     },
-    //     { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
-    //   );
-    //   console.log("User updated successfully in ChatEngine.io");
-    // } catch (error) {
-    //   console.error(error);
-    // }
+
     return res.status(200).send(users);
   } catch (error) {
     console.error("Error occurred during Update user", error);
@@ -582,7 +575,7 @@ export async function ReturnContactUsMessage(req, res) {
 export async function registerPatientController(req, res) {
   try {
     const { name, password, age, gender, email, medicalhistory } = req.body;
-
+    // const medicalhistory = "Empty File";
     const existingname = await findPatient(name);
 
     if (existingname) {
@@ -774,7 +767,7 @@ export async function UpdateUserProfileController(req, res) {
           secret: chatpassword,
           first_name: usernameValues,
         },
-        { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+        { headers: { "Private-Key": ENV.Private_Key } }
       );
 
       const user_id = r.data.id; // Obtain the user ID from the response
@@ -787,7 +780,7 @@ export async function UpdateUserProfileController(req, res) {
           secret: chatpassword,
           first_name: Name,
         },
-        { headers: { "Private-Key": "8b2d4084-a986-4011-b513-0cd5b692c99d" } }
+        { headers: { "Private-Key": ENV.Private_Key } }
       );
 
       console.log("User updated successfully in ChatEngine.io");
@@ -826,12 +819,31 @@ export async function UpdatePatientProfileController(req, res) {
 
 export async function MarkAttendance(req, res) {
   try {
-    const { UserName, id, Status } = req.body;
+    const { UserName, id, Morning_Status, Afternoon_Status } = req.body;
 
-    await SaveMarkedAttendance(UserName, id, Status);
+    await SaveMarkedAttendance(UserName, id, Morning_Status, Afternoon_Status);
 
     return res.status(201).send({ msg: "Attendance Marked Successfully" });
   } catch (error) {
+    return res.status(500).send({ error: "Internal server error", error });
+  }
+}
+
+export async function MarkAfternoonAttendance(req, res) {
+  try {
+    const id = req.params.id;
+    const { Afternoon_Status2 } = req.body;
+
+    // Wait for the attendance to be marked
+    await SaveAfternoonMarkedAttendance(id, Afternoon_Status2);
+
+    // Send the response after the attendance is successfully marked
+    return res
+      .status(201)
+      .send({ msg: "Afternoon Attendance Marked Successfully" });
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error("Error occurred while marking afternoon attendance: ", error);
     return res.status(500).send({ error: "Internal server error", error });
   }
 }
@@ -846,6 +858,21 @@ export async function DidUserMarkedAttendanceController(req, res) {
   }
 }
 
+export async function DidUserMarkedAfternoonAttendanceController(req, res) {
+  try {
+    const id = req.params.id; // Retrieve id from query parameters
+    const value = await DidUserAfternoonMarkedAttendance(id);
+    // console.log("value is ", value[0].afternoon_status);
+    if (value[0].afternoon_status === "absent") {
+      return res.status(200).send(true);
+    } else {
+      return res.status(200).send(false);
+    }
+  } catch (error) {
+    return res.status(500).send({ error: "internal server error", error });
+  }
+}
+
 export async function ReturnFetchAttendance(req, res) {
   try {
     const users = await GetAttendanceUsers();
@@ -855,5 +882,248 @@ export async function ReturnFetchAttendance(req, res) {
     return res
       .status(500)
       .send({ error: "an error occured while getting Attendance user" });
+  }
+}
+
+export async function GetPatientByIdController(req, res) {
+  try {
+    const id = req.params.id;
+    const users = await GetPatientById(id);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occurred during getting patient", error);
+    return res
+      .status(500)
+      .send({ error: "an error occurred while getting patient" });
+  }
+}
+export async function GetPatientByIdAllDataController(req, res) {
+  try {
+    const id = req.params.id;
+    const users = await GetPatientByIdAllData(id);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occurred during getting patient", error);
+    return res
+      .status(500)
+      .send({ error: "an error occurred while getting patient" });
+  }
+}
+
+export async function UpdatePatientController(req, res) {
+  try {
+    // const id = req.params.id;
+
+    const { medicalhistory, id } = req.body;
+    const users = await UpdatePatient(id, medicalhistory);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("Error occurred during Update user", error);
+    return res
+      .status(500)
+      .send({ error: "An error occurred while updating user" });
+  }
+}
+
+export async function registerAppointmentController(req, res) {
+  try {
+    const { patient_id, patient_name, doctor_name, date_of_appointment } =
+      req.body;
+    // const existingname = await findPatientAppointment(
+    //   patient_name,
+    //   date_of_appointment
+    // );
+
+    // if (existingname) {
+    //   return res
+    //     .status(400)
+    //     .send({ error: "Appointment Exists. Please use a unique Appointment" });
+    // }
+    await registerPatientAppointment(
+      patient_id,
+      patient_name,
+      doctor_name,
+      date_of_appointment
+    );
+    return res.status(201).send({ msg: "Appointment registration successful" });
+  } catch (error) {
+    return res.status(500).send({ error: "Internal server error", error });
+  }
+}
+
+export async function ReturnPatientAppointment(req, res) {
+  try {
+    const doctorName = req.query.doctorName;
+    const users = await GetPatientAppointment(doctorName);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occured during get Patient user", error);
+    return res
+      .status(500)
+      .send({ error: "an error occured while getting Patient user" });
+  }
+}
+
+export async function GetPatientAppointmentByIdController(req, res) {
+  try {
+    const id = req.params.id;
+    const users = await GetPatientAppointmentByIdAllData(id);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occurred during getting patient", error);
+    return res
+      .status(500)
+      .send({ error: "an error occurred while getting patient" });
+  }
+}
+
+export async function DeleteAppointmentController(req, res) {
+  try {
+    const rowsID = req.params.rowsID;
+
+    const users = await DeleteAppointment(rowsID);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("An error occurred during delete user:", error.message);
+    if (error.response) {
+      console.error("Response status:", error.response.status);
+      console.error("Response data:", error.response.data);
+    }
+    return res
+      .status(500)
+      .send({ error: "An error occurred while deleting user" });
+  }
+}
+
+export async function deleteAppointmentRegisterController(req, res) {
+  try {
+    const {
+      patient_id,
+      patient_name,
+      doctor_name,
+      date_of_appointment,
+      reason_of_deletion,
+    } = req.body;
+    await deletedAppointmentRegister(
+      patient_id,
+      patient_name,
+      doctor_name,
+      date_of_appointment,
+      reason_of_deletion
+    );
+    return res
+      .status(201)
+      .send({ msg: "Appointment Deleted Registered successful" });
+  } catch (error) {
+    return res.status(500).send({ error: "Internal server error", error });
+  }
+}
+export async function UpdateAppointmentController(req, res) {
+  try {
+    const editRowId = req.params.editRowId; // Corrected from req.params.rowsID
+    console.log("row is  ", editRowId);
+
+    const { date_of_appointment_updated } = req.body;
+    const users = await UpdateAppointment(
+      editRowId,
+      date_of_appointment_updated
+    );
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("Error occurred during Update app", error);
+    return res
+      .status(500)
+      .send({ error: "An error occurred while updating app" });
+  }
+}
+
+export async function ReturnDeletedAppointment(req, res) {
+  try {
+    const doctorName = req.query.doctorName;
+    const users = await GetDeletedAppointment(doctorName);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occured during get Patient user", error);
+    return res
+      .status(500)
+      .send({ error: "an error occured while getting Patient user" });
+  }
+}
+
+export async function ReturnAdmininstrationUserController(req, res) {
+  try {
+    const role = req.params.role;
+    const user = await findAdministratorUser(role);
+    return res.status(200).send(`${user}`);
+  } catch (error) {
+    console.error("error occured is ", error);
+  }
+}
+
+export async function ReturnPatientUserController(req, res) {
+  try {
+    const user = await findNumberOfPatient();
+    return res.status(200).send(`${user}`);
+  } catch (error) {
+    console.error("error occured is ", error);
+  }
+}
+
+// export async function ReturnPatientMedicalHistoryController(req, res) {
+//   try {
+//     const name = req.params.name;
+//     const medicalhistory = await ReturnPatientMedicalHistory(name);
+//     return res.status(200).send(`${medicalhistory}`);
+//   } catch (error) {
+//     console.log("error is ", error);
+//   }
+// }
+
+export async function ReturnPatientMedicalHistoryController(req, res) {
+  try {
+    const name = req.params.name;
+
+    // Await the asynchronous function call here
+    const medicalHistoryResult = await ReturnPatientMedicalHistory(name);
+
+    // Check if any result is returned
+    if (medicalHistoryResult.length > 0) {
+      // Extract the medicalhistory value from the first object in the array
+      const medicalhistory = medicalHistoryResult[0].medicalhistory;
+
+      return res.status(200).send(`${medicalhistory}`);
+    } else {
+      // Handle case when no medical history is found for the patient
+      return res.status(404).send("No medical history found for the patient");
+    }
+  } catch (error) {
+    console.log("error is ", error);
+    return res.status(500).send("Internal server error");
+  }
+}
+
+export async function ReturnPatientAppointmentDataController(req, res) {
+  try {
+    const name = req.params.name;
+
+    // Await the asynchronous function call here
+    const medicalHistoryResult = await ReturnPatientAppointmentData(name);
+
+    // Check if any result is returned
+    if (medicalHistoryResult.length > 0) {
+      // Extract the medicalhistory value from the first object in the array
+      const DoctorName = medicalHistoryResult[0].doctor_name;
+      const DateOfAppointment = medicalHistoryResult[0].date_of_appointment;
+      return res.status(200).json({ DoctorName, DateOfAppointment });
+      // return res.status(200).send(`${DoctorName} ${DateOfAppointment}`);
+    } else {
+      // Handle case when no medical history is found for the patient
+      return res
+        .status(404)
+        .send(`No Appointment found for the patient ${name}`);
+    }
+  } catch (error) {
+    console.log("error is ", error);
+    return res.status(500).send("Internal server error");
   }
 }

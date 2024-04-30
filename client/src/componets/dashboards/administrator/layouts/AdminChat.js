@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../styles/AdminChat.css";
 
 // Fontawesome family
@@ -45,6 +45,9 @@ import {
 import CoPresentRoundedIcon from "@mui/icons-material/CoPresentRounded";
 import moment from "moment";
 import CountdownTimer from "../../reception/layout/CountdownTimer";
+// chat
+import ENV from "../../../config";
+import { AuthContext } from "../../../../context/context";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
@@ -68,8 +71,14 @@ export default function AdminChat() {
   };
 
   const [openAttendance, setOpenAttendance] = useState(false);
+  const [openAfternoonAttendance, setOpenAfternoonAttendance] = useState(false);
   const [attendanceMarked, setAttendanceMarked] = useState(false);
-  const status = "present";
+  const [afternoonAttendanceMarked, setAfternoonAttendanceMarked] =
+    useState(false);
+  const morning_status = "present";
+  const afternon_status = "absent";
+  const morning_status2 = "present";
+  const afternon_status2 = "present";
   useEffect(() => {
     axios
       .get(`/api/user-marked-attendance`, {
@@ -85,11 +94,29 @@ export default function AdminChat() {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`/api/user-marked-afternoon-attendance/${idProfile}`)
+      .then((response) => {
+        setAfternoonAttendanceMarked(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching attendance status:", error);
+      });
+  }, [afternoonAttendanceMarked]);
+
   const handleCloseAttendance = () => {
     setOpenAttendance(false);
   };
   const handleOpenAttendance = () => {
     setOpenAttendance(true);
+  };
+
+  const handleCloseAfternoonAttendance = () => {
+    setOpenAfternoonAttendance(false);
+  };
+  const handleOpenAfternoonAttendance = () => {
+    setOpenAfternoonAttendance(true);
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -240,7 +267,7 @@ export default function AdminChat() {
     </Box>
   );
   const chatProps = useMultiChatLogic(
-    "d2e9312c-a726-4848-b9fb-6e8e1712395f",
+    ENV.Private_Key,
     `${userName}`,
     `${secret}`
   );
@@ -302,6 +329,32 @@ export default function AdminChat() {
               ) : (
                 <div></div>
               )}
+              {isAttendanceTime() && afternoonAttendanceMarked ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <CountdownTimer endTime={endTimes} />
+                  <Button
+                    variant="outlined"
+                    onClick={handleOpenAfternoonAttendance}
+                    endIcon={<CoPresentRoundedIcon />}
+                    style={{
+                      background: "#14ac5f",
+                      border: "none",
+                      color: "white",
+                      marginRight: "11px",
+                    }}
+                  >
+                    Afternon Attendance
+                  </Button>
+                </div>
+              ) : (
+                <div></div>
+              )}
               <Dialog
                 open={openAttendance}
                 onClose={handleCloseAttendance}
@@ -314,10 +367,13 @@ export default function AdminChat() {
                     let AttendancePromise = axios.post(`/api/user-attendance`, {
                       id: formJson.id,
                       UserName: formJson.username,
-                      Status: formJson.status,
+                      Morning_Status: formJson.morning_status,
+                      Afternoon_Status: formJson.afternoon_status,
                     });
                     AttendancePromise.then(() => {
-                      toast.success("Attendance Marked Present successfully");
+                      toast.success(
+                        "Morning Attendance Marked Present successfully"
+                      );
                       window.location.reload();
                     }).catch((error) => {
                       console.error("Could not mark present profile:", error);
@@ -327,7 +383,7 @@ export default function AdminChat() {
                   },
                 }}
               >
-                <DialogTitle> Today Attendance</DialogTitle>
+                <DialogTitle> Today Morning Attendance</DialogTitle>
                 <DialogContent>
                   <DialogContentText style={{ color: "black" }}>
                     Please mark your attendance to ensure accurate records of
@@ -337,7 +393,16 @@ export default function AdminChat() {
                 <DialogActions>
                   <input type="hidden" name="id" value={idProfile} />
                   <input type="hidden" name="username" value={userName} />
-                  <input type="hidden" name="status" value={status} />
+                  <input
+                    type="hidden"
+                    name="morning_status"
+                    value={morning_status}
+                  />
+                  <input
+                    type="hidden"
+                    name="afternoon_status"
+                    value={afternon_status}
+                  />
                   <Button
                     onClick={handleCloseAttendance}
                     style={{ color: "white", background: "gray" }}
@@ -353,6 +418,71 @@ export default function AdminChat() {
                 </DialogActions>
               </Dialog>
               {/* Attendance End */}
+
+              {/* AFTERNOON ATTANDANCE STARTS */}
+              <Dialog
+                open={openAfternoonAttendance}
+                onClose={handleCloseAfternoonAttendance}
+                PaperProps={{
+                  component: "form",
+                  onSubmit: (event) => {
+                    event.preventDefault();
+                    const formData = new FormData(event.currentTarget);
+                    const formJson = Object.fromEntries(formData.entries());
+                    let AttendancePromise = axios.put(
+                      `/api/user-afternoon-attendance`,
+                      {
+                        id: formJson.id,
+
+                        Afternoon_Status2: formJson.afternoon_status2,
+                      }
+                    );
+                    AttendancePromise.then(() => {
+                      toast.success("Attendance Marked Present successfully");
+                      window.location.reload();
+                    }).catch((error) => {
+                      console.error("Could not mark present profile:", error);
+                      toast.error("Failed to mark present");
+                    });
+                    handleCloseAfternoonAttendance();
+                  },
+                }}
+              >
+                <DialogTitle> Today Afternon Attendance</DialogTitle>
+                <DialogContent>
+                  <DialogContentText style={{ color: "black" }}>
+                    Please mark your attendance to ensure accurate records of
+                    your presence.!
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <input type="hidden" name="id" value={idProfile} />
+                  <input type="hidden" name="username" value={userName} />
+                  <input
+                    type="hidden"
+                    name="morning_status2"
+                    value={morning_status2}
+                  />
+                  <input
+                    type="hidden"
+                    name="afternoon_status2"
+                    value={afternon_status2}
+                  />
+                  <Button
+                    onClick={handleCloseAfternoonAttendance}
+                    style={{ color: "white", background: "gray" }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    style={{ color: "white", background: "#14ac5f" }}
+                  >
+                    Present
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              {/* AFTERNOON ATTANDANCE Ends */}
 
               <Menu
                 id="basic-menu"
@@ -496,15 +626,6 @@ export default function AdminChat() {
           <div>
             <MultiChatWindow {...chatProps} style={{ height: "90vh" }} />
             <MultiChatSocket {...chatProps} style={{ height: "90vh" }} />
-            {/* const chatProps = useMultiChatLogic(
-            "d2e9312c-a726-4848-b9fb-6e8e1712395f", `${userName}`, `${secret}`
-            ); */}
-            {/* <PrettyChatWindow
-              projectId="d2e9312c-a726-4848-b9fb-6e8e1712395f"
-              username={userName}
-              secret={secret}
-              style={{ height: "100vh" }}
-            /> */}
           </div>
         </div>
       </main>

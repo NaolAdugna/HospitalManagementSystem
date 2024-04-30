@@ -145,9 +145,81 @@ router
 
 // User Mark Attendance
 router.route("/user-attendance").post(adminController.MarkAttendance);
+
+// User Mark Attendance
+router
+  .route("/user-afternoon-attendance/:id")
+  .put(adminController.MarkAfternoonAttendance);
 router
   .route("/user-marked-attendance")
   .get(adminController.DidUserMarkedAttendanceController);
+router
+  .route("/user-marked-afternoon-attendance/:id")
+  .get(adminController.DidUserMarkedAfternoonAttendanceController);
 
 router.route("/fetch-attendance").get(adminController.ReturnFetchAttendance);
+
+router.route("/view-patient/:id").get(adminController.GetPatientByIdController);
+router
+  .route("/get-patient/:id")
+  .get(adminController.GetPatientByIdAllDataController);
+router
+  .route("/update-patient/:id")
+  .put(adminController.UpdatePatientController);
+// router for chat
+// router
+//   .route("/chat")
+//   .post(adminController.getChat)
+//   .get(adminController.getChats);
+// router.route("/createGroup").post(adminController.createGroup);
+// router.route("/renameGroup").patch(adminController.renameGroup);
+// router.route("/removeFromGroup").patch(adminController.removeFromGroup);
+// router.route("/addUserToGroup").patch(adminController.addUserToGroup);
+
+// // router for message
+
+// router.route("/:chatId").get(adminController.allMessages);
+// router.route("/message").post(adminController.sendMessage);
+
+// Register appointment
+router
+  .route("/create-appointment")
+  .post(adminController.registerAppointmentController);
+
+router.route("/view-appointment").get(adminController.ReturnPatientAppointment);
+router
+  .route("/get-appointment/:id")
+  .get(adminController.GetPatientAppointmentByIdController);
+
+router
+  .route("/delete-appointment/:rowsID")
+  .delete(adminController.DeleteAppointmentController);
+
+router
+  .route("/delete-appointment-register/:rowsID")
+  .post(adminController.deleteAppointmentRegisterController);
+
+router
+  .route("/update-appointment/:editRowId")
+  .put(adminController.UpdateAppointmentController);
+
+router
+  .route("/view-deleted-appointment")
+  .get(adminController.ReturnDeletedAppointment);
+
+router
+  .route("/number-of-admin/:role")
+  .get(adminController.ReturnAdmininstrationUserController);
+
+router
+  .route("/number-of-patient/")
+  .get(adminController.ReturnPatientUserController);
+
+router
+  .route("/patient-medical-history/:name")
+  .get(adminController.ReturnPatientMedicalHistoryController);
+
+router
+  .route("/patient-appointment/:name")
+  .get(adminController.ReturnPatientAppointmentDataController);
 export default router;

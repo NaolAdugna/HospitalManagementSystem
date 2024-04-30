@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../styles/PatientOverView.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -29,10 +29,109 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Slide from "@mui/material/Slide";
 
+import ReactPrint from "react-to-print";
+import QRCode from "react-qr-code";
+import { Close } from "@mui/icons-material";
+import ReactWaterMark from "react-watermark-component";
+import PrintOutlinedIcon from "@mui/icons-material/PrintOutlined";
+import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
+import AddIcon from "@mui/icons-material/Add";
+import generatePDF, { Resolution, Margin } from "react-to-pdf";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 export default function PatientOverView() {
+  const [Dates, setDates] = useState("");
+  const [Day, setDay] = useState("");
+  let newDate = new Date();
+  let date = newDate.getDate();
+  useEffect(() => {
+    const current = new Date();
+    const date = `${current.getDate()}/${
+      current.getMonth() + 1
+    }/${current.getFullYear()}`;
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const day = `${current.getDay()}`;
+    const dayOfWeekName = daysOfWeek[day];
+    setDates(date);
+    setDay(dayOfWeekName);
+  }, []);
+
+  const ref = useRef();
+
+  const [userName, setUserName] = React.useState(
+    sessionStorage.getItem("name")
+  );
+  const [emailSession, setEmailSession] = React.useState(
+    sessionStorage.getItem("email")
+  );
+  React.useEffect(() => {
+    setUserName(sessionStorage.getItem("username"));
+    setEmailSession(sessionStorage.getItem("email"));
+  }, []);
+  const text = "GebreTsadik ";
+  const optionWaterMark = {
+    chunkWidth: 200,
+    chunkHeight: 80,
+    textAlign: "center",
+    textBaseline: "bottom",
+    globalAlpha: 0.3,
+    font: "bold 19px Arial",
+    rotateAngle: -26,
+    fillStyle: "rgba(0, 0, 0, 0.6)",
+  };
+  const options = {
+    filename: `On ${userName} Medical Files on from GebreTsadik Shawo General Shawo Hospital on ${Dates}.pdf`,
+    method: "save",
+
+    resolution: Resolution.EXTREME,
+    page: {
+      margin: Margin.SMALL,
+      format: "letter",
+      orientation: "landscape",
+    },
+    canvas: {
+      mimeType: "image/jpeg",
+      qualityRatio: 1,
+    },
+    overrides: {
+      pdf: {
+        compress: true,
+      },
+      canvas: {
+        useCORS: true,
+      },
+    },
+  };
+  const getTargetElement = () =>
+    document.getElementById("patientMedicalRecordContent");
+
+  const downloadPdf = () => generatePDF(getTargetElement, options);
+  const [rows, setRows] = useState("");
+
+  useEffect(() => {
+    fetchPatientData();
+  }, [userName]);
+
+  const fetchPatientData = async () => {
+    try {
+      const response = await axios.get(
+        `/api/patient-medical-history/${userName}`
+      );
+      setRows(response.data);
+    } catch (error) {
+      console.error("error fetching fetch PATIENT Data User Data", error);
+    }
+  };
+
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -48,12 +147,6 @@ export default function PatientOverView() {
   const [openEditProfile, setOpenEditProfile] = React.useState(false);
   const [openProfileRecord, setOpenProfileRecord] = React.useState(false);
 
-  const [userName, setUserName] = React.useState(
-    sessionStorage.getItem("name")
-  );
-  const [emailSession, setEmailSession] = React.useState(
-    sessionStorage.getItem("email")
-  );
   const [ageSession, setAgeSession] = React.useState(
     sessionStorage.getItem("age")
   );
@@ -119,12 +212,14 @@ export default function PatientOverView() {
     >
       <List
         style={{
+          background: "#282c34",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
           height: "100vh",
           width: "100%",
+          borderRight: "0.5px solid white",
         }}
       >
         {[
@@ -135,29 +230,53 @@ export default function PatientOverView() {
           },
         ].map(({ text, link, icon }, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton href={link}>
-              <ListItemIcon style={{ color: "#14ac5f" }}>{icon}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+            <NavLink
+              to={link}
+              style={{
+                color: "white",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              <ListItemButton>
+                <ListItemIcon style={{ color: "#fff" }}>{icon}</ListItemIcon>
+                <ListItemText
+                  primary={text}
+                  style={{ background: "transparent" }}
+                />
+              </ListItemButton>
+            </NavLink>
           </ListItem>
         ))}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-          }}
-        >
-          <button
-            onClick={handleLogout}
-            className="patientOverviewLogOutButton"
-          >
-            Log Out
-          </button>
-        </div>
       </List>
     </Box>
   );
+  const [openAppointment, setopenAppointment] = React.useState(false);
+
+  const handleClickopenAppointment = () => {
+    setopenAppointment(true);
+  };
+
+  const handleCloseAppointment = () => {
+    setopenAppointment(false);
+  };
+  const [appointmentDoctor, setAppointmentDoctor] = useState("");
+  const [appointmentTime, setAppointmentTime] = useState("");
+
+  useEffect(() => {
+    fetchAppointmentData();
+  }, [userName]);
+
+  const fetchAppointmentData = async () => {
+    try {
+      const response = await axios.get(`/api/patient-appointment/${userName}`);
+      setAppointmentDoctor(response.data.DoctorName);
+      setAppointmentTime(response.data.DateOfAppointment);
+    } catch (error) {
+      console.error("error fetching fetch PATIENT Data User Data", error);
+    }
+  };
+
   return (
     <div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
@@ -188,6 +307,69 @@ export default function PatientOverView() {
                   {userNameFirstLetter}
                 </Avatar>
               </Button>
+              <Button
+                variant="outlined"
+                onClick={handleClickopenAppointment}
+                style={{
+                  background: "#14ac5f",
+                  border: "none",
+                  color: "white",
+                  marginRight: "8px",
+                }}
+              >
+                View Appointment
+              </Button>
+
+              {/* View Appointment Dialog Starts  */}
+              <Dialog
+                open={openAppointment}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleCloseAppointment}
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle>
+                  {"You Can View Your Appointment Here If You Have Any."}
+                </DialogTitle>
+                {appointmentDoctor && appointmentTime ? (
+                  // If appointmentDoctor and appointmentTime are truthy, render appointment details
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      Your Doctor Name - {appointmentDoctor}
+                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      Your Appointment Date and Time - {appointmentTime}
+                    </DialogContentText>
+                  </DialogContent>
+                ) : (
+                  // If appointmentDoctor or appointmentTime is falsy, render a message indicating no appointment
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      You don't have any appointment scheduled.
+                    </DialogContentText>
+                  </DialogContent>
+                )}
+                {/* <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                     Your Doctor Name - 
+                    {appointmentDoctor} 
+                  </DialogContentText>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    Your Appointment Date and Time - {appointmentTime}
+                  </DialogContentText>
+                </DialogContent> */}
+                <DialogActions>
+                  <Button
+                    onClick={handleCloseAppointment}
+                    style={{ background: "gray", color: "#fff" }}
+                  >
+                    Close
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
+              {/* View Appointment Dialog Ends  */}
+
               <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
@@ -216,6 +398,7 @@ export default function PatientOverView() {
                   Logout
                 </MenuItem>
               </Menu>
+
               <Dialog
                 fullWidth
                 open={openProfileRecord}
@@ -339,7 +522,116 @@ export default function PatientOverView() {
         <div className="patientOverviewDashboardSecondCard">
           <Toaster position="top-center" reverseOrder={false}></Toaster>
           <div>
-            <p>PatientOverView</p>
+            <h1
+              style={{
+                textAlign: "center",
+                marginBottom: "12px",
+                marginTop: "12px",
+              }}
+            >
+              Your Medical Record from GebreTsadik Shawo General Hospital{" "}
+            </h1>
+
+            <div
+              className="patientMedicalRecordContent"
+              id="patientMedicalRecordContent"
+              ref={ref}
+            >
+              <ReactWaterMark waterMarkText={text} options={optionWaterMark}>
+                <div className="col-md-12">
+                  <div className="patientMedicalRecordHeader">
+                    <div className="col-md-4 brcode">
+                      <QRCode
+                        size={256}
+                        style={{
+                          height: "auto",
+                          maxWidth: "120px",
+                          width: "100%",
+                        }}
+                        value={`${userName} Medical Record from GebreTsadik Shawo General Hospital.`}
+                        viewBox={`0 0 256 256`}
+                      />
+                    </div>
+                    <div className="col-md-8 text-right bbc">
+                      <h2 style={{ color: "#325aa8" }}>
+                        <strong>Gebre Tsadik Shawo General Hospital</strong>
+                      </h2>
+                      <p>Email: gebretsadikshawogeneralhospital@gmail.com</p>
+                      <p>Tel: +251 912345678</p>
+                    </div>
+                  </div>
+                  <br />
+
+                  <br />
+                  <div>
+                    <div>
+                      <h2>Patient Name - {userName}</h2>
+                    </div>
+                  </div>
+                  <br />
+                  <div>
+                    <h3>Your Medical Record</h3>
+                    <p>{rows}</p>
+                  </div>
+
+                  <div>
+                    <br />
+                    <div className="col-md-12">
+                      <p>
+                        <b>Date :</b> {Dates}{" "}
+                      </p>
+                      <p>
+                        <b>Name: </b>
+                        {userName}
+                      </p>
+                      <p>
+                        <b>Contact: </b>
+                        {emailSession}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </ReactWaterMark>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "11px",
+              }}
+            >
+              <Button
+                variant="outlined"
+                startIcon={<GetAppOutlinedIcon />}
+                style={{
+                  background: "#14ac5f",
+                  border: "none",
+                  color: "white",
+                  marginRight: "8px",
+                }}
+                onClick={downloadPdf}
+              >
+                Download File
+              </Button>
+              <ReactPrint
+                trigger={() => (
+                  <Button
+                    variant="outlined"
+                    startIcon={<PrintOutlinedIcon />}
+                    style={{
+                      background: "#4bad95",
+                      border: "none",
+                      color: "white",
+                      marginRight: "8px",
+                    }}
+                  >
+                    Print
+                  </Button>
+                )}
+                content={() => ref.current}
+                documentTitle={`On ${Day} Patient Files on ${Dates}`}
+              />
+            </div>
           </div>
         </div>
       </main>

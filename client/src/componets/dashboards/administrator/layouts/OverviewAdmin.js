@@ -74,6 +74,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function OverviewAdmin() {
+  const [numberofAdmin, setNumberofAdmin] = React.useState();
+  const [numberofReception, setNumberofReception] = React.useState();
+  const [numberofDoctor, setNumberofDoctor] = React.useState();
+  const [numberofLab, setNumberofLab] = React.useState();
+  const [numberofPharmacy, setNumberofPharmacy] = React.useState();
+  const [numberofPatient, setNumberofPatient] = React.useState();
   const options = {
     responsive: true,
     Plugins: {
@@ -86,6 +92,68 @@ export default function OverviewAdmin() {
       },
     },
   };
+  React.useEffect(() => {
+    const adminNumber = axios.get(`/api/number-of-admin/administrator`);
+
+    adminNumber.then((response) => {
+      setNumberofAdmin(response.data);
+    });
+    adminNumber.catch((error) => {
+      console.error("Error fetching admin status:", error);
+    });
+
+    const ReceptionNumber = axios.get(`/api/number-of-admin/receptionist`);
+
+    ReceptionNumber.then((response) => {
+      setNumberofReception(response.data);
+    });
+    ReceptionNumber.catch((error) => {
+      console.error("Error fetching reception status:", error);
+    });
+
+    const DoctorNumber = axios.get(`/api/number-of-admin/doctor`);
+
+    DoctorNumber.then((response) => {
+      setNumberofDoctor(response.data);
+    });
+    DoctorNumber.catch((error) => {
+      console.error("Error fetching doctor status:", error);
+    });
+
+    const LabNumber = axios.get(`/api/number-of-admin/labTechnician`);
+
+    LabNumber.then((response) => {
+      setNumberofLab(response.data);
+    });
+    LabNumber.catch((error) => {
+      console.error("Error fetching lab status:", error);
+    });
+
+    const PharmacyNumber = axios.get(`/api/number-of-admin/pharmacist`);
+
+    PharmacyNumber.then((response) => {
+      setNumberofPharmacy(response.data);
+    });
+    PharmacyNumber.catch((error) => {
+      console.error("Error fetching pharmacist status:", error);
+    });
+
+    const PatientNumber = axios.get(`/api/number-of-patient/`);
+
+    PatientNumber.then((response) => {
+      setNumberofPatient(response.data);
+    });
+    PatientNumber.catch((error) => {
+      console.error("Error fetching number-of-patient status:", error);
+    });
+  }, [
+    numberofAdmin,
+    numberofDoctor,
+    numberofReception,
+    numberofLab,
+    numberofPharmacy,
+    numberofPatient,
+  ]);
 
   const labels = [
     "ADMINISTRATOR",
@@ -100,7 +168,14 @@ export default function OverviewAdmin() {
     datasets: [
       {
         label: "Dataset 1",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        data: [
+          numberofAdmin || 0,
+          numberofReception || 0,
+          numberofDoctor || 0,
+          numberofPharmacy || 0,
+          numberofLab || 0,
+          numberofPatient || 0,
+        ],
         backgroundColor: "rgba(20, 172, 95,0.8)",
       },
     ],
@@ -573,7 +648,7 @@ export default function OverviewAdmin() {
           </div>
         </div>
         <div className="adminOverviewDashboardSecondCard">
-          <div className="adminOverviewDashboardSecondFirstCard"> </div>
+          {/* <div className="adminOverviewDashboardSecondFirstCard"> </div> */}
           <div
             className="adminOverviewDashboardSecondSecondCard"
             style={{
@@ -603,7 +678,7 @@ export default function OverviewAdmin() {
               />
             </div>
           </div>
-          <div className="adminOverviewDashboardSecondFourthCard ">
+          {/* <div className="adminOverviewDashboardSecondFourthCard ">
             <div>
               <div>
                 <h2 style={{ textAlign: "center" }}>TO DO LIST</h2>
@@ -632,7 +707,7 @@ export default function OverviewAdmin() {
                 </form>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </main>
     </div>
