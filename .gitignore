@@ -7,6 +7,7 @@ server/node_modules
 server/config.js
 config.js
 client/.evn
+client/src/config.js
 server/.env
 /.pnp
 .pnp.js

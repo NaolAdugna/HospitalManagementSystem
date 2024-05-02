@@ -214,11 +214,11 @@ export default function LabRoot(props) {
             link: "/labratory",
             icon: <DashboardCustomizeRoundedIcon />,
           },
-          // {
-          //   text: "Report",
-          //   link: "/labratory-report",
-          //   icon: <SummarizeIcon />,
-          // },
+          {
+            text: "Gemini AI",
+            link: "/labratory-report",
+            icon: <SummarizeIcon />,
+          },
           {
             text: "Chat Staff",
             link: "/labratory-chat",

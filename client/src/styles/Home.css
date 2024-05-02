@@ -74,10 +74,11 @@ body {
   color: var(--mainColor);
   font-weight: bolder;
   font-size: 16px;
+  transition: 300ms ease-in-out;
 }
 .homeContent button:hover {
   background-color: var(--mainColor);
-  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.2));
   color: var(--navBarBg);
   cursor: pointer;
 }
@@ -132,11 +133,13 @@ body {
   color: var(--mainColor);
   background-color: transparent;
   border: 2px solid var(--mainColor);
+  text-decoration: none;
+  transition: 300ms ease-in-out;
 }
 .aboutTextContainer a:hover {
   color: var(--navBarBg);
   cursor: pointer;
-  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.2));
   background-color: var(--mainColor);
 }
 
@@ -182,8 +185,7 @@ body {
 }
 .homeServicesButton:hover {
   cursor: pointer;
-  /* scale: 1.01; */
-  filter: drop-shadow(8px 11px 14px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.2));
 }
 
 .homeWhyUsContainer {
@@ -272,7 +274,55 @@ body {
   margin-bottom: 8px;
 }
 /* Our Sercies Ends */
-
+.homeMissionVisiionSection {
+  width: 50%;
+  margin: auto;
+  /* background-color: rebeccapurple; */
+}
+.homeMissionVisionContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  /* background-color: pink; */
+}
+.homeMissionContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  /* background-color: orange; */
+  width: 50%;
+  height: 100%;
+}
+.homeMissionContent p {
+  font-size: 19px;
+  line-height: 26px;
+  /* text-align: justify; */
+  width: 94%;
+}
+.homeMissionContent h2 {
+  font-size: 41px;
+}
+.homeVisionContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-left: 30px;
+  border-left: 3px solid black;
+  /* background-color: rgb(119, 146, 119); */
+  width: 50%;
+}
+.homeVisionContent h2 {
+  font-size: 41px;
+}
+.homeVisionContent p {
+  font-size: 19px;
+  line-height: 26px;
+  /* text-align: justify; */
+}
 /* Home Ends */
 /* Media Queries Start */
 

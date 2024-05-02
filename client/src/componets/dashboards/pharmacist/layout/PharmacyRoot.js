@@ -42,24 +42,46 @@ export default function PharmacyRoot(props) {
   const idProfile = sessionStorage.getItem("id");
   const [currentTime, setCurrentTime] = useState(moment());
   const [endTimes, setEndTimes] = useState("");
+  const [endTimesAfternoon, setEndTimesAfternoon] = useState("");
+
+  useEffect(() => {
+    setEndTimesAfternoon(calculateAttendanceTimeAfternoon());
+  }, []);
+
+  const calculateAttendanceTimeAfternoon = () => {
+    const endTime = moment().set({ hour: 18, minute: 30, second: 0 });
+    return endTime;
+  };
+  const isAttendanceTimeAfternoon = () => {
+    const startTime = moment().set({ hour: 18, minute: 0, second: 0 });
+    return currentTime.isBetween(startTime, endTimesAfternoon);
+  };
+  useEffect(() => {
+    setEndTimes(calculateAttendanceTime());
+  }, []);
 
   useEffect(() => {
     setEndTimes(calculateAttendanceTime());
   }, []);
 
   const calculateAttendanceTime = () => {
-    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
-    const endTime = moment().set({ hour: 16, minute: 38, second: 0 });
+    const endTime = moment().set({ hour: 8, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTime = () => {
-    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 8, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimes);
   };
 
   const [openAttendance, setOpenAttendance] = useState(false);
+  const [openAfternoonAttendance, setOpenAfternoonAttendance] = useState(false);
   const [attendanceMarked, setAttendanceMarked] = useState(false);
-  const status = "present";
+  const [afternoonAttendanceMarked, setAfternoonAttendanceMarked] =
+    useState(false);
+  const morning_status = "present";
+  const afternon_status = "absent";
+  const morning_status2 = "present";
+  const afternon_status2 = "present";
   useEffect(() => {
     axios
       .get(`/api/user-marked-attendance`, {
@@ -75,6 +97,17 @@ export default function PharmacyRoot(props) {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`/api/user-marked-afternoon-attendance/${idProfile}`)
+      .then((response) => {
+        setAfternoonAttendanceMarked(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching attendance status:", error);
+      });
+  }, [afternoonAttendanceMarked]);
+
   const handleCloseAttendance = () => {
     setOpenAttendance(false);
   };
@@ -82,6 +115,12 @@ export default function PharmacyRoot(props) {
     setOpenAttendance(true);
   };
 
+  const handleCloseAfternoonAttendance = () => {
+    setOpenAfternoonAttendance(false);
+  };
+  const handleOpenAfternoonAttendance = () => {
+    setOpenAfternoonAttendance(true);
+  };
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -270,6 +309,32 @@ export default function PharmacyRoot(props) {
               ) : (
                 <div></div>
               )}
+              {isAttendanceTimeAfternoon() && afternoonAttendanceMarked ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <CountdownTimer endTime={endTimesAfternoon} />
+                  <Button
+                    variant="outlined"
+                    onClick={handleOpenAfternoonAttendance}
+                    endIcon={<CoPresentRoundedIcon />}
+                    style={{
+                      background: "#14ac5f",
+                      border: "none",
+                      color: "white",
+                      marginRight: "11px",
+                    }}
+                  >
+                    Afternon Attendance
+                  </Button>
+                </div>
+              ) : (
+                <div></div>
+              )}
               <Dialog
                 open={openAttendance}
                 onClose={handleCloseAttendance}
@@ -282,10 +347,13 @@ export default function PharmacyRoot(props) {
                     let AttendancePromise = axios.post(`/api/user-attendance`, {
                       id: formJson.id,
                       UserName: formJson.username,
-                      Status: formJson.status,
+                      Morning_Status: formJson.morning_status,
+                      Afternoon_Status: formJson.afternoon_status,
                     });
                     AttendancePromise.then(() => {
-                      toast.success("Attendance Marked Present successfully");
+                      toast.success(
+                        "Morning Attendance Marked Present successfully"
+                      );
                       window.location.reload();
                     }).catch((error) => {
                       console.error("Could not mark present profile:", error);
@@ -295,7 +363,7 @@ export default function PharmacyRoot(props) {
                   },
                 }}
               >
-                <DialogTitle> Today Attendance</DialogTitle>
+                <DialogTitle> Today Morning Attendance</DialogTitle>
                 <DialogContent>
                   <DialogContentText style={{ color: "black" }}>
                     Please mark your attendance to ensure accurate records of
@@ -305,7 +373,16 @@ export default function PharmacyRoot(props) {
                 <DialogActions>
                   <input type="hidden" name="id" value={idProfile} />
                   <input type="hidden" name="username" value={userName} />
-                  <input type="hidden" name="status" value={status} />
+                  <input
+                    type="hidden"
+                    name="morning_status"
+                    value={morning_status}
+                  />
+                  <input
+                    type="hidden"
+                    name="afternoon_status"
+                    value={afternon_status}
+                  />
                   <Button
                     onClick={handleCloseAttendance}
                     style={{ color: "white", background: "gray" }}
@@ -321,6 +398,70 @@ export default function PharmacyRoot(props) {
                 </DialogActions>
               </Dialog>
               {/* Attendance End */}
+              {/* AFTERNOON ATTANDANCE STARTS */}
+              <Dialog
+                open={openAfternoonAttendance}
+                onClose={handleCloseAfternoonAttendance}
+                PaperProps={{
+                  component: "form",
+                  onSubmit: (event) => {
+                    event.preventDefault();
+                    const formData = new FormData(event.currentTarget);
+                    const formJson = Object.fromEntries(formData.entries());
+                    let AttendancePromise = axios.put(
+                      `/api/user-afternoon-attendance`,
+                      {
+                        id: formJson.id,
+
+                        Afternoon_Status2: formJson.afternoon_status2,
+                      }
+                    );
+                    AttendancePromise.then(() => {
+                      toast.success("Attendance Marked Present successfully");
+                      window.location.reload();
+                    }).catch((error) => {
+                      console.error("Could not mark present profile:", error);
+                      toast.error("Failed to mark present");
+                    });
+                    handleCloseAfternoonAttendance();
+                  },
+                }}
+              >
+                <DialogTitle> Today Afternon Attendance</DialogTitle>
+                <DialogContent>
+                  <DialogContentText style={{ color: "black" }}>
+                    Please mark your attendance to ensure accurate records of
+                    your presence.!
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <input type="hidden" name="id" value={idProfile} />
+                  <input type="hidden" name="username" value={userName} />
+                  <input
+                    type="hidden"
+                    name="morning_status2"
+                    value={morning_status2}
+                  />
+                  <input
+                    type="hidden"
+                    name="afternoon_status2"
+                    value={afternon_status2}
+                  />
+                  <Button
+                    onClick={handleCloseAfternoonAttendance}
+                    style={{ color: "white", background: "gray" }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    style={{ color: "white", background: "#14ac5f" }}
+                  >
+                    Present
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              {/* AFTERNOON ATTANDANCE Ends */}
               <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}

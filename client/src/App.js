@@ -77,10 +77,10 @@ const router = createBrowserRouter([
     path: "/contact",
     element: <Contact></Contact>,
   },
-  {
-    path: "/login",
-    element: <Login></Login>,
-  },
+  // {
+  //   path: "/login",
+  //   element: <Login></Login>,
+  // },
   {
     path: "/login-user",
     element: <LoginUser></LoginUser>,

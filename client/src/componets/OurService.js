@@ -18,7 +18,46 @@ import {
   faUserTie,
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import config from "./config.js";
+import ChatBot from "react-chatbotify";
 export default function OurService() {
+  const optionsChatbotify = {
+    theme: {
+      primaryColor: "#14ac5f",
+      secondaryColor: "#143D59",
+    },
+    voice: { disabled: false },
+    chatHistory: { storageKey: "playground" },
+    botBubble: { simStream: true },
+  };
+  const genAI = new GoogleGenerativeAI(config.API_KEY);
+  async function run(prompt, streamMessage) {
+    // For text-only input, use the gemini-pro model
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+    const result = await model.generateContentStream(prompt);
+    let text = "";
+    for await (const chunk of result.stream) {
+      const chunkText = chunk.text();
+      text += chunkText;
+      streamMessage(text);
+    }
+    return text;
+  }
+
+  const flow = {
+    start: {
+      message: "Hello, I am GebreTsadik Medical Assistant now, How can I help!",
+      path: "model_loop",
+    },
+    model_loop: {
+      message: async (params) => {
+        return await run(params.userInput, params.streamMessage);
+      },
+      path: "model_loop",
+    },
+  };
   return (
     <div className="homeContainer">
       <Header />
@@ -131,6 +170,7 @@ export default function OurService() {
               </div>
             </div>
           </section>
+          <ChatBot options={optionsChatbotify} flow={flow} />
         </main>
       </div>
       <Footer />

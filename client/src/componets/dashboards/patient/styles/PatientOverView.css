@@ -75,6 +75,18 @@ root {
   padding: 13px;
   border: 0.8px solid rgb(6, 42, 74);
 }
+
+.rcb-chat-header-container h3 {
+  color: red;
+  display: none;
+}
+.rcb-chat-footer-container {
+  display: none;
+  background-color: red;
+}
+.rcb-chat-footer-container span {
+  display: none;
+}
 @media (max-width: 320px) {
   .patientOverviewDashboardLogOutContainer {
     justify-content: space-between;

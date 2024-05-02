@@ -37,6 +37,11 @@ import PrintOutlinedIcon from "@mui/icons-material/PrintOutlined";
 import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import generatePDF, { Resolution, Margin } from "react-to-pdf";
+
+// chat bot
+import ChatBot from "react-chatbotify";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import config from "../../../config";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
@@ -47,9 +52,8 @@ export default function PatientOverView() {
   let date = newDate.getDate();
   useEffect(() => {
     const current = new Date();
-    const date = `${current.getDate()}/${
-      current.getMonth() + 1
-    }/${current.getFullYear()}`;
+    const date = `${current.getDate()}/${current.getMonth() +
+      1}/${current.getFullYear()}`;
     const daysOfWeek = [
       "Sunday",
       "Monday",
@@ -157,8 +161,9 @@ export default function PatientOverView() {
 
   const idProfile = sessionStorage.getItem("id");
   const genderSession = sessionStorage.getItem("gender");
-  const dateofregistrationSession =
-    sessionStorage.getItem("dateofregistration");
+  const dateofregistrationSession = sessionStorage.getItem(
+    "dateofregistration"
+  );
   React.useEffect(() => {
     setUserName(sessionStorage.getItem("name"));
     setEmailSession(sessionStorage.getItem("email"));
@@ -276,7 +281,42 @@ export default function PatientOverView() {
       console.error("error fetching fetch PATIENT Data User Data", error);
     }
   };
+  const optionsChatbotify = {
+    theme: {
+      primaryColor: "#14ac5f",
+      secondaryColor: "#143D59",
+    },
+    voice: { disabled: false },
+    chatHistory: { storageKey: "playground" },
+    botBubble: { simStream: true },
+  };
+  const genAI = new GoogleGenerativeAI(config.API_KEY);
+  async function run(prompt, streamMessage) {
+    // For text-only input, use the gemini-pro model
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
+    const result = await model.generateContentStream(prompt);
+    let text = "";
+    for await (const chunk of result.stream) {
+      const chunkText = chunk.text();
+      text += chunkText;
+      streamMessage(text);
+    }
+    return text;
+  }
+
+  const flow = {
+    start: {
+      message: "Hello, I am GebreTsadik Medical Assistant now, How can I help!",
+      path: "model_loop",
+    },
+    model_loop: {
+      message: async (params) => {
+        return await run(params.userInput, params.streamMessage);
+      },
+      path: "model_loop",
+    },
+  };
   return (
     <div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
@@ -632,6 +672,8 @@ export default function PatientOverView() {
                 documentTitle={`On ${Day} Patient Files on ${Dates}`}
               />
             </div>
+
+            <ChatBot options={optionsChatbotify} flow={flow} />
           </div>
         </div>
       </main>

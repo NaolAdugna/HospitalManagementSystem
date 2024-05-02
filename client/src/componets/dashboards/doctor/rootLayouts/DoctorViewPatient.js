@@ -160,6 +160,7 @@ export default function DoctorViewPatient() {
           </NavLink>
           <NavLink
             to="/doctor-lab-request"
+            id="doctorLabButtons"
             className="doctorLabButton"
             onClick={() => handleLabForm(params.row.id)}
           >

@@ -67,7 +67,7 @@ export default function DoctorRoot(props) {
   }, []);
 
   const calculateAttendanceTime = () => {
-    const endTime = moment().set({ hour: 8, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 14, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTime = () => {
@@ -335,7 +335,7 @@ export default function DoctorRoot(props) {
                       marginRight: "11px",
                     }}
                   >
-                    Attendance
+                    Morning Attendance
                   </Button>
                 </div>
               ) : (

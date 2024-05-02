@@ -23,7 +23,46 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import config from "./config.js";
+import ChatBot from "react-chatbotify";
 export default function About() {
+  const optionsChatbotify = {
+    theme: {
+      primaryColor: "#14ac5f",
+      secondaryColor: "#143D59",
+    },
+    voice: { disabled: false },
+    chatHistory: { storageKey: "playground" },
+    botBubble: { simStream: true },
+  };
+  const genAI = new GoogleGenerativeAI(config.API_KEY);
+  async function run(prompt, streamMessage) {
+    // For text-only input, use the gemini-pro model
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+    const result = await model.generateContentStream(prompt);
+    let text = "";
+    for await (const chunk of result.stream) {
+      const chunkText = chunk.text();
+      text += chunkText;
+      streamMessage(text);
+    }
+    return text;
+  }
+
+  const flow = {
+    start: {
+      message: "Hello, I am GebreTsadik Medical Assistant now, How can I help!",
+      path: "model_loop",
+    },
+    model_loop: {
+      message: async (params) => {
+        return await run(params.userInput, params.streamMessage);
+      },
+      path: "model_loop",
+    },
+  };
   return (
     <div className="AboutbodyContainers">
       <Header />
@@ -141,6 +180,31 @@ export default function About() {
             />
           </div>
         </div>
+        {/* Mission Starts */}
+        <div className="homeMissionVisiionSection">
+          <div className="homeMissionVisionContainer">
+            <div className="homeMissionContent">
+              <h2>
+                OUR <span style={{ color: "#14ac5f" }}>MISSION</span>
+              </h2>
+              <p>
+                Gebre Tsadik Shawo General Hospital improves healthcare quality
+                and outcomes through partnerships and mentoring
+              </p>
+            </div>
+            <div className="homeVisionContent">
+              <h2>
+                OUR <span style={{ color: "#14ac5f" }}>VISION</span>
+              </h2>
+              <p>
+                The vision of Gebre Tsadik Shawo General Hospital is to provide
+                healthcare services to the population they serve, improve health
+                outcomes, and address healthcare challenges in Bonga
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* Mission Ends */}
         <h1
           style={{ textAlign: "center", marginTop: "30px" }}
           className="FAQTitle"
@@ -371,16 +435,17 @@ export default function About() {
               <div className="aboutCTATextContent">
                 <h2>Gebretsadik Shawo General Hospital</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  Gebre Tsadik Shawo General Hospital is one of General
+                  Hospitals in South West Ethiopia regional state. It’s located
+                  in the south western part of Ethiopia, particularly in Bonga,
+                  which is the capital city of South West Ethiopia regional
+                  state.
                 </p>
               </div>
               <a href="/contact">Contact Us</a>
             </div>
           </div>
+          <ChatBot options={optionsChatbotify} flow={flow} />
         </div>
       </div>
       <Footer />
