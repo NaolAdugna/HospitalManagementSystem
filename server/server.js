@@ -31,21 +31,6 @@ app.get("/", (req, res) => {
 // api routes
 app.use("/api", router);
 
-// app.use(function (req, res, next) {
-//   Jwt.verify(
-//     req.sessionID["token"],
-//     ENV.JWT_SECRET,
-//     function (err, decodedToken) {
-//       if (err) {
-//         console.log("error in server js file ", err);
-//       } else {
-//         req.id = decodedToken.id;
-//         next();
-//       }
-//     }
-//   );
-// });
-
 app.post("/api/verify-recaptcha", async (req, res) => {
   const { recaptchaToken } = req.body;
 

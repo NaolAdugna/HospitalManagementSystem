@@ -1,11 +1,9 @@
 import ENV from "../../config.js";
 import mysql from "mysql2/promise";
+import dotenv from "dotenv";
+dotenv.config();
+const urlDB = `mysql://root:hfDGinZxnzGoogBcedPgtcGUzGPADVzS@viaduct.proxy.rlwy.net:34677/railway`;
 
-const mysqlPool = mysql.createPool({
-  host: ENV.DB_HOST,
-  user: ENV.DB_USER,
-  database: ENV.DB_NAME,
-  password: ENV.DB_PASSWORD,
-});
+const mysqlPool = mysql.createPool(urlDB);
 
 export default mysqlPool;
