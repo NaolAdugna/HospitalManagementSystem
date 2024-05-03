@@ -24,7 +24,7 @@ import Typography from "@mui/material/Typography";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import config from "./config.js";
+import config from "./config";
 import ChatBot from "react-chatbotify";
 export default function About() {
   const optionsChatbotify = {

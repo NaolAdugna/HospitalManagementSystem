@@ -52,8 +52,9 @@ export default function PatientOverView() {
   let date = newDate.getDate();
   useEffect(() => {
     const current = new Date();
-    const date = `${current.getDate()}/${current.getMonth() +
-      1}/${current.getFullYear()}`;
+    const date = `${current.getDate()}/${
+      current.getMonth() + 1
+    }/${current.getFullYear()}`;
     const daysOfWeek = [
       "Sunday",
       "Monday",
@@ -161,9 +162,8 @@ export default function PatientOverView() {
 
   const idProfile = sessionStorage.getItem("id");
   const genderSession = sessionStorage.getItem("gender");
-  const dateofregistrationSession = sessionStorage.getItem(
-    "dateofregistration"
-  );
+  const dateofregistrationSession =
+    sessionStorage.getItem("dateofregistration");
   React.useEffect(() => {
     setUserName(sessionStorage.getItem("name"));
     setEmailSession(sessionStorage.getItem("email"));

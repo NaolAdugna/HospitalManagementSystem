@@ -19,7 +19,7 @@ import {
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import config from "./config.js";
+import config from "./config";
 import ChatBot from "react-chatbotify";
 export default function OurService() {
   const optionsChatbotify = {

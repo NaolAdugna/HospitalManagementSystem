@@ -34,7 +34,7 @@ import CountUp from "react-countup";
 import ScrollTrigger from "react-scroll-trigger";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import config from "./config.js";
+import config from "./config";
 import ChatBot from "react-chatbotify";
 export default function Home() {
   const [counterOn, setCounterOn] = useState(false);
