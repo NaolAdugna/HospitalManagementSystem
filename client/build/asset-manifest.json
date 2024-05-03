@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.717aab72.css",
+    "main.js": "/static/js/main.1c4c080c.js",
+    "static/js/213.466f7798.chunk.js": "/static/js/213.466f7798.chunk.js",
+    "static/js/455.eb961540.chunk.js": "/static/js/455.eb961540.chunk.js",
+    "static/media/Background (1).png": "/static/media/Background (1).277a6b7f0dd55e911760.png",
+    "static/media/lgbg1-removebg.png": "/static/media/lgbg1-removebg.3469911b3ef7250caa53.png",
+    "static/media/HMBG 1.webp": "/static/media/HMBG 1.71f2f29b69ae355fb1c8.webp",
+    "static/media/HMBG 2.webp": "/static/media/HMBG 2.707856e8721ae7fca525.webp",
+    "static/media/about.webp": "/static/media/about.44c192b312a304834a35.webp",
+    "static/media/HMBG 3.webp": "/static/media/HMBG 3.f490209fac260f7ecb16.webp",
+    "static/media/google-gemini-icon.webp": "/static/media/google-gemini-icon.a9281711241a06a66331.webp",
+    "static/media/doctor__21.webp": "/static/media/doctor__21.e073aedbcd98cbc8c542.webp",
+    "static/media/profile.webp": "/static/media/profile.6c4962fbd6edda89a61a.webp",
+    "static/media/logo2.webp": "/static/media/logo2.578d8c07a9e434846f1c.webp",
+    "index.html": "/index.html",
+    "main.717aab72.css.map": "/static/css/main.717aab72.css.map",
+    "main.1c4c080c.js.map": "/static/js/main.1c4c080c.js.map",
+    "213.466f7798.chunk.js.map": "/static/js/213.466f7798.chunk.js.map",
+    "455.eb961540.chunk.js.map": "/static/js/455.eb961540.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.717aab72.css",
+    "static/js/main.1c4c080c.js"
+  ]
+}
