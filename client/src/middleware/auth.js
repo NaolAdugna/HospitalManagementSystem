@@ -5,7 +5,7 @@ export const AuthorizeUser = ({ children }) => {
   const token = sessionStorage.getItem("token");
 
   if (!token) {
-    return <Navigate to={"/login"} replace={true}></Navigate>;
+    return <Navigate to={"/"} replace={true}></Navigate>;
   }
 
   return children;
@@ -15,7 +15,7 @@ export const AdminAuthorize = ({ children }) => {
   const token = sessionStorage.getItem("token");
   const role = sessionStorage.getItem("role");
   if (!token || role !== "administrator") {
-    return <Navigate to={"/login"} replace={true}></Navigate>;
+    return <Navigate to={"/"} replace={true}></Navigate>;
   }
   return children;
 };
@@ -25,7 +25,7 @@ export const DoctorAuthorize = ({ children }) => {
   const role = sessionStorage.getItem("role");
 
   if (!token || role !== "doctor") {
-    return <Navigate to={"/login"} replace={true}></Navigate>;
+    return <Navigate to={"/"} replace={true}></Navigate>;
   }
   return children;
 };
@@ -35,7 +35,7 @@ export const PharmacyAuthorize = ({ children }) => {
   const role = sessionStorage.getItem("role");
 
   if (!token || role !== "pharmacist") {
-    return <Navigate to={"/login"} replace={true}></Navigate>;
+    return <Navigate to={"/"} replace={true}></Navigate>;
   }
   return children;
 };
@@ -45,7 +45,7 @@ export const ReceptionAuthorize = ({ children }) => {
   const role = sessionStorage.getItem("role");
 
   if (!token || role !== "receptionist") {
-    return <Navigate to={"/login"} replace={true}></Navigate>;
+    return <Navigate to={"/"} replace={true}></Navigate>;
   }
 
   return children;
@@ -55,14 +55,14 @@ export const LabAuthorize = ({ children }) => {
   const token = sessionStorage.getItem("token");
   const role = sessionStorage.getItem("role");
   if (!token || role !== "labTechnician") {
-    return <Navigate to={"/login"} replace={true}></Navigate>;
+    return <Navigate to={"/"} replace={true}></Navigate>;
   }
   return children;
 };
 export const PatientAuthorize = ({ children }) => {
   const token = sessionStorage.getItem("token");
   if (!token) {
-    return <Navigate to={"/login"} replace={true}></Navigate>;
+    return <Navigate to={"/"} replace={true}></Navigate>;
   }
   return children;
 };

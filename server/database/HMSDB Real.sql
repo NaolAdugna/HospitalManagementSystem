@@ -56,7 +56,7 @@ CREATE TABLE `attendance` (
   `user_name` varchar(255) DEFAULT NULL,
   `moring_status` enum('present','absent') DEFAULT NULL,
   `afternoon_status` enum('present','absent') DEFAULT NULL,
-  `present_time` date DEFAULT NULL,
+  `present_time` date DEFAULT NULL, 
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)

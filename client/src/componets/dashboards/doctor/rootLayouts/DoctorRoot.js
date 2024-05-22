@@ -285,7 +285,7 @@ export default function DoctorRoot(props) {
         open={open}
         onClose={toggleDrawer(false)}
         className="doctorRootDrawerContainer"
-        style={{ borderRight: "1px solid white" }}
+        // style={{ borderRight: "1px solid white" }}
       >
         {DrawerList}
       </Drawer>

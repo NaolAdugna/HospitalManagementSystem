@@ -508,7 +508,7 @@ export const DidUserAfternoonMarkedAttendance = async (id) => {
 export const GetAttendanceUsers = async () => {
   try {
     const sql =
-      "SELECT id, user_id,user_name,status,present_time FROM attendance";
+      "SELECT id, user_id,user_name,moring_status,afternoon_status,present_time FROM attendance";
     const [results] = await mysqlPool.execute(sql);
     return results;
   } catch (error) {

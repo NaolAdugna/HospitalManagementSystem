@@ -27,7 +27,8 @@ export default function AttendanceTable() {
     { field: "id", headerName: "ID", width: 100 },
     { field: "user_id", headerName: "User Id", width: 130 },
     { field: "user_name", headerName: "Name", width: 230 },
-    { field: "status", headerName: "Status", width: 200 },
+    { field: "moring_status", headerName: "Morning Status", width: 200 },
+    { field: "afternoon_status", headerName: "Afternoon Status", width: 200 },
     {
       field: "present_time",
       headerName: "Present Time",

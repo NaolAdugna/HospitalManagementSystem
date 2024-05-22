@@ -58,11 +58,10 @@ root {
 .doctorRootDashboardLogOutContainer {
   color: var(--bodyColor);
 }
-.doctorRootDrawerContainer {
+/* .doctorRootDrawerContainer {
   background-color: var(--navBarBg);
   color: var(--bodyColor);
-  /* color: rebeccapurple; */
-}
+} */
 .dark_mode {
   margin-top: -20px;
   margin-left: 10px;
