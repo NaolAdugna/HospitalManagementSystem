@@ -2,6 +2,13 @@ import HomeImage1 from "../images/HMBG 1.webp";
 import HomeImage2 from "../images/HMBG 2.webp";
 import HomeImage3 from "../images/HMBG 3.webp";
 
+import service1 from "../images/service 1.webp";
+import service2 from "../images/service 2.webp";
+import service3 from "../images/service 3.webp";
+import service4 from "../images/service 4.webp";
+import service5 from "../images/service 5.webp";
+import service6 from "../images/ultrasound.jpg";
+
 const NavBarData = [
   {
     id: 1,
@@ -57,45 +64,45 @@ const HomeData = [
 const HomeServiceData = [
   {
     id: 1,
-    Title: "Lorem 1",
+    Title: "General Surgery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at scelerisque eros, id bibendum dui. Vestibulum aliquet cursus massa, interdum porttitor erat sagittis nec. Pellentesque porta est nulla, ",
-    url: "/#/services",
+      "Our General Surgery department offers comprehensive surgical care for a wide range of conditions. Our experienced surgeons utilize the latest techniques and technologies to ensure optimal outcomes and faster recovery times for our patients.",
+    url: service1,
   },
   {
     id: 2,
-    Title: "Lorem 2",
+    Title: "Internal Surgery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at scelerisque eros, id bibendum dui. Vestibulum aliquet cursus massa, interdum porttitor erat sagittis nec. Pellentesque porta est nulla, ",
-    url: "/#/services",
+      "Discover precision and expertise with our Internal Surgery services. Our specialists tackle complex internal conditions with meticulous care and innovative surgical solutions, ensuring you receive the highest standard of treatment to enhance your health and vitality.",
+    url: service2,
   },
   {
     id: 3,
-    Title: "Lorem 3",
+    Title: "Dental Service",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at scelerisque eros, id bibendum dui. Vestibulum aliquet cursus massa, interdum porttitor erat sagittis nec. Pellentesque porta est nulla, ",
-    url: "/#/services",
+      "Achieve a radiant smile with our comprehensive Dental Services. Whether you need a routine cleaning or advanced dental procedures, our skilled team is dedicated to providing top-notch care that keeps your oral health in peak condition and your smile shining bright.",
+    url: service3,
   },
   {
     id: 4,
-    Title: "Lorem 4",
+    Title: "X-Ray",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at scelerisque eros, id bibendum dui. Vestibulum aliquet cursus massa, interdum porttitor erat sagittis nec. Pellentesque porta est nulla, ",
-    url: "/#/services",
+      "Illuminate the unseen with our state-of-the-art X-Ray services. Our high-resolution imaging technology delivers precise and detailed visuals, empowering your medical team with the insights needed to diagnose and treat conditions effectively.",
+    url: service4,
   },
   {
     id: 5,
-    Title: "Lorem 5",
+    Title: "Basic Eye Care",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at scelerisque eros, id bibendum dui. Vestibulum aliquet cursus massa, interdum porttitor erat sagittis nec. Pellentesque porta est nulla, ",
-    url: "/#/services",
+      "See the world more clearly with our Basic Eye Care services. From thorough eye exams to effective treatments for common eye conditions, our dedicated professionals are here to protect and improve your vision, helping you enjoy life to the fullest.",
+    url: service5,
   },
   {
     id: 6,
-    Title: "Lorem 6",
+    Title: "Ultrasound",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at scelerisque eros, id bibendum dui. Vestibulum aliquet cursus massa, interdum porttitor erat sagittis nec. Pellentesque porta est nulla, ",
-    url: "/#/services",
+      "Experience clarity and confidence with our advanced Ultrasound services. Our cutting-edge imaging technology and expert technicians provide accurate diagnostics, helping you and your healthcare team make informed decisions for your health and well-being.",
+    url: service6,
   },
 ];
 

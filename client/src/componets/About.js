@@ -26,6 +26,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import config from "./config";
 import ChatBot from "react-chatbotify";
+
+import service1 from "../assets/images/service 1.webp";
+import service2 from "../assets/images/service 2.webp";
+import service3 from "../assets/images/service 3.webp";
+import service4 from "../assets/images/service 4.webp";
+import service5 from "../assets/images/service 5.webp";
+import service6 from "../assets/images/ultrasound.jpg";
 export default function About() {
   const optionsChatbotify = {
     theme: {
@@ -251,52 +258,22 @@ export default function About() {
             modules={[Navigation, Pagination, Autoplay]}
           >
             <SwiperSlide>
-              <img
-                src="https://swiperjs.com/demos/images/nature-1.jpg"
-                height={250}
-              />
+              <img src={service1} height={250} />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="https://swiperjs.com/demos/images/nature-2.jpg"
-                height={250}
-              />
+              <img src={service2} height={250} />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="https://swiperjs.com/demos/images/nature-3.jpg"
-                height={250}
-              />{" "}
+              <img src={service3} height={250} />{" "}
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="https://swiperjs.com/demos/images/nature-4.jpg"
-                height={250}
-              />{" "}
+              <img src={service4} height={250} />{" "}
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="https://swiperjs.com/demos/images/nature-5.jpg"
-                height={250}
-              />{" "}
+              <img src={service5} height={250} />{" "}
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="https://swiperjs.com/demos/images/nature-6.jpg"
-                height={250}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img
-                src="https://swiperjs.com/demos/images/nature-7.jpg"
-                height={250}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img
-                src="https://swiperjs.com/demos/images/nature-8.jpg"
-                height={250}
-              />
+              <img src={service6} height={250} />
             </SwiperSlide>
           </Swiper>
         </section>

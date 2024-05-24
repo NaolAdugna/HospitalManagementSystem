@@ -36,6 +36,7 @@ import ScrollTrigger from "react-scroll-trigger";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import config from "./config";
 import ChatBot from "react-chatbotify";
+import { motion } from "framer-motion";
 export default function Home() {
   const [counterOn, setCounterOn] = useState(false);
   const optionsChatbotify = {
@@ -72,6 +73,25 @@ export default function Home() {
         return await run(params.userInput, params.streamMessage);
       },
       path: "model_loop",
+    },
+  };
+
+  const titleVariant = {
+    hidden: {
+      x: "-100vw",
+    },
+    visible: {
+      x: 0,
+      transition: { delay: 1, type: "spring", stiffness: 120 },
+    },
+  };
+  const imageVariant = {
+    hidden: {
+      x: "90vw",
+    },
+    visible: {
+      x: 0,
+      transition: { delay: 1, type: "spring", stiffness: 120 },
     },
   };
 
@@ -115,13 +135,22 @@ export default function Home() {
         <main>
           {/* About Us Start */}
           <div className="aboutContainer">
-            <div className="aboutImageContainer">
+            <motion.div
+              className="aboutImageContainer"
+              variants={imageVariant}
+              initial="hidden"
+              animate="visible"
+            >
               <img src={AboutImage} alt="about bg" className="aboutImage" />
-            </div>
+            </motion.div>
             <div className="aboutTextContainer">
-              <h2>
+              <motion.h2
+                variants={titleVariant}
+                initial="hidden"
+                animate="visible"
+              >
                 ABOUT <span>US</span>
-              </h2>
+              </motion.h2>
               <p>
                 Gebre Tsadik Shawo General Hospital is one of General Hospitals
                 in South West Ethiopia regional state. It’s located in the south
@@ -174,20 +203,23 @@ export default function Home() {
             <div className="homeServiceContainer">
               {Data.HomeServiceData.map((item) => {
                 return (
-                  <Card
-                    sx={{ maxWidth: 380 }}
+                  <motion.Card
+                    sx={{ maxWidth: 380, border: "1px solid #000" }}
                     key={item.id}
                     className="homeServiceCardContainer"
+                    variants={titleVariant}
+                    initial="hidden"
+                    animate="visible"
                   >
                     <CardActionArea>
                       <CardMedia
                         component="img"
                         height="170"
-                        image={AboutImage}
+                        image={item.url}
                         alt="service"
                       />
                       <CardContent>
-                        <Typography gutterBottom variant="h4" component="div">
+                        <Typography gutterBottom variant="h5" component="div">
                           {item.Title}
                         </Typography>
 
@@ -196,7 +228,7 @@ export default function Home() {
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                  </Card>
+                  </motion.Card>
                 );
               })}
             </div>
