@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import otpGenerator from "otp-generator";
-import ENV from "../../config.js";
+import dotenv from "dotenv";
+dotenv.config();
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import {
   findEmail,
@@ -158,7 +159,7 @@ export async function loginUser(req, res) {
       const r = await axios.put(
         "https://api.chatengine.io/users/",
         { username: username, secret: password, first_name: username },
-        { headers: { "Private-Key": ENV.Private_Key } }
+        { headers: { "Private-Key": process.env.Private_Key } }
       );
 
       const token = jwt.sign(
@@ -166,7 +167,7 @@ export async function loginUser(req, res) {
           id: user[0].id,
           username: user[0].username,
         },
-        ENV.JWT_SECRET,
+        process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
 
@@ -265,11 +266,11 @@ export async function DeleteUser(req, res) {
       const r = await axios.put(
         `https://api.chatengine.io/users/`,
         { username: username, secret: "reception", first_name: username },
-        { headers: { "Private-Key": ENV.Private_Key } }
+        { headers: { "Private-Key": process.env.Private_Key } }
       );
       const user_id = r.data.id;
       await axios.delete(`https://api.chatengine.io/users/${user_id}/`, {
-        headers: { "Private-Key": ENV.Private_Key },
+        headers: { "Private-Key": process.env.Private_Key },
       });
     } catch (error) {
       console.error(error);
@@ -462,7 +463,7 @@ export async function geminiAI(req, res) {
     }
 
     // Initialize Generative AI model
-    const genAI = new GoogleGenerativeAI(ENV.API_KEY);
+    const genAI = new GoogleGenerativeAI(process.env.API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
     // Start chat with the model
@@ -658,7 +659,7 @@ export async function loginPatient(req, res) {
         id: user[0].id,
         name: user[0].name,
       },
-      ENV.JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
@@ -767,7 +768,7 @@ export async function UpdateUserProfileController(req, res) {
           secret: chatpassword,
           first_name: usernameValues,
         },
-        { headers: { "Private-Key": ENV.Private_Key } }
+        { headers: { "Private-Key": process.env.Private_Key } }
       );
 
       const user_id = r.data.id; // Obtain the user ID from the response
@@ -780,7 +781,7 @@ export async function UpdateUserProfileController(req, res) {
           secret: chatpassword,
           first_name: Name,
         },
-        { headers: { "Private-Key": ENV.Private_Key } }
+        { headers: { "Private-Key": process.env.Private_Key } }
       );
 
       console.log("User updated successfully in ChatEngine.io");

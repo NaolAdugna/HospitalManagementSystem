@@ -6,7 +6,6 @@ import mysqlPool from "../server/database/connection.js";
 import router from "./router/router.js";
 import axios from "axios";
 import session from "express-session";
-import ENV from "../config.js";
 import Jwt from "jsonwebtoken";
 const app = express();
 app.use(express.json());

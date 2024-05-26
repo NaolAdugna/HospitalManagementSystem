@@ -1,15 +1,17 @@
 import nodemailer from "nodemailer";
-import ENV from "../../config.js";
+// import ENV from "../../config.js";
 import Mailgen from "mailgen";
 
+import dotenv from "dotenv";
+dotenv.config();
 let nodeConfig = {
   service: "gmail",
   // host: "smtp.ethereal.email",
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: ENV.EMAIL, // generated ethereal user
-    pass: ENV.PASSWORD, // generated ethereal password
+    user: process.env.EMAIL, // generated ethereal user
+    pass: process.env.PASSWORD, // generated ethereal password
   },
 };
 
@@ -41,7 +43,7 @@ export const registerMail = async (req, res) => {
   var emailBody = MailGenerator.generate(email);
 
   let message = {
-    from: ENV.EMAIL,
+    from: process.env.EMAIL,
     to: userEmail,
     subject: subject || "Signup Successful",
     html: emailBody,

@@ -8,7 +8,9 @@ import {
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import otpGenerator from "otp-generator";
-import ENV from "../../config.js";
+// import ENV from "../../config.js";
+import dotenv from "dotenv";
+dotenv.config();
 import axios from "axios";
 import mysqlPool from "../database/connection.js";
 // import { request } from "express";
@@ -124,7 +126,7 @@ export async function login(req, res) {
                 userId: user.id,
                 username: user.firstname,
               },
-              ENV.JWT_SECRET,
+              process.env.JWT_SECRET,
               { expiresIn: "24h" }
             );
 
