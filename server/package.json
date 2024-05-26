@@ -27,7 +27,6 @@
     "supertest": "^7.0.0"
   },
   "devDependencies": {
-    "express": "^4.19.2",
     "nodemon": "^3.1.1"
   }
 }
