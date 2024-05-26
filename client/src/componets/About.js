@@ -9,6 +9,7 @@ import {
   faUnlink,
   faBookmark,
   faSmile,
+  faMoneyBill1Wave,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -32,6 +33,7 @@ import service2 from "../assets/images/service 2.webp";
 import service3 from "../assets/images/service 3.webp";
 import service4 from "../assets/images/service 4.webp";
 import service5 from "../assets/images/service 5.webp";
+import service7 from "../assets/images/dental.webp";
 import service6 from "../assets/images/ultrasound.jpg";
 export default function About() {
   const optionsChatbotify = {
@@ -88,26 +90,27 @@ export default function About() {
               />
             </div>
             <div>
-              <h2>Heading 1...</h2>
+              <h2>Quality Service</h2>
               <p style={{ textAlign: "justify", paddingRight: "12px" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                At Gebretsadik Shawo General Hospital, we pride ourselves on
+                providing exceptional healthcare services.
               </p>
             </div>
           </div>
           <div className="aboutHeroContent">
             <div>
               <FontAwesomeIcon
-                icon={faSmile}
+                icon={faMoneyBill1Wave}
                 className="aboutHeroContentIcon"
               />
             </div>
             <div>
               {" "}
-              <h2>Heading 2...</h2>
+              <h2>Affordable Care</h2>
               <p style={{ textAlign: "justify", paddingRight: "12px" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                We understand the financial challenges that many of our patients
+                face. That's why Gebretsadik Shawo General Hospital offers
+                healthcare services at an affordable cost.
               </p>
             </div>
           </div>
@@ -120,10 +123,11 @@ export default function About() {
             </div>
             <div>
               {" "}
-              <h2>Heading 3...</h2>
+              <h2>Community Focus</h2>
               <p style={{ textAlign: "justify", paddingRight: "12px" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Gebretsadik Shawo General Hospital is deeply embedded in the
+                community it serves. From its humble beginnings as Bonga Clinic
+                in 1966 E.C.
               </p>
             </div>
           </div>
@@ -141,36 +145,30 @@ export default function About() {
                   fontWeight: "bolder",
                 }}
               >
-                L
+                G
               </span>{" "}
-              orem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Adipiscing at in tellus integer feugiat scelerisque varius morbi.
-              Dolor sit amet consectetur adipiscing elit pellentesque habitant.
-              Augue interdum velit euismod in. Velit ut tortor pretium viverra.
-              Commodo ullamcorper a lacus vestibulum sed. Egestas tellus rutrum
-              tellus pellentesque eu tincidunt tortor aliquam nulla. Scelerisque
-              varius morbi enim nunc faucibus a pellentesque sit amet. Id
-              volutpat lacus laoreet non curabitur gravida arcu ac tortor.
-              Accumsan sit amet nulla facilisi morbi. Et tortor consequat id
-              porta nibh. Dui ut ornare lectus sit amet est placerat in egestas.
-              Dolor sit amet consectetur adipiscing elit pellentesque habitant.
-              Augue interdum velit euismod in. Velit ut tortor pretium viverra.
-              Commodo ullamcorper a lacus vestibulum sed. Egestas tellus rutrum
-              tellus pellentesque eu tincidunt tortor aliquam nulla. Scelerisque
-              varius morbi enim nunc faucibus a pellentesque sit amet. Id
-              volutpat lacus laoreet non curabitur gravida arcu ac tortor.
-              Accumsan sit amet nulla facilisi morbi. Et tortor consequat id
-              porta nibh. Dui ut ornare lectus sit amet est placerat in egestas.
-              porta nibh. Dui ut ornare lectus sit amet est placerat in egestas.
-              Dolor sit amet consectetur adipiscing elit pellentesque habitant.
-              Augue interdum velit euismod in. Velit ut tortor pretium viverra.
-              Commodo ullamcorper a lacus vestibulum sed. Egestas tellus rutrum
-              tellus pellentesque eu tincidunt tortor aliquam nulla. Scelerisque
-              varius morbi enim nunc faucibus a pellentesque sit amet. Id
-              volutpat lacus laoreet non curabitur gravida arcu ac tortor.
-              Accumsan sit amet nulla facilisi morbi. Et tortor consequat id
-              porta nibh. Dui ut ornare lectus sit amet est placerat in egestas.
+              ebretsadik Shawo General Hospital is one of General Hospitals in
+              Southern Nation, Nationalities and People's Regional State
+              (SNNPR). It's located in the southwestern part of Ethiopia,
+              particularly in Bonga, which is the capital of Kafa zone. It is
+              placed 467 kilometers away from Addis Ababa, the capital city of
+              Ethiopia and 742 kilometers away from Hawassa, the capital of
+              SNNPR. Currently, the general hospital is serving more than 2
+              million people from Kafa zone and the neighboring zones, including
+              Sheka, Dawuro, Konta, Bench-Sheko, West Omo, and some parts of
+              Jimma zones. <br /> The hospital provides both curative and
+              preventive services and also serves as the only referral hospital
+              for 3 primary hospitals and 44 health centers. Going back to the
+              hospital's historical background, before it has gotten its current
+              name and title, it was founded as Bonga Clinic in 1966 E.C and
+              later became a health center in 1976 E.C delivering limited health
+              services to the community. <br /> As the medical care demand of
+              the community increased, the health center was upgraded to
+              district hospital level in 1993 E.C with a few numbers of
+              physicians, health officers, and nurses providing basic medical
+              services and emergency obstetrics and surgical care for people in
+              need. Then the hospital was named "Gebretsadik Shawo District
+              Hospital" in 2001 E.C. as a memorial hospital to the hero.
             </p>
           </div>
           <div className="aboutTextImageContainer">
@@ -264,6 +262,9 @@ export default function About() {
               <img src={service2} height={250} />
             </SwiperSlide>
             <SwiperSlide>
+              <img src={service7} height={250} />
+            </SwiperSlide>
+            <SwiperSlide>
               <img src={service3} height={250} />{" "}
             </SwiperSlide>
             <SwiperSlide>
@@ -303,15 +304,16 @@ export default function About() {
                 aria-controls="panel1-content"
                 id="panel1-header"
               >
-                <Typography>Question 1</Typography>
+                <Typography>
+                  <b> What is Gebretsadik Shawo General Hospital?</b>
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  Gebretsadik Shawo General Hospital is a general hospital
+                  located in Bonga, the capital of the Kafa zone in the Southern
+                  Nations, Nationalities, and People's Regional State (SNNPR) of
+                  Ethiopia.
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -330,15 +332,15 @@ export default function About() {
                 aria-controls="panel2-content"
                 id="panel2-header"
               >
-                <Typography>Question 2</Typography>
+                <Typography>
+                  <b>Where is the hospital located? </b>
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  The hospital is situated in Bonga, which is 467 kilometers
+                  from Addis Ababa, the capital city of Ethiopia, and 742
+                  kilometers from Hawassa, the capital of SNNPR.
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -357,15 +359,21 @@ export default function About() {
                 aria-controls="panel2-content"
                 id="panel2-header"
               >
-                <Typography>Question 3</Typography>
+                <Typography>
+                  <b>
+                    {" "}
+                    What services does Gebretsadik Shawo General Hospital
+                    provide?
+                  </b>
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  The hospital provides both curative and preventive services.
+                  It serves as the only referral hospital for three primary
+                  hospitals and 44 health centers in the region. Services
+                  include basic medical care, emergency obstetrics, and surgical
+                  care.
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -384,15 +392,18 @@ export default function About() {
                 aria-controls="panel2-content"
                 id="panel2-header"
               >
-                <Typography>Question 4</Typography>
+                <Typography>
+                  <b>
+                    {" "}
+                    Can patients from outside the immediate region access
+                    services at Gebretsadik Shawo General Hospital?
+                  </b>
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  Yes, patients from neighboring zones and parts of Jimma zones
+                  also access services at the hospital.
                 </Typography>
               </AccordionDetails>
             </Accordion>

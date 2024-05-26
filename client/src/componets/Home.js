@@ -82,16 +82,16 @@ export default function Home() {
     },
     visible: {
       x: 0,
-      transition: { delay: 1, type: "spring", stiffness: 120 },
+      transition: { delay: 1, type: "Inertia" },
     },
   };
   const imageVariant = {
     hidden: {
-      x: "90vw",
+      x: "-100vw",
     },
     visible: {
       x: 0,
-      transition: { delay: 1, type: "spring", stiffness: 120 },
+      transition: { delay: 0.7, type: "Inertia" },
     },
   };
 
@@ -249,7 +249,7 @@ export default function Home() {
               Your Path to Exceptional Health Experiences
             </p>
           </div>
-          <div className="homeWhyUsFirst " id="homeWhyUsFirstId">
+          <div id="homeWhyUsFirstId">
             <div className="homeWhyUsFirstContent">
               {" "}
               <FontAwesomeIcon icon={faMedal} className="homeWhyUsIcon" />
@@ -257,9 +257,8 @@ export default function Home() {
                 <h2>High Quality</h2>
                 <p>
                   {" "}
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                  at scelerisque eros, id bibendum dui. Vestibulum aliquet
-                  cursus massa
+                  Receive top-notch care with our High Quality services,
+                  utilizing the latest medical advancements and best practices.
                 </p>
               </div>
             </div>
@@ -272,9 +271,9 @@ export default function Home() {
                 <h2>Cost Efficiency</h2>
                 <p>
                   {" "}
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                  at scelerisque eros, id bibendum dui. Vestibulum aliquet
-                  cursus massa
+                  Enjoy affordable healthcare with our Cost Efficiency
+                  solutions, offering exceptional value without compromising
+                  quality.
                 </p>
               </div>
             </div>
@@ -287,21 +286,19 @@ export default function Home() {
                 <h2>Expert Support</h2>
                 <p>
                   {" "}
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                  at scelerisque eros, id bibendum dui. Vestibulum aliquet
-                  cursus massa
+                  Benefit from our Expert Support, providing knowledgeable and
+                  compassionate guidance for all your health needs.
                 </p>
               </div>
             </div>
-            <div className="homeWhyUsFirstContent">
+            <div className="homeWhyUsFirstContent" id="homeWhyUsLastContent">
               <FontAwesomeIcon icon={faClock} className="homeWhyUsIcon" />
               <div className="homeWhyUsFirstHeader">
-                <h2>On-Time Delivery</h2>
+                <h2>Time Efficiency</h2>
                 <p>
                   {" "}
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                  at scelerisque eros, id bibendum dui. Vestibulum aliquet
-                  cursus massa
+                  Save time with our Time Efficiency services, delivering prompt
+                  and effective care to fit your busy schedule.
                 </p>
               </div>
             </div>

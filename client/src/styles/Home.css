@@ -215,6 +215,9 @@ body {
 }
 #homeWhyUsFirstId {
   margin-top: 50px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 .homeWhyUsIcon {
   font-size: 28px;
@@ -235,6 +238,10 @@ body {
   margin-right: 9px;
   padding: 13px;
   background-color: aliceblue;
+  width: 60%;
+}
+#homeWhyUsLastContent {
+  padding-bottom: 35px;
 }
 .homeCounterParentContainerSection {
   margin-top: 50px;
@@ -277,7 +284,6 @@ body {
 .homeMissionVisiionSection {
   width: 50%;
   margin: auto;
-  /* background-color: rebeccapurple; */
 }
 .homeMissionVisionContainer {
   display: flex;
@@ -453,6 +459,59 @@ body {
   }
 
   /* Our Service Ends */
+
+  /* mission start */
+  .homeMissionVisiionSection {
+    width: 80%;
+    margin: 0 10%;
+  }
+  .homeMissionVisionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    justify-content: space-between;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    /* background-color: pink; */
+  }
+  .homeMissionContent {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    /* background-color: orange; */
+    width: 50%;
+    height: 100%;
+  }
+  .homeMissionContent p {
+    font-size: 19px;
+    line-height: 26px;
+    /* text-align: justify; */
+    width: 94%;
+  }
+  .homeMissionContent h2 {
+    font-size: 41px;
+  }
+  .homeVisionContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-left: 30px;
+    border-left: 3px solid black;
+    /* background-color: rgb(119, 146, 119); */
+    width: 50%;
+  }
+  .homeVisionContent h2 {
+    font-size: 41px;
+  }
+  .homeVisionContent p {
+    font-size: 19px;
+    line-height: 26px;
+    /* text-align: justify; */
+  }
+  /* mission Ends */
 }
 
 @media (min-width: 321px) and (max-width: 640px) {
@@ -587,6 +646,30 @@ body {
   }
 
   /* Our Service Ends */
+
+  /* mission start */
+  .homeMissionVisiionSection {
+    width: 90%;
+    margin: 0% 5%;
+  }
+  .homeMissionVisionContainer {
+    flex-direction: column;
+  }
+  .homeMissionContent {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .homeVisionContent {
+    flex-direction: column;
+
+    border: none;
+
+    width: 90%;
+    padding-left: 0px;
+  }
+
+  /* mission Ends */
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -730,5 +813,55 @@ body {
 
   /* Our Service Ends */
 }
+/* mission start */
+.homeMissionVisiionSection {
+  width: 60%;
+  margin: auto;
+}
+.homeMissionVisionContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  /* background-color: pink; */
+}
+.homeMissionContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  /* background-color: orange; */
+  width: 80%;
+  height: 100%;
+}
+.homeMissionContent p {
+  font-size: 19px;
+  line-height: 26px;
+  /* text-align: justify; */
+  width: 94%;
+}
+.homeMissionContent h2 {
+  font-size: 41px;
+}
+.homeVisionContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-left: 30px;
+  border-left: 3px solid black;
+  /* background-color: rgb(119, 146, 119); */
+  width: 80%;
+}
+.homeVisionContent h2 {
+  font-size: 41px;
+}
+.homeVisionContent p {
+  font-size: 19px;
+  line-height: 26px;
+  /* text-align: justify; */
+}
+/* mission Ends */
 
 /* Media Queries Ends */
