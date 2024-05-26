@@ -6,14 +6,16 @@ import mysqlPool from "../server/database/connection.js";
 import router from "./router/router.js";
 import axios from "axios";
 import session from "express-session";
-import Jwt from "jsonwebtoken";
+
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan("tiny"));
 app.disable("x-powered-by");
 
-const port = 8080;
+const port = process.env.PORT || 5000;
 app.use(
   session({
     secret: "secretnumber",
