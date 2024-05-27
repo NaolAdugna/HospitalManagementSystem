@@ -25,7 +25,7 @@ import Typography from "@mui/material/Typography";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import config from "../componets/config";
+import Config from "../componets/config.js";
 import ChatBot from "react-chatbotify";
 
 import service1 from "../assets/images/service 1.webp";
@@ -48,7 +48,7 @@ export default function About() {
     chatHistory: { storageKey: "playground" },
     botBubble: { simStream: true },
   };
-  const genAI = new GoogleGenerativeAI(config.API_KEY);
+  const genAI = new GoogleGenerativeAI(Config.API_KEY);
   async function run(prompt, streamMessage) {
     // For text-only input, use the gemini-pro model
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });

@@ -16,7 +16,7 @@ import { useFormik } from "formik";
 import { sendContactMessage } from "../functions/checker";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import config from "../componets/config";
+import Config from "../componets/config.js";
 import ChatBot from "react-chatbotify";
 // import dotenv from "dotenv";
 
@@ -32,7 +32,7 @@ export default function Contact() {
     chatHistory: { storageKey: "playground" },
     botBubble: { simStream: true },
   };
-  const genAI = new GoogleGenerativeAI(config.API_KEY);
+  const genAI = new GoogleGenerativeAI(Config.API_KEY);
   async function run(prompt, streamMessage) {
     // For text-only input, use the gemini-pro model
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });

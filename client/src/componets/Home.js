@@ -36,7 +36,7 @@ import ScrollTrigger from "react-scroll-trigger";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import ChatBot from "react-chatbotify";
 import { motion } from "framer-motion";
-import config from "../componets/config";
+import Config from "../componets/config.js";
 // import dotenv from "dotenv";
 // dotenv.config();
 export default function Home() {
@@ -50,7 +50,7 @@ export default function Home() {
     chatHistory: { storageKey: "playground" },
     botBubble: { simStream: true },
   };
-  const genAI = new GoogleGenerativeAI(config.API_KEY);
+  const genAI = new GoogleGenerativeAI(Config.API_KEY);
   async function run(prompt, streamMessage) {
     // For text-only input, use the gemini-pro model
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
