@@ -25,7 +25,7 @@ import Typography from "@mui/material/Typography";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import config from "./config.js";
+import config from "../componets/config";
 import ChatBot from "react-chatbotify";
 
 import service1 from "../assets/images/service 1.webp";

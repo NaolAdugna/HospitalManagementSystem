@@ -16,7 +16,7 @@ import { useFormik } from "formik";
 import { sendContactMessage } from "../functions/checker";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import config from "./config.js";
+import config from "../componets/config";
 import ChatBot from "react-chatbotify";
 // import dotenv from "dotenv";
 
