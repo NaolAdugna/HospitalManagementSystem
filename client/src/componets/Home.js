@@ -36,7 +36,7 @@ import ScrollTrigger from "react-scroll-trigger";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import ChatBot from "react-chatbotify";
 import { motion } from "framer-motion";
-import config from "./config";
+import config from "./config.js";
 // import dotenv from "dotenv";
 // dotenv.config();
 export default function Home() {
