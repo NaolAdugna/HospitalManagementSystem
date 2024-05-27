@@ -1,27 +1,41 @@
 {
   "files": {
-    "main.css": "/static/css/main.717aab72.css",
-    "main.js": "/static/js/main.1c4c080c.js",
+    "main.css": "/static/css/main.d7f675e1.css",
+    "main.js": "/static/js/main.738c8176.js",
     "static/js/213.466f7798.chunk.js": "/static/js/213.466f7798.chunk.js",
     "static/js/455.eb961540.chunk.js": "/static/js/455.eb961540.chunk.js",
     "static/media/Background (1).png": "/static/media/Background (1).277a6b7f0dd55e911760.png",
+    "static/media/hiv.webp": "/static/media/hiv.77b6185b4e030b7df70f.webp",
     "static/media/lgbg1-removebg.png": "/static/media/lgbg1-removebg.3469911b3ef7250caa53.png",
+    "static/media/service 1.webp": "/static/media/service 1.3bff5f09e53faf79871c.webp",
+    "static/media/xray.webp": "/static/media/xray.3b74ea9a071493d7ec86.webp",
     "static/media/HMBG 1.webp": "/static/media/HMBG 1.71f2f29b69ae355fb1c8.webp",
+    "static/media/service 2.webp": "/static/media/service 2.5c623fee4967a62db7f7.webp",
+    "static/media/service 4.webp": "/static/media/service 4.2cadbfcd7001653f680f.webp",
+    "static/media/service 5.webp": "/static/media/service 5.a9752d4128944469d7ea.webp",
+    "static/media/dental.webp": "/static/media/dental.2664a5f1878d98084111.webp",
+    "static/media/service 3.webp": "/static/media/service 3.0bcced6dd0b07bfa40e7.webp",
     "static/media/HMBG 2.webp": "/static/media/HMBG 2.707856e8721ae7fca525.webp",
     "static/media/about.webp": "/static/media/about.44c192b312a304834a35.webp",
     "static/media/HMBG 3.webp": "/static/media/HMBG 3.f490209fac260f7ecb16.webp",
+    "static/media/ultrasound.jpg": "/static/media/ultrasound.e89142ee644b823e835d.jpg",
+    "static/media/brain.webp": "/static/media/brain.e3687749bc013cff7ddc.webp",
+    "static/media/eyecare.webp": "/static/media/eyecare.9d84c62f0f20f322ec79.webp",
+    "static/media/Obstetrics.jpg": "/static/media/Obstetrics.bdd2dc01d4bfa0ab3b74.jpg",
+    "static/media/skincare.jpg": "/static/media/skincare.c677cd1293de4a07b8a5.jpg",
     "static/media/google-gemini-icon.webp": "/static/media/google-gemini-icon.a9281711241a06a66331.webp",
+    "static/media/pregancy.webp": "/static/media/pregancy.2bcf866d83c9a5461326.webp",
     "static/media/doctor__21.webp": "/static/media/doctor__21.e073aedbcd98cbc8c542.webp",
     "static/media/profile.webp": "/static/media/profile.6c4962fbd6edda89a61a.webp",
     "static/media/logo2.webp": "/static/media/logo2.578d8c07a9e434846f1c.webp",
     "index.html": "/index.html",
-    "main.717aab72.css.map": "/static/css/main.717aab72.css.map",
-    "main.1c4c080c.js.map": "/static/js/main.1c4c080c.js.map",
+    "main.d7f675e1.css.map": "/static/css/main.d7f675e1.css.map",
+    "main.738c8176.js.map": "/static/js/main.738c8176.js.map",
     "213.466f7798.chunk.js.map": "/static/js/213.466f7798.chunk.js.map",
     "455.eb961540.chunk.js.map": "/static/js/455.eb961540.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.717aab72.css",
-    "static/js/main.1c4c080c.js"
+    "static/css/main.d7f675e1.css",
+    "static/js/main.738c8176.js"
   ]
 }
