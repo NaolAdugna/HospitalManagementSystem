@@ -34,9 +34,11 @@ import CountUp from "react-countup";
 import ScrollTrigger from "react-scroll-trigger";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import config from "./config";
 import ChatBot from "react-chatbotify";
 import { motion } from "framer-motion";
+import config from "./config";
+// import dotenv from "dotenv";
+// dotenv.config();
 export default function Home() {
   const [counterOn, setCounterOn] = useState(false);
   const optionsChatbotify = {

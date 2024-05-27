@@ -35,6 +35,9 @@ import service4 from "../assets/images/service 4.webp";
 import service5 from "../assets/images/service 5.webp";
 import service7 from "../assets/images/dental.webp";
 import service6 from "../assets/images/ultrasound.jpg";
+// import dotenv from "dotenv";
+
+// dotenv.config();
 export default function About() {
   const optionsChatbotify = {
     theme: {

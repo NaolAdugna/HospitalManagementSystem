@@ -18,6 +18,10 @@ import { sendContactMessage } from "../functions/checker";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import config from "./config";
 import ChatBot from "react-chatbotify";
+// import dotenv from "dotenv";
+
+// dotenv.config();
+
 export default function Contact() {
   const optionsChatbotify = {
     theme: {
