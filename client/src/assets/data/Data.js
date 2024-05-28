@@ -1,6 +1,10 @@
-import HomeImage1 from "../images/HMBG 1.webp";
-import HomeImage2 from "../images/HMBG 2.webp";
-import HomeImage3 from "../images/HMBG 3.webp";
+// import HomeImage1 from "../images/HMBG 1.webp";
+// import HomeImage2 from "../images/HMBG 2.webp";
+// import HomeImage3 from "../images/HMBG 3.webp";
+
+import HomeImage1 from "../images/hospital image1.webp";
+import HomeImage2 from "../images/hospital image2.webp";
+import HomeImage3 from "../images/hospital image5.webp";
 
 import service1 from "../images/service 1.webp";
 import service2 from "../images/service 2.webp";

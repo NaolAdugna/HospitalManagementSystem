@@ -17,8 +17,10 @@
 .ourServiceHeroContainer {
   width: 100%;
   height: 740px;
-  background: url("../assets/images/HMBG\ 1.webp");
+  background: url("../assets/images/hospital\ image5.webp");
   background-color: var(--navBarBg);
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: flex-start;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/Home.css";
 
-import AboutImage from "../assets/images/about.webp";
+import AboutImage from "../assets/images/hospital image2.webp";
 
 // swiper family
 import { Swiper, SwiperSlide } from "swiper/react";

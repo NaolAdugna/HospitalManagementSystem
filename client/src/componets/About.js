@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/About.css";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
-import AboutUsImage from "../assets/images/HMBG 1.webp";
+import AboutUsImage from "../assets/images/hospital image1.webp";
 import AboutCTAImage from "../assets/images/doctor__21.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -35,6 +35,11 @@ import service4 from "../assets/images/service 4.webp";
 import service5 from "../assets/images/service 5.webp";
 import service7 from "../assets/images/dental.webp";
 import service6 from "../assets/images/ultrasound.jpg";
+
+import swiperimage1 from "../assets/images/hospital image2.webp";
+import swiperimage2 from "../assets/images/hospital image3.webp";
+import swiperimage3 from "../assets/images/hospital image4.webp";
+import swiperimage4 from "../assets/images/hospital image5.webp";
 // import dotenv from "dotenv";
 
 // dotenv.config();
@@ -226,7 +231,7 @@ export default function About() {
             // centeredSlides={false}
             slidesPerView={3}
             autoHeight={true}
-            spaceBetween={5}
+            spaceBetween={15}
             autoplay={{
               delay: 1500,
               disableOnInteraction: true,
@@ -259,13 +264,13 @@ export default function About() {
             modules={[Navigation, Pagination, Autoplay]}
           >
             <SwiperSlide>
-              <img src={service1} height={250} />
+              <img src={swiperimage1} height={250} />
             </SwiperSlide>
             <SwiperSlide>
               <img src={service2} height={250} />
             </SwiperSlide>
             <SwiperSlide>
-              <img src={service7} height={250} />
+              <img src={swiperimage2} height={250} />
             </SwiperSlide>
             <SwiperSlide>
               <img src={service3} height={250} />{" "}
@@ -277,7 +282,7 @@ export default function About() {
               <img src={service5} height={250} />{" "}
             </SwiperSlide>
             <SwiperSlide>
-              <img src={service6} height={250} />
+              <img src={swiperimage4} height={250} />
             </SwiperSlide>
           </Swiper>
         </section>
