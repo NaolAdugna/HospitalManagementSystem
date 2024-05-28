@@ -352,7 +352,6 @@ export async function UpdateUser(req, res) {
 export async function ReturnUserRole(req, res) {
   try {
     const id = req.params.id;
-    console.log("in returning role controller got id" + id);
     if (id) {
       const role = await GetRole(id); // Retrieve role instead of username
       if (role) {
