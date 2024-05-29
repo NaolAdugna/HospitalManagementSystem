@@ -21,6 +21,7 @@ import {
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Config from "../componets/config.js";
 import ChatBot from "react-chatbotify";
+import { motion } from "framer-motion";
 // import dotenv from "dotenv";
 // dotenv.config();
 export default function OurService() {
@@ -60,6 +61,37 @@ export default function OurService() {
       path: "model_loop",
     },
   };
+
+  const serviceVariant = {
+    hidden: {
+      y: "-400vh",
+    },
+    visible: {
+      y: 0,
+      transition: { delay: 0.7, type: "spring", stiffness: 20, restDelta: 2 },
+    },
+  };
+
+  const whyusVariant = {
+    hidden: {
+      x: "-100vw",
+    },
+    visible: {
+      x: 0,
+      transition: { delay: 1.7, type: "spring", stiffness: 20, restDelta: 2 },
+    },
+  };
+
+  const whyusSecondVariant = {
+    hidden: {
+      x: "-100vw",
+    },
+    visible: {
+      x: 0,
+      transition: { delay: 0.7, type: "spring", stiffness: 20, restDelta: 2 },
+    },
+  };
+
   return (
     <div className="homeContainer">
       <Header />
@@ -70,7 +102,12 @@ export default function OurService() {
         <div className="ourServiceOverlay"></div>
         <main className="ourServiceServicesContainer">
           <h1 style={{ textAlign: "center" }}>OUR SERVICES</h1>
-          <div className="ourServiceContainer">
+          <motion.div
+            variants={serviceVariant}
+            initial="hidden"
+            animate="visible"
+            className="ourServiceContainer"
+          >
             {Data.OurServiceServicesData.map((item) => {
               return (
                 <Card
@@ -98,14 +135,20 @@ export default function OurService() {
                 </Card>
               );
             })}
-          </div>
+          </motion.div>
 
           <section className="ourServiceWhyUsContainer">
             <div className="ourServiceWhyUsHeader">
               <h1>WHY US?</h1>
               <p>Your Path to Exceptional Health Experiences</p>
             </div>
-            <div className="ourServiceWhyUsFirst " id="ourServiceWhyUsFirstId">
+            <motion.div
+              variants={whyusVariant}
+              initial="hidden"
+              animate="visible"
+              className="ourServiceWhyUsFirst "
+              id="ourServiceWhyUsFirstId"
+            >
               <div className="ourServiceWhyUsFirstContent">
                 {" "}
                 <FontAwesomeIcon
@@ -137,8 +180,13 @@ export default function OurService() {
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="ourServiceWhyUsFirst">
+            </motion.div>
+            <motion.div
+              variants={whyusSecondVariant}
+              initial="hidden"
+              animate="visible"
+              className="ourServiceWhyUsFirst"
+            >
               <div className="ourServiceWhyUsFirstContent">
                 {" "}
                 <FontAwesomeIcon
@@ -171,7 +219,7 @@ export default function OurService() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </section>
           <ChatBot options={optionsChatbotify} flow={flow} />
         </main>

@@ -96,7 +96,35 @@ export default function Home() {
       transition: { delay: 0.7, type: "Inertia" },
     },
   };
+  const serviceVariant = {
+    hidden: {
+      y: "-400vh",
+    },
+    visible: {
+      y: 0,
+      transition: { delay: 0.7, type: "spring", stiffness: 20, restDelta: 2 },
+    },
+  };
 
+  const whyusVariant = {
+    hidden: {
+      x: "-100vw",
+    },
+    visible: {
+      x: 0,
+      transition: { delay: 1.7, type: "spring", stiffness: 20, restDelta: 2 },
+    },
+  };
+
+  const whyusSecondVariant = {
+    hidden: {
+      x: "-100vw",
+    },
+    visible: {
+      x: 0,
+      transition: { delay: 0.7, type: "spring", stiffness: 20, restDelta: 2 },
+    },
+  };
   return (
     <div className="homeBodyContainer">
       <Header />
@@ -209,7 +237,7 @@ export default function Home() {
                     sx={{ maxWidth: 380, border: "1px solid #000" }}
                     key={item.id}
                     className="homeServiceCardContainer"
-                    variants={titleVariant}
+                    variants={serviceVariant}
                     initial="hidden"
                     animate="visible"
                   >
@@ -251,7 +279,12 @@ export default function Home() {
               Your Path to Exceptional Health Experiences
             </p>
           </div>
-          <div id="homeWhyUsFirstId">
+          <motion.div
+            variants={whyusVariant}
+            initial="hidden"
+            animate="visible"
+            id="homeWhyUsFirstId"
+          >
             <div className="homeWhyUsFirstContent">
               {" "}
               <FontAwesomeIcon icon={faMedal} className="homeWhyUsIcon" />
@@ -279,8 +312,13 @@ export default function Home() {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="homeWhyUsFirst">
+          </motion.div>
+          <motion.div
+            variants={whyusSecondVariant}
+            initial="hidden"
+            animate="visible"
+            className="homeWhyUsFirst"
+          >
             <div className="homeWhyUsFirstContent">
               {" "}
               <FontAwesomeIcon icon={faUserTie} className="homeWhyUsIcon" />
@@ -304,7 +342,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </section>
         <section className="homeCounterParentContainerSection">
           <div className="homeCounterParentContainer">
