@@ -30,7 +30,13 @@ export default function Footer() {
           South West Ethiopia regional state.
         </p>
         <span className="footerIconContainer">
-          <FontAwesomeIcon icon={faFacebook} className="icon" />
+          <NavLink
+            style={{ listStyle: "none" }}
+            to="https://www.facebook.com/Bongahospital"
+            target="_blank"
+          >
+            <FontAwesomeIcon icon={faFacebook} className="icon" />
+          </NavLink>
           <FontAwesomeIcon icon={faTelegram} className="icon" />
           <FontAwesomeIcon icon={faXTwitter} className="icon" />
           <FontAwesomeIcon icon={faInstagram} className="icon" />
@@ -106,7 +112,7 @@ export default function Footer() {
           <FontAwesomeIcon icon={faCheck} className="iconAddress" />
           <h4 style={{ fontWeight: "500" }}>Holidays: Only Emergency</h4>
         </div>
-        <div className="footerEmailContent">
+        {/* <div className="footerEmailContent">
           <FontAwesomeIcon
             icon={faXmark}
             className="iconAddress iconaddress3"
@@ -115,14 +121,14 @@ export default function Footer() {
           <h4 style={{ fontWeight: "500" }}>
             Sunday: Closed( Only Emergency){" "}
           </h4>
-        </div>
+        </div> */}
         <div className="footerEmailContent">
           <FontAwesomeIcon
             icon={faCheck}
             className="iconAddress iconaddress3"
           />
           <h4 style={{ fontWeight: "500" }}>
-            Monday-Saturday: 12:00 A.M - 12:00 P.M
+            Monday-Sunday: 9:00 AM - 5:00 PM
           </h4>
         </div>
       </div>
@@ -148,11 +154,7 @@ export default function Footer() {
             icon={faEnvelope}
             className="iconAddress iconaddress3"
           />
-          <h4 style={{ fontWeight: "500" }}>
-            gebretsadikshawogeneralhosp
-            <br />
-            contact@gebretsadikshawog{" "}
-          </h4>
+          <h4 style={{ fontWeight: "500" }}>henokkefa@gmail.com</h4>
         </div>
       </div>
     </div>

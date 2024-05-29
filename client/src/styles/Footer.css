@@ -46,11 +46,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  list-style: none;
 }
 .icon {
   font-size: 28px;
   margin-right: 10px;
   transition: 300ms all;
+  list-style: none;
+  color: #000;
 }
 .icon:hover {
   cursor: pointer;
