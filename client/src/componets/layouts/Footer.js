@@ -88,7 +88,7 @@ export default function Footer() {
             </span>{" "}
             CONTACT US
           </NavLink>
-          <NavLink to="/login">
+          <NavLink to="/login-user">
             {" "}
             <span>
               <FontAwesomeIcon
@@ -96,7 +96,17 @@ export default function Footer() {
                 style={{ color: "#14ac5f", marginRight: "3px" }}
               />
             </span>{" "}
-            LOGIN
+            LOGIN FOR STAFF
+          </NavLink>
+          <NavLink to="/login-patient">
+            {" "}
+            <span>
+              <FontAwesomeIcon
+                icon={faCheck}
+                style={{ color: "#14ac5f", marginRight: "3px" }}
+              />
+            </span>{" "}
+            LOGIN FOR PATIENT
           </NavLink>
         </main>
       </div>
