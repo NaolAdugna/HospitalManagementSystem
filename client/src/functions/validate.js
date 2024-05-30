@@ -57,6 +57,11 @@ export async function userRegistrationValidate(values) {
 
   return errors;
 }
+export async function userContactValidate(values) {
+  let errors = contactPageVerify({}, values);
+  emailVerify(errors, values);
+  return errors;
+}
 export async function registerPatientValidate(values) {
   const errors = inputVerify({}, values);
 
@@ -100,6 +105,16 @@ function registrationUsernameVerify(error = {}, values) {
   }
 
   return error;
+}
+function contactPageVerify(errors = {}, values) {
+  if (!values.name) {
+    errors.name = toast.error("Name is Required!");
+    // toast.error(errors.contactname);
+  } else if (!values.message) {
+    errors.message = toast.error("Message is Required!");
+    // toast.error(errors.message);
+  }
+  return errors;
 }
 function inputVerify(error = {}, values) {
   if (!values.name) {

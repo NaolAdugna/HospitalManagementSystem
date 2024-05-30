@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 
 import { sendContactMessage } from "../functions/checker";
 
+import { userContactValidate } from "../functions/validate.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Config from "../componets/config.js";
 import ChatBot from "react-chatbotify";
@@ -65,7 +66,7 @@ export default function Contact() {
       email: "",
       message: "",
     },
-    //  validate: registerdValidate,
+    validate: userContactValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values, { resetForm }) => {
@@ -77,10 +78,6 @@ export default function Contact() {
       });
 
       registerPromise.then(function () {
-        // window.location.reload();
-        // values.name = "";
-        // values.email = "";
-        // values.message = "";
         resetForm();
       });
     },
@@ -140,6 +137,7 @@ export default function Contact() {
                 <input
                   type="text"
                   placeholder="Your Name"
+                  // name="name"
                   className="contactInput"
                   {...formik.getFieldProps("name")}
                 />
@@ -147,11 +145,13 @@ export default function Contact() {
                   type="email"
                   placeholder="Your Email"
                   className="contactInput"
+                  name="email"
                   {...formik.getFieldProps("email")}
                 />
                 <textarea
-                  type="email"
+                  type="text"
                   placeholder="Your Message"
+                  // name="message"
                   className="contactInput"
                   style={{ resize: "none" }}
                   rows={5}
