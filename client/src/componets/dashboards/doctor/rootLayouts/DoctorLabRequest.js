@@ -275,7 +275,7 @@ export default function DoctorLabRequest() {
                       </div>
                       <div className="doctorLabRequestFile">
                         <div>
-                          <h3>Drug Name</h3>
+                          <h3>Parasitology</h3>
                           <div style={{ marginLeft: "16px", marginTop: "5px" }}>
                             {ListDrugProperty.length ? (
                               <ol>
@@ -287,7 +287,7 @@ export default function DoctorLabRequest() {
                           </div>
                         </div>
                         <div>
-                          <h3>Dosage Form</h3>
+                          <h3>Urinalysis</h3>
                           <div style={{ marginLeft: "16px", marginTop: "5px" }}>
                             {ListDrugProperty.length ? (
                               <ol>
@@ -301,7 +301,7 @@ export default function DoctorLabRequest() {
                           </div>
                         </div>
                         <div>
-                          <h3>Drug Duration</h3>
+                          <h3>Hematology </h3>
                           <div style={{ marginLeft: "16px", marginTop: "5px" }}>
                             {ListDrugProperty.length ? (
                               <ol>
@@ -462,7 +462,7 @@ export default function DoctorLabRequest() {
                   className="title"
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <div className="hed">New Prescription</div>
+                  <div className="hed">New Labratory Request Order</div>
                   <div
                     className="icon-cross"
                     onClick={() => setopenPrescriptionPopUp(false)}
@@ -474,7 +474,7 @@ export default function DoctorLabRequest() {
               <DialogContent>
                 <div className="container">
                   <div className="forms" style={{ marginBottom: "10px" }}>
-                    <label>Lab Request</label>
+                    <label>Parasitology</label>
                     <TextField
                       autoFocus
                       fullWidth
@@ -482,29 +482,29 @@ export default function DoctorLabRequest() {
                       type="text"
                       value={drugName}
                       onChange={(e) => setDrugName(e.target.value)}
-                      placeholder="Drug Names"
+                      placeholder="Parasitology"
                     />
                   </div>
                   <div className="forms" style={{ marginBottom: "10px" }}>
-                    <label>Lab Request</label>
+                    <label>Urinalysis</label>
                     <TextField
                       type="text"
                       fullWidth
                       required
                       value={dosageForm}
                       onChange={(e) => setDosageForm(e.target.value)}
-                      placeholder="Dosage Form"
+                      placeholder="Urinalysis"
                     />
                   </div>
                   <div className="forms" style={{ marginBottom: "10px" }}>
-                    <label>Lab Request</label>
+                    <label>Hematology </label>
                     <TextField
                       type="text"
                       fullWidth
                       required
                       value={drugDuration}
                       onChange={(e) => setDrugDuration(e.target.value)}
-                      placeholder="Drug Duration"
+                      placeholder="Hematology"
                     />
                   </div>
                   <div className="buttons" style={{ float: "right" }}>
