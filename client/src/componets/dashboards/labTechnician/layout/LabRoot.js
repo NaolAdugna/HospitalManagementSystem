@@ -51,11 +51,11 @@ export default function LabRoot(props) {
   }, []);
 
   const calculateAttendanceTimeAfternoon = () => {
-    const endTime = moment().set({ hour: 18, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 17, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTimeAfternoon = () => {
-    const startTime = moment().set({ hour: 18, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 17, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimesAfternoon);
   };
   useEffect(() => {

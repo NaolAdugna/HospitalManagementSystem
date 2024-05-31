@@ -52,17 +52,31 @@ export default function DoctorChat() {
   const [currentTime, setCurrentTime] = useState(moment());
   const [endTimes, setEndTimes] = useState("");
 
+  const [endTimesAfternoon, setEndTimesAfternoon] = useState("");
+
+  useEffect(() => {
+    setEndTimesAfternoon(calculateAttendanceTimeAfternoon());
+  }, []);
+
+  const calculateAttendanceTimeAfternoon = () => {
+    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
+    const endTime = moment().set({ hour: 18, minute: 30, second: 0 });
+    return endTime;
+  };
+  const isAttendanceTimeAfternoon = () => {
+    const startTime = moment().set({ hour: 18, minute: 0, second: 0 });
+    return currentTime.isBetween(startTime, endTimesAfternoon);
+  };
   useEffect(() => {
     setEndTimes(calculateAttendanceTime());
   }, []);
 
   const calculateAttendanceTime = () => {
-    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
-    const endTime = moment().set({ hour: 16, minute: 58, second: 0 });
+    const endTime = moment().set({ hour: 14, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTime = () => {
-    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 8, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimes);
   };
 
@@ -322,7 +336,7 @@ export default function DoctorChat() {
               ) : (
                 <div></div>
               )}
-              {isAttendanceTime() && afternoonAttendanceMarked ? (
+              {isAttendanceTimeAfternoon() && afternoonAttendanceMarked ? (
                 <div
                   style={{
                     display: "flex",

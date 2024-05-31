@@ -55,11 +55,11 @@ export default function AdminRoot(props) {
   }, []);
 
   const calculateAttendanceTime = () => {
-    const endTime = moment().set({ hour: 18, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 17, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTime = () => {
-    const startTime = moment().set({ hour: 18, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 17, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimes);
   };
 

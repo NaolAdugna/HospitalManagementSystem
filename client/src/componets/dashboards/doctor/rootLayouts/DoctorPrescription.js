@@ -272,7 +272,7 @@ export default function DoctorPrescription() {
                       </div>
                       <div className="doctorPrescriptionPatientFile">
                         <div>
-                          <h3>Hematology</h3>
+                          <h3>Drug Name</h3>
                           <div style={{ marginLeft: "16px", marginTop: "5px" }}>
                             {ListDrugProperty.length ? (
                               <ol>
@@ -284,7 +284,7 @@ export default function DoctorPrescription() {
                           </div>
                         </div>
                         <div>
-                          <h3>Chemistry</h3>
+                          <h3>Drug Form</h3>
                           <div style={{ marginLeft: "16px", marginTop: "5px" }}>
                             {ListDrugProperty.length ? (
                               <ol>

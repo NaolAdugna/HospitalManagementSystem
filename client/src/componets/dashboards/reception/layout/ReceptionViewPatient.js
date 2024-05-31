@@ -195,7 +195,7 @@ export default function ReceptionViewPatient() {
                       fullWidth
                       variant="standard"
                     />
-                    <TextField
+                    {/* <TextField
                       id="standard-multiline-static"
                       label="Medical History"
                       multiline
@@ -206,7 +206,7 @@ export default function ReceptionViewPatient() {
                       margin="dense"
                       value={emptyFile}
                       name="medicalhistory"
-                    />
+                    /> */}
 
                     <input
                       type="hidden"

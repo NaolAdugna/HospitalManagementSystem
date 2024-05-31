@@ -71,7 +71,7 @@ export default function ReceptionChat() {
     return endTime;
   };
   const isAttendanceTime = () => {
-    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 8, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimes);
   };
 

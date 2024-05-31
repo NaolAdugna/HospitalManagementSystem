@@ -109,8 +109,7 @@ export default function Contact() {
               <FontAwesomeIcon icon={faEnvelope} className="contactIcon" />
               <div className="contactinfo">
                 <h3>Email</h3>
-                <p>contact@gebretsadikshawogene</p>
-                <p> gebretsadikshawogeneralhospi</p>
+                <p>henokkefa@gmail.com</p>
               </div>
             </div>
             <div className="contactTelContainer">
