@@ -572,6 +572,24 @@ export const findPatientAppointment = async (
     throw error;
   }
 };
+export const findPatientExistenceForAppointment = async (
+  patient_id,
+  patient_name
+) => {
+  try {
+    const sql = "SELECT * FROM patient WHERE id = ? AND name = ?";
+    const [user] = await mysqlPool.execute(sql, [patient_id, patient_name]);
+
+    if (user.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  } catch (error) {
+    console.error("Error in findPatient:", error);
+    throw error;
+  }
+};
 
 export const registerPatientAppointment = async (
   patient_id,
@@ -604,6 +622,26 @@ export const GetPatientAppointment = async (doctorName) => {
     const sql =
       "SELECT * FROM appointment WHERE doctor_name = ? ORDER BY date_of_appointment ASC";
     const [results] = await mysqlPool.execute(sql, [doctorName]);
+    return results;
+  } catch (error) {
+    console.error("Error in finddeletedUser:", error);
+    throw error;
+  }
+};
+export const GetAllPatientAppointment = async () => {
+  try {
+    const sql = "SELECT * FROM appointment ORDER BY date_of_appointment ASC";
+    const [results] = await mysqlPool.execute(sql);
+    return results;
+  } catch (error) {
+    console.error("Error in finddeletedUser:", error);
+    throw error;
+  }
+};
+export const GetPatientDeletedAppointment = async () => {
+  try {
+    const sql = "SELECT * FROM appointment ORDER BY date_of_appointment ASC";
+    const [results] = await mysqlPool.execute(sql);
     return results;
   } catch (error) {
     console.error("Error in finddeletedUser:", error);
@@ -690,6 +728,17 @@ export const GetDeletedAppointment = async (doctorName) => {
     const sql =
       "SELECT * FROM deletedappointment WHERE doctor_name = ? ORDER BY date_of_appointment ASC";
     const [results] = await mysqlPool.execute(sql, [doctorName]);
+    return results;
+  } catch (error) {
+    console.error("Error in finddeletedUser:", error);
+    throw error;
+  }
+};
+export const GetDeletedAllPatientAppointment = async () => {
+  try {
+    const sql =
+      "SELECT * FROM deletedappointment ORDER BY date_of_appointment ASC";
+    const [results] = await mysqlPool.execute(sql);
     return results;
   } catch (error) {
     console.error("Error in finddeletedUser:", error);

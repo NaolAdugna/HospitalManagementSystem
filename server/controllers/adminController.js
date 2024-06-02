@@ -52,6 +52,11 @@ import {
   ReturnPatientAppointmentData,
   SaveAfternoonMarkedAttendance,
   DidUserAfternoonMarkedAttendance,
+  findPatientExistenceForAppointment,
+  // GetAllPatientAppointment,
+  GetPatientDeletedAppointment,
+  GetAllPatientAppointment,
+  GetDeletedAllPatientAppointment,
 } from "../modelSchema/UserCreation.model.js";
 
 import axios from "axios"; // Import axios library if not already imported
@@ -929,16 +934,16 @@ export async function registerAppointmentController(req, res) {
   try {
     const { patient_id, patient_name, doctor_name, date_of_appointment } =
       req.body;
-    // const existingname = await findPatientAppointment(
-    //   patient_name,
-    //   date_of_appointment
-    // );
+    const existingname = await findPatientExistenceForAppointment(
+      patient_id,
+      patient_name
+    );
 
-    // if (existingname) {
-    //   return res
-    //     .status(400)
-    //     .send({ error: "Appointment Exists. Please use a unique Appointment" });
-    // }
+    if (!existingname) {
+      return res
+        .status(404)
+        .send({ error: ` Patient ${patient_name} do not exist! ` });
+    }
     await registerPatientAppointment(
       patient_id,
       patient_name,
@@ -955,6 +960,17 @@ export async function ReturnPatientAppointment(req, res) {
   try {
     const doctorName = req.query.doctorName;
     const users = await GetPatientAppointment(doctorName);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occured during get Patient user", error);
+    return res
+      .status(500)
+      .send({ error: "an error occured while getting Patient user" });
+  }
+}
+export async function ReturnAllAppointment(req, res) {
+  try {
+    const users = await GetAllPatientAppointment();
     return res.status(200).send(users);
   } catch (error) {
     console.error("error occured during get Patient user", error);
@@ -1041,6 +1057,17 @@ export async function ReturnDeletedAppointment(req, res) {
   try {
     const doctorName = req.query.doctorName;
     const users = await GetDeletedAppointment(doctorName);
+    return res.status(200).send(users);
+  } catch (error) {
+    console.error("error occured during get Patient user", error);
+    return res
+      .status(500)
+      .send({ error: "an error occured while getting Patient user" });
+  }
+}
+export async function ReturnAllDeletedAppointment(req, res) {
+  try {
+    const users = await GetDeletedAllPatientAppointment();
     return res.status(200).send(users);
   } catch (error) {
     console.error("error occured during get Patient user", error);

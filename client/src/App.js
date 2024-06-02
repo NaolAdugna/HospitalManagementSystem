@@ -49,6 +49,8 @@ import PharmacyOverView from "./componets/dashboards/pharmacist/layout/PharmacyO
 import PharmacyChat from "./componets/dashboards/pharmacist/layout/PharmacyChat";
 import ReceptionViewPatient from "./componets/dashboards/reception/layout/ReceptionViewPatient";
 import ReceptionPrepareFile from "./componets/dashboards/reception/layout/ReceptionPrepareFile";
+import ReceptionViewAppointment from "./componets/dashboards/reception/layout/ReceptionViewAppointment";
+import ReceptionViewDeletedAppointment from "./componets/dashboards/reception/layout/ReceptionViewDeletedAppointment";
 import ReceptionChat from "./componets/dashboards/reception/layout/ReceptionChat";
 import DoctorOverView from "./componets/dashboards/doctor/rootLayouts/DoctorOverView";
 import DoctorChat from "./componets/dashboards/doctor/rootLayouts/DoctorChat";
@@ -299,6 +301,24 @@ const router = createBrowserRouter([
       <ReceptionAuthorize>
         {" "}
         <ReceptionPrepareFile />
+      </ReceptionAuthorize>
+    ),
+  },
+  {
+    path: "/reception-view-appointment",
+    element: (
+      <ReceptionAuthorize>
+        {" "}
+        <ReceptionViewAppointment />
+      </ReceptionAuthorize>
+    ),
+  },
+  {
+    path: "/reception-view-deleted-appointment",
+    element: (
+      <ReceptionAuthorize>
+        {" "}
+        <ReceptionViewDeletedAppointment />
       </ReceptionAuthorize>
     ),
   },

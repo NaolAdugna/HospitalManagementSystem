@@ -108,6 +108,12 @@ export default function DoctorAppointment() {
     }
   };
 
+  const validateDateTime = (selectedDateTime) => {
+    const now = new Date();
+
+    return selectedDateTime > now;
+  };
+
   const columns = [
     { field: "id", headerName: "ID", width: 100, key: "id" },
     {
@@ -222,13 +228,19 @@ export default function DoctorAppointment() {
               component: "form",
               onSubmit: (event) => {
                 event.preventDefault();
+                if (!validateDateTime(dateTime)) {
+                  handleCloseAppointment();
+                  toast.error("Cannot pick a past date and time.");
+                  return;
+                }
                 const formData = new FormData(event.currentTarget);
                 const formJson = Object.fromEntries(formData.entries());
+
                 let registerPromise = registerAppointment(formJson);
                 toast.promise(registerPromise, {
                   loading: "Creating Appointment...",
                   success: "Appointmentted Created successfully...",
-                  error: "could not create appointment",
+                  error: (err) => `${err}`,
                 });
 
                 handleCloseAppointment();
@@ -308,6 +320,11 @@ export default function DoctorAppointment() {
               component: "form",
               onSubmit: async (event) => {
                 event.preventDefault();
+                if (!validateDateTime(dateTimeUpdate)) {
+                  handleCloseEditAppointment();
+                  toast.error("Cannot pick a past date and time.");
+                  return;
+                }
                 const formData = new FormData(event.currentTarget);
                 const formJson = Object.fromEntries(formData.entries());
 

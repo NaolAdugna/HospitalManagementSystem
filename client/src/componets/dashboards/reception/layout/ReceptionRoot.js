@@ -31,9 +31,11 @@ import axios from "axios";
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import Slide from "@mui/material/Slide";
 
+import MicrowaveIcon from "@mui/icons-material/Microwave";
 import CoPresentRoundedIcon from "@mui/icons-material/CoPresentRounded";
 import moment from "moment";
 import CountdownTimer from "./CountdownTimer";
+import { Delete } from "@mui/icons-material";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
@@ -49,11 +51,11 @@ export default function ReceptionRoot(props) {
   }, []);
 
   const calculateAttendanceTimeAfternoon = () => {
-    const endTime = moment().set({ hour: 17, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 14, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTimeAfternoon = () => {
-    const startTime = moment().set({ hour: 17, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 14, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimesAfternoon);
   };
   useEffect(() => {
@@ -211,6 +213,16 @@ export default function ReceptionRoot(props) {
             text: "Dashboard",
             link: "/reception-view-patient",
             icon: <DashboardCustomizeRoundedIcon />,
+          },
+          {
+            text: "View Appointment",
+            link: "/reception-view-appointment",
+            icon: <MicrowaveIcon />,
+          },
+          {
+            text: "Deleted Appointment",
+            link: "/reception-view-deleted-appointment",
+            icon: <Delete />,
           },
           {
             text: "Prepare File",

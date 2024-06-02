@@ -188,6 +188,9 @@ router
 
 router.route("/view-appointment").get(adminController.ReturnPatientAppointment);
 router
+  .route("/reception-view-all-appointment")
+  .get(adminController.ReturnAllAppointment);
+router
   .route("/get-appointment/:id")
   .get(adminController.GetPatientAppointmentByIdController);
 
@@ -206,6 +209,9 @@ router
 router
   .route("/view-deleted-appointment")
   .get(adminController.ReturnDeletedAppointment);
+router
+  .route("/view-all-deleted-appointment")
+  .get(adminController.ReturnAllDeletedAppointment);
 
 router
   .route("/number-of-admin/:role")

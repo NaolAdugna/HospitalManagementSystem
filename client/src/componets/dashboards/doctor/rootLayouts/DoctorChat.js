@@ -59,12 +59,11 @@ export default function DoctorChat() {
   }, []);
 
   const calculateAttendanceTimeAfternoon = () => {
-    const startTime = moment().set({ hour: 10, minute: 0, second: 0 });
-    const endTime = moment().set({ hour: 18, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 14, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTimeAfternoon = () => {
-    const startTime = moment().set({ hour: 18, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 14, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimesAfternoon);
   };
   useEffect(() => {
@@ -72,7 +71,7 @@ export default function DoctorChat() {
   }, []);
 
   const calculateAttendanceTime = () => {
-    const endTime = moment().set({ hour: 14, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 8, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTime = () => {
