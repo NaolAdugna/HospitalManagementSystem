@@ -53,7 +53,7 @@ export default function PatientPasswordReset() {
       });
 
       resetPromise.then(function () {
-        navigate("/login");
+        navigate("/login-patient");
       });
     },
   });
