@@ -22,11 +22,11 @@ export default function ViewPatientTable() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
-    { field: "name", headerName: "Name", width: 130 },
-    { field: "age", headerName: "Age", width: 130 },
-    { field: "gender", headerName: "Gender", width: 200 },
-    { field: "email", headerName: "Email", width: 260 },
+    { field: "id", headerName: "ID", width: 50 },
+    { field: "name", headerName: "Name", width: 170 },
+    { field: "age", headerName: "Age", width: 30 },
+    { field: "gender", headerName: "Gender", width: 70 },
+    { field: "email", headerName: "Email", width: 220 },
     {
       field: "dateofregistration",
       headerName: "Date of Registration",

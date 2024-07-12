@@ -197,20 +197,20 @@ export default function OverviewAdmin() {
   }, []);
 
   const calculateAttendanceTime = () => {
-    const endTime = moment().set({ hour: 14, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 8, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTime = () => {
-    const startTime = moment().set({ hour: 14, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 8, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimes);
   };
 
   const calculateAttendanceTimeAfternoon = () => {
-    const endTime = moment().set({ hour: 8, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 4, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTimeAfternoon = () => {
-    const startTime = moment().set({ hour: 8, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 3, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimesAfternoon);
   };
 

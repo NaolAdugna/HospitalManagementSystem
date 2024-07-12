@@ -24,16 +24,16 @@ export default function DeletedUsersTable() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
+    { field: "id", headerName: "ID", width: 60 },
     { field: "username", headerName: "Name", width: 130 },
-    { field: "role", headerName: "Role", width: 230 },
+    { field: "role", headerName: "Role", width: 150 },
     { field: "email", headerName: "Email", width: 200 },
     { field: "reason", headerName: "Reason of Deletion", width: 200 },
-    { field: "deletedby", headerName: "Deleted By", width: 200 },
+    { field: "deletedby", headerName: "Deleted By", width: 100 },
     {
       field: "dateofdeletion",
       headerName: "Date of Deletion",
-      width: 280,
+      width: 160,
     },
   ];
 

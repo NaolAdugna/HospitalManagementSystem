@@ -11,7 +11,7 @@ export default function AdminViewAttendance() {
           <div
             style={{
               padding: "25px",
-              width: "80%",
+              width: "90%",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",

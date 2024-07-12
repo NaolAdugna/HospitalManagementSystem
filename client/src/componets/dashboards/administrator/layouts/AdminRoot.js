@@ -55,20 +55,22 @@ export default function AdminRoot(props) {
   }, []);
 
   const calculateAttendanceTime = () => {
-    const endTime = moment().set({ hour: 14, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 8, minute: 30, second: 0 });
+    console.log("time ", currentTime);
     return endTime;
   };
   const isAttendanceTime = () => {
-    const startTime = moment().set({ hour: 14, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 8, minute: 0, second: 0 });
+    console.log("time ", currentTime);
     return currentTime.isBetween(startTime, endTimes);
   };
 
   const calculateAttendanceTimeAfternoon = () => {
-    const endTime = moment().set({ hour: 8, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 4, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTimeAfternoon = () => {
-    const startTime = moment().set({ hour: 8, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 4, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimesAfternoon);
   };
 
@@ -556,24 +558,22 @@ export default function AdminRoot(props) {
                     event.preventDefault();
                     const formData = new FormData(event.currentTarget);
                     const formJson = Object.fromEntries(formData.entries());
-                    let registerPromise = axios.put(
-                      `/api/update-user-profile/`,
-                      {
+
+                    axios
+                      .put("/api/update-user-profile/", {
                         id: formJson.id,
                         Name: formJson.name,
                         Email: formJson.email,
-                      }
-                    );
-                    registerPromise
+                      })
                       .then(() => {
-                        handleUpdateProfile(formJson.name, formJson.email);
                         toast.success("Profile updated successfully");
+                        handleUpdateProfile(formJson.name, formJson.email);
+                        handleCloseEditProfile();
                       })
                       .catch((error) => {
                         console.error("Could not update profile:", error);
                         toast.error("Failed to update profile");
                       });
-                    handleCloseEditProfile();
                   },
                 }}
               >

@@ -59,11 +59,11 @@ export default function DoctorChat() {
   }, []);
 
   const calculateAttendanceTimeAfternoon = () => {
-    const endTime = moment().set({ hour: 14, minute: 30, second: 0 });
+    const endTime = moment().set({ hour: 7, minute: 30, second: 0 });
     return endTime;
   };
   const isAttendanceTimeAfternoon = () => {
-    const startTime = moment().set({ hour: 14, minute: 0, second: 0 });
+    const startTime = moment().set({ hour: 4, minute: 0, second: 0 });
     return currentTime.isBetween(startTime, endTimesAfternoon);
   };
   useEffect(() => {

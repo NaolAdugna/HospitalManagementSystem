@@ -119,19 +119,19 @@ export default function DoctorViewPatient() {
   };
   const columns = [
     { field: "id", headerName: "ID", width: 70, key: "id" },
-    { field: "name", headerName: "Name", width: 130, key: "name" },
+    { field: "name", headerName: "Name", width: 170, key: "name" },
     { field: "age", headerName: "Age", width: 70, key: "age" },
     { field: "gender", headerName: "Gender", width: 70, key: "gender" },
     { field: "email", headerName: "Email", width: 260, key: "email" },
     {
       field: "medicalhistory",
       headerName: "Medical History",
-      width: 450,
+      width: 200,
     },
     {
       field: "dateofregistration",
       headerName: "Date of Registration",
-      width: 230,
+      width: 200,
     },
     {
       headerName: "Action",
@@ -181,7 +181,7 @@ export default function DoctorViewPatient() {
           <div
             style={{
               padding: "25px",
-              width: "90%",
+              width: "100%",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -244,13 +244,14 @@ export default function DoctorViewPatient() {
                 </DialogContentText>
                 <input type="hidden" value={id} name="id" />
                 <TextField
-                  sx={{ marginTop: "11px" }}
+                  sx={{ marginTop: "11px", textAlign: "justify" }}
                   id="outlined-multiline-static"
                   label="Medical Record"
                   name="medicalhistory"
                   fullWidth
                   multiline
-                  rows={4}
+                  style={{ textAlign: "justify" }}
+                  rows={16}
                   defaultValue={MedicalHistoryUpdate}
                   onChange={(e) => setMedicalHistoryUpdate(e.target.value)}
                 />

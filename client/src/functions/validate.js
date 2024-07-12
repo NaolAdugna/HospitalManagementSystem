@@ -98,7 +98,7 @@ function registrationUsernameVerify(error = {}, values) {
     error.password = toast.error("Password required...");
   } else if (!values.role) {
     error.role = toast.error("Role is required...");
-  } else if (values.username.length > 3) {
+  } else if (values.username.length < 3) {
     error.username = toast.error(
       "Username character should be more that 3 character"
     );

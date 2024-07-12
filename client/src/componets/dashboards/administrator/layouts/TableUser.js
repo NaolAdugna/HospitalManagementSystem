@@ -38,7 +38,7 @@ export default function TableUser() {
     { field: "id", headerName: "ID", width: 100 },
     { field: "username", headerName: "Name", width: 130 },
     { field: "email", headerName: "Email", width: 200 },
-    { field: "role", headerName: "Role", width: 230 },
+    { field: "role", headerName: "Role", width: 150 },
     {
       field: "dateofregistration",
       headerName: "Date of Registration",

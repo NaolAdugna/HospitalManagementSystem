@@ -149,7 +149,7 @@ export default function DoctorAppointment() {
     },
     {
       headerName: "Action",
-      width: 300,
+      width: 200,
       sortable: false,
       renderCell: (params) => (
         <div>
@@ -211,7 +211,7 @@ export default function DoctorAppointment() {
               Add
             </Button>
           </div>
-          <div style={{ height: 550, width: "80%", margin: "auto" }}>
+          <div style={{ height: 550, width: "90%", margin: "auto" }}>
             <DataGrid
               rows={rows}
               columns={columns}

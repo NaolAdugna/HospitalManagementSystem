@@ -24,8 +24,8 @@ root {
 }
 .loginContainer {
   gap: 8px;
-  width: 20%;
-  height: 68vh;
+  width: 25%;
+  height: 78vh;
   margin: auto;
   display: flex;
   border-width: 4px;

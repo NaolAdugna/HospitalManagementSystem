@@ -23,7 +23,7 @@ export default function DoctorViewDeletedAppointment() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 100, key: "id" },
+    { field: "id", headerName: "ID", width: 70, key: "id" },
     {
       field: "patient_id",
       headerName: "Patient ID",
@@ -58,7 +58,7 @@ export default function DoctorViewDeletedAppointment() {
     {
       field: "date_of_appointment_deletion",
       headerName: "Date of Appointment Deleted",
-      width: 270,
+      width: 240,
       key: "date_of_appointment_deletion",
     },
   ];
@@ -77,7 +77,7 @@ export default function DoctorViewDeletedAppointment() {
           >
             Deleted Appointments
           </h2>
-          <div style={{ height: 550, width: "80%", margin: "auto" }}>
+          <div style={{ height: 550, width: "90%", margin: "auto" }}>
             <DataGrid
               rows={rows}
               columns={columns}

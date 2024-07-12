@@ -45,11 +45,11 @@
 .aboutHeroContentContainer {
   position: absolute;
   left: 10%;
-  top: 81%;
+  top: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 80%;
+  width: 90%;
   margin: auto;
 }
 .aboutOverlay {

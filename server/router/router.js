@@ -166,20 +166,6 @@ router
 router
   .route("/update-patient/:id")
   .put(adminController.UpdatePatientController);
-// router for chat
-// router
-//   .route("/chat")
-//   .post(adminController.getChat)
-//   .get(adminController.getChats);
-// router.route("/createGroup").post(adminController.createGroup);
-// router.route("/renameGroup").patch(adminController.renameGroup);
-// router.route("/removeFromGroup").patch(adminController.removeFromGroup);
-// router.route("/addUserToGroup").patch(adminController.addUserToGroup);
-
-// // router for message
-
-// router.route("/:chatId").get(adminController.allMessages);
-// router.route("/message").post(adminController.sendMessage);
 
 // Register appointment
 router

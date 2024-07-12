@@ -161,12 +161,13 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   row-gap: 14px;
-  width: 50%;
+  width:60%;
   margin: auto;
 }
 .homeServiceCardContainer {
   margin-right: 15px;
   margin-top: 11px;
+  border: 1.5px solid rgba(0, 0, 0, 0.4);
 }
 .homeServiceButtonContainer {
   display: flex;

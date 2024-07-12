@@ -20,11 +20,11 @@ export default function ReceptionViewDeletedAppointment() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 100, key: "id" },
+    { field: "id", headerName: "ID", width: 70, key: "id" },
     {
       field: "patient_id",
       headerName: "Patient ID",
-      width: 100,
+      width: 70,
       key: "patient_id",
     },
     {
@@ -42,7 +42,7 @@ export default function ReceptionViewDeletedAppointment() {
     {
       field: "date_of_appointment",
       headerName: "Date of Appointment",
-      width: 270,
+      width: 240,
       key: "date_of_appointment",
     },
     {
@@ -74,7 +74,7 @@ export default function ReceptionViewDeletedAppointment() {
           >
             Deleted Appointments
           </h2>
-          <div style={{ height: 550, width: "80%", margin: "auto" }}>
+          <div style={{ height: 550, width: "90%", margin: "auto" }}>
             <DataGrid
               rows={rows}
               columns={columns}

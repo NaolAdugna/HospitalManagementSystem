@@ -102,7 +102,7 @@
 
 .receptionEditor {
   height: 50vh;
-  width: 24vw;
+  width: 100%;
   border: 1px solid #14ac5f;
 }
 @media (max-width: 320px) {

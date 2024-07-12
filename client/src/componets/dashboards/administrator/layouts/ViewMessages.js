@@ -13,7 +13,7 @@ export default function ViewMessages() {
           <div
             style={{
               padding: "25px",
-              width: "80%",
+              width: "100%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",

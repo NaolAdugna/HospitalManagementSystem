@@ -54,7 +54,7 @@ export default function Reset() {
       });
 
       resetPromise.then(function () {
-        navigate("/login");
+        navigate("/login-user");
       });
     },
   });

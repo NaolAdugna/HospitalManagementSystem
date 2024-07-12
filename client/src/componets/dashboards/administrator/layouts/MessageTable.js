@@ -27,11 +27,11 @@ export default function MessageTable() {
     { field: "id", headerName: "ID", width: 100 },
     { field: "name", headerName: "Name", width: 130 },
     { field: "email", headerName: "Email", width: 200 },
-    { field: "message", headerName: "Message", width: 600 },
+    { field: "message", headerName: "Message", width: 700 },
     {
       field: "dateofmessagesent",
       headerName: "Date of Message Sent",
-      width: 280,
+      width: 220,
     },
   ];
 

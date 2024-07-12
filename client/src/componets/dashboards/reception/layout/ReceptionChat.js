@@ -30,6 +30,8 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Slide from "@mui/material/Slide";
 
+import { Delete } from "@mui/icons-material";
+import MicrowaveIcon from "@mui/icons-material/Microwave";
 import {
   MultiChatSocket,
   useMultiChatLogic,
@@ -217,6 +219,16 @@ export default function ReceptionChat() {
             text: "Dashboard",
             link: "/reception-view-patient",
             icon: <DashboardCustomizeRoundedIcon />,
+          },
+          {
+            text: "View Appointment",
+            link: "/reception-view-appointment",
+            icon: <MicrowaveIcon />,
+          },
+          {
+            text: "Deleted Appointment",
+            link: "/reception-view-deleted-appointment",
+            icon: <Delete />,
           },
           {
             text: "Prepare File",
