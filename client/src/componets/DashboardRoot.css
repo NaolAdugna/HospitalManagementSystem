@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap");
+root {
+  --mainColor: #14ac5f;
+  --navBarBg: #fff;
+  --bodyColor: #000;
+  --bodyLink: navy;
+}
+
+.doctor-RootDashboard {
+  background-color: rgb(195, 196, 202, 0.5);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "doctor-RootDashboardFirstCard doctor-RootDashboardFirstCard"
+    "dashboardRootMainContainer dashboardRootMainContainer";
+  gap: 10px;
+  height: 100vh;
+}
+.doctor-RootDashboardFirstCard {
+  background-color: #282c34;
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 8px;
+  grid-area: doctor-RootDashboardFirstCard;
+  color: white;
+}
+.dashboardRootMainContainer {
+  background-color: #f6f7f9;
+  background-color: var(--navBarBg);
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.2));
+  border-radius: 10px;
+  padding: 10px;
+  display: grid;
+  grid-area:dashboardRootMainContainer;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "dashboardFirstGrid dashboardSecondGrid"
+    "dashboardThirdGrid dashboardFourthGrid";
+  gap: 10px;
+  color: var(--bodyColor);
+}
+.dashboardFirstGrid {
+  background-color: #282c34;
+  border-radius: 8px;
+  grid-area: dashboardFirstGrid;
+  color: white;
+}
+.dashboardSecondGrid {
+  background-color: #282c34;
+  border-radius: 8px;
+  grid-area: dashboardSecondGrid;
+  color: white;
+}
+.dashboardThirdGrid {
+  background-color: #282c34;
+  border-radius: 8px;
+  grid-area: dashboardThirdGrid;
+  color: white;
+}
+.dashboardFourthGrid {
+  background-color: #282c34;
+  border-radius: 8px;
+  grid-area: dashboardFourthGrid;
+  color: white;
+}
+
+.doctor-RootDashboardNavBarContainer {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.doctor-RootDashboardLogOutContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 40%;
+}
+.navBarHamburger {
+  color: var(--bodyColor);
+}
+.doctor-RootDashboardLogOutContainer {
+  color: var(--bodyColor);
+}
+
+@media (max-width: 320px) {
+  .doctor-RootDashboardLogOutContainer {
+    justify-content: space-between;
+    width: 70%;
+  }
+  .doctor-RootDashboardNavImage {
+    padding: 4px 12px;
+    font-size: 22px;
+  }
+  .dashboardRootMainContainer {
+    grid-template-columns: 1fr ;
+    grid-template-rows: repeat(4,1fr);
+  }
+}
+
+@media (min-width: 321px) and (max-width: 640px) {
+  .doctor-RootDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+  .dashboardRootMainContainer {
+    grid-template-columns: 1fr ;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .doctor-RootDashboardLogOutContainer {
+    justify-content: space-evenly;
+    width: 70%;
+  }
+  .dashboardRootMainContainer {
+    grid-template-columns: 1fr ;
+    grid-template-rows: repeat(4,1fr);
+  }
+}

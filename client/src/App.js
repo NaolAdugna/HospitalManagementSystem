@@ -61,11 +61,17 @@ import DoctorLabRequest from "./componets/dashboards/doctor/rootLayouts/DoctorLa
 import DoctorAppointment from "./componets/dashboards/doctor/rootLayouts/DoctorAppointment";
 import DoctorViewDeletedAppointment from "./componets/dashboards/doctor/rootLayouts/DoctorViewDeletedAppointment";
 
+//
+import DashboardRoot from "./componets/DashboardRoot";
 // root routers
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home></Home>,
+  },
+  {
+    path: "/dashboard-rootlayout",
+    element: <DashboardRoot></DashboardRoot>,
   },
   {
     path: "/about",

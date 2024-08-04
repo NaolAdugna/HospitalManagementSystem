@@ -170,7 +170,7 @@ export default function Footer() {
         </div>
       </div>
       <p style={{ textAlign: "center", background: "#f0f8ff" }}>
-        Developed by{" "}
+        &copy; Copy right to and Developed by{" "}
         <NavLink
           style={{ color: "#000000" }}
           target="_blank"
