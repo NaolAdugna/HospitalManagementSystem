@@ -14,7 +14,6 @@ import { TextField } from "@mui/material";
 import ReactPrint from "react-to-print";
 import QRCode from "react-qr-code";
 import { Close } from "@mui/icons-material";
-import ReactWaterMark from "react-watermark-component";
 import PrintOutlinedIcon from "@mui/icons-material/PrintOutlined";
 import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
 import AddIcon from "@mui/icons-material/Add";
@@ -155,7 +154,6 @@ export default function LabOverView() {
                 id="labDashboardContent"
                 ref={ref}
               >
-                <ReactWaterMark waterMarkText={text} options={optionWaterMark}>
                   <div className="col-md-12">
                     <div className="labDashboardHeader">
                       <div className="col-md-4 brcode">
@@ -232,7 +230,6 @@ export default function LabOverView() {
                       </div>
                     </div>
                   </div>
-                </ReactWaterMark>
               </div>
 
               <div
